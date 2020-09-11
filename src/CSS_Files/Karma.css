@@ -1,0 +1,72 @@
+td.KarmaLayout{
+    vertical-align: top;
+}
+
+h1.Karma{
+    font-family: arial, sans-serif;
+    text-align: left;
+    margin-left: 45px;
+}
+h2.Karma{
+    font-family: arial, sans-serif;
+    text-align: left;
+    margin-left: 45px;
+}
+
+table.Karma{
+    font-family: arial, sans-serif;
+    border-collapse: separate;
+    border-spacing: 1pt;
+    display: inline-table;
+    width: 95%;
+    vertical-align: top;
+    margin-right: 2%;
+    margin-left: 2%;
+    padding-bottom: 5px;
+}
+
+tr.Karma:first-child{
+    font-weight: bold;
+    color: white;
+    background-color: #303336;
+}
+
+tr.Karma:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td.Karma, th.Karma {
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+th.Karma:nth-child(2) {
+    text-align: center;
+}
+
+td.Karma:first-child{
+    border: 1px solid #000000;
+    width: 10%;
+    align-content: center;
+}
+
+td.Karma:nth-child(2){
+    width: 5%;
+    text-align: center;
+}
+
+td.Karma:nth-child(3){
+    width: 30%;
+    text-align: left;
+}
+td.Karma:nth-child(4){
+    width: 70%;
+    text-align: left;
+}
+ img.Karma{
+     max-height: 35px;
+     max-width: 35px;
+ }

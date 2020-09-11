@@ -1,0 +1,770 @@
+{
+  "name": "",
+  "metatype": "",
+  "money": 0,
+  "karma": 0,
+  "currentEdge": 0,
+  "conditionMonitor": {
+    "stun": 0,
+    "physical": 0
+  },
+  "personal": "",
+  "attributes":{
+    "BOD": 0,
+    "AGI": 0,
+    "REA": 0,
+    "STR": 0,
+    "WIL": 0,
+    "LOG": 0,
+    "INT": 0,
+    "CHA": 0,
+    "EDG": 0,
+    "ESS": 0,
+    "MAG": 0,
+    "RES": 0
+  },
+  "img": "",
+  "initiative":{
+    "initDice": 0
+  },
+  "armor": 0,
+  "lifestyle": "",
+  "ID": "",
+  "skills": {
+    "combat": [
+      {
+        "name": "Archery",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Automatics",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Firearms",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Blades",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Close Combat",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Clubs",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Close Combat",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Heavy Weapons",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Longarms",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Firearms",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Pistols",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Firearms",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Throwing Weapons",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Unarmed Combat",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Close Combat",
+        "specialization": "",
+        "limit": "Physical"
+      }
+    ],
+    "physical": [
+      {
+        "name": "Disguise",
+        "rating": 0,
+        "attribute": "Int",
+        "default": "✓",
+        "group": "Stealth",
+        "specialization": "",
+        "limit": "Social"
+      },
+      {
+        "name": "Diving",
+        "rating": 0,
+        "attribute": "Bod",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Escape Artist",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Free-fall",
+        "rating": 0,
+        "attribute": "Bod",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Gymnastics",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Athletics",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Palming",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "",
+        "group": "Stealth",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Perception",
+        "rating": 0,
+        "attribute": "Int",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Running",
+        "rating": 0,
+        "attribute": "Str",
+        "default": "✓",
+        "group": "Athletics",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Sneaking",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Stealth",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Survival",
+        "rating": 0,
+        "attribute": "Wil",
+        "default": "✓",
+        "group": "Outdoors",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Swimming",
+        "rating": 0,
+        "attribute": "Str",
+        "default": "✓",
+        "group": "Athletics",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Tracking",
+        "rating": 0,
+        "attribute": "Int",
+        "default": "✓",
+        "group": "Outdoors",
+        "specialization": "",
+        "limit": "Mental"
+      }
+    ],
+    "social": [
+      {
+        "name": "Con",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Acting",
+        "specialization": "",
+        "limit": "Social"
+      },
+      {
+        "name": "Etiquette",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Influence",
+        "specialization": "",
+        "limit": "Social"
+      },
+      {
+        "name": "Impersonation",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Acting",
+        "specialization": "",
+        "limit": "Social"
+      },
+      {
+        "name": "Instruction",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Social"
+      },
+      {
+        "name": "Intimidation",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Social"
+      },
+      {
+        "name": "Leadership",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Influence",
+        "specialization": "",
+        "limit": "Social"
+      },
+      {
+        "name": "Negotiation",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Influence",
+        "specialization": "",
+        "limit": "Social"
+      },
+      {
+        "name": "Performance",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Acting",
+        "specialization": "",
+        "limit": "Social"
+      }
+    ],
+    "magical": [
+      {
+        "name": "Alchemy",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Enchanting",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Arcana",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Artificing",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Enchanting",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Assensing",
+        "rating": 0,
+        "attribute": "Int",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Astral Combat",
+        "rating": 0,
+        "attribute": "Wil",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Banishing",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Conjuring",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Binding",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Conjuring",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Counterspelling",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Sorcery",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Disenchanting",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Enchanting",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Ritual Spellcasting",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Sorcery",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Spellcasting",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Sorcery",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Summoning",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Conjuring",
+        "specialization": "",
+        "limit": "Mental"
+      }
+    ],
+    "resonance": [
+      {
+        "name": "Compiling",
+        "rating": 0,
+        "attribute": "Res",
+        "default": "",
+        "group": "Tasking",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Decompiling",
+        "rating": 0,
+        "attribute": "Res",
+        "default": "",
+        "group": "Tasking",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Registering",
+        "rating": 0,
+        "attribute": "Res",
+        "default": "",
+        "group": "Tasking",
+        "specialization": "",
+        "limit": "Mental"
+      }
+    ],
+    "technical": [
+      {
+        "name": "Aeronautics Mechanic",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Engineering",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Animal Handling",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Armorer",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Artisan",
+        "rating": 0,
+        "attribute": "Int",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Automotive Mechanic",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Engineering",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Biotechnology",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Chemistry",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Computer",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "Electronics",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Cybercombat",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "Cracking",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Cybertechnology",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Biotech",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Demolitions",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Electronic Warfare",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Cracking",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "First Aid",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "Biotech",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Forgery",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Physical"
+      },
+      {
+        "name": "Hacking",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "Cracking",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Hardware",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Electronics",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Industrial Mechanic",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Engineering",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Locksmith",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Medicine",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Biotech",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Nautical Mechanic",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Engineering",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Navigation",
+        "rating": 0,
+        "attribute": "Int",
+        "default": "✓",
+        "group": "Outdoors",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Software",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Electronics",
+        "specialization": "",
+        "limit": "Mental"
+      }
+    ],
+    "vehicle": [
+      {
+        "name": "Gunnery",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Pilot Aerospace",
+        "rating": 0,
+        "attribute": "Rea",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Pilot Aircraft",
+        "rating": 0,
+        "attribute": "Rea",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Pilot Walker",
+        "rating": 0,
+        "attribute": "Rea",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Pilot Ground Craft",
+        "rating": 0,
+        "attribute": "Rea",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Pilot Watercraft",
+        "rating": 0,
+        "attribute": "Rea",
+        "default": "✓",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      },
+      {
+        "name": "Exotic (Pilot Train)",
+        "rating": 0,
+        "attribute": "Rea",
+        "default": "",
+        "group": "",
+        "specialization": "",
+        "limit": "Mental"
+      }
+    ]
+  },
+  "knowledgeSkills": {
+    "street": [
+
+    ],
+    "academic": [
+
+    ],
+    "professional": [
+
+    ],
+    "interests": [
+
+    ]
+  },
+  "qualities":{
+    "positive":[
+      
+    ],
+    "negative":[
+
+    ]
+  },
+  "augmentations":[
+    {
+      "aName": "",
+      "rating": "",
+      "notes": "",
+      "essence": 0.0
+    }
+  ],
+  "RitPrepRitComplex":{
+    "spells": "",
+    "complexForms": "",
+    "sprites": ""
+  },
+  "cyberdeck":{
+    "model": "",
+    "attack": 0,
+    "sleaze": 0,
+    "deviceRating": 0,
+    "dataProcessing": "",
+    "firewall": 0,
+    "programs":[
+      {
+      "pName": "",
+      "type": ""
+      }
+    ],
+    "condition": 0
+  },
+  "gear":{
+    "armor":[
+      
+    ],
+    "melee":[
+     
+    ],
+    "ranged":[
+      
+    ]
+  },
+  "log": [
+
+  ]
+}

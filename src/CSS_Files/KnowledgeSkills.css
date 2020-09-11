@@ -1,0 +1,104 @@
+#addKnowledgeSkill{
+    width: 100%;
+}
+
+td.KskillsLayout{
+    vertical-align: top;
+    width: 50%;
+}
+
+.KSkills.tableContainer{
+    width: 100%;
+    display:inline-flex;
+    flex-wrap: unset;
+    flex-direction: row;
+    flex-flow: row wrap;
+    align-items: stretch;
+    justify-content: space-between;
+    margin: 5px;
+    overflow: auto;
+    vertical-align: top;
+}
+
+@media (max-width: 1200px) {
+    .KSkills.tableContainer{
+        width: 100%;
+    }
+}
+
+h1.KSkills{
+    font-family: arial, sans-serif;
+    text-align: left;
+    margin-left: 25px;
+}
+
+h2.KSkills{
+    font-family: arial, sans-serif;
+    margin-left: 19px;
+}
+
+table.KSkills{
+    font-family: arial, sans-serif;
+    border-collapse: separate;
+    border-spacing: 1pt;
+    display: inline-table;
+    width: 95%;
+    vertical-align: top;
+    margin-right: 2%;
+    margin-left: 2%;
+    padding-bottom: 5px;
+}
+
+tr.KSkills:first-child{
+    font-weight: bold;
+    color: white;
+    background-color: #303336;
+}
+
+tr.KSkills:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td.KSkills, th.KSkills {
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+/*-/+ buttons*/
+td.KSkills:first-child{
+    width: 3%;
+    background-color: white;
+    align-content: center;
+    border: 0;
+    text-align: center;
+}
+
+/*Skill name*/
+td.KSkills:nth-child(2){
+    width: 45%;
+    text-align: left;
+}
+
+/*Rating*/
+td.KSkills:nth-child(3){
+    width: 5%;
+    text-align: center;
+}
+th.KSkills:nth-child(3){
+    text-align: center;
+}
+
+/*Attribute*/
+td.KSkills:nth-child(4){
+    width: 7.5%;
+    text-align: left;
+}
+
+/*Specialization*/
+td.KSkills:nth-child(5){
+    width: 15%;
+    text-align: left;
+}

@@ -1,0 +1,138 @@
+td.QualitiesLayout{
+    vertical-align: top;
+}
+
+.Qualities.tableContainer{
+    width: 100%;
+    display:inline-flex;
+    flex-wrap: unset;
+    flex-direction: row;
+    flex-flow: row wrap; 
+    align-items: stretch;
+    justify-content: space-between;
+    margin: 5px;
+    overflow: auto;
+    vertical-align: top;
+}
+
+@media (max-width: 1200px) {
+    .Qualities.tableContainer{
+        width: 100%;
+    }
+}
+
+h1.Qualities{
+    font-family: arial, sans-serif;
+    text-align: left;
+    margin-left: 45px;
+}
+
+h2.Qualities{
+    font-family: arial, sans-serif;
+    text-align: left;
+    margin-left: 45px;
+    padding-top: 2px;
+}
+
+table.Qualities{
+    font-family: arial, sans-serif;
+    border-collapse: separate;
+    border-spacing: 1pt;
+    display: inline-table;
+    width: 95%;
+    vertical-align: top;
+    margin-right: 2%;
+    margin-left: 2%;
+    padding-bottom: 5px;
+}
+
+tr.Qualities:first-child{
+    font-weight: bold;
+    color: white;
+    background-color: #303336;
+}
+
+tr.Qualities:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td.Qualities, th.Qualities {
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.Qualities:first-child{
+    width: 3%;
+    background-color: white;
+    align-content: center;
+    border: 0px;
+    text-align: center;
+}
+
+td.Qualities:nth-child(6){
+    width: 4%;
+    background-color: white;
+    align-content: center;
+    border: 0px;
+    text-align: center;
+}
+
+td.Qualities:nth-child(2){
+    border: 1px solid #000000;
+    padding: 3px;
+    width: 30%;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.Qualities:nth-child(3){
+    border: 1px solid #000000;
+    padding: 3px;
+    width: 2%;
+    white-space: pre;
+    text-align: center;
+    align-content: center;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+th.Qualities:nth-child(3){
+    text-align: center;
+}
+
+td.Qualities:nth-child(4){
+    border: 1px solid #000000;
+    padding: 3px;
+    width: 20%;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+th.Qualities:nth-child(6){
+    text-align: center;
+}
+
+button.Qualities{
+    align-content: center;
+    margin-bottom: .5%;
+
+    width: 95%;
+}
+
+button.RemoveQ{
+    width: 100%;
+}
+
+div.QualitiesDrop {
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-bottom: .5%;
+}

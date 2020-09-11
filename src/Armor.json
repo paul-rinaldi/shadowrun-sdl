@@ -1,0 +1,156 @@
+{
+    "armor":[
+        {
+            "name": "Clothing",
+            "rating": 0,
+            "capacity": 0,
+            "availability": "-",
+            "cost": -1000,
+            "equiped": true
+        },
+        {
+            "name": "Electrochromic Modification",
+            "rating": "-",
+            "capacity": "-",
+            "availability": "+2",
+            "cost": -500,
+            "equiped": true
+        },
+        {
+            "name": "Feedback Clothing",
+            "rating": "-",
+            "capacity": "-",
+            "availability": 8,
+            "cost": -500,
+            "equiped": true
+        },
+        {
+            "name": "(Synth)Leather",
+            "rating": 4,
+            "capacity": 4,
+            "availability": "-",
+            "cost": -200,
+            "equiped": true
+        },
+        {
+            "name": "Actioneer Business Clothes",
+            "rating": 8,
+            "capacity": 8,
+            "availability": 8,
+            "cost": -1500,
+            "equiped": true
+        },
+        {
+            "name": "Armor Clothing",
+            "rating": 6,
+            "capacity": 6,
+            "availability": 2,
+            "cost": -450,
+            "equiped": true
+        },
+        {
+            "name": "Armor Jacket",
+            "rating": 12,
+            "capacity": 12,
+            "availability": 2,
+            "cost": -1000,
+            "equiped": true
+        },
+        {
+            "name": "Armor Vest",
+            "rating": 9,
+            "capacity": 9,
+            "availability": 4,
+            "cost": -500,
+            "equiped": true
+        },
+        {
+            "name": "Chameleon Suit",
+            "rating": 9,
+            "capacity": 9,
+            "availability": "10R",
+            "cost": -1700,
+            "equiped": true
+        },
+        {
+            "name": "Full Body Armor",
+            "rating": 15,
+            "capacity": 15,
+            "availability": "14R",
+            "cost": -2000,
+            "equiped": true
+        },
+        {
+            "name": "Full Body Armor, Helmet",
+            "rating": "+3",
+            "capacity": "+3",
+            "availability": "-",
+            "cost": -500,
+            "equiped": true
+        },
+        {
+            "name": "Full Body Armor, Chemical Seal",
+            "rating": "-",
+            "capacity": "-",
+            "availability": "+6",
+            "cost": -6000,
+            "equiped": true
+        },
+        {
+            "name": "Full Body Armor, Environmental Adaptation",
+            "rating": "-",
+            "capacity": "-",
+            "availability": "+3",
+            "cost": -1000,
+            "equiped": true
+        },
+        {
+            "name": "Lined Coat",
+            "rating": 9,
+            "capacity": 9,
+            "availability": 4,
+            "cost": -900,
+            "equiped": true
+        },
+        {
+            "name": "Urban Explorer Jumpsuit",
+            "rating": 9,
+            "capacity": 9,
+            "availability": 8,
+            "cost": -650,
+            "equiped": true
+        },
+        {
+            "name": "Urban Explorer Jumpsuit, Helmet",
+            "rating": "+2",
+            "capacity": "+2",
+            "availability": "-",
+            "cost": -100,
+            "equiped": true
+        },
+        {
+            "name": "Helmet",
+            "rating": "+2",
+            "capacity": "+2",
+            "availability": 2,
+            "cost": -100,
+            "equiped": true
+        },
+        {
+            "name": "Ballistic Shield",
+            "rating": "+6",
+            "capacity": "+6",
+            "availability": "12R",
+            "cost": -1200,
+            "equiped": true
+        },
+        {
+            "name": "Riot Shield",
+            "rating": "+6",
+            "capacity": "+6",
+            "availability": "10R",
+            "cost": -1000,
+            "equiped": true
+        }
+    ]
+}

@@ -1,0 +1,101 @@
+.att.tableContainer{
+    width: 49%;
+    display:inline-flex;
+    flex-wrap: unset;
+    flex-direction: row;
+    flex-flow: row wrap; 
+    align-items: stretch;
+    justify-content: space-between;
+    margin: 5px;
+    overflow: hidden;
+}
+
+h1.att{
+    font-family: arial, sans-serif;
+    text-align: left;
+    margin-left: 48px;
+}
+
+h2.att{
+    font-family: arial, sans-serif;
+    margin-left: 19px;
+}
+
+table.att{
+    font-family: arial, sans-serif;
+    border-collapse: separate;
+    border-spacing: 1pt;
+    display: inline-table;
+    width: 29%;
+    vertical-align: top;
+    margin-right: 2%;
+    margin-left: 2%;
+    padding-bottom: 5px;
+}
+
+tr.att:first-child{
+    font-weight: bold;
+    color: white;
+    background-color: #303336;
+}
+
+tr.att:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td.att, th.att {
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.att:first-child{
+    width: 7%;
+    background-color: white;
+    border: 0px;
+    text-align: left;
+}
+
+table.lim{
+    font-family: arial, sans-serif;
+    border-collapse: separate;
+    border-spacing: 1pt;
+    display: inline-table;
+    width: 95%;
+    vertical-align: top;
+    margin-right: 2%;
+    margin-left: 2%;
+    padding-bottom: 5px;
+}
+
+tr.lim:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td.lim, th.lim {
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.att:nth-child(3){
+    width: 5%;
+    text-align: center;
+}
+
+td.lim:nth-child(2){
+    width: 5%;
+    text-align: center;
+}
+
+th.lim:nth-child(2){
+    width: 5%;
+    text-align: center;
+}
+

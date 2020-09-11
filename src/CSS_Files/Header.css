@@ -1,0 +1,48 @@
+table.headertable {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    display: inline-block;
+    padding: 0px;
+    background: #303336;
+    color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    table-layout: auto;
+    font-weight: bold;
+}
+
+td.headertd {
+    border: 1px transparent #ffffff00;
+    text-align: center;
+    width: 20%;
+    padding: 8px;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+}
+
+td.headertdatt {
+    border: 1px transparent #ffffff00;
+    text-align: center;
+    padding: 8px;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+}
+
+tr.headertr {
+    border: 1px transparent #ffffff00;
+    text-align: center;
+    width: 50%;
+    padding: 0px;
+    align-items: center;
+    position: -webkit-sticky;
+    position: sticky;
+}
+
+div.headerdiv{
+    top: 0;
+    position: sticky;
+}
+

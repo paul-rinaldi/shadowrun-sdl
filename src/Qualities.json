@@ -1,0 +1,581 @@
+{
+    "positive":[
+        {
+        "qName": "Ambidextrous",
+        "karma": -4,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Analytical Mind",
+        "karma": -5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Aptitude",
+        "karma": -14,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Astral Chameleon",
+        "karma": -10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Bilingual",
+        "karma": -5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Blandness",
+        "karma": -8,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Catlike",
+        "karma": -7,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Codeslinger",
+        "karma": -10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Double-Jointed",
+        "karma": -6,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Exceptional Attribute",
+        "karma": -14,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "First Impression",
+        "karma": -11,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Focused Concentration",
+        "karma": -4,
+        "rating": 1,
+        "max": 6,
+        "notes": ""
+        },
+        {
+        "qName": "Gearhead",
+        "karma": -11,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Guts",
+        "karma": -10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "High Pain Tolerance",
+        "karma": -7,
+        "rating": 1,
+        "max": 3,
+        "notes": ""
+        },
+        {
+        "qName": "Home Ground",
+        "karma": -10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Human-Looking",
+        "karma": -5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Indomitable",
+        "karma": -8,
+        "rating": 1,
+        "max": 3,
+        "notes": ""
+        },
+        {
+        "qName": "Juryrigger",
+        "karma": -10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Lucky",
+        "karma": -12,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Magical Resistance",
+        "karma": -6,
+        "rating": 1,
+        "max": 4,
+        "notes": ""
+        },
+        {
+        "qName": "Mentor Spirit",
+        "karma": -5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Natural Athlete",
+        "karma": -7,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Natural Hardening",
+        "karma": -10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Natural Immunity (-4)",
+        "karma": -4,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Natural Immunity (-10)",
+        "karma": -10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Photographic Memory",
+        "karma": -6,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Quick Healer",
+        "karma": -3,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Resistance to Pathogens/Toxins (-4)",
+        "karma": -4,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Resistance to Pathogens/Toxins (-8)",
+        "karma": -8,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Spirit Affinity",
+        "karma": -7,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Toughness",
+        "karma": -9,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Will to Live",
+        "karma": -3,
+        "rating": 1,
+        "max": 3,
+        "notes": ""
+        }
+    ],
+    "negative":[
+        {
+        "qName": "Addiction (Mild)",
+        "karma": 4,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Addiction (Moderate)",
+        "karma": 9,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Addiction (Severe)",
+        "karma": 20,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Addiction (Burnout)",
+        "karma": 25,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Allergy (Uncommon, Mild)",
+        "karma": 5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Allergy (Uncommon, Moderate)",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Allergy (Uncommon, Severe)",
+        "karma": 15,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Allergy (Uncommon, Extreme)",
+        "karma": 20,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Allergy (Common, Mild)",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Allergy (Common, Moderate)",
+        "karma": 15,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Allergy (Common, Severe)",
+        "karma": 20,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Allergy (Common, Extreme)",
+        "karma": 25,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Astral Beacon",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Bad Luck",
+        "karma": 12,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Bad Rep",
+        "karma": 7,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Code of Honor",
+        "karma": 15,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Codeblock",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Combat Paralysis",
+        "karma": 9,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Dependents (3)",
+        "karma": 3,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Dependents (6)",
+        "karma": 6,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Dependents (9)",
+        "karma": 9,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Distinctive Style",
+        "karma": 5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Elf Poser",
+        "karma": 6,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Gremlins",
+        "karma": 4,
+        "rating": 1,
+        "max": 4,
+        "notes": ""
+        },
+        {
+        "qName": "Incompetent",
+        "karma": 5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Insomnia (10)",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Insomnia (15)",
+        "karma": 15,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Loss of Confidence",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Low Pain Tolerance",
+        "karma": 9,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Ork Poser",
+        "karma": 6,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Prejudiced (Common, Bias)",
+        "karma": 5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Prejudiced (Common, Outspoken)",
+        "karma": 7,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Prejudiced (Common, Radical)",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Prejudiced (Specific, Bias)",
+        "karma": 5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Prejudiced (Specific, Outspoken)",
+        "karma": 5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Prejudiced (Specific, Radical)",
+        "karma": 8,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Scorched",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Sensitive System",
+        "karma": 12,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Simsense Vertigo",
+        "karma": 5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Sinner (National)",
+        "karma": 5,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Sinner (Criminal)",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Sinner (Corporate Limited)",
+        "karma": 15,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Sinner (Corporate)",
+        "karma": 25,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Social Stress",
+        "karma": 8,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Spirit Bane",
+        "karma": 7,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Uncouth",
+        "karma": 14,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Uneducated",
+        "karma": 8,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Unsteady Hands",
+        "karma": 7,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        },
+        {
+        "qName": "Weak Immune System",
+        "karma": 10,
+        "rating": 0,
+        "max": 0,
+        "notes": ""
+        }
+        
+    ]
+}

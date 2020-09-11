@@ -1,0 +1,244 @@
+{
+    "melee":{
+        "clubs":[
+            {
+                "name": "Club",
+                "acc": 4,
+                "reach": 1,
+                "dam": "(STR+3)P",
+                "ap": "-",
+                "availability": "-",
+                "cost": -30,
+                "skill": "Clubs"
+            },
+            {
+                "name": "Extendable Baton",
+                "acc": 5,
+                "reach": 1,
+                "dam": "(STR+2)P",
+                "ap": "-",
+                "availability": 4,
+                "cost": -100,
+                "skill": "Clubs"
+            },
+            {
+                "name": "Sap",
+                "acc": 5,
+                "reach": "-",
+                "dam": "(STR+2)P",
+                "ap": "-",
+                "availability": 2,
+                "cost": -30,
+                "skill": "Clubs"
+            },
+            {
+                "name": "Staff",
+                "acc": 6,
+                "reach": 2,
+                "dam": "(STR+3)P",
+                "ap": "-",
+                "availability": 3,
+                "cost": -100,
+                "skill": "Clubs"
+            },
+            {
+                "name": "Stun Baton",
+                "acc": 4,
+                "reach": 1,
+                "dam": "9S(e)",
+                "ap": -5,
+                "availability": "6R",
+                "cost": -750,
+                "skill": "Clubs"
+            },
+            {
+                "name": "Telescoping Staff",
+                "acc": 4,
+                "reach": 2,
+                "dam": "(STR+2)P",
+                "ap": "-",
+                "availability": 4,
+                "cost": -350,
+                "skill": "Clubs"
+            }
+        ],
+        "blades":[
+            {
+                "name": "Combat Axe",
+                "acc": 4,
+                "reach": 2,
+                "dam": "(STR+5)P",
+                "ap": -4,
+                "availability": "12R",
+                "cost": -4000,
+                "skill": "Blades"
+            },
+            {
+                "name": "Combat Knife",
+                "acc": 6,
+                "reach": "-",
+                "dam": "(STR+2)P",
+                "ap": -3,
+                "availability": 4,
+                "cost": -300,
+                "skill": "Blades"
+            },
+            {
+                "name": "Forearm Snap-Blades",
+                "acc": 4,
+                "reach": "-",
+                "dam": "(STR+2)P",
+                "ap": -2,
+                "availability": "7R",
+                "cost": -200,
+                "skill": "Blades"
+            },
+            {
+                "name": "Katana",
+                "acc": 7,
+                "reach": 1,
+                "dam": "(STR+3)P",
+                "ap": -3,
+                "availability": "9R",
+                "cost": -1000,
+                "skill": "Blades"
+            },
+            {
+                "name": "Knife",
+                "acc": 5,
+                "reach": "-",
+                "dam": "(STR+1)P",
+                "ap": -1,
+                "availability": "-",
+                "cost": -10,
+                "skill": "Blades"
+            },
+            {
+                "name": "Pole Arm",
+                "acc": 5,
+                "reach": 3,
+                "dam": "(STR+3)P",
+                "ap": -2,
+                "availability": "6R",
+                "cost": -1000,
+                "skill": "Blades"
+            },
+            {
+                "name": "Survival Knife",
+                "acc": 5,
+                "reach": "-",
+                "dam": "(STR+2)P",
+                "ap": -1,
+                "availability": "-",
+                "cost": -100,
+                "skill": "Blades"
+            },
+            {
+                "name": "Sword",
+                "acc": 6,
+                "reach": 1,
+                "dam": "(STR+3)P",
+                "ap": -2,
+                "availability": "5R",
+                "cost": -500,
+                "skill": "Blades"
+            }
+        ],
+        "exotic":[
+            {
+                "name": "Monofilament Chainsaw",
+                "acc": 3,
+                "reach": 1,
+                "dam": "8P",
+                "ap": -6,
+                "availability": 8,
+                "cost": 500,
+                "skill": "Exotic (Chainsaws)"
+            },
+            {
+                "name": "Monofilament Whip",
+                "acc": "5 (7)",
+                "reach": 2,
+                "dam": "12P",
+                "ap": -8,
+                "availability": "12R",
+                "cost": -10000,
+                "skill": "Exotic (Whips)"
+            }
+        ],
+        "misc":[
+            {
+                "name": "Knucks",
+                "acc": "Physical",
+                "reach": "-",
+                "dam": "(STR+1)P",
+                "ap": "-",
+                "availability": "2R",
+                "cost": -100,
+                "skill": "Unarmed Combat"
+            },
+            {
+                "name": "Plasteel Toe Boots",
+                "acc": "Physical",
+                "reach": "-",
+                "dam": "(STR+1)P",
+                "ap": "-",
+                "availability": 2,
+                "cost": -200,
+                "skill": "Unarmed Combat"
+            },
+            {
+                "name": "Shock Gloves",
+                "acc": "Physical",
+                "reach": "-",
+                "dam": "8S(e)",
+                "ap": -5,
+                "availability": "6R",
+                "cost": -550,
+                "skill": "Unarmed Combat"
+            }
+        ],
+        "implant":[
+            {
+                "name": "Cyber Hand Blade",
+                "acc": "Physical",
+                "reach": "-",
+                "dam": "(STR+2)P",
+                "ap": -2,
+                "availability": "10F",
+                "cost": -2500,
+                "skill": "Unarmed Combat"
+            },
+            {
+                "name": "Cyber Hand Razors",
+                "acc": "Physical",
+                "reach": "-",
+                "dam": "(STR+1)P",
+                "ap": -3,
+                "availability": "8F",
+                "cost": -1250,
+                "skill": "Unarmed Combat"
+            },
+            {
+                "name": "Cyber Shock Hand",
+                "acc": "Physical",
+                "reach": "-",
+                "dam": "9S(e)",
+                "ap": -5,
+                "availability": "8R",
+                "cost": -5000,
+                "skill": "Unarmed Combat"
+            },
+            {
+                "name": "Cyber Spurs",
+                "acc": "Physical",
+                "reach": "-",
+                "dam": "(STR+3)P",
+                "ap": -2,
+                "availability": "8F",
+                "cost": -5000,
+                "skill": "Unarmed Combat"
+            }
+        ]
+    }
+}

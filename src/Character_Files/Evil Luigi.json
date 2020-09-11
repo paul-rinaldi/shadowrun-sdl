@@ -1,0 +1,719 @@
+{
+  "name": Luigi",
+  "metatype": "Human",
+  "money": 10000,
+  "karma": 25,
+  "currentEdge": 2,
+  "conditionMonitor": {
+    "stun": -1,
+    "physical": -1
+  },
+  "personal": "I am Luigi from mushroom kingdom \nAge: 30 \nSex: M \nHeight: 4\"0' \nWeight: 120 lbs.\nFunky lil man",
+  "attributes":{
+    "BOD": 2,
+    "AGI": 2,
+    "REA": 2,
+    "STR": 2,
+    "WIL": 2,
+    "LOG": 2,
+    "INT": 2,
+    "CHA": 3,
+    "EDG": 7,
+    "ESS": 3.0,
+    "MAG": 3,
+    "RES": 3
+  },
+  "img": "https://i.imgur.com/kNfHivt.png",
+  "initiative":{
+    "initDice": 1
+  },
+  "armor": 5,
+  "lifestyle": "Low (Safehouse, 3 mths), Middle (5 mths)",
+  "ID": "10 fake SINs (rating 4), 10 fake licenses (gun license, rating 4)",
+  "coreCombat":{
+    "armor":{
+      "name": "Armor jacket",
+      "rating": 12
+    },
+    "ranged":{
+      "name": "Ares Crusader II",
+      "dam": "7P",
+      "acc": 5,
+      "AP": "",
+      "mode": "SS/BF",
+      "RC": 2,
+      "ammo": 40
+    },
+    "melee":{
+      "name": "Katana",
+      "reach": 1,
+      "dam": "14/(15)P",
+      "acc": 7,
+      "ap": -3
+    }
+  },
+  "skills": {
+    "combat": [
+      {
+        "name": "Archery",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Automatics",
+        "rating": 12,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Firearms",
+        "specialization": "Assault Rifles"
+      },
+      {
+        "name": "Blades",
+        "rating": 9,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Close Combat",
+        "specialization": ""
+      },
+      {
+        "name": "Clubs",
+        "rating": 6,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Close Combat",
+        "specialization": "Hammers"
+      },
+      {
+        "name": "Heavy Weapons",
+        "rating": 12,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": "Guided Missiles"
+      },
+      {
+        "name": "Longarms",
+        "rating": 3,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Firearms",
+        "specialization": ""
+      },
+      {
+        "name": "Pistols",
+        "rating": 7,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Firearms",
+        "specialization": ""
+      },
+      {
+        "name": "Throwing Weapons",
+        "rating": 3,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Unarmed Combat",
+        "rating": 1,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Close Combat",
+        "specialization": ""
+      },
+      {
+        "name": "Flamethrowers (exotic)",
+        "rating": 13,
+        "attribute": "Agi",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      }
+    ],
+    "physical": [
+      {
+        "name": "Disguise",
+        "rating": 0,
+        "attribute": "Int",
+        "default": "✓",
+        "group": "Stealth",
+        "specialization": ""
+      },
+      {
+        "name": "Diving",
+        "rating": 2,
+        "attribute": "Bod",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Escape Artist",
+        "rating": 7,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Free-fall",
+        "rating": 7,
+        "attribute": "Bod",
+        "default": "✓",
+        "group": "",
+        "specialization": "Wingsuit"
+      },
+      {
+        "name": "Gymnastics",
+        "rating": 4,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Athletics",
+        "specialization": "Leaping"
+      },
+      {
+        "name": "Palming",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "",
+        "group": "Stealth",
+        "specialization": ""
+      },
+      {
+        "name": "Perception",
+        "rating": 9,
+        "attribute": "Int",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Running",
+        "rating": 5,
+        "attribute": "Str",
+        "default": "✓",
+        "group": "Athletics",
+        "specialization": ""
+      },
+      {
+        "name": "Sneaking",
+        "rating": 0,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "Stealth",
+        "specialization": ""
+      },
+      {
+        "name": "Survival",
+        "rating": 1,
+        "attribute": "Wil",
+        "default": "✓",
+        "group": "Outdoors",
+        "specialization": ""
+      },
+      {
+        "name": "Swimming",
+        "rating": 6,
+        "attribute": "Str",
+        "default": "✓",
+        "group": "Athletics",
+        "specialization": ""
+      },
+      {
+        "name": "Tracking",
+        "rating": 6,
+        "attribute": "Int",
+        "default": "✓",
+        "group": "Outdoors",
+        "specialization": ""
+      }
+    ],
+    "social": [
+      {
+        "name": "Con",
+        "rating": 5,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Acting",
+        "specialization": "Seduction"
+      },
+      {
+        "name": "Etiquette",
+        "rating": 3,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Influence",
+        "specialization": ""
+      },
+      {
+        "name": "Impersonation",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Acting",
+        "specialization": "Human"
+      },
+      {
+        "name": "Instruction",
+        "rating": 2,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Intimidation",
+        "rating": 0,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Leadership",
+        "rating": 4,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Influence",
+        "specialization": ""
+      },
+      {
+        "name": "Negotiation",
+        "rating": 4,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Influence",
+        "specialization": "Bargaining"
+      },
+      {
+        "name": "Performance",
+        "rating": 1,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "Acting",
+        "specialization": ""
+      }
+    ],
+    "magical": [
+      {
+        "name": "Alchemy",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Enchanting",
+        "specialization": ""
+      },
+      {
+        "name": "Arcana",
+        "rating": 1,
+        "attribute": "Log",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Artificing",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Enchanting",
+        "specialization": ""
+      },
+      {
+        "name": "Assensing",
+        "rating": 1,
+        "attribute": "Int",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Astral Combat",
+        "rating": 0,
+        "attribute": "Wil",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Banishing",
+        "rating": 3,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Conjuring",
+        "specialization": ""
+      },
+      {
+        "name": "Binding",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Conjuring",
+        "specialization": ""
+      },
+      {
+        "name": "Counterspelling",
+        "rating": 2,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Sorcery",
+        "specialization": ""
+      },
+      {
+        "name": "Disenchanting",
+        "rating": 1,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Enchanting",
+        "specialization": ""
+      },
+      {
+        "name": "Ritual Spellcasting",
+        "rating": 3,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Sorcery",
+        "specialization": ""
+      },
+      {
+        "name": "Spellcasting",
+        "rating": 1,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Sorcery",
+        "specialization": ""
+      },
+      {
+        "name": "Summoning",
+        "rating": 0,
+        "attribute": "Mag",
+        "default": "",
+        "group": "Conjuring",
+        "specialization": ""
+      }
+    ],
+    "resonance": [
+      {
+        "name": "Compiling",
+        "rating": 0,
+        "attribute": "Res",
+        "default": "",
+        "group": "Tasking",
+        "specialization": ""
+      },
+      {
+        "name": "Decompiling",
+        "rating": 0,
+        "attribute": "Res",
+        "default": "",
+        "group": "Tasking",
+        "specialization": ""
+      },
+      {
+        "name": "Registering",
+        "rating": 0,
+        "attribute": "Res",
+        "default": "",
+        "group": "Tasking",
+        "specialization": ""
+      }
+    ],
+    "technical": [
+      {
+        "name": "Aeronautics Mechanic",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Engineering",
+        "specialization": ""
+      },
+      {
+        "name": "Animal Handling",
+        "rating": 4,
+        "attribute": "Cha",
+        "default": "✓",
+        "group": "",
+        "specialization": "Riding"
+      },
+      {
+        "name": "Armorer",
+        "rating": 2,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Artisan",
+        "rating": 1,
+        "attribute": "Int",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Automotive Mechanic",
+        "rating": 3,
+        "attribute": "Log",
+        "default": "",
+        "group": "Engineering",
+        "specialization": ""
+      },
+      {
+        "name": "Biotechnology",
+        "rating": 5,
+        "attribute": "Log",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Chemistry",
+        "rating": 2,
+        "attribute": "Log",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Computer",
+        "rating": 1,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "Electronics",
+        "specialization": ""
+      },
+      {
+        "name": "Cybercombat",
+        "rating": 3,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "Cracking",
+        "specialization": ""
+      },
+      {
+        "name": "Cybertechnology",
+        "rating": 0,
+        "attribute": "Log",
+        "default": "",
+        "group": "Biotech",
+        "specialization": ""
+      },
+      {
+        "name": "Demolitions",
+        "rating": 6,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "",
+        "specialization": "Defusing"
+      },
+      {
+        "name": "Electronic Warfare",
+        "rating": 3,
+        "attribute": "Log",
+        "default": "",
+        "group": "Cracking",
+        "specialization": ""
+      },
+      {
+        "name": "First Aid",
+        "rating": 3,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "Biotech",
+        "specialization": ""
+      },
+      {
+        "name": "Forgery",
+        "rating": 5,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "",
+        "specialization": "False ID"
+      },
+      {
+        "name": "Hacking",
+        "rating": 2,
+        "attribute": "Log",
+        "default": "✓",
+        "group": "Cracking",
+        "specialization": ""
+      },
+      {
+        "name": "Hardware",
+        "rating": 1,
+        "attribute": "Log",
+        "default": "",
+        "group": "Electronics",
+        "specialization": ""
+      },
+      {
+        "name": "Industrial Mechanic",
+        "rating": 1,
+        "attribute": "Log",
+        "default": "",
+        "group": "Engineering",
+        "specialization": ""
+      },
+      {
+        "name": "Locksmith",
+        "rating": 4,
+        "attribute": "Agi",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Medicine",
+        "rating": 6,
+        "attribute": "Log",
+        "default": "",
+        "group": "Biotech",
+        "specialization": "Cosmetic Surgery"
+      },
+      {
+        "name": "Nautical Mechanic",
+        "rating": 2,
+        "attribute": "Log",
+        "default": "",
+        "group": "Engineering",
+        "specialization": ""
+      },
+      {
+        "name": "Navigation",
+        "rating": 4,
+        "attribute": "Int",
+        "default": "✓",
+        "group": "Outdoors",
+        "specialization": ""
+      },
+      {
+        "name": "Software",
+        "rating": 1,
+        "attribute": "Log",
+        "default": "",
+        "group": "Electronics",
+        "specialization": ""
+      }
+    ],
+    "vehicle": [
+      {
+        "name": "Gunnery",
+        "rating": 4,
+        "attribute": "Agi",
+        "default": "✓",
+        "group": "",
+        "specialization": "Ballistic"
+      },
+      {
+        "name": "Pilot Aerospace",
+        "rating": 0,
+        "attribute": "Rea",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Pilot Aircraft",
+        "rating": 0,
+        "attribute": "Rea",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Pilot Walker",
+        "rating": 0,
+        "attribute": "Rea",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Pilot Ground Craft",
+        "rating": 2,
+        "attribute": "Rea",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Pilot Watercraft",
+        "rating": 3,
+        "attribute": "Rea",
+        "default": "✓",
+        "group": "",
+        "specialization": ""
+      },
+      {
+        "name": "Pilot Train (exotic)",
+        "rating": 3,
+        "attribute": "Rea",
+        "default": "",
+        "group": "",
+        "specialization": ""
+      }
+    ]
+  },
+  "qualities":[
+    {
+      "qName": "analytical mind",
+      "notes": "-5 karma",
+      "type": "p"
+    },
+    {
+      "qName": "natural hardening",
+      "notes": "-10 karma",
+      "type": "p"
+    },
+    {
+      "qName": "addiction (moderate, BLTs)",
+      "notes": "+9 karma",
+      "type": "n"
+    }
+  ],
+  "augmentations":[
+    {
+      "aName": "bone lacing (plastic)",
+      "rating": "",
+      "notes": "",
+      "essence": 0.5
+    },
+    {
+      "aName": "Reaction Enhancers",
+      "rating": 2,
+      "notes": "",
+      "essence": 0.6
+    }
+  ],
+  "RitPrepRitComplex":{
+    "spells": "Clout, Blast, Lightning Bolt, Stunball, Analyze Truth, Clairaudience, Influence, Mind Probe, Heal, Improved Invisibility",
+    "complexForms": "Cleaner, Editor, Res spike",
+    "sprites": "Crack sprite 6, Fault sprite 6"
+  },
+  "cyberdeck":{
+    "model": "Hermes Chariot cyberdeck",
+    "attack": 1,
+    "sleaze": 6,
+    "deviceRating": 2,
+    "dataProcessing": "",
+    "firewall": 7,
+    "programs":[
+      {
+      "pName": "crack file",
+      "type": "complex"
+      },
+      {
+        "pName": "change icon",
+        "type": "simple"
+      }
+    ],
+    "condition": 3
+  }
+
+}

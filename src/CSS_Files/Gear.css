@@ -1,0 +1,327 @@
+h1.Gear{
+    font-family: arial, sans-serif;
+    text-align: left;
+    margin-left: 45px;
+}
+
+h2.Gear{
+    font-family: arial, sans-serif;
+    text-align: left;
+    margin-left: 45px;
+    padding-top: 10px;
+}
+
+button.Gear{
+    align-content: center;
+    width: 95%;
+}
+
+table.Gear{
+    font-family: arial, sans-serif;
+    border-collapse: separate;
+    border-spacing: 1pt;
+    display: inline-table;
+    width: 95%;
+    vertical-align: top;
+    margin-right: 2%;
+    margin-left: 2%;
+    padding-bottom: 5px;
+}
+
+tr.Gear:first-child{
+    font-weight: bold;
+    color: white;
+    background-color: #303336;
+}
+
+tr.Gear:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td.Gear, th.Gear {
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.Gear:first-child{
+    width: 3%;
+    background-color: white;
+    align-content: center;
+    border: 0px;
+    text-align: center;
+}
+
+td.Gear:nth-child(2){
+    width: 30%;
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+th.Gear:last-child{
+    text-align: center;
+}
+
+td.Gear:last-child{
+    width: 4%;
+    text-align: center;
+    background-color: white;
+    align-content: center;
+    border: 0px;
+    text-align: center;
+}
+
+th.Gear:nth-child(3){
+    width: 1%;
+    text-align: center;
+}
+
+td.Gear:nth-child(3){
+    width: 5%;
+    text-align: center;
+}
+
+td.GearArmor, th.GearArmor{
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+th.GearArmor:nth-child(2){
+    text-align: center;
+}
+
+td.GearArmor:nth-child(2){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 5%;
+    text-align: center;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearArmor:nth-child(3){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 60%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+th.GearArmor:nth-child(4){
+    text-align: center;
+}
+
+td.GearArmor:nth-child(4){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 2%;
+    text-align: center;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearArmor:nth-child(5){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 10%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearArmor:nth-child(6){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 10%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearArmor:last-child{
+    width: 4%;
+    background-color: white;
+    align-content: center;
+    border: 0px;
+    text-align: center;
+}
+
+th.GearArmor:last-child{
+    text-align: center;
+}
+
+
+
+td.GearMelee, th.GearMelee{
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearMelee:first-child{
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 50%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearMelee:nth-child(2){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 4%;
+    text-align: center;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+th.GearMelee:nth-child(2){
+    text-align: center;
+}
+
+td.GearMelee:nth-child(3){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 10%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearMelee:nth-child(4){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 10%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearMelee:nth-child(5){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 10%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearMelee:nth-child(6){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 10%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearMelee:last-child{
+    width: 4%;
+    background-color: white;
+    align-content: center;
+    border: 0px;
+    text-align: center;
+}
+
+th.GearMelee:last-child{
+    text-align: center;
+}
+
+
+
+td.GearRanged, th.GearRanged{
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    text-align: left;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearRanged:first-child{
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 48%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearRanged:nth-child(2){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 4%;
+    text-align: center;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+th.GearRanged:nth-child(2){
+    text-align: center;
+}
+
+td.GearRanged:nth-child(3){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 7%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearRanged:nth-child(4){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 5%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearRanged:nth-child(5){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 10%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearRanged:nth-child(6){
+    border: 1px solid #000000;
+    padding: 3px;
+    white-space: pre;
+    width: 5%;
+    border-collapse: collapse;
+    overflow-wrap:break-word;
+}
+
+td.GearRanged:last-child{
+    width: 4%;
+    background-color: white;
+    align-content: center;
+    border: 0px;
+    text-align: center;
+}
+
+th.GearRanged:last-child{
+    text-align: center;
+}

@@ -1,0 +1,803 @@
+{
+    "ranged":{
+        "throwing":[
+            {
+                "name": "Shuriken",
+                "acc": "Physical",
+                "dam": "(STR+1)P",
+                "ap": -1,
+                "mode": "-",
+                "RC": "-",
+                "ammo": "-",
+                "availability": "4R",
+                "cost": -25
+            },
+            {
+                "name": "Throwing Knife",
+                "acc": "Physical",
+                "dam": "(STR+1)P",
+                "ap": -1,
+                "mode": "-",
+                "RC": "-",
+                "ammo": "-",
+                "availability": "4R",
+                "cost": -25
+            }
+        ],
+        "ballistic":[
+            {
+                "name": "Bow",
+                "acc": 6,
+                "dam": "(Rating+2)P",
+                "ap": "-(Rating/4)",
+                "mode": "-",
+                "RC": "-",
+                "ammo": "-",
+                "availability": "Rating",
+                "cost": -100
+            },
+            {
+                "name": "Light Crossbow",
+                "acc": 7,
+                "dam": "5P",
+                "ap": -1,
+                "mode": "-",
+                "RC": "-",
+                "ammo": "4(M)",
+                "availability": 2,
+                "cost": -300
+            },
+            {
+                "name": "Medium Crossbow",
+                "acc": 6,
+                "dam": "7P",
+                "ap": -2,
+                "mode": "-",
+                "RC": "-",
+                "ammo": "4(M)",
+                "availability": "4R",
+                "cost": -500
+            },
+            {
+                "name": "Heavy Crossbow",
+                "acc": 5,
+                "dam": "10P",
+                "ap": -3,
+                "mode": "-",
+                "RC": "-",
+                "ammo": "4(m)",
+                "availability": "8R",
+                "cost": -1000
+            }
+        ],
+        "exotic ranged weapons":[
+            {
+                "name": "Grapple gun",
+                "acc": 3,
+                "dam": "7S",
+                "ap": -2,
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "1(ml)",
+                "availability": "8R",
+                "cost": -500
+            }
+        ],
+        "taser":[
+            {
+                "name": "Defiance EX Shocker",
+                "acc": 4,
+                "dam": "9S(e)",
+                "ap": -5,
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "4(m)",
+                "availability": "-",
+                "cost": -250
+            },
+            {
+                "name": "Yamaha Pulsar",
+                "acc": 5,
+                "dam": "7S(e)",
+                "ap": -5,
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "4(m)",
+                "availability": "-",
+                "cost": -180
+            }
+        ],
+        "hold-out pistol":[
+            {
+                "name": "Fichetti Tiffani Needler",
+                "acc": 5,
+                "dam": "8P(f)",
+                "ap": 5,
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "4(c)",
+                "availability": "6R",
+                "cost": -1000
+            },
+            {
+                "name": "Streetline Special",
+                "acc": 4,
+                "dam": "6P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "6(c)",
+                "availability": "4R",
+                "cost": -120
+            },
+            {
+                "name": "Walther Palm Pistol",
+                "acc": 4,
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SS/BF",
+                "RC": "-",
+                "ammo": "2(b)",
+                "availability": "4R",
+                "cost": -180
+            }
+        ],
+        "light pistol":[
+            {
+                "name": "Ares Light Fire 70",
+                "acc": 7,
+                "dam": "8P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "16(c)",
+                "availability": "3R",
+                "cost": -200
+            },
+            {
+                "name": "Ares Light Fire 75",
+                "acc": "6 (8)",
+                "dam": "6P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "16(c)",
+                "availability": "6F",
+                "cost": -1250
+            },
+            {
+                "name": "Beretta 201T",
+                "acc": 6,
+                "dam": "6P",
+                "ap": "-",
+                "mode": "SA/BF",
+                "RC": "- (1)",
+                "ammo": "21(c)",
+                "availability": "7R",
+                "cost": -210
+            },
+            {
+                "name": "Colt America L36",
+                "acc": 7,
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "11(c)",
+                "availability": "4R",
+                "cost": -320
+            },
+            {
+                "name": "Fichetti Security 600",
+                "acc": "6 (7)",
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "- (1)",
+                "ammo": "30(c)",
+                "availability": "6R",
+                "cost": -350
+            },
+            {
+                "name": "Taurus Omni-6, light pistol rounds",
+                "acc": "5 (6)",
+                "dam": "6P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "6(cy)",
+                "availability": "3R",
+                "cost": -300
+            },
+            {
+                "name": "Taurus Omni-6, heavy pistol rounds",
+                "acc": "5 (6)",
+                "dam": "7P",
+                "ap": -1,
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "6(cy)",
+                "availability": "3R",
+                "cost": -300
+            }
+        ],
+        "heavy pistol":[
+            {
+                "name": "Ares Predator V",
+                "acc": "5 (7)",
+                "dam": "8P",
+                "ap": -1,
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "15(c)",
+                "availability": "5R",
+                "cost": -725
+            },
+            {
+                "name": "Ares Viper Silvergun",
+                "acc": 4,
+                "dam": "9P(f)",
+                "ap": 4,
+                "mode": "SA/BF",
+                "RC": "-",
+                "ammo": "30(c)",
+                "availability": "8F",
+                "cost": -380
+            },
+            {
+                "name": "Browning Ultra-Power",
+                "acc": "5 (6)",
+                "dam": "8P",
+                "ap": -1,
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "10(c)",
+                "availability": "4R",
+                "cost": -640
+            },
+            {
+                "name": "Colt Government 2066",
+                "acc": 6,
+                "dam": "7P",
+                "ap": -1,
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "14(c)",
+                "availability": "7R",
+                "cost": -425
+            },
+            {
+                "name": "Remington Roomsweeper",
+                "acc": 4,
+                "dam": "7P",
+                "ap": -1,
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "8(n)",
+                "availability": "6R",
+                "cost": -250
+            },
+            {
+                "name": "Ruger Super Warhawk",
+                "acc": 5,
+                "dam": "9P",
+                "ap": -2,
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "6(cy)",
+                "availability": "4R",
+                "cost": -400
+            }
+        ],
+        "machine pistol":[
+            {
+                "name": "Ares Crusader II",
+                "acc": "5 (7)",
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA/BF",
+                "RC": 2,
+                "ammo": "40(c)",
+                "availability": "9R",
+                "cost": -830
+            },
+            {
+                "name": "Ceska Black Scorpion",
+                "acc": 5,
+                "dam": "6P",
+                "ap": "-",
+                "mode": "SA/BF",
+                "RC": "- (1)",
+                "ammo": "35(c)",
+                "availability": "6R",
+                "cost": -270
+            },
+            {
+                "name": "Steyr TMP",
+                "acc": 4,
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA/BF/FA",
+                "RC": "-",
+                "ammo": "30(c)",
+                "availability": "8R",
+                "cost": -350
+            }
+        ],
+        "submachine gun":[
+            {
+                "name": "Colt Cobra TZ-120",
+                "acc": "4 (5)",
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA/BF/FA",
+                "RC": "2 (3)",
+                "ammo": "32(c)",
+                "availability": "5R",
+                "cost": -660
+            },
+            {
+                "name": "FN P93 Praetor",
+                "acc": 6,
+                "dam": "8P",
+                "ap": "-",
+                "mode": "SA/BF/FA",
+                "RC": "2 (3)",
+                "ammo": "50(c)",
+                "availability": "11R",
+                "cost": -900
+            },
+            {
+                "name": "HK-227",
+                "acc": "5 (7)",
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA/BF/FA",
+                "RC": "- (1)",
+                "ammo": "28(c)",
+                "availability": "8R",
+                "cost": -730
+            },
+            {
+                "name": "Ingram Smartgun X",
+                "acc": "4 (6)",
+                "dam": "8P",
+                "ap": "-",
+                "mode": "BF/FA",
+                "RC": 2,
+                "ammo": "32(c)",
+                "availability": "6R",
+                "cost": -800
+            },
+            {
+                "name": "SCK Model 100",
+                "acc": "5 (7)",
+                "dam": "8P",
+                "ap": "-",
+                "mode": "SA/BF",
+                "RC": "- (1)",
+                "ammo": "30(c)",
+                "availability": "6R",
+                "cost": -875
+            },
+            {
+                "name": "Uzi IV",
+                "acc": "4 (5)",
+                "dam": "7P",
+                "ap": "-",
+                "mode": "BF",
+                "RC": "- (1)",
+                "ammo": "24(c)",
+                "availability": "4R",
+                "cost": -450
+            }
+        ],
+        "assault rifle":[
+            {
+                "name": "AK-97",
+                "acc": 4,
+                "dam": "10P",
+                "ap": -2,
+                "mode": "SA/BF/FA",
+                "RC": "-",
+                "ammo": "38(c)",
+                "availability": "4R",
+                "cost": -950
+            },
+            {
+                "name": "Ares Alpha",
+                "acc": "5 (7)",
+                "dam": "11P",
+                "ap": -2,
+                "mode": "SA/BF/FA",
+                "RC": 2,
+                "ammo": "42(c)",
+                "availability": "11F",
+                "cost": -2650
+            },
+            {
+                "name": "Colt M23",
+                "acc": 4,
+                "dam": "9P",
+                "ap": -2,
+                "mode": "SA/BF/FA",
+                "RC": "-",
+                "ammo": "40(c)",
+                "availability": "4R",
+                "cost": -550
+            },
+            {
+                "name": "FN HAR",
+                "acc": "5 (6)",
+                "dam": "10P",
+                "ap": -2,
+                "mode": "SA/BF/FA",
+                "RC": 2,
+                "ammo": "35(c)",
+                "availability": "8R",
+                "cost": -1500
+            },
+            {
+                "name": "Yamaha Raiden",
+                "acc": "6 (8)",
+                "dam": "11P",
+                "ap": -2,
+                "mode": "BF/FA",
+                "RC": 2,
+                "ammo": "60(c)",
+                "availability": "14F",
+                "cost": -2600
+            }
+        ],
+        "sniper rifle":[
+            {
+                "name": "Ares Desert Strike",
+                "acc": 7,
+                "dam": "13P",
+                "ap": -4,
+                "mode": "SA",
+                "RC": "- (1)",
+                "ammo": "14(c)",
+                "availability": "10F",
+                "cost": -17500
+            },
+            {
+                "name": "Cavalier Arms Crockett EBR",
+                "acc": 6,
+                "dam": "12P",
+                "ap": -3,
+                "mode": "SA/BF",
+                "RC": "- (1)",
+                "ammo": "20(c)",
+                "availability": "12F",
+                "cost": -10300
+            },
+            {
+                "name": "Ranger Arms SM-5",
+                "acc": 8,
+                "dam": "14P",
+                "ap": -5,
+                "mode": "SA",
+                "RC": "- (1)",
+                "ammo": "15(c)",
+                "availability": "16F",
+                "cost": -28000
+            },
+            {
+                "name": "Remington 950",
+                "acc": 7,
+                "dam": "12P",
+                "ap": -4,
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "5(m)",
+                "availability": "4R",
+                "cost": -2100
+            },
+            {
+                "name": "Ruger 100",
+                "acc": 6,
+                "dam": "11P",
+                "ap": -3,
+                "mode": "SS",
+                "RC": "- (1)",
+                "ammo": "8(m)",
+                "availability": "4R",
+                "cost": -1300
+            }
+        ],
+        "shotgun":[
+            {
+                "name": "Defiance T-250",
+                "acc": 4,
+                "dam": "10P",
+                "ap": -1,
+                "mode": "SS/SA",
+                "RC": "-",
+                "ammo": "5(m)",
+                "availability": "4R",
+                "cost": -450
+            },
+            {
+                "name": "Defiance T-250, short-barreled",
+                "acc": 4,
+                "dam": "9P",
+                "ap": -1,
+                "mode": "SS/SA",
+                "RC": "-",
+                "ammo": "5(m)",
+                "availability": "4R",
+                "cost": -450
+            },
+            {
+                "name": "Enfield AS-7",
+                "acc": "4 (5)",
+                "dam": "13P",
+                "ap": -1,
+                "mode": "SA/BF",
+                "RC": "-",
+                "ammo": "10(c) or 24(d)",
+                "availability": "12R",
+                "cost": -1100
+            },
+            {
+                "name": "PJSS Model 55",
+                "acc": 6,
+                "dam": "11P",
+                "ap": -1,
+                "mode": "SS",
+                "RC": "- (1)",
+                "ammo": "2(b)",
+                "availability": "9R",
+                "cost": -1000
+            }
+        ],
+        "light machine gun":[
+            {
+                "name": "Ingram Valiant",
+                "acc": "5 (6)",
+                "dam": "9P",
+                "ap": -2,
+                "mode": "BF/FA",
+                "RC": "2 (3)",
+                "ammo": "50(c) or 100(belt)",
+                "availability": "12F",
+                "cost": -5800
+            }
+        ],
+        "medium machine gun":[
+            {
+                "name": "Stoner-Ares M202",
+                "acc": 5,
+                "dam": "10P",
+                "ap": -3,
+                "mode": "FA",
+                "RC": "-",
+                "ammo": "50(c) or 100(belt)",
+                "availability": "12F",
+                "cost": -7000
+            }
+        ],
+        "heavy machine gun":[
+            {
+                "name": "RPK HMG",
+                "acc": 5,
+                "dam": "12P",
+                "ap": -4,
+                "mode": "FA",
+                "RC": "- (6)",
+                "ammo": "50(c) or 100(belt)",
+                "availability": "16F",
+                "cost": -16300
+            }
+        ],
+        "exotic firearms":[
+            {
+                "name": "Ares S-III Super Squirt",
+                "acc": 3,
+                "dam": "Chemical",
+                "ap": "Chemical",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "20(c)",
+                "availability": "7R",
+                "cost": -950
+            },
+            {
+                "name": "Fichetti Pain Inducer",
+                "acc": 3,
+                "dam": "Spec.",
+                "ap": "-",
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "Spec.",
+                "availability": "11R",
+                "cost": -5000
+            },
+            {
+                "name": "Parashield Dart Pistol",
+                "acc": 5,
+                "dam": "Drug/Toxin",
+                "ap": "Drug/Toxin",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "5(c)",
+                "availability": "4R",
+                "cost": -600
+            },
+            {
+                "name": "Parashield Dart Rifle",
+                "acc": 6,
+                "dam": "Drug/Toxin",
+                "ap": "Drug/Toxin",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "6(m)",
+                "availability": "6R",
+                "cost": -1200
+            }
+        ],
+        "assault cannon":[
+            {
+                "name": "Krime Cannon",
+                "acc": 4,
+                "dam": "16P",
+                "ap": -6,
+                "mode": "SA",
+                "RC": "- (1)",
+                "ammo": "6(m)",
+                "availability": "20F",
+                "cost": -21000
+            },
+            {
+                "name": "Panther XXL",
+                "acc": "5 (7)",
+                "dam": "17P",
+                "ap": -6,
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "15(c)",
+                "availability": "20F",
+                "cost": -43000
+            }
+        ],
+        "grenade launcher":[
+            {
+                "name": "Ares Alpha, Grenade Launcher",
+                "acc": "4 (6)",
+                "dam": "Grenade",
+                "ap": "Grenade",
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "6(c)",
+                "availability": "-",
+                "cost": -2650
+            },
+            {
+                "name": "Ares Antioch-2",
+                "acc": "4 (6)",
+                "dam": "Grenade",
+                "ap": "Grenade",
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "8(m)",
+                "availability": "8F",
+                "cost": -3200
+            },
+            {
+                "name": "ArmTech MGL-12",
+                "acc": 4,
+                "dam": "Grenade",
+                "ap": "Grenade",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "12(c)",
+                "availability": "10F",
+                "cost": -5000
+            }
+        ],
+        "missile launcher":[
+            {
+                "name": "Aztechnology Striker",
+                "acc": 5,
+                "dam": "Missile",
+                "ap": "Missile",
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "2(ml)",
+                "availability": "10F",
+                "cost": -1200
+            },
+            {
+                "name": "Onotari Interceptor",
+                "acc": "4 (6)",
+                "dam": "Missile",
+                "ap": "Missile",
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "2(ml)",
+                "availability": "18F",
+                "cost": -14000
+            }
+        ],
+        "implant":[
+            {
+                "name": "Cyber Hold-Out Pistol",
+                "acc": "4 (6)",
+                "dam": "6P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "2(m)/6(c)",
+                "availability": "8R",
+                "cost": -2000
+            },
+            {
+                "name": "Cyber Machine Pistol",
+                "acc": "4 (6)",
+                "dam": "6P",
+                "ap": "-",
+                "mode": "SA/FA",
+                "RC": 1,
+                "ammo": "18(m)/32(c)",
+                "availability": "12R",
+                "cost": -3500
+            },
+            {
+                "name": "Cyber Microgrenade Launcher",
+                "acc": "4 (6)",
+                "dam": "Grenade",
+                "ap": "Grenade",
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "2(m)/6(c)",
+                "availability": "20F",
+                "cost": -30000
+            },
+            {
+                "name": "Cyber Shotgun",
+                "acc": "4 (6)",
+                "dam": "10P",
+                "ap": -1,
+                "mode": "SS",
+                "RC": "-",
+                "ammo": "4(m)/10(c)",
+                "availability": "12R",
+                "cost": -8500
+            },
+            {
+                "name": "Cyber Submachine Pistol",
+                "acc": "4 (6)",
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA/FA",
+                "RC": 2,
+                "ammo": "18(m)/32(c)",
+                "availability": "12R",
+                "cost": -4800
+            },
+            {
+                "name": "Heavy Cyber Pistol",
+                "acc": "4 (6)",
+                "dam": "7P",
+                "ap": -1,
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "8(m)/12(c)",
+                "availability": "12R",
+                "cost": -4300
+            },
+            {
+                "name": "Light Cyber Pistol",
+                "acc": "6 (8)",
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": "10(m)/15(c)",
+                "availability": "10R",
+                "cost": -3900
+            }
+        ]
+    }
+}
