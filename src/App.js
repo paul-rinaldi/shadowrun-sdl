@@ -3,7 +3,7 @@ import './CSS_Files/App.css';
 //import components
 import Overview from './Components/Overview.js'
 import Sidebar from './Components/Sidebar.js'
-import Header from './Components/Header.js'
+import Header from './Components/Header'
 import Skills from './Components/Skills'
 import KnowledgeSkills from "./Components/KnowledgeSkills";
 import logo from './Components/ComponentsImg/wizwormlogoblack.png'

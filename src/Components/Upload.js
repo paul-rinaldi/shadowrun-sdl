@@ -20,9 +20,11 @@ class Upload extends React.Component {
     </div>;
 
     return() {
-        return (<div>
-            {this.pressUpload}
-        </div>)
+        return (
+            <div>
+                {this.pressUpload}
+            </div>
+        )
     }
 }
 export default Upload;

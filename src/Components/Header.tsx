@@ -1,29 +1,33 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { isHeritageClause } from 'typescript';
 import '../CSS_Files/Header.css';
+import { ICharacter } from '../models/playerModels';
+import { IShadowRunState } from '../redux/PlayerReducer';
 
-class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        this.store = this.props.store;
-    }
 
+type IHeaderProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player
+});
+const mapDispatchToProps = {
+
+};
+
+class Header extends React.Component<IHeaderProps> {
     /**
      * Will not render the header if there is not a character to prevent 
      * the usage of a state in app.js
      */
     render() {
-        let page;
-
-        if(this.props.character === null || typeof this.props.character === 'undefined'){
-            page = this.unfilledHeader();
-        } else if(typeof this.props.character.gear === 'undefined'){
-            page = this.unfilledHeader();
-        } else {
-            page = this.header();
-        }
-        return(<div>
-            {page}
-        </div>)
+        const { character } = this.props;
+        return(
+            <div>
+                { (character === null || character === undefined) && this.unfilledHeader() }
+                { (character !== null && character !== undefined && character.gear === undefined) && this.unfilledHeader() }
+                { (character !== null && character !== undefined && character.gear !== undefined) && this.header(character) }
+            </div>
+        );
     }
 
     /**
@@ -41,80 +45,79 @@ class Header extends React.Component {
                 </table>
             </div>
         );
-
     }
 
     /**
      * Generates the header and all of the needed information
      */
-    header(){
-        let armor = this.getArmorVal();
+    header(character: ICharacter){
+        let armor = this.getArmorVal(character);
         return (
             <div className="headerdiv">
                 <table className="headertable">
                     <tbody>
                     <tr className="headertr">
-                        <td className="headertdatt" colSpan = "12">
-                            {this.props.character.name} the {this.props.character.metatype}
+                        <td className="headertdatt" colSpan = {12}>
+                            {character.name} the {character.metatype}
                         </td>
-                        <td className="headertd" colSpan="2">
+                        <td className="headertd" colSpan={2}>
                             Condition:
                         </td>
                         <td className="headertd">
-                            Init: {this.props.character.attributes.REA + this.props.character.attributes.INT}+{this.props.character.initiative.initDice}d6
+                            Init: {character.attributes.REA + character.attributes.INT}+{character.initiative.initDice}d6
                         </td>
                         <td className="headertd">
-                            Karma: {this.props.character.karma}
+                            Karma: {character.karma}
                         </td>
                     </tr>
                     <tr className="headertr">
                         <td className="headertdatt">
-                            BOD:{this.props.character.attributes.BOD}
+                            BOD:{character.attributes.BOD}
                         </td>
                         <td className="headertdatt">
-                            AGI:{this.props.character.attributes.AGI}
+                            AGI:{character.attributes.AGI}
                         </td>
                         <td className="headertdatt">
-                            REA:{this.props.character.attributes.REA}
+                            REA:{character.attributes.REA}
                         </td>
                         <td className="headertdatt">
-                            STR:{this.props.character.attributes.STR}
+                            STR:{character.attributes.STR}
                         </td>
                         <td className="headertdatt">
-                            WIL:{this.props.character.attributes.WIL}
+                            WIL:{character.attributes.WIL}
                         </td>
                         <td className="headertdatt">
-                           LOG:{this.props.character.attributes.LOG}
+                           LOG:{character.attributes.LOG}
                         </td>
                         <td className="headertdatt">
-                            INT:{this.props.character.attributes.INT}
+                            INT:{character.attributes.INT}
                         </td>
                         <td className="headertdatt">
-                            CHA:{this.props.character.attributes.CHA}
+                            CHA:{character.attributes.CHA}
                         </td>
                         <td className="headertdatt">
-                            MAG:{this.props.character.attributes.MAG}
+                            MAG:{character.attributes.MAG}
                         </td>
                         <td className="headertdatt">
-                            RES:{this.props.character.attributes.RES}
+                            RES:{character.attributes.RES}
                         </td>
                         <td className="headertdatt">
-                            EDG:{this.props.character.currentEdge}/{this.props.character.attributes.EDG}
+                            EDG:{character.currentEdge}/{character.attributes.EDG}
                         </td>
                         <td className="headertdatt">
-                            ESS:{this.props.character.attributes.ESS}
+                            ESS:{character.attributes.ESS}
                         </td>
                         <td className="headertd">
-                            Physical: 0/12({this.props.character.conditionMonitor.physical})
+                            Physical: 0/12({character.conditionMonitor.physical})
                         </td>
                         <td className="headertd">
-                            Stun: 0/8({this.props.character.conditionMonitor.stun})
+                            Stun: 0/8({character.conditionMonitor.stun})
                         </td>
                         <td className="headertd">
                             Armor: {armor}
                         </td>
                         <td className="headertd">
-                            ¥: {this.props.character.money}
+                            ¥: {character.money}
                         </td>
                     </tr>
                     </tbody>
@@ -128,16 +131,16 @@ class Header extends React.Component {
      * Updates the armor value as it is changed by gear.js as this is the
      * only location where the current armor value is shown
      */
-    getArmorVal(){
-        let armor = this.props.character.armor;
-        let gearListArmor = this.props.character.gear.armor;
+    getArmorVal(character: ICharacter){
+        let armor = character.armor;
+        let gearListArmor = character.gear.armor;
         for(let i = 0; i < gearListArmor.length; i++){
-            if(gearListArmor[i].equiped){
+            if(gearListArmor[i].equipped){
                 let rating = gearListArmor[i].rating;
                 if(typeof rating == "string"){
                     if(rating.includes('+')){
                         armor = armor + parseInt(rating);
-                    } else if(rating > armor){
+                    } else if(Number.parseInt(rating) > armor){
                         armor = parseInt(rating);
                     }
                 } else if(rating > armor){
@@ -151,4 +154,7 @@ class Header extends React.Component {
 
 }
 
-export default Header
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Header)
