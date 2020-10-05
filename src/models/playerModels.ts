@@ -67,6 +67,7 @@ export interface IGear {
 export interface IArmor {
     name: string;
     rating: string;
+    equipped: boolean;
 }
 
 export interface IRanged {
@@ -129,20 +130,6 @@ export interface ICyberDeck {
 export interface IProgram {
     pName: string;
     type: string;
-}
-
-export interface IArmor {
-    armor: IArmor[];
-    mele: IMeleWeapon[];
-    ranged: IRangedWeapon[];
-}
-
-export interface IArmor {
-    name: string;
-    capacity: number;
-    availability: number;
-    cost: number;
-    equipped: boolean;
 }
 
 export interface IWeapon {

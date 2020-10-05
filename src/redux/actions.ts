@@ -1,4 +1,4 @@
-import { CombinedCodeActions } from "typescript";
-import { ChangePlayerNameAction } from './playerActions'
+import { CharacterAction } from './playerActions'
+import { UploadAction } from "./uploadActions";
 
-export type Action = ChangePlayerNameAction;
+export type Action = CharacterAction | UploadAction;

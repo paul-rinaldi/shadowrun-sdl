@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { isHeritageClause } from 'typescript';
 import '../CSS_Files/Header.css';
 import { ICharacter } from '../models/playerModels';
-import { IShadowRunState } from '../redux/PlayerReducer';
+import { IShadowRunState } from '../redux/store';
 
 
 type IHeaderProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
