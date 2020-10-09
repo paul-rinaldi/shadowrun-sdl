@@ -1,7 +1,7 @@
 import React from 'react';
 import './CSS_Files/App.css';
 //import components
-import Overview from './Components/Overview.js'
+import Overview from './Components/Overview.tsx'
 import Sidebar from './Components/Sidebar.js'
 import Header from './Components/Header'
 import Skills from './Components/Skills'
@@ -452,7 +452,7 @@ export default class App extends React.Component {
                         )}/>
                         <Route path="/Overview" render={() => (
                             <div>
-                                <Overview character={this.state}/>
+                                <Overview />
                             </div>
                         )
                         }/>

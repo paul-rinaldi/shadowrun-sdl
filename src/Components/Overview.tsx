@@ -1,5 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import '../CSS_Files/Overview.css';
+import { IShadowRunState } from '../redux/store';
+
+
+type IOverviewProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player
+});
+const mapDispatchToProps = {
+
+};
 
 /**
  * @class represents a page which gives a general overview of the character for stats and information
@@ -9,18 +20,13 @@ import '../CSS_Files/Overview.css';
  * The basis of the page was to show information as the first page that was implemented.
  * It is formated after the character sheet found on page 108-109 in the player handbook
  */
-class Overview extends React.Component {
+class Overview extends React.Component<IOverviewProps> {
     render(){
-        let page;
-
         if(this.props.character === null || typeof this.props.character.name === 'undefined'){
-            page = <p>Overview Page is not loaded, please load a character</p>;
+            return (<p>Overview Page is not loaded, please load a character</p>);
         } else {
-            page = this.overviewPage();
+            return (this.overviewPage());
         }
-        return(<div>
-            {page}
-        </div>)
     }
     /**
      * Generates the different tables in pieces, allows the types to be removed and moved easily
@@ -95,7 +101,7 @@ class Overview extends React.Component {
                 <table  className="Overview" id="Attributes">
                     <tbody>
                         <tr className="Overview" >
-                            <td className="Overview" colSpan="3">Attributes</td>
+                            <td className="Overview" colSpan={3}>Attributes</td>
                         </tr>
                         <tr className="Overview" >
                             <td className="Overview" id="BOD">BOD: {this.props.character.attributes.BOD}</td>
@@ -150,7 +156,7 @@ class Overview extends React.Component {
                 <table  className="Overview" id="ID">
                     <tbody>
                         <tr className="Overview" >
-                            <td  className="Overview" colSpan="3">ID/Lifestyle/Currency</td>
+                            <td  className="Overview" colSpan={3}>ID/Lifestyle/Currency</td>
                         </tr>
                         <tr className="Overview" >
                             <td className="Overview" >ID's: {this.props.character.ID}</td>
@@ -174,7 +180,7 @@ class Overview extends React.Component {
                 <table className="Overview" id="Cyberdeck">
                     <tbody>
                         <tr className="Overview" >
-                            <td className="Overview" colSpan="3">Cyberdeck</td>
+                            <td className="Overview" colSpan={3}>Cyberdeck</td>
                         </tr>
                     <tr className="Overview" >
                             <td className="Overview">Model: {this.props.character.cyberdeck.model}</td>
@@ -187,10 +193,10 @@ class Overview extends React.Component {
                             <td className="Overview">Firewall:  {this.props.character.cyberdeck.firewall}</td>
                         </tr>
                         <tr className="Overview" >
-                            <td className="Overview" colSpan="3">Matrix Condition Monitor:  {this.props.character.cyberdeck.condition}</td>
+                            <td className="Overview" colSpan={3}>Matrix Condition Monitor:  {this.props.character.cyberdeck.condition}</td>
                         </tr>
                         <tr className="Overview" >
-                            <td className="Overview" colSpan="3">
+                            <td className="Overview" colSpan={3}>
                                 Program Name: {this.props.character.cyberdeck.programs[0].pName} Type: {this.props.character.cyberdeck.programs[0].type}
                                 <br/>
                                 Program Name: {this.props.character.cyberdeck.programs[1].pName} Type: {this.props.character.cyberdeck.programs[1].type}
@@ -242,7 +248,7 @@ class Overview extends React.Component {
                         <table className="Overview" id="Stun">
                             <tbody>
                                 <tr className="Overview" >
-                                    <td  className="Overview" colSpan="3">Stun Damage Tracker</td>
+                                    <td  className="Overview" colSpan={3}>Stun Damage Tracker</td>
                                 </tr>
                                 <tr className="Overview" >
                                     <td className="Overview" />
@@ -272,7 +278,7 @@ class Overview extends React.Component {
                         <table className="Overview" id="Physical">
                             <tbody>
                                 <tr className="Overview" >
-                                    <td  className="Overview" colSpan="3">Physical Damage Tracker</td>
+                                    <td  className="Overview" colSpan={3}>Physical Damage Tracker</td>
                                 </tr>
                                 <tr className="Overview" >
                                     <td className="Overview" />
@@ -320,7 +326,7 @@ class Overview extends React.Component {
                 <table className="Overview" id="RitPrepRitComplex">
                     <tbody>
                         <tr className="Overview" >
-                            <td className="Overview" colSpan="2">Spells/Preparations/Rituals/Complex Forms</td>
+                            <td className="Overview" colSpan={2}>Spells/Preparations/Rituals/Complex Forms</td>
                         </tr>
                         <tr className="Overview" >
                             <td className="Overview">Spells: {this.props.character.RitPrepRitComplex.spells}</td>
@@ -342,4 +348,7 @@ class Overview extends React.Component {
 
 }
 
-export default Overview;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Overview);
