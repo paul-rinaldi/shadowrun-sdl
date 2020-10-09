@@ -2,7 +2,7 @@ import React from 'react';
 import './CSS_Files/App.css';
 //import components
 import Overview from './Components/Overview.tsx'
-import Sidebar from './Components/Sidebar.tsx'
+import Sidebar from './Components/Sidebar'
 import Header from './Components/Header'
 import Skills from './Components/Skills'
 import KnowledgeSkills from "./Components/KnowledgeSkills";

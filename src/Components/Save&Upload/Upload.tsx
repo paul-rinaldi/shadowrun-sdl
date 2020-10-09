@@ -1,11 +1,10 @@
 import React, { FormEvent } from "react";
-import FormFileInput from "react-bootstrap/FormFileInput";
 import { connect } from "react-redux";
-import { InputFiles } from "typescript";
-import { IShadowRunState } from "../redux/store";
-import { showFileChooser, uploadPlayerJSON } from "../redux/uploadActions";
-import { ICharacter } from '../models/playerModels';
-import { uploadCharacter } from "../redux/playerActions";
+import { IShadowRunState } from "../../redux/store";
+import { showFileChooser, uploadPlayerJSON } from "../../redux/uploadActions";
+import { ICharacter } from '../../models/playerModels';
+import { uploadCharacter } from "../../redux/playerActions";
+import '../Save&Upload/upload&save.css'
 
 type IUploadProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -23,7 +22,7 @@ class Upload extends React.Component<IUploadProps> {
     render() {
         const { choosingFile, fileRef }  = this.props;
         return(
-            <div>
+            <div className={'uploadSave'}>
                 <button onClick={this.showFileChooser}>Load Character</button>
                 <input type="file" ref={fileRef} style={{display: 'none'}} accept='json' onChange={this.uploadFile}/>
             </div>

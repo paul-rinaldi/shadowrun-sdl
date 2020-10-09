@@ -3,7 +3,7 @@ import '../CSS_Files/Sidebar.css'
 import logo from './ComponentsImg/wizwormlogowhite.png'
 import {Link} from "react-router-dom";
 import Save from "./Save&Upload/Save";
-import Upload from './Upload';
+import Upload from './Save&Upload/Upload';
 
 /**
  * Class for the Sidebar of the site. It contains buttons with links to every page. An associated Route must be added to
