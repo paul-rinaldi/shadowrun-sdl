@@ -5,13 +5,10 @@ import { ICharacter } from '../models/playerModels';
 import { IShadowRunState } from '../redux/store';
 
 
-type IHeaderProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+type IHeaderProps = ReturnType<typeof mapStateToProps>;
 const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player
 });
-const mapDispatchToProps = {
-
-};
 
 class Header extends React.Component<IHeaderProps> {
     /**
@@ -154,6 +151,5 @@ class Header extends React.Component<IHeaderProps> {
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(Header)

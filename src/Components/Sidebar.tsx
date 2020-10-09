@@ -9,7 +9,7 @@ import Upload from './Upload';
  * Class for the Sidebar of the site. It contains buttons with links to every page. An associated Route must be added to
  * the Router in App for the link buttons to actually change the page contents.
  */
-class Sidebar extends React.Component{
+class Sidebar extends React.Component {
     render(){
         return <div className={'sidebar'}>
             <Link to="/">
@@ -25,8 +25,8 @@ class Sidebar extends React.Component{
             {makeButton('Gear')}
             {makeButton('Log')}
             {makeButton('Action')}
-            <Save save={this.props.save}/>
-            <Upload upload={this.props.upload}/>
+            <Save />
+            <Upload />
         </div>
     }
 }
@@ -36,7 +36,7 @@ class Sidebar extends React.Component{
  * @param labelText The text displayed on the button and the route navigated to when the button is clicked.
  * @returns A button which links to the route specified in the label.
  */
-function makeButton(labelText) {
+function makeButton(labelText: string) {
     return <Link to={'/' + labelText}>
         <h1 className={'sidebarLink'}>
             {labelText}

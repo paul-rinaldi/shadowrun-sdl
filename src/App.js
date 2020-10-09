@@ -2,7 +2,7 @@ import React from 'react';
 import './CSS_Files/App.css';
 //import components
 import Overview from './Components/Overview.tsx'
-import Sidebar from './Components/Sidebar.js'
+import Sidebar from './Components/Sidebar.tsx'
 import Header from './Components/Header'
 import Skills from './Components/Skills'
 import KnowledgeSkills from "./Components/KnowledgeSkills";
@@ -38,7 +38,6 @@ export default class App extends React.Component {
 
         //binding the upload and download so they can be components
         //located in components -> Save&Upload
-        this.download = this.download.bind(this );
         this.upload = this.upload.bind(this);
 
         this.adjustKarma = this.adjustKarma.bind(this);
@@ -378,39 +377,6 @@ export default class App extends React.Component {
         );
     }
 
-
-
-
-    /**
-     * gets the state and makes it into a downloaded json same as the deafault with evey thing filled in
-     */
-    download(){
-        //doint do anything if its not there
-        if(!this.state || this.state.name === ""){
-            alert("There was an error while uploading your character");
-        }else {
-            //set name
-            let filename = this.state.name + ".json";
-            //type
-            let contentType = "application/json;charset=utf-8;";
-            //opens a save dialog
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                const blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(this.state)))], {type: contentType});
-                navigator.msSaveOrOpenBlob(blob, filename);
-            } else {
-                //saves
-                const a = document.createElement('a');
-                a.download = filename;
-                a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(this.state));
-                a.target = '_blank';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
-        }
-
-    }
-
     /**
      * Creates the credits section of the landing page.
      */
@@ -435,7 +401,7 @@ export default class App extends React.Component {
                     <input type={'file'} ref={this.inputRef} onChange={(e) => this.handleFileChosen(e)} style={{display: 'none'}}/>
 
                     <Header character={this.state}/>
-                    <Sidebar save={this.download} upload={this.upload}/>
+                    <Sidebar />
                     <div className='App-container'>
                         <Route exact path="/" render={() => (
                             <div>
