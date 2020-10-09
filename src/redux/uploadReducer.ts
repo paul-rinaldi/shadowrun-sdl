@@ -8,7 +8,7 @@ export const uploadReducer = (state: IUploadModel = initialState, action: Upload
                 ...state,
                 choosingFile: action.payload
             }
-        case "UPLOAD_PLAYER":
+        case "UPLOAD_PLAYER_JSON":
             return {
                 ...state,
                 playerJSON: action.payload

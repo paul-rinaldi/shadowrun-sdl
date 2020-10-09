@@ -134,7 +134,7 @@ class Header extends React.Component<IHeaderProps> {
         let armor = character.armor;
         let gearListArmor = character.gear.armor;
         for(let i = 0; i < gearListArmor.length; i++){
-            if(gearListArmor[i].equipped){
+            if(gearListArmor[i].equiped){
                 let rating = gearListArmor[i].rating;
                 if(typeof rating == "string"){
                     if(rating.includes('+')){

@@ -5,6 +5,7 @@ import { InputFiles } from "typescript";
 import { IShadowRunState } from "../redux/store";
 import { showFileChooser, uploadPlayerJSON } from "../redux/uploadActions";
 import { ICharacter } from '../models/playerModels';
+import { uploadCharacter } from "../redux/playerActions";
 
 type IUploadProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -12,7 +13,9 @@ const mapStateToProps = (state: IShadowRunState) => ({
     fileRef: React.createRef<HTMLInputElement>()
 });
 const mapDispatchToProps = {
-    onShow: showFileChooser
+    onShow: showFileChooser,
+    uploadPlayerJSON,
+    uploadCharacter
 };
 
 
@@ -35,6 +38,7 @@ class Upload extends React.Component<IUploadProps> {
 
     uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
+        const { uploadPlayerJSON, uploadCharacter } = this.props;
         reader.onload = (event) => {
             try {
                 if (!event.target?.result || typeof(event.target.result) !== "string")
@@ -42,10 +46,10 @@ class Upload extends React.Component<IUploadProps> {
                 let characterData = JSON.parse(event.target.result);
                 const characterObject = characterData as ICharacter;
                 if (this.isValidCharacter(characterObject)) {
-                    uploadPlayerJSON(characterData);
+                    uploadCharacter(characterObject);
+                } else {
+                    alert("The JSON file does not contain all valid properties.");
                 }
-
-                uploadPlayerJSON(characterData);
             } catch (e) {
                 alert("There was an error loading the file." + e);
             }

@@ -1,160 +1,257 @@
-export interface ICharacter {
-    name: string;
-    metatype: string;
-    money: number;
-    karma: number;
-    currentEdge: number;
-    conditionMonitor: IConditionMonitor;
-    personal: string;
-    attributes: IAttributeList
-    img: string;
-    initiative: IInitiative;
-    armor: number;
-    lifestyle: string;
-    ID: string;
-    coreCombat: {
-        armor: IArmor;
-        ranged: IRanged;
-        mele: IMele;
-    }
-    skills: {
-        combat: ISkill[];
-        physical: ISkill[];
-        social: ISkill[];
-        magical: ISkill[];
-        resonance: ISkill[];
-        technical: ISkill[];  
-        vehicle: ISkill[];
-    }
-    qualities: IQuality[];
-    augmentations: IAugmentation[];
-    RitPrepRitComplex: IRitPrepRitComplex;
-    cyberdeck: ICyberDeck;
-    gear: IGear;
-    log: ILog[];
-}
-
-export interface IConditionMonitor {
+export interface ConditionMonitor {
     stun: number;
     physical: number;
 }
 
-export interface IAttributeList {
+export interface Attributes {
     BOD: number;
     AGI: number;
     REA: number;
     STR: number;
-    WIL: number,
-    LOG: number,
-    INT: number,
-    CHA: number,
-    EDG: number,
-    ESS: number,
-    MAG: number,
-    RES: number
+    WIL: number;
+    LOG: number;
+    INT: number;
+    CHA: number;
+    EDG: number;
+    ESS: number;
+    MAG: number;
+    RES: number;
 }
 
-export interface IInitiative {
+export interface Initiative {
     initDice: number;
 }
 
-export interface IGear {
-    armor: IArmor[];
-    mele: IMeleWeapon[];
-    ranged: IRangedWeapon[];
-}
-
-export interface IArmor {
-    name: string;
-    rating: string;
-    equipped: boolean;
-}
-
-export interface IRanged {
-    name: string;
-    dam: string;
-    acc: number;
-    AP: string;
-    mode: string;
-    RC: number;
-    ammo: number;
-}
-
-export interface IMele {
-    name: string;
-    reach: number;
-    dam: string;
-    acc: number;
-    ap: number;
-}
-
-export interface ISkill {
+export interface Combat {
     name: string;
     rating: number;
     attribute: string;
     default: string;
     group: string;
     specialization: string;
+    limit: string;
 }
 
-export interface IQuality {
+export interface Physical {
+    name: string;
+    rating: number;
+    attribute: string;
+    default: string;
+    group: string;
+    specialization: string;
+    limit: string;
+}
+
+export interface Social {
+    name: string;
+    rating: number;
+    attribute: string;
+    default: string;
+    group: string;
+    specialization: string;
+    limit: string;
+}
+
+export interface Magical {
+    name: string;
+    rating: number;
+    attribute: string;
+    default: string;
+    group: string;
+    specialization: string;
+    limit: string;
+}
+
+export interface Resonance {
+    name: string;
+    rating: number;
+    attribute: string;
+    default: string;
+    group: string;
+    specialization: string;
+    limit: string;
+}
+
+export interface Technical {
+    name: string;
+    rating: number;
+    attribute: string;
+    default: string;
+    group: string;
+    specialization: string;
+    limit: string;
+}
+
+export interface Vehicle {
+    name: string;
+    rating: number;
+    attribute: string;
+    default: string;
+    group: string;
+    specialization: string;
+    limit: string;
+}
+
+export interface Skills {
+    combat: Combat[];
+    physical: Physical[];
+    social: Social[];
+    magical: Magical[];
+    resonance: Resonance[];
+    technical: Technical[];
+    vehicle: Vehicle[];
+}
+
+export interface Street {
+    name: string;
+    rating: number;
+    attribute: string;
+    specialization: string;
+}
+
+export interface Academic {
+    name: string;
+    rating: number;
+    attribute: string;
+    specialization: string;
+}
+
+export interface Professional {
+    name: string;
+    rating: number;
+    attribute: string;
+    specialization: string;
+}
+
+export interface Interest {
+    name: string;
+    rating: number;
+    attribute: string;
+    specialization: string;
+}
+
+export interface KnowledgeSkills {
+    street: Street[];
+    academic: Academic[];
+    professional: Professional[];
+    interests: Interest[];
+}
+
+export interface Positive {
     qName: string;
+    karma: number;
+    rating: number;
+    max: number;
     notes: string;
-    type: string;
 }
 
-export interface IAugmentation {
+export interface Negative {
+    qName: string;
+    karma: number;
+    rating: number;
+    max: number;
+    notes: string;
+}
+
+export interface Qualities {
+    positive: Positive[];
+    negative: Negative[];
+}
+
+export interface Augmentation {
     aName: string;
-    rading: number;
+    rating: any;
     notes: string;
     essence: number;
 }
 
-export interface IRitPrepRitComplex {
+export interface RitPrepRitComplex {
     spells: string;
     complexForms: string;
     sprites: string;
 }
 
-export interface ICyberDeck {
-    model: string;
-    attack: number;
-    sleaze: number;
-    deviceRating: number;
-    dataProcesing: number;
-    firewall: number;
-    programs: IProgram[];
-    condition: number;
-};
-
-export interface IProgram {
+export interface Program {
     pName: string;
     type: string;
 }
 
-export interface IWeapon {
+export interface Cyberdeck {
+    model: string;
+    attack: number;
+    sleaze: number;
+    deviceRating: number;
+    dataProcessing: string;
+    firewall: number;
+    programs: Program[];
+    condition: number;
+}
+
+export interface Armor {
+    name: string;
+    rating: number | string;
+    capacity: number;
+    availability: number;
+    cost: number;
+    equiped: boolean;
+}
+
+export interface Melee {
     name: string;
     acc: number;
+    reach: number;
     dam: string;
     ap: number;
     availability: string;
     cost: number;
-}
-
-export interface IMeleWeapon extends IWeapon {
-    reach: number;
     skill: string;
 }
 
-export interface IRangedWeapon extends IWeapon {
+export interface Ranged {
+    name: string;
+    acc: string;
+    dam: string;
+    ap: string;
     mode: string;
     RC: number;
     ammo: string;
+    availability: string;
+    cost: number;
 }
 
-export interface ILog {
+export interface Gear {
+    armor: Armor[];
+    melee: Melee[];
+    ranged: Ranged[];
+}
+
+export interface Log {
     adjustment: number;
     reason: string;
     reasonType: string;
-    time: string;
+    time: Date;
+}
+
+export interface ICharacter {
+    name: string;
+    metatype: string;
+    money: number;
+    karma: number;
+    currentEdge: number;
+    conditionMonitor: ConditionMonitor;
+    personal: string;
+    attributes: Attributes;
+    img: string;
+    initiative: Initiative;
+    armor: number;
+    lifestyle: string;
+    ID: string;
+    skills: Skills;
+    knowledgeSkills: KnowledgeSkills;
+    qualities: Qualities;
+    augmentations: Augmentation[];
+    RitPrepRitComplex: RitPrepRitComplex;
+    cyberdeck: Cyberdeck;
+    gear: Gear;
+    log: Log[];
 }
