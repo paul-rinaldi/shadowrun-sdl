@@ -22,27 +22,7 @@ export interface Initiative {
     initDice: number;
 }
 
-export interface Combat {
-    name: string;
-    rating: number;
-    attribute: string;
-    default: string;
-    group: string;
-    specialization: string;
-    limit: string;
-}
-
-export interface Physical {
-    name: string;
-    rating: number;
-    attribute: string;
-    default: string;
-    group: string;
-    specialization: string;
-    limit: string;
-}
-
-export interface Social {
+export interface ISkill {
     name: string;
     rating: number;
     attribute: string;
@@ -93,9 +73,9 @@ export interface Vehicle {
 }
 
 export interface Skills {
-    combat: Combat[];
-    physical: Physical[];
-    social: Social[];
+    combat: ISkill[];
+    physical: ISkill[];
+    social: ISkill[];
     magical: Magical[];
     resonance: Resonance[];
     technical: Technical[];
@@ -198,7 +178,7 @@ export interface Armor {
 
 export interface Melee {
     name: string;
-    acc: number;
+    acc: string;
     reach: number;
     dam: string;
     ap: number;

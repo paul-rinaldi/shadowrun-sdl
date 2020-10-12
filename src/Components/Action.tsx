@@ -1,6 +1,26 @@
 import React from 'react';
 import '../CSS_Files/Action.css';
-import Select from 'react-select';
+import Select, { ValueType } from 'react-select';
+import { IShadowRunState } from '../redux/store';
+import Attributes from './Attributes';
+import { Melee } from '../models/playerModels';
+
+type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player
+});
+const mapDispatchToProps = {
+};
+
+interface IActionState {
+    testVariables: any[] | null;
+    testValues: any[] | null;
+    mentalLimit: number | null;
+    physicalLimit: number | null;
+    socialLimit: number | null;
+}
+
+interface WeaponLabelOption {weapon: Melee; label: string};
 
 //Note: There are tons of actions in Shadowrun. The Action page focuses specifically on the actions that require dice
 //rolls, like using skills or attacking with weapons.
@@ -15,21 +35,19 @@ import Select from 'react-select';
  * dropdowns from which the player can choose different actions to perform. When the player chooses an action, the site
  * will display the relevant variables and values used for the test associated with that action.
  */
-class Action extends React.Component {
-    constructor(props) {
+class Action extends React.Component<IActionProps, IActionState> {
+    constructor(props: IActionProps) {
         super(props);
 
         this.state = {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
             testValues: null,    //An array of the value equation to display. Ex: [7, '+', 3, '=', 10]
+            mentalLimit: null,
+            physicalLimit: null,
+            socialLimit: null
         };
     }
-
-    //global vars
-    mentalLimit;
-    physicalLimit;
-    socialLimit;
 
     /**
      * Calculates the mental/physical/social limit
@@ -37,7 +55,7 @@ class Action extends React.Component {
      * @param {int} IBW Mental:INT  Physical:BOD  Social:WIL
      * @param {int} WRE Mental:WIS  Physical:REA  Social:ESS
      */
-    limitCalculation(LSC, IBW, WRE) {
+    limitCalculation(LSC: number, IBW: number, WRE: number) {
         return Math.ceil(((LSC * 2) + IBW + WRE) / 3);
     }
 
@@ -47,58 +65,38 @@ class Action extends React.Component {
      * @param type A string of the limit type to create a row for (Physical, Mental, or Social).
      * @returns A table row containing the limit name, the calculation for the limit, and the limit value.
      */
-    limitRow(type) {
-        const attributes = this.props.character.attributes;
-        let att1;
-        let att2;
-        let att3;
-
+    limitRow(type: string) {
+        const { character: { attributes} } = this.props;
+        let limit;
+        let attrStrings, attrValStrings;
         switch (type) {
             case 'Mental':
-                att1 = 'LOG';
-                att2 = 'INT';
-                att3 = 'WIL';
+                attrStrings = ['LOG', 'INT', 'WIL'];
+                attrValStrings = [attributes.LOG, attributes.INT, attributes.WIL];
+                limit = this.limitCalculation(attributes.LOG, attributes.INT, attributes.WIL);
+                this.setState({mentalLimit: limit});
                 break;
-
             case 'Physical':
-                att1 = 'STR';
-                att2 = 'BOD';
-                att3 = 'REA';
+                attrStrings = ['STR', 'BOD', 'REA'];
+                attrValStrings = [attributes.STR, attributes.BOD, attributes.REA];
+                limit = this.limitCalculation(attributes.STR, attributes.BOD, attributes.REA);
+                this.setState({physicalLimit: limit});
                 break;
-
             case 'Social':
-                att1 = 'CHA';
-                att2 = 'WIL';
-                att3 = 'ESS';
+                attrStrings = ['CHA', 'WIL', 'ESS'];
+                attrValStrings = [attributes.CHA, attributes.WIL, attributes.ESS];
+                limit = this.limitCalculation(attributes.CHA, attributes.WIL, attributes.ESS);
+                this.setState({socialLimit: limit});
                 break;
-
             default:
+                attrStrings = ['Uknown', 'Uknown', 'Uknown'];
+                attrValStrings = ['Uknown', 'Uknown', 'Uknown'];
                 console.log('ERROR: Unknown limit type row requested.');
                 break;
         }
 
-        const limit = this.limitCalculation(attributes[att1], attributes[att2], attributes[att3]);
-
-        switch (type) {
-            case 'Mental':
-                this.mentalLimit = limit;
-                break;
-
-            case 'Physical':
-                this.physicalLimit = limit;
-                break;
-
-            case 'Social':
-                this.socialLimit = limit;
-                break;
-
-            default:
-                console.log('ERROR: Unknown limit type row requested.');
-                break;
-        }
-
-        const calcVars = ['[(', <b>{att1}</b>, 'x 2) +', <b>{att2}</b>, '+', <b>{att3}</b>, '] / 3 (round up)'];
-        const calcVals = ['[(', <b>{attributes[att1]}</b>, 'x 2) +', <b>{attributes[att2]}</b>, '+', <b>{attributes[att3]}</b>, '] / 3 (round up)'];
+        const calcVars = ['[(', <b>{attrStrings[0]}</b>, 'x 2) +', <b>{attrStrings[1]}</b>, '+', <b>{attrStrings[2]}</b>, '] / 3 (round up)'];
+        const calcVals = ['[(', <b>{attrValStrings[0]}</b>, 'x 2) +', <b>{attrValStrings[1]}</b>, '+', <b>{attrValStrings[2]}</b>, '] / 3 (round up)'];
 
         const calcTable = <table>
             <tbody>
@@ -125,17 +123,19 @@ class Action extends React.Component {
      * @param val The object from the skills dropdown containing the skill information.
      */
     showSkillTest(val) {
+        const { character } = this.props;
+        const { physicalLimit, socialLimit, mentalLimit } = this.state;
         const skill = val.skill;
-        const attValue = this.props.character.attributes[skill.attribute.toUpperCase()];
+        const attValue = character.attributes[skill.attribute.toUpperCase()];
         let result = skill.rating + attValue;
         let limitType = skill.limit;
         let limitVal;
         if (limitType === 'Physical') {
-            limitVal = this.physicalLimit;
+            limitVal = physicalLimit;
         } else if (limitType === 'Social') {
-            limitVal = this.socialLimit;
+            limitVal = socialLimit;
         } else {
-            limitVal = this.mentalLimit;
+            limitVal = mentalLimit;
         }
 
 
@@ -164,8 +164,10 @@ class Action extends React.Component {
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showWeaponTest(val) {
-        const weapon = val.weapon;
+    showWeaponTest = (val: ValueType<WeaponLabelOption>) => {
+        if (val == undefined || val == undefined)
+            return;
+        const weapon = (val as WeaponLabelOption).weapon;
         const accValue = Number(weapon.acc);
         const foundSkills = this.props.character.skills.combat.filter((skill => skill.name.toLowerCase() === weapon.skill.toLowerCase()));
         let skill = undefined;
@@ -174,19 +176,21 @@ class Action extends React.Component {
         const testVariables = [];
         const testValues = [];
 
+        const {physicalLimit, mentalLimit, socialLimit} = this.state;
+
         //Check if the weapon accuracy is an inherent limit
         switch (weapon.acc) {
             case 'Physical':
                 testVariables.push('[Physical]');
-                testValues.push(`[${this.physicalLimit}]`);
+                testValues.push(`[${physicalLimit}]`);
                 break;
             case 'Mental':
                 testVariables.push('[Mental]');
-                testValues.push(`[${this.mentalLimit}]`);
+                testValues.push(`[${mentalLimit}]`);
                 break;
             case 'Social':
                 testVariables.push('[Social]');
-                testValues.push(`[${this.socialLimit}]`);
+                testValues.push(`[${socialLimit}]`);
                 break;
             default:
                 testVariables.push('[Weapon Acc.]');
@@ -197,15 +201,16 @@ class Action extends React.Component {
                 }
         }
 
+        const { character } = this.props;
         //Check if the character has the associated weapon skill
         if(foundSkills.length > 0){
             skill = foundSkills[0];
-            attribute = this.props.character.attributes[skill.attribute.toUpperCase()];
+            attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
         }
 
         //If the character has the skill, show the skill value and the attribute.
         if(skill !== undefined && attribute !== undefined){
-            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+            testVariables.unshift(skill.name, '+', <b>${skill.attribute}</b>);
             testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
             testValues.push('=', skill.rating + attribute);
         } else {
@@ -218,6 +223,24 @@ class Action extends React.Component {
             testVariables: testVariables,
             testValues: testValues
         });
+    }
+
+    getCharacterAttribute = (capitalizedName: string) => {
+        const { character: { attributes } } = this.props;
+        switch(capitalizedName) {
+            case "AGI": return attributes.AGI;
+            case "BOD": return attributes.BOD;
+            case "CHA": return attributes.CHA;
+            case "EDG": return attributes.EDG;
+            case "ESS": return attributes.ESS;
+            case "INT": return attributes.INT;
+            case "LOG": return attributes.LOG;
+            case "MAG": return attributes.MAG;
+            case "REA": return attributes.REA;
+            case "RES": return attributes.RES;
+            case "STR": return attributes.STR;
+            case "WIL": return attributes.WIL;
+        }
     }
 
     /**
@@ -289,9 +312,10 @@ class Action extends React.Component {
      */
     allSkillsDropdown() {
         const options = [];
+        const { character } = this.props;
 
-        for (const skillType in this.props.character.skills) {
-            this.props.character.skills[skillType].forEach(skill => {
+        for (const skillType in character.skills) {
+            character.skills[skillType].forEach(skill => {
                 options.push({
                     skill: skill,
                     label: `${skill.name} (${skill.rating})`,
@@ -322,9 +346,10 @@ class Action extends React.Component {
      * @returns A dropdown of all the character's melee weapons.
      */
     meleeWeaponsDropdown(){
-        const options = [];
+        const { character } = this.props;
+        const options: WeaponLabelOption[] = [];
 
-        for (const weapon of this.props.character.gear.melee) {
+        for (const weapon of character.gear.melee) {
             options.push({
                 weapon: weapon,
                 label: `${weapon.name} (Acc: ${weapon.acc}, DV: ${weapon.dam}, AP: ${weapon.ap})`,
@@ -333,7 +358,7 @@ class Action extends React.Component {
 
         return <div className={'Action'} id={'meleeWeaponSelector'}><Select
             options={options}
-            onChange={val => this.showWeaponTest(val)}
+            onChange={this.showWeaponTest}
         /></div>
     }
 
@@ -343,14 +368,15 @@ class Action extends React.Component {
      * @returns A table of the test variables and values, displaying the test calculation.
      */
     testDisplay() {
-        if (this.state.testVariables !== null && this.state.testValues !== null) {
+        const { testValues, testVariables } = this.state;
+        if (testVariables !== null && testValues !== null) {
             return <table className={'testResult'}>
                 <tbody>
                 <tr>
-                    {this.state.testVariables.map((part, index) => <td key={index}>{part}</td>)}
+                    {testVariables.map((part, index) => <td key={index}>{part}</td>)}
                 </tr>
                 <tr>
-                    {this.state.testValues.map((part, index) => <td key={index}>{part}</td>)}
+                    {testValues.map((part, index) => <td key={index}>{part}</td>)}
                 </tr>
                 </tbody>
             </table>
@@ -386,7 +412,8 @@ class Action extends React.Component {
      * loaded.
      */
     render() {
-        if (this.props.character === null || this.props.character.skills === undefined) {
+        const { character } = this.props;
+        if (character === null || character.skills === undefined) {
             return <p>Needed properties missing from character file or no character loaded.</p>
         } else {
             return (
