@@ -2,8 +2,10 @@ import React from 'react';
 import '../CSS_Files/Action.css';
 import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from '../redux/store';
-import Attributes from './Attributes';
 import { Melee } from '../models/playerModels';
+import { ISkill } from "../models/playerModels";
+import { connect } from 'react-redux';
+import Attributes from './Attributes';
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -21,6 +23,7 @@ interface IActionState {
 }
 
 interface WeaponLabelOption {weapon: Melee; label: string};
+interface SelectSkill { skill: ISkill; label: string; limit: string; specialization?: string; }
 
 //Note: There are tons of actions in Shadowrun. The Action page focuses specifically on the actions that require dice
 //rolls, like using skills or attacking with weapons.
@@ -122,11 +125,13 @@ class Action extends React.Component<IActionProps, IActionState> {
      * containing the associated values of each.
      * @param val The object from the skills dropdown containing the skill information.
      */
-    showSkillTest(val) {
+    showSkillTest(val: ValueType<SelectSkill>) {
+        if (val === undefined || val === null)
+            return;
         const { character } = this.props;
         const { physicalLimit, socialLimit, mentalLimit } = this.state;
-        const skill = val.skill;
-        const attValue = character.attributes[skill.attribute.toUpperCase()];
+        const skill = (val as SelectSkill).skill;
+        const attValue = this.getCharacterAttribute(skill.attribute.toUpperCase());
         let result = skill.rating + attValue;
         let limitType = skill.limit;
         let limitVal;
@@ -140,7 +145,7 @@ class Action extends React.Component<IActionProps, IActionState> {
 
 
         //Adjust the test display and result value if the used skill has a specialization
-        if (val.specialization !== undefined) {
+        if ((val as SelectSkill).specialization) {
             result += 2; //Add specialization bonus
 
             //These arrays will be rendered in a table so the variables and values line up
@@ -165,7 +170,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @param val The object from the weapons dropdown containing the weapon information.
      */
     showWeaponTest = (val: ValueType<WeaponLabelOption>) => {
-        if (val == undefined || val == undefined)
+        if (val === undefined || val === null)
             return;
         const weapon = (val as WeaponLabelOption).weapon;
         const accValue = Number(weapon.acc);
@@ -240,6 +245,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             case "RES": return attributes.RES;
             case "STR": return attributes.STR;
             case "WIL": return attributes.WIL;
+            default: return 0;
         }
     }
 
@@ -275,10 +281,13 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @param attr2 The second attribute in the calculation.
      * @returns A div showing the test calculation.
      */
-    attrTest(attr1, attr2) {
+    attrTest(attr1: string, attr2: string) {
+        const attr1String = attr1.toUpperCase();
+        const attr2String = attr2.toUpperCase();
+        const sum = this.getCharacterAttribute(attr1String) + this.getCharacterAttribute(attr2String);
         return (
             <div>
-                <b>{this.props.character.attributes[attr1]}</b> + <b>{this.props.character.attributes[attr2]}</b> = {this.props.character.attributes[attr1] + this.props.character.attributes[attr2]}
+                <b>{attr1String}</b> + <b>{attr2String}</b> = {sum}
             </div>
         );
     }
@@ -311,33 +320,40 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns A dropdown of all the character's active skills.
      */
     allSkillsDropdown() {
-        const options = [];
-        const { character } = this.props;
+        const options: SelectSkill[] = [];
+        const { skills } = this.props.character;
 
-        for (const skillType in character.skills) {
-            character.skills[skillType].forEach(skill => {
-                options.push({
-                    skill: skill,
-                    label: `${skill.name} (${skill.rating})`,
-                    limit: skill.limit
-                });
-
-                //Add another entry if the character has a specialization
-                if (skill.specialization !== '') {
-                    options.push({
-                        specialization: skill.specialization,
-                        skill: skill,
-                        label: `${skill.name} {${skill.specialization}} (${skill.rating + 2})`,
-                        limit: skill.limit
-                    })
-                }
-            });
-        }
+        const { combat, physical, social, magical, resonance, technical, vehicle } = skills;
+        this.pushSkilOptions(combat, options);
+        this.pushSkilOptions(physical, options);
+        this.pushSkilOptions(social, options);
+        this.pushSkilOptions(magical, options);
+        this.pushSkilOptions(resonance, options);
+        this.pushSkilOptions(technical, options);
+        this.pushSkilOptions(vehicle, options);
 
         return <div className={'Action'} id={'allSkillsSelector'}><Select
             options={options}
             onChange={val => this.showSkillTest(val)}
         /></div>
+    }
+
+    private pushSkilOptions(skillCategory: ISkill[], options: SelectSkill[]): void {
+        skillCategory.forEach(skillValue => {
+            options.push({
+                skill: skillValue,
+                label: `${skillValue.name} {${skillValue.specialization}} (${skillValue.rating + 2})`,
+                limit: skillValue.limit
+            });
+            if (skillValue.specialization) {
+                options.push({
+                    skill: skillValue,
+                    label: `${skillValue.name} {${skillValue.specialization}} (${skillValue.rating + 2})`,
+                    limit: skillValue.limit,
+                    specialization: skillValue.specialization
+                });
+            }
+        });
     }
 
     /**
@@ -429,4 +445,7 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 }
 
-export default Action;
+export default connect(
+mapStateToProps,
+mapDispatchToProps)
+(Attributes);

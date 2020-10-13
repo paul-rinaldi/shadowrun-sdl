@@ -20,7 +20,7 @@ const mapDispatchToProps = {
 
 class Upload extends React.Component<IUploadProps> {
     render() {
-        const { choosingFile, fileRef }  = this.props;
+        const { choosingFile, fileRef } = this.props;
         return(
             <div className={'uploadSave'}>
                 <button onClick={this.showFileChooser}>Load Character</button>
@@ -63,7 +63,7 @@ class Upload extends React.Component<IUploadProps> {
     }
 
     isValidCharacter = (character: ICharacter) => {
-        return true;
+        return true; // TODO: Validate
     }
 
 }

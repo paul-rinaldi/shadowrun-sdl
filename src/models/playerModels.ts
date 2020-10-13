@@ -28,47 +28,7 @@ export interface ISkill {
     attribute: string;
     default: string;
     group: string;
-    specialization: string;
-    limit: string;
-}
-
-export interface Magical {
-    name: string;
-    rating: number;
-    attribute: string;
-    default: string;
-    group: string;
-    specialization: string;
-    limit: string;
-}
-
-export interface Resonance {
-    name: string;
-    rating: number;
-    attribute: string;
-    default: string;
-    group: string;
-    specialization: string;
-    limit: string;
-}
-
-export interface Technical {
-    name: string;
-    rating: number;
-    attribute: string;
-    default: string;
-    group: string;
-    specialization: string;
-    limit: string;
-}
-
-export interface Vehicle {
-    name: string;
-    rating: number;
-    attribute: string;
-    default: string;
-    group: string;
-    specialization: string;
+    specialization?: string;
     limit: string;
 }
 
@@ -76,10 +36,10 @@ export interface Skills {
     combat: ISkill[];
     physical: ISkill[];
     social: ISkill[];
-    magical: Magical[];
-    resonance: Resonance[];
-    technical: Technical[];
-    vehicle: Vehicle[];
+    magical: ISkill[];
+    resonance: ISkill[];
+    technical: ISkill[];
+    vehicle: ISkill[];
 }
 
 export interface Street {
@@ -178,7 +138,8 @@ export interface Armor {
 
 export interface Melee {
     name: string;
-    acc: string;
+    acc: number | string;
+    acc_modifier: number;
     reach: number;
     dam: string;
     ap: number;
