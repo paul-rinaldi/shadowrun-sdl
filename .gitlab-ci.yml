@@ -19,8 +19,9 @@ build:
     paths:
       - public
   only:
-    - merge_requests
-    - master
+    refs:
+      - merge_requests
+      - master
 
 deploy:
   stage: deploy
