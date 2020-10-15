@@ -3,7 +3,6 @@ import '../CSS_Files/Gear.css'
 import armorJSON from '../Armor.json'
 import meleeJSON from '../Melee.json'
 import rangedJSON from '../Ranged.json'
-// import Popup from './Popup.js'; commented out from lack of full implementation
 import Select from 'react-select';
 
 
@@ -116,19 +115,6 @@ class Gear extends React.Component{
                 </table>
                 {presetButton}
                 {plusButton}
-
-                
-                {/* Leftover from popip {test}
-                {this.state.showPopup ?  
-                    <Popup  
-                        text='Click "Close Button" to hide popup'  
-                        closePopup={this.togglePopup.bind(this)}
-                        send={}  
-                    />  
-                    : null  
-                }    */}
-
-
             </div>
 
             
