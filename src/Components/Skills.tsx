@@ -1,11 +1,36 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import '../CSS_Files/Skills.css'
+import { adjustKarma } from '../redux/karmaActions';
+import { increaseSkill, decreaseSkill } from '../redux/skillActions';
+import { IShadowRunState } from '../redux/store';
 
 //Some useful 5e core rulebook pages about skills:
 //  128-130 - General explanation of skills, skill groups, skill ratings, defaulting, specializations, etc.
 //  130-147 - Listing of active skills, divided by types.
 //  103-107 - Character advancement (how skills are upgraded)
 //  44-48 - Explanation of tests, i.e., how the skill ratings are used in dice rolls
+
+type ISkillProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player
+});
+const mapDispatchToProps = {
+    adjustKarma,
+    increaseSkill,
+    decreaseSkill
+};
+interface ISkillState {
+    small: boolean;
+};
+interface IActionState {
+    testVariables: any[] | null;
+    testValues: any[] | null;
+    mentalLimit: number | null;
+    physicalLimit: number | null;
+    socialLimit: number | null;
+}
+
 
 /**
  * @class Represents the Skills page. For every active skill the character has the page displays the skill name, the
@@ -14,8 +39,8 @@ import '../CSS_Files/Skills.css'
  * skills are divided into tables by their type (Physical, Combat, etc.). There are also buttons for each skill that
  * allow the player to increase or decrease their rating in the skill.
  */
-class Skills extends React.Component{
-    constructor(props){
+class Skills extends React.Component <ISkillProps, ISkillState>{
+    constructor(props: ISkillProps){
         super(props);
 
         this.state = {
@@ -28,15 +53,11 @@ class Skills extends React.Component{
 
             if(this.state.small){
                 if(window.innerWidth > resizeLimit){
-                    this.setState({
-                        small: false
-                    });
+                    this.state = { small: false };
                 }
             } else {
                 if(window.innerWidth < resizeLimit){
-                    this.setState({
-                        small: true
-                    });
+                    this.state = { small: true }
                 }
             }
         }
@@ -47,7 +68,8 @@ class Skills extends React.Component{
      * skills.
      * @returns Tables of character skills or a message that no character is loaded.
      */
-    render(){
+    render = () => {
+        console.log("render");
         let page;
 
         //Handle if a character has not been loaded yet (or does not have skills)
@@ -115,9 +137,9 @@ class Skills extends React.Component{
      * @param type The skill type to create a table for (i.e. physical, combat, etc.).
      * @returns a table containing information about every skill of the provided type.
      */
-    skillTable(type) {
+    skillTable(type: string) {
         //A list of all skills of the provided type
-        let skillList = this.props.character.skills[type.toLowerCase()];
+        let skillList = this.getSkills(type);
         let skillRows = []; //The rows to be displayed, each containing info about a single skill
 
         for(let i = 0; i < skillList.length; i++){
@@ -147,6 +169,43 @@ class Skills extends React.Component{
         );
     }
 
+    private getSkills = (type: string) => {
+        const { character } = this.props;
+        const { skills } = character;
+
+        switch (type.toLowerCase()) {
+            case 'combat': return skills.combat;
+            case 'physical': return skills.physical;
+            case 'social': return skills.social;
+            case 'magical': return skills.magical;
+            case 'resonance': return skills.resonance;
+            case 'technical': return skills.technical;
+            case 'vehicle': return skills.vehicle;
+            default: return [];
+        }
+    }
+
+    private getAttribute = (attribute: string) => {
+        const { character } = this.props;
+        const { attributes } = character;
+        attribute = attribute.toUpperCase();
+        switch (attribute) {
+            case 'BOD': return attributes.BOD;
+            case 'AGI': return attributes.AGI;
+            case 'REA': return attributes.REA;
+            case 'STR': return attributes.STR;
+            case 'WIL': return attributes.WIL;
+            case 'LOG': return attributes.LOG;
+            case 'INT': return attributes.INT;
+            case 'CHA': return attributes.CHA;
+            case 'EDG': return attributes.EDG;
+            case 'ESS': return attributes.ESS;
+            case 'MAG': return attributes.MAG;
+            case 'RES': return attributes.RES;
+            default: return 0;
+        }
+    }
+
     /**
      * Creates a row containing information about the skill of the provided type, at the provided index in the type's
      * list. The row contains the skill's name, rating, associated attribute, group, whether it can be defaulted on, any
@@ -156,17 +215,19 @@ class Skills extends React.Component{
      * @returns a table row containing information about the skill at the provided index in the list of the provided
      * type.
      */
-    skillRow(type, index){
-        let skill = this.props.character.skills[type][index];
+    skillRow(type: string, index: number){
+        const skill = this.getSkills(type)[index];
+        const attribute = this.getAttribute(skill.attribute);
+        // let skill = character.skills[type][index];
         let attrText;
 
         //A string of the associated attribute name and value
-        attrText = skill.attribute.toUpperCase() + ': ' + this.props.character.attributes[skill.attribute.toUpperCase()];
+        attrText = skill.attribute.toUpperCase() + ': ' + attribute;
 
-        let plusButton = <button onClick={() => this.incrementSkill(type, index)}>+</button>;
-        let minusButton = <button onClick={() => this.decrementSkill(type, index)}>-</button>;
+        const plusButton = <button onClick={() => this.incrementSkill(type, index)}>+</button>;
+        const minusButton = <button onClick={() => this.decrementSkill(type, index)}>-</button>;
 
-        return <tr className={'Skills'} key={skill.name}>
+        return <tr className={'Skills'} key={skill.name + skill.rating}>
             <td className={'Skills'}>{minusButton}{plusButton}</td>
             <td className={'Skills'}>{skill.name}</td>
             <td className={'Skills'}>{skill.rating}</td>
@@ -184,8 +245,9 @@ class Skills extends React.Component{
      * @param type The type the skill belongs to.
      * @param index The index of the skill in the type list.
      */
-    incrementSkill(type, index){
-        const skill = this.props.character.skills[type][index];
+    incrementSkill(type: string, index: number){
+        const { character, adjustKarma, increaseSkill } = this.props;
+        const skill = this.getSkills(type)[index];
         const newRating = skill.rating + 1;
         const cost = newRating * 2;
         let time;
@@ -207,16 +269,16 @@ class Skills extends React.Component{
                 `and take ${time} of training.`;
             
             //Check if player has enough karma for increase
-            if (this.props.character.karma >= cost) {
+            if (character.karma >= cost) {
                 //Ask player if they want to do the increase
                 const response = window.confirm(costString + `\n\nIs it OK to upgrade ${skill.name}?`);
 
                 //If player confirms the upgrade
                 if (response) {
                     //Adjust karma
-                    this.props.adjKarm(-cost, `Increased ${skill.name} skill from ${skill.rating} to ${newRating} ` +
+                    adjustKarma(-cost, `Increased ${skill.name} skill from ${skill.rating} to ${newRating} ` +
                         `(${time})`,"Karma");
-                    this.props.inc(type, index); //Increment the skill with the function from App
+                    increaseSkill(type, index); //Increment the skill with the function from App
                 }
             } else {
                 //Tell the player what the cost would be and that they don't have enough
@@ -236,8 +298,9 @@ class Skills extends React.Component{
      * @param type The type the skill belongs to.
      * @param index The index of the skill in the type list.
      */
-    decrementSkill(type, index){
-        const skill = this.props.character.skills[type][index];
+    decrementSkill(type: string, index: number){
+        const { adjustKarma, decreaseSkill } = this.props;
+        const skill = this.getSkills(type)[index];
         const newRating = skill.rating - 1;
         const refund = skill.rating * 2;
         let time;
@@ -264,9 +327,9 @@ class Skills extends React.Component{
             //If player confirms the reversion
             if (response) {
                 //Adjust karma
-                this.props.adjKarm(refund, `Decreased ${skill.name} skill from ${skill.rating} to ${newRating} ` +
+                adjustKarma(refund, `Decreased ${skill.name} skill from ${skill.rating} to ${newRating} ` +
                     `(returned ${time})`,"Karma");
-                this.props.dec(type, index); //Decrement the skill
+                decreaseSkill(type, index); //Decrement the skill
             }
         } else {
             alert(`${skill.name} is at its min rating.`);
@@ -274,4 +337,7 @@ class Skills extends React.Component{
     }
 }
 
-export default Skills;
+export default connect(
+mapStateToProps,
+mapDispatchToProps
+)(Skills);

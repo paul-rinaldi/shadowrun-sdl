@@ -21,7 +21,7 @@ export const playerReducer = (state: ICharacter = initialState, action: PlayerAc
     }
 }
 
-const initialState = {
+export const initialState = {
     name: InitialCharacter.name,
     metatype: InitialCharacter.metatype,
     money: InitialCharacter.money,
