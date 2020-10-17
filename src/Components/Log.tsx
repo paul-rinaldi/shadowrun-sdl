@@ -4,12 +4,30 @@ import karmaIcon from './ComponentsImg/KarmaIcon.png';
 import nuyenIcon from './ComponentsImg/NuyenIcon.png';
 import karmaIconGrayScale from './ComponentsImg/KarmaIconGrayScale.png'
 import nuyenIconGrayScale from './ComponentsImg/NuyenIconGrayScale.png'
+import {IShadowRunState} from "../redux/store";
+import {ILog} from "../models/playerModels";
+import {adjustNuyen} from "../redux/nuyenActions";
 
 //Relevant 5e core rulebook pages:
 //  371-372 - Run rewards: explains nuyen and karma rewards
 //  103-107 - Character Advancement: Shows the many ways karma can be spent to improve character
 //  62-106 - Creating a Shadowrunner: long section but explains how karma and nuyen is used in character creation
 
+type ILogProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+interface ILogState {
+    karmaButton: boolean;
+    nuyenButton: boolean;
+}
+
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player,
+
+
+});
+
+const mapDispatchToProps = {
+    adjustNuyen
+};
 
 /**
  * The Log page which displays a log of all the characters karma and nuyen changes. The log entries each contain a
@@ -17,12 +35,9 @@ import nuyenIconGrayScale from './ComponentsImg/NuyenIconGrayScale.png'
  * types of log entries are displayed. Additionally, the page has buttons for making manual adjustments to the
  * character's nuyen and karma.
  */
-class Log extends React.Component {
-    constructor(props) {
+class Log extends React.Component<ILogProps, ILogState> {
+    constructor(props: ILogProps) {
         super(props);
-        this.store = this.props.store;
-        this.toggleKarma = this.toggleKarma.bind(this);
-        this.toggleNuyen = this.toggleNuyen.bind(this);
         this.state = {
             karmaButton: true,
             nuyenButton: true
@@ -65,16 +80,17 @@ class Log extends React.Component {
      * @returns The log page or a message saying to load a character if none is loaded.
      */
     render() {
+        const {character} = this.props;
         //Variable for the main content of the page
         let logPage;
-        if(this.props.character === null){
+        if(character === null){
             logPage = <p>Load a character file to see their log</p>;
-        } else if (this.props.character !== undefined && this.props.character.log !== undefined) {
+        } else if (character !== undefined && character.log !== undefined) {
             let rows = [];
 
             //Create rows for every entry in the character log
-            for (let i = 0; i < this.props.character.log.length; i++) {
-                const entry = this.props.character.log[i];
+            for (let i = 0; i < character.log.length; i++) {
+                const entry = character.log[i];
                 if (entry.reasonType === "Karma") {
                     if (this.state.karmaButton) {
                         rows.push(this.logRow(entry, i));
@@ -150,7 +166,7 @@ class Log extends React.Component {
      * @param key The key for the log row.
      * @returns {*}
      */
-    logRow(entry, key) {
+    logRow(entry: ILog, key: number) {
         //Dates just become strings when saved to JSON, so the Date object must be recreated from the string
         const date = new Date(entry.time);
         let img;
@@ -178,6 +194,8 @@ class Log extends React.Component {
         let adjustmentValid = false;
         let reasonValid = false;
         let reasonType = "Nuyen";
+        let adjustmentNumber: number;
+        const {character} = this.props;
 
         while (!adjustmentValid) {
             adjustment = prompt('How much would you like to adjust Nuyen by?');
@@ -191,7 +209,8 @@ class Log extends React.Component {
             adjustment = adjustment.trim();
             if (adjustment !== '') {
                 adjustment = Number(adjustment);
-                if (!isNaN(adjustment) && Number.isInteger(adjustment) && -adjustment <= this.props.character.money) {
+                adjustmentNumber = adjustment;
+                if (!isNaN(adjustment) && Number.isInteger(adjustment) && -adjustment <= character.money) {
                     adjustmentValid = true;
                 }
             }
@@ -199,8 +218,7 @@ class Log extends React.Component {
             if (!adjustmentValid) {
                 alert('You must enter an integer value for Nuyen adjustment. If you are removing Nuyen, you cannot ' +
                     'remove more than the character has.');
-            }
-            if (adjustmentValid) {
+            } else {
                 while (!reasonValid) {
                     reason = prompt('What is the reason for the adjustment?');
 
@@ -212,17 +230,13 @@ class Log extends React.Component {
                     //Validate the entry
                     reason = reason.trim();
                     if (reason !== '') {
-                        reasonValid = true;
+                        this.props.adjustNuyen(adjustmentNumber, reason, reasonType);
                     }
 
                     if (!reasonValid) {
                         alert('You must enter a reason for the adjustment.');
                     }
                 }
-            }
-
-            if (adjustmentValid && reasonValid) {
-                this.props.adjNuyen(adjustment, reason, reasonType);
             }
         }
     }
@@ -250,7 +264,7 @@ class Log extends React.Component {
             adjustment = adjustment.trim();
             if (adjustment !== '') {
                 adjustment = Number(adjustment);
-                if (!isNaN(adjustment) && Number.isInteger(adjustment) && -adjustment <= this.props.character.karma) {
+                if (!isNaN(adjustment) && Number.isInteger(adjustment) && -adjustment <= character.karma) {
                     adjustmentValid = true;
                 }
             }

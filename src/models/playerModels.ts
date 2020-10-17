@@ -166,7 +166,7 @@ export interface Gear {
     ranged: Ranged[];
 }
 
-export interface Log {
+export interface ILog {
     adjustment: number;
     reason: string;
     reasonType: string;
@@ -194,5 +194,5 @@ export interface ICharacter {
     RitPrepRitComplex: RitPrepRitComplex;
     cyberdeck: Cyberdeck;
     gear: Gear;
-    log: Log[];
+    log: ILog[];
 }
