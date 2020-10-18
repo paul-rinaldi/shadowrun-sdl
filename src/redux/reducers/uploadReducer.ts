@@ -1,5 +1,5 @@
-import { IUploadModel } from "../models/uploadModels";
-import { UploadAction } from "./uploadActions";
+import { IUploadModel } from "../../models/uploadModels";
+import { UploadAction } from '../actions/uploadActions'
 
 export const uploadReducer = (state: IUploadModel = initialState, action: UploadAction): IUploadModel => {
     switch(action.type) {

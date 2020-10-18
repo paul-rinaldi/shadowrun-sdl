@@ -1,5 +1,5 @@
-type IncreaseSkillAction = { type: 'INC_SKILL_ACTION', payload: {type: string, index: number} }
-type DecreaseSkillAction = { type: 'DEC_SKILL_ACTION', payload: {type: string, index: number} }
+type IncreaseSkillAction = { type: 'INC_SKILL_ACTION', payload: { type: string, index: number } }
+type DecreaseSkillAction = { type: 'DEC_SKILL_ACTION', payload: { type: string, index: number } }
 
 export type SkillAction = IncreaseSkillAction | DecreaseSkillAction;
 

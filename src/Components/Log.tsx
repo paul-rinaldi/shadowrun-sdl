@@ -4,9 +4,11 @@ import karmaIcon from './ComponentsImg/KarmaIcon.png';
 import nuyenIcon from './ComponentsImg/NuyenIcon.png';
 import karmaIconGrayScale from './ComponentsImg/KarmaIconGrayScale.png'
 import nuyenIconGrayScale from './ComponentsImg/NuyenIconGrayScale.png'
-import {IShadowRunState} from "../redux/store";
-import {ILog} from "../models/playerModels";
-import {adjustNuyen} from "../redux/nuyenActions";
+import { IShadowRunState } from "../redux/store";
+import { ILog } from "../models/playerModels";
+import { adjustNuyen } from "../redux/actions/nuyenActions";
+import { adjustKarma } from '../redux/actions/karmaActions';
+import { connect } from 'react-redux';
 
 //Relevant 5e core rulebook pages:
 //  371-372 - Run rewards: explains nuyen and karma rewards
@@ -21,12 +23,11 @@ interface ILogState {
 
 const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player,
-
-
 });
 
 const mapDispatchToProps = {
-    adjustNuyen
+    adjustNuyen,
+    adjustKarma
 };
 
 /**
@@ -47,7 +48,7 @@ class Log extends React.Component<ILogProps, ILogState> {
     /**
      * Toggles whether karma log entries should be displayed.
      */
-    toggleKarma() {
+    toggleKarma = () => {
         if (this.state.karmaButton) {
             this.setState({
                 karmaButton: false
@@ -62,7 +63,7 @@ class Log extends React.Component<ILogProps, ILogState> {
     /**
      * Toggles whether nuyen log entries should be displayed.
      */
-    toggleNuyen() {
+    toggleNuyen = () => {
         if (this.state.nuyenButton) {
             this.setState({
                 nuyenButton: false
@@ -166,7 +167,7 @@ class Log extends React.Component<ILogProps, ILogState> {
      * @param key The key for the log row.
      * @returns {*}
      */
-    logRow(entry: ILog, key: number) {
+    logRow = (entry: ILog, key: number) => {
         //Dates just become strings when saved to JSON, so the Date object must be recreated from the string
         const date = new Date(entry.time);
         let img;
@@ -184,60 +185,59 @@ class Log extends React.Component<ILogProps, ILogState> {
         </tr>
     }
 
+    private getNumberValue = (promptedType: string, oldValue: number) => {
+        let validResponse: boolean = false;
+        let value: number = 0;
+
+        while (!validResponse) {
+            const adjustmentResponse = prompt(`How much would you like to adjust ${promptedType} by?`);
+
+            // A null indicates the user cancelled
+            if (adjustmentResponse === null) { return null; }
+            value = Number.parseInt(adjustmentResponse);
+
+            if (!isNaN(value) && Number.isInteger(value)) {
+                if (-value <= oldValue) {
+                    validResponse = true;
+                } else {
+                    alert(`If you are removing ${promptedType}, you cannot remove more than the character has.`);
+                }
+            } else {
+                alert('You must enter an integer value for karma adjustment.');
+            }
+        }
+
+        return value;
+    }
+
+    private getReason = () => {
+        let reasonValid = false;
+        let reason: string | null = null;
+        while (!reasonValid) {
+            reason = prompt('What is the reason for the adjustment?');
+            if (reason === null) { return null; }
+            if (reason.trim() === '') {
+                alert('You must enter a reason for the adjustment.');
+            } else {
+                reasonValid = true;
+            }
+        }
+        return reason;
+    }
+
     /**
      * Handler for making a nuyen adjustment. Prompts the user for the adjustment amount and reason, then makes that
      * adjustment.
      */
-    handleMoneyAdjustmentButton() {
-        let adjustment;
-        let reason;
-        let adjustmentValid = false;
-        let reasonValid = false;
-        let reasonType = "Nuyen";
-        let adjustmentNumber: number;
-        const {character} = this.props;
+    handleMoneyAdjustmentButton = () => {
+        const {character, adjustNuyen} = this.props;
 
-        while (!adjustmentValid) {
-            adjustment = prompt('How much would you like to adjust Nuyen by?');
+        const adjustment = this.getNumberValue('Nyuen', character.money);
+        const reason = adjustment!= null ? this.getReason() : null;
+        const reasonType = 'Nyuen';
 
-            //Check that the user didn't cancel the prompt
-            if (adjustment === null) {
-                break;
-            }
-
-            //Validate the entry
-            adjustment = adjustment.trim();
-            if (adjustment !== '') {
-                adjustment = Number(adjustment);
-                adjustmentNumber = adjustment;
-                if (!isNaN(adjustment) && Number.isInteger(adjustment) && -adjustment <= character.money) {
-                    adjustmentValid = true;
-                }
-            }
-
-            if (!adjustmentValid) {
-                alert('You must enter an integer value for Nuyen adjustment. If you are removing Nuyen, you cannot ' +
-                    'remove more than the character has.');
-            } else {
-                while (!reasonValid) {
-                    reason = prompt('What is the reason for the adjustment?');
-
-                    //Check that the user didn't cancel the prompt
-                    if (reason === null) {
-                        break;
-                    }
-
-                    //Validate the entry
-                    reason = reason.trim();
-                    if (reason !== '') {
-                        this.props.adjustNuyen(adjustmentNumber, reason, reasonType);
-                    }
-
-                    if (!reasonValid) {
-                        alert('You must enter a reason for the adjustment.');
-                    }
-                }
-            }
+        if (adjustment !== null && reason !== null) {
+            adjustNuyen(adjustment, reason, reasonType);
         }
     }
 
@@ -245,61 +245,20 @@ class Log extends React.Component<ILogProps, ILogState> {
      * Handler for making a karma adjustment. Prompts the user for the adjustment amount and reason, then makes that
      * adjustment.
      */
-    handleKarmaAdjustmentButton() {
-        let adjustment;
-        let reason;
-        let adjustmentValid = false;
-        let reasonValid = false;
-        let reasonType = "Karma";
+    handleKarmaAdjustmentButton = () => {
+        const { character, adjustKarma } = this.props;
+        
+        const adjustment = this.getNumberValue('Karma', character.money);
+        const reason = adjustment !== null ? this.getReason() : null;
+        const reasonType = 'Karma';
 
-        while (!adjustmentValid) {
-            adjustment = prompt('How much would you like to adjust karma by?');
-
-            //Check that the user didn't cancel the prompt
-            if (adjustment === null) {
-                break;
-            }
-
-            //Validate the entry
-            adjustment = adjustment.trim();
-            if (adjustment !== '') {
-                adjustment = Number(adjustment);
-                if (!isNaN(adjustment) && Number.isInteger(adjustment) && -adjustment <= character.karma) {
-                    adjustmentValid = true;
-                }
-            }
-
-            if (!adjustmentValid) {
-                alert('You must enter an integer value for karma adjustment. If you are removing karma, you cannot ' +
-                    'remove more than the character has.');
-            }
-        }
-
-        if (adjustmentValid) {
-            while (!reasonValid) {
-                reason = prompt('What is the reason for the adjustment?');
-
-                //Check that the user didn't cancel the prompt
-                if (reason === null) {
-                    break;
-                }
-
-                //Validate the entry
-                reason = reason.trim();
-                if (reason !== '') {
-                    reasonValid = true;
-                }
-
-                if (!reasonValid) {
-                    alert('You must enter a reason for the adjustment.');
-                }
-            }
-        }
-
-        if (adjustmentValid && reasonValid) {
-            this.props.adjKarm(adjustment, reason, reasonType);
+        if (adjustment !== null && reason !== null) {
+            adjustKarma(adjustment, reason, reasonType);
         }
     }
 }
 
-export default Log;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Log);

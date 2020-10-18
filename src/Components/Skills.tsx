@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import '../CSS_Files/Skills.css'
-import { adjustKarma } from '../redux/karmaActions';
-import { increaseSkill, decreaseSkill } from '../redux/skillActions';
+import { adjustKarma } from '../redux/actions/karmaActions';
+import { increaseSkill, decreaseSkill } from '../redux/actions/skillActions';
 import { IShadowRunState } from '../redux/store';
 
 //Some useful 5e core rulebook pages about skills:
@@ -69,7 +69,6 @@ class Skills extends React.Component <ISkillProps, ISkillState>{
      * @returns Tables of character skills or a message that no character is loaded.
      */
     render = () => {
-        console.log("render");
         let page;
 
         //Handle if a character has not been loaded yet (or does not have skills)

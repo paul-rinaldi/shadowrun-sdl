@@ -1,6 +1,6 @@
-import { ICharacter } from "../models/playerModels";
-import { KarmaAction } from "./karmaActions";
-import { initialState } from './PlayerReducer';
+import { ICharacter } from "../../models/playerModels";
+import { KarmaAction } from "../actions/karmaActions";
+import { initialState } from '../store';
 
 export const karmaReducer = (state: ICharacter = initialState, action: KarmaAction): ICharacter => {
     switch (action.type) {

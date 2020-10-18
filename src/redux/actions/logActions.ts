@@ -1,4 +1,6 @@
-type NewLogAction = { type: 'New_Log_Action', payload: { adjustment: number, reason: string, reasonType: string, time: Date } } 
+import { ILog } from "../models/playerModels";
+
+type NewLogAction = { type: 'New_Log_Action', payload: ILog } 
 
 export type LogAction = NewLogAction;
 
