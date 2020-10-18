@@ -7,6 +7,7 @@ import { nuyenReducer } from './reducers/nuyenReducer';
 import { skillReducer } from './reducers/skillReducer';
 import { uploadReducer } from "./reducers/uploadReducer";
 import { attributesReducer } from './reducers/attributesReducer';
+import { nameReducer } from './reducers/nameReducer';
 
 export interface IShadowRunState {
     player: ICharacter;
@@ -15,7 +16,7 @@ export interface IShadowRunState {
 
 export const rootReducer = combineReducers({
     player: combineReducers({
-        // name: nameReducer,
+        name: nameReducer,
         // metatype: metaTypeReducer,
         money: nuyenReducer,
         karma: karmaReducer,

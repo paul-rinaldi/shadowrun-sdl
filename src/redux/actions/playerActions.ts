@@ -4,6 +4,7 @@ import { setKarma } from "./karmaActions";
 import { setLog } from './logActions';
 import { setNuyen } from "./nuyenActions";
 import { setSkills } from "./skillActions";
+import { setName } from './nameActions';
 
 export const uploadCharacter = (character: ICharacter) => {
     setNuyen(character.money);
@@ -11,4 +12,5 @@ export const uploadCharacter = (character: ICharacter) => {
     setAttributes(character.attributes);
     setSkills(character.skills);
     setLog(character.log);
+    setName(character.name);
 }
