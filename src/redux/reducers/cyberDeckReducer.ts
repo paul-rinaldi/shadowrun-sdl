@@ -1,4 +1,4 @@
-import { Cyberdeck, Initiative } from '../../models/playerModels';
+import { Cyberdeck } from '../../models/playerModels';
 import { CyberDeckAction } from '../actions/cyberDeckActions';
 import { initialState } from '../initialState';
 

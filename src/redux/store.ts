@@ -10,6 +10,7 @@ import { attributesReducer } from './reducers/attributesReducer';
 import { nameReducer } from './reducers/nameReducer';
 import { initiativeReducer } from './reducers/initiativeReducer';
 import { cyberDeckReducer } from './reducers/cyberDeckReducer';
+import { augmentationReducer } from './reducers/augmentationReducer';
 
 export interface IShadowRunState {
     player: ICharacter;
@@ -34,7 +35,7 @@ export const rootReducer = combineReducers({
         skills: skillReducer,
         // knowledgeSkills, knowledgeSkillsReducer,
         // qualities: qualitiesReducer,
-        // augmentations: augmentationReducer,
+        augmentations: augmentationReducer,
         // RitPrepRitComplex: ritPrepRitComplexReducer,
         cyberdeck: cyberDeckReducer,
         // gear: gearReducer,
