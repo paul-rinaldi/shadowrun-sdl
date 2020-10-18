@@ -5,10 +5,10 @@ import nuyenIcon from './ComponentsImg/NuyenIcon.png';
 import karmaIconGrayScale from './ComponentsImg/KarmaIconGrayScale.png'
 import nuyenIconGrayScale from './ComponentsImg/NuyenIconGrayScale.png'
 import { IShadowRunState } from "../redux/store";
-import { ILog } from "../models/playerModels";
 import { adjustNuyen } from "../redux/actions/nuyenActions";
 import { adjustKarma } from '../redux/actions/karmaActions';
 import { connect } from 'react-redux';
+import { makeLog } from '../redux/actions/logActions';
 
 //Relevant 5e core rulebook pages:
 //  371-372 - Run rewards: explains nuyen and karma rewards
@@ -27,7 +27,8 @@ const mapStateToProps = (state: IShadowRunState) => ({
 
 const mapDispatchToProps = {
     adjustNuyen,
-    adjustKarma
+    adjustKarma,
+    makeLog
 };
 
 /**
@@ -82,47 +83,6 @@ class Log extends React.Component<ILogProps, ILogState> {
      */
     render() {
         const {character} = this.props;
-        //Variable for the main content of the page
-        let logPage;
-        if(character === null){
-            logPage = <p>Load a character file to see their log</p>;
-        } else if (character !== undefined && character.log !== undefined) {
-            let rows = [];
-
-            //Create rows for every entry in the character log
-            for (let i = 0; i < character.log.length; i++) {
-                const entry = character.log[i];
-                if (entry.reasonType === "Karma") {
-                    if (this.state.karmaButton) {
-                        rows.push(this.logRow(entry, i));
-                    }
-                }
-                if (entry.reasonType === "Nuyen") {
-                    if (this.state.nuyenButton) {
-                        rows.push(this.logRow(entry, i));
-                    }
-                }
-            }
-
-            logPage = <div>
-                <button onClick={() => this.handleMoneyAdjustmentButton()}>Make Nuyen Adjustment</button>
-                <button onClick={() => this.handleKarmaAdjustmentButton()}>Make Karma Adjustment</button>
-                <table className={'Karma'}>
-                    <tbody>
-                    <tr className={'Karma'}>
-                        <th className={'Karma'}>Time</th>
-                        <th className={'Karma'}>Type</th>
-                        <th className={'Karma'}>Adjustment</th>
-                        <th className={'Karma'}>Description</th>
-                    </tr>
-                    {rows}
-                    </tbody>
-                </table>
-            </div>;
-        } else {
-            logPage = <p>No character loaded or character has no karma log</p>
-        }
-
         let karmaImg;
         let nuyenImg;
         //Check if the karma and nuyen buttons are active.
@@ -136,7 +96,6 @@ class Log extends React.Component<ILogProps, ILogState> {
         } else {
             nuyenImg = nuyenIcon
         }
-
 
         return <div className={'Karma'}>
             <h1 className={'Karma'}>Character Log</h1>
@@ -155,34 +114,47 @@ class Log extends React.Component<ILogProps, ILogState> {
                 </tr>
                 </thead>
             </table>
-            {
-                logPage
-            }
+            {character === null && <p>Load a character file to see their log</p>}
+            {character !== undefined && character.log !== undefined && this.renderLogPage()}
+            {character !== undefined && !(character.log !== undefined) && <p>No character loaded or character has no karma log</p>}
         </div>
     }
 
-    /**
-     * Creates a table row containing the adjustment and reason for the provided entry.
-     * @param entry The log entry to create a row for.
-     * @param key The key for the log row.
-     * @returns {*}
-     */
-    logRow = (entry: ILog, key: number) => {
-        //Dates just become strings when saved to JSON, so the Date object must be recreated from the string
-        const date = new Date(entry.time);
-        let img;
-        if (entry.reasonType === "Karma") {
-            img = karmaIcon
-        } else if (entry.reasonType === "Nuyen") {
-            img = nuyenIcon
-        }
-        return <tr className={'Karma'} key={key}>
-            <td className={'Karma'}>{date.toLocaleDateString('en-us',
-                {month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'})}</td>
-            <td className={'Karma'}><img className={"Karma"} src={img} alt={entry.reasonType + ' icon'}/></td>
-            <td className={'Karma'}>{entry.adjustment}</td>
-            <td className={'Karma'}>{entry.reason}</td>
-        </tr>
+    private renderLogPage = () => {
+        const { character: { log }} = this.props;
+        const { karmaButton, nuyenButton} = this.state;
+        
+        const filteredList = log.filter(log =>{return (karmaButton && log.reasonType === 'Karma') || (nuyenButton && log.reasonType === "Nuyen")});
+        let index = 0;
+        return(
+            <div>
+                <button onClick={() => this.handleKarmaAdjustmentButton()}>Make Karma Adjustment</button>
+                <button onClick={() => this.handleMoneyAdjustmentButton()}>Make Nuyen Adjustment</button>
+                <table className={'Karma'}>
+                    <tbody>
+                    <tr className={'Karma'}>
+                        <th className={'Karma'}>Time</th>
+                        <th className={'Karma'}>Type</th>
+                        <th className={'Karma'}>Adjustment</th>
+                        <th className={'Karma'}>Description</th>
+                    </tr>
+                        {filteredList
+                        .map(log => {
+                            const date = new Date();
+                            const img = log.reasonType === 'Karma' ? karmaIcon : nuyenIcon
+                            return (
+                            <tr className={'Karma'} key={index++}>
+                                <td className={'Karma'}>{date.toLocaleDateString('en-us',
+                                    {month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric'})}</td>
+                                <td className={'Karma'}><img className={"Karma"} src={img} alt={log.reasonType + ' icon'}/></td>
+                                <td className={'Karma'}>{log.adjustment}</td>
+                                <td className={'Karma'}>{log.reason}</td>
+                            </tr>);
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        );
     }
 
     private getNumberValue = (promptedType: string, oldValue: number) => {
@@ -230,14 +202,16 @@ class Log extends React.Component<ILogProps, ILogState> {
      * adjustment.
      */
     handleMoneyAdjustmentButton = () => {
-        const {character, adjustNuyen} = this.props;
+        const { character, adjustNuyen, makeLog } = this.props;
 
-        const adjustment = this.getNumberValue('Nyuen', character.money);
+        const adjustment = this.getNumberValue('Nuyen', character.money);
         const reason = adjustment!= null ? this.getReason() : null;
-        const reasonType = 'Nyuen';
+        const reasonType = 'Nuyen';
 
         if (adjustment !== null && reason !== null) {
-            adjustNuyen(adjustment, reason, reasonType);
+            const now = new Date();
+            makeLog(adjustment, reason, reasonType, now);
+            adjustNuyen(adjustment);
         }
     }
 
@@ -246,14 +220,16 @@ class Log extends React.Component<ILogProps, ILogState> {
      * adjustment.
      */
     handleKarmaAdjustmentButton = () => {
-        const { character, adjustKarma } = this.props;
+        const { character, adjustKarma, makeLog } = this.props;
         
         const adjustment = this.getNumberValue('Karma', character.money);
         const reason = adjustment !== null ? this.getReason() : null;
         const reasonType = 'Karma';
 
         if (adjustment !== null && reason !== null) {
-            adjustKarma(adjustment, reason, reasonType);
+            const now = new Date();
+            makeLog(adjustment, reason, reasonType, now);
+            adjustKarma(adjustment);
         }
     }
 }

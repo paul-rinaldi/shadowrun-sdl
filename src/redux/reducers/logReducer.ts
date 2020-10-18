@@ -1,6 +1,6 @@
-import { ICharacter, ILog } from "../../models/playerModels";
+import { ILog } from "../../models/playerModels";
 import { LogAction } from "../actions/logActions";
-import { initialState } from '../store';
+import { initialState } from '../initialState';
 
 export const logReducer = (state: ILog[] = initialState.log, action: LogAction): ILog[] => {
     switch (action.type) {
@@ -9,6 +9,9 @@ export const logReducer = (state: ILog[] = initialState.log, action: LogAction):
             ...state,
             action.payload
            ]
+        }
+        case 'SET_LOG_ACTION': {
+            return action.payload;
         }
         default: {
             return state;

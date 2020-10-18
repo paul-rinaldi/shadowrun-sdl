@@ -1,8 +1,8 @@
-import { Skills } from "../../models/playerModels";
-import { initialState } from "../store";
+import { ISkills } from "../../models/playerModels";
+import { initialState } from "../initialState";
 import { SkillAction } from "../actions/skillActions";
 
-export const skillReducer = (state: Skills = initialState.skills, action: SkillAction): Skills => {
+export const skillReducer = (state: ISkills = initialState.skills, action: SkillAction): ISkills => {
     switch (action.type) {
         case 'INC_SKILL_ACTION': {
             return changeSkill(action.payload.type, action.payload.index, 1, state);
@@ -10,13 +10,16 @@ export const skillReducer = (state: Skills = initialState.skills, action: SkillA
         case 'DEC_SKILL_ACTION': {
             return changeSkill(action.payload.type, action.payload.index, -1, state);
         }
+        case 'SET_SKILLS_ACTION': {
+            return action.payload;
+        }
         default: {
             return state;
         }
     }
 }
 
-const changeSkill = (type: string, index: number, delta: number, oldSkills: Skills): Skills => {
+const changeSkill = (type: string, index: number, delta: number, oldSkills: ISkills): ISkills => {
     let skills = {
         ...oldSkills
     };

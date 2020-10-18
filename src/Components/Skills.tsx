@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import '../CSS_Files/Skills.css'
 import { adjustKarma } from '../redux/actions/karmaActions';
+import { makeLog } from '../redux/actions/logActions';
 import { increaseSkill, decreaseSkill } from '../redux/actions/skillActions';
 import { IShadowRunState } from '../redux/store';
 
@@ -275,8 +277,9 @@ class Skills extends React.Component <ISkillProps, ISkillState>{
                 //If player confirms the upgrade
                 if (response) {
                     //Adjust karma
-                    adjustKarma(-cost, `Increased ${skill.name} skill from ${skill.rating} to ${newRating} ` +
-                        `(${time})`,"Karma");
+                    const now = new Date();
+                    makeLog(-cost, `Increased ${skill.name} skill from ${skill.rating} to ${newRating} (${time})`,"Karma", now);
+                    adjustKarma(-cost);
                     increaseSkill(type, index); //Increment the skill with the function from App
                 }
             } else {
@@ -326,8 +329,9 @@ class Skills extends React.Component <ISkillProps, ISkillState>{
             //If player confirms the reversion
             if (response) {
                 //Adjust karma
-                adjustKarma(refund, `Decreased ${skill.name} skill from ${skill.rating} to ${newRating} ` +
-                    `(returned ${time})`,"Karma");
+                const now = new Date();
+                makeLog(refund, `Decreased ${skill.name} skill from ${skill.rating} to ${newRating} (returned ${time})`,"Karma", now);
+                adjustKarma(refund);
                 decreaseSkill(type, index); //Decrement the skill
             }
         } else {

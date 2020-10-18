@@ -1,6 +1,6 @@
 import { ICharacter } from "../../models/playerModels";
 import { KarmaAction } from "../actions/karmaActions";
-import { initialState } from '../store';
+import { initialState } from '../initialState';
 
 export const karmaReducer = (state: ICharacter = initialState, action: KarmaAction): ICharacter => {
     switch (action.type) {
@@ -8,6 +8,12 @@ export const karmaReducer = (state: ICharacter = initialState, action: KarmaActi
             return {
                 ...state,
                 karma: state.karma + action.payload
+            }
+        }
+        case 'SET_KARMA_ACTION': {
+            return {
+                ...state,
+                karma: action.payload
             }
         }
         default: {

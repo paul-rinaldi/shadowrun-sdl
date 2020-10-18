@@ -1,5 +1,3 @@
-import { ICharacter } from "../models/playerModels";
-
 type FileUploadAction = {type: "UPLOAD_PLAYER_JSON", payload: string}
 type ShowUploadAction = { type: "SHOW_UPLOAD", payload: boolean }
 

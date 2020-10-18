@@ -1,9 +1,9 @@
 import React, { FormEvent } from "react";
 import { connect } from "react-redux";
 import { IShadowRunState } from "../../redux/store";
-import { showFileChooser, uploadPlayerJSON } from "../../redux/uploadActions";
+import { showFileChooser, uploadPlayerJSON } from '../../redux/actions/uploadActions';
 import { ICharacter } from '../../models/playerModels';
-import { uploadCharacter } from "../../redux/playerActions";
+import { uploadCharacter } from "../../redux/actions/playerActions";
 import '../Save&Upload/upload&save.css'
 
 type IUploadProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
@@ -13,8 +13,7 @@ const mapStateToProps = (state: IShadowRunState) => ({
 });
 const mapDispatchToProps = {
     onShow: showFileChooser,
-    uploadPlayerJSON,
-    uploadCharacter
+    uploadPlayerJSON
 };
 
 
@@ -37,7 +36,7 @@ class Upload extends React.Component<IUploadProps> {
 
     uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
-        const { uploadPlayerJSON, uploadCharacter } = this.props;
+        const { uploadPlayerJSON } = this.props;
         reader.onload = (event) => {
             try {
                 if (!event.target?.result || typeof(event.target.result) !== "string")

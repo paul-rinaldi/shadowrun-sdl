@@ -1,18 +1,14 @@
-import { ICharacter } from "../models/playerModels";
+import { ICharacter } from "../../models/playerModels";
+import { setAttributes } from "./attributeAction";
+import { setKarma } from "./karmaActions";
+import { setLog } from './logActions';
+import { setNuyen } from "./nuyenActions";
+import { setSkills } from "./skillActions";
 
-export type CharacterAction = ChangePlayerNameAction;
-
-type ChangePlayerNameAction = {type: "SET_PLAYER_NAME", payload: string}
-type CharacterUploadAction = {type: "UPLOAD_CHARACTER", payload: ICharacter}
-
-export type PlayerAction = ChangePlayerNameAction | CharacterUploadAction;
-
-export const changeName = (newName: string): ChangePlayerNameAction => ({
-    type: "SET_PLAYER_NAME",
-    payload: newName
-});
-
-export const uploadCharacter = (character: ICharacter): CharacterUploadAction => ({
-    type: "UPLOAD_CHARACTER",
-    payload: character
-});
+export const uploadCharacter = (character: ICharacter) => {
+    setNuyen(character.money);
+    setKarma(character.karma);
+    setAttributes(character.attributes);
+    setSkills(character.skills);
+    setLog(character.log);
+}
