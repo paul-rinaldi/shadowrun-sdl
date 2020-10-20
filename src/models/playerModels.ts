@@ -3,7 +3,7 @@ export interface ConditionMonitor {
     physical: number;
 }
 
-export interface Attributes {
+export interface IAttributes {
     BOD: number;
     AGI: number;
     REA: number;
@@ -32,7 +32,7 @@ export interface ISkill {
     limit: string;
 }
 
-export interface Skills {
+export interface ISkills {
     combat: ISkill[];
     physical: ISkill[];
     social: ISkill[];
@@ -166,7 +166,7 @@ export interface Gear {
     ranged: Ranged[];
 }
 
-export interface Log {
+export interface ILog {
     adjustment: number;
     reason: string;
     reasonType: string;
@@ -181,18 +181,18 @@ export interface ICharacter {
     currentEdge: number;
     conditionMonitor: ConditionMonitor;
     personal: string;
-    attributes: Attributes;
+    attributes: IAttributes;
     img: string;
     initiative: Initiative;
     armor: number;
     lifestyle: string;
     ID: string;
-    skills: Skills;
+    skills: ISkills;
     knowledgeSkills: KnowledgeSkills;
     qualities: Qualities;
     augmentations: Augmentation[];
     RitPrepRitComplex: RitPrepRitComplex;
     cyberdeck: Cyberdeck;
     gear: Gear;
-    log: Log[];
+    log: ILog[];
 }

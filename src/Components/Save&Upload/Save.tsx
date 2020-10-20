@@ -28,7 +28,7 @@ class Save extends React.Component<ISaveProps> {
 
     downloadChar = () => {
         const { character } = this.props;
-        console.log(character);
+        
         //doint do anything if its not there
         if(!character || character.name === ""){
             alert("There was an error while uploading your character");

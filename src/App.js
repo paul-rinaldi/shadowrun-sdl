@@ -214,7 +214,7 @@ export default class App extends React.Component {
      * @param reasonType The type of the adjustment for the log entry (karma).
      * @returns {boolean} True if successful, false if unsuccessful (not enough karma for adjustment).
      */
-    adjustKarma(adjustment, reason,reasonType){
+    adjustKarma(adjustment, reason, reasonType){
         if(this.state.karma + adjustment >= 0){
             this.setState(currentState => {
                 const now = new Date(); //New Date() with no params gets current time
@@ -425,9 +425,9 @@ export default class App extends React.Component {
                         <Route path = '/Attributes' render={() => (
                             <Attributes character={this.state} updateAtt={this.updateAtt} adjKarm={this.adjustKarma}/>
                         )}/>
-                        <Route path = '/Skills' render={() => (
-                            <Skills character={this.state} inc={this.incSkill} dec={this.decSkill} adjKarm={this.adjustKarma}/>
-                        )}/>
+                        <Route path = '/Skills'>
+                            <Skills />
+                        </Route>
                         <Route path = '/Knowledge Skills' render={() => (
                             <KnowledgeSkills character={this.state} updateKnowledgeSkill={this.updateKnowledgeSkill} adjKarm={this.adjustKarma} addSkill={this.addKnowledgeSkill}/>
                         )}/>

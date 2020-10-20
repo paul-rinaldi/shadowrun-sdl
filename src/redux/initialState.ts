@@ -1,27 +1,7 @@
-
-import { ICharacter } from "../models/playerModels";
-import { PlayerAction } from "./playerActions";
 import * as InitialCharacter from '../InitialState/InitialCharacter.json';
+import { ICharacter } from '../models/playerModels';
 
-export const playerReducer = (state: ICharacter = initialState, action: PlayerAction): ICharacter => {
-    switch(action.type) {
-        case 'SET_PLAYER_NAME': {
-            return {
-                ...state,
-                name: action.payload
-            }
-        }
-        case "UPLOAD_CHARACTER": {
-            return {
-                ...action.payload
-            }
-        }
-        default:
-            return state;
-    }
-}
-
-const initialState = {
+export const initialState = {
     name: InitialCharacter.name,
     metatype: InitialCharacter.metatype,
     money: InitialCharacter.money,
