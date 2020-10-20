@@ -13,6 +13,7 @@ import { cyberDeckReducer } from './reducers/cyberDeckReducer';
 import { augmentationReducer } from './reducers/augmentationReducer';
 import { ritPrepComplexReducer } from './reducers/ritPrepComplexReducer';
 import { gearReducer } from './reducers/gearReducer';
+import { metaTypeReducer } from './reducers/metaTypeReducer';
 
 export interface IShadowRunState {
     player: ICharacter;
@@ -22,7 +23,7 @@ export interface IShadowRunState {
 export const rootReducer = combineReducers({
     player: combineReducers({
         name: nameReducer,
-        // metatype: metaTypeReducer,
+        metatype: metaTypeReducer,
         money: nuyenReducer,
         karma: karmaReducer,
         // currentEdge: edgeReducer,
