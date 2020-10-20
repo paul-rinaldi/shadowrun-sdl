@@ -77,15 +77,7 @@ export interface KnowledgeSkills {
     interests: Interest[];
 }
 
-export interface Positive {
-    qName: string;
-    karma: number;
-    rating: number;
-    max: number;
-    notes: string;
-}
-
-export interface Negative {
+export interface IQuality {
     qName: string;
     karma: number;
     rating: number;
@@ -94,8 +86,8 @@ export interface Negative {
 }
 
 export interface Qualities {
-    positive: Positive[];
-    negative: Negative[];
+    positive: IQuality[];
+    negative: IQuality[];
 }
 
 export interface Augmentation {
