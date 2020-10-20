@@ -1,10 +1,19 @@
 import React from 'react';
-import '../CSS_Files/Gear.css'
-import armorJSON from '../Armor.json'
-import meleeJSON from '../Melee.json'
-import rangedJSON from '../Ranged.json'
+import '../CSS_Files/Gear.css';
+import armorJSON from '../Armor.json';
+import meleeJSON from '../Melee.json';
+import rangedJSON from '../Ranged.json';
+import { connect } from 'react-redux';
+import { IShadowRunState } from '../redux/store';
 import Select from 'react-select';
 
+type IGearProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player
+});
+const mapDispatchToProps = {
+    // fx to pass in
+};
 
 /**
  * @class represents the gear page which manages the armor, melee, and ranged weapons
@@ -12,21 +21,14 @@ import Select from 'react-select';
  * then all gear can be added or removed. They can be added by either a custom item or from a list
  * from the Armor.json, Melee.json, or the Ranged.json
  */
-class Gear extends React.Component{
-
-    constructor(props){  
-        super(props);  
-        //Generator for the popup
-        this.state = { showPopup: false };  
-    }
-
+class Gear extends React.Component<IGearProps>{
     /**
      * Renders the Gear page, which contains tables containing various information about all the character's 
      * active gear.
      * @returns gear page or a message that no character is loaded.
      */
     render(){
-        let page;
+        let page: JSX.Element;
 
         //Handle if a character has not been loaded yet (or does not have skills)
         if (this.props.character === null || typeof this.props.character === 'undefined') {
@@ -47,13 +49,18 @@ class Gear extends React.Component{
     }
 
     /**
-     * Unimplemented leftovers from Popup.js
+     * Adds in gear to is appropriate place in the players list of gear
+     * @param {*} typeGear is what kind of gear category it belongs to
+     * @param {*} gear is the full json object of the new gear
      */
-    togglePopup() {  
-        this.setState({  
-             showPopup: !this.state.showPopup  
-        });  
-    } 
+    updateAddGear(typeGear: string, gear){
+        let gearCopy = JSON.parse(JSON.stringify(this.state.gear));
+        gearCopy[typeGear].push(gear);
+
+        this.setState({
+            gear: gearCopy
+        });
+    }
 
     /**
      * Calls the tables which are to be created for the gear page
@@ -92,9 +99,6 @@ class Gear extends React.Component{
         let plusButton = <button className={'Gear'} onClick={() => this.addGearArmor()}>Add {type}</button>;
 
         let presetButton = this.allArmorDropdown();
-
-        //Popup button test
-        //let test = <button onClick={this.togglePopup.bind(this)}> Click To Launch Popup</button>;
 
         return(
             <div>
@@ -567,4 +571,7 @@ class Gear extends React.Component{
 
 }
 
-export default Gear;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Gear);
