@@ -10,6 +10,7 @@ import { setRitPrepPitComplexAction } from "./ritPrepPitComplexActions";
 import { setInitiative } from "./initiativeAction";
 import { setAugmentationDeck } from "./augmentationAction";
 import { setGear } from "./gearAction";
+import { setID } from "./idAction";
 
 export const uploadCharacter = (character: ICharacter) => {
     setName(character.name);
@@ -17,6 +18,7 @@ export const uploadCharacter = (character: ICharacter) => {
     setKarma(character.karma);
     setAttributes(character.attributes);
     setInitiative(character.initiative);
+    setID(character.ID);
     setSkills(character.skills);
     setAugmentationDeck(character.augmentations);
     setRitPrepPitComplexAction(character.RitPrepRitComplex);

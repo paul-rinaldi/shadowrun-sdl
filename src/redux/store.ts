@@ -14,6 +14,7 @@ import { augmentationReducer } from './reducers/augmentationReducer';
 import { ritPrepComplexReducer } from './reducers/ritPrepComplexReducer';
 import { gearReducer } from './reducers/gearReducer';
 import { metaTypeReducer } from './reducers/metaTypeReducer';
+import { idReducer } from './reducers/idReducer';
 
 export interface IShadowRunState {
     player: ICharacter;
@@ -34,7 +35,7 @@ export const rootReducer = combineReducers({
         initiative: initiativeReducer,
         // armor: armorReducer,
         // lifeStyle: lifestyleReducer,
-        // ID: idReducer,
+        ID: idReducer,
         skills: skillReducer,
         // knowledgeSkills, knowledgeSkillsReducer,
         // qualities: qualitiesReducer,
