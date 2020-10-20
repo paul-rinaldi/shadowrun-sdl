@@ -12,6 +12,7 @@ import { initiativeReducer } from './reducers/initiativeReducer';
 import { cyberDeckReducer } from './reducers/cyberDeckReducer';
 import { augmentationReducer } from './reducers/augmentationReducer';
 import { ritPrepComplexReducer } from './reducers/ritPrepComplexReducer';
+import { gearReducer } from './reducers/gearReducer';
 
 export interface IShadowRunState {
     player: ICharacter;
@@ -39,7 +40,7 @@ export const rootReducer = combineReducers({
         augmentations: augmentationReducer,
         RitPrepRitComplex: ritPrepComplexReducer,
         cyberdeck: cyberDeckReducer,
-        // gear: gearReducer,
+        gear: gearReducer,
         log: logReducer,
     }),
     uploading: uploadReducer
