@@ -423,7 +423,7 @@ export default class App extends React.Component {
                         )
                         }/>
                         <Route path = '/Attributes' render={() => (
-                            <Attributes character={this.state} updateAtt={this.updateAtt} adjKarm={this.adjustKarma}/>
+                            <Attributes updateAtt={this.updateAtt} adjKarm={this.adjustKarma}/>
                         )}/>
                         <Route path = '/Skills'>
                             <Skills />

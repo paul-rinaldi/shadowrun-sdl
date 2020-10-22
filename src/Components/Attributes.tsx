@@ -1,11 +1,30 @@
 import React from 'react';
 import '../CSS_Files/Attributes.css';
+import {connect} from "react-redux";
+import {IShadowRunState} from "../redux/store";
+import {setAttribute, setAttributes, setESS} from "../redux/actions/attributeAction";
+import {adjustKarma} from "../redux/actions/karmaActions";
+import {makeLog} from "../redux/actions/logActions";
 
-class Attributes extends React.Component {
+type IAttributesProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+//state = the passed in state from the react-redux store (can be seen on index.tsx line 10)
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player
+});
 
-    constructor(props) {
+//These are the actions of the Attributes actions
+const mapDispatchToProps = {
+    setAttributes,
+    setESS,
+    setAttribute,
+    adjustKarma,
+    makeLog
+}
+
+class Attributes extends React.Component <IAttributesProps> {
+
+    constructor(props: IAttributesProps) {
         super(props);
-        this.updateAtt = this.props.updateAtt;
     }
 
     /**
@@ -13,8 +32,9 @@ class Attributes extends React.Component {
      * metatypes are human, elf, dwarf, ork, and troll
      * metatype is pulled directly from JSON, capitalization does not matter
      */
-    findMinMax() {
+    findMinMax = (attr: string): {min: number, max: number} => {
         let minMax;
+        const attribute = attr.toUpperCase();
 
         const human = {
             maxBOD: 6,
@@ -151,7 +171,8 @@ class Attributes extends React.Component {
             minRES: 0
         };
 
-        switch (this.props.character.metatype.toLowerCase()) {
+        const { character } = this.props;
+        switch (character.metatype.toLowerCase()) {
             case "human":
                 minMax = human;
                 break;
@@ -173,7 +194,21 @@ class Attributes extends React.Component {
                 break;
         }
 
-        return minMax;
+        switch (attribute) {
+            case 'BOD': return {min: minMax.minBOD, max: minMax.maxBOD};
+            case 'AGI': return {min: minMax.minAGI, max: minMax.maxAGI};
+            case 'REA': return {min: minMax.minREA, max: minMax.maxREA};
+            case 'STR': return {min: minMax.minSTR, max: minMax.maxSTR};
+            case 'WIL': return {min: minMax.minWIL, max: minMax.maxWIL};
+            case 'LOG': return {min: minMax.minLOG, max: minMax.maxLOG};
+            case 'INT': return {min: minMax.minINT, max: minMax.maxINT};
+            case 'CHA': return {min: minMax.minCHA, max: minMax.maxCHA};
+            case 'EDG': return {min: minMax.minEDG, max: minMax.maxEDG};
+            case 'ESS': return {min: minMax.minESS, max: minMax.maxESS};
+            case 'MAG': return {min: minMax.minMAG, max: minMax.maxMAG};
+            case 'RES': return {min: minMax.minRES, max: minMax.maxRES};
+            default: return {min: 0, max: 0};
+        }
     }
 
 
@@ -181,21 +216,18 @@ class Attributes extends React.Component {
      * This will calc if you can level up your desired ability
      * It changes depending on if it is any other attribute or ess, which increases in .1 increments
      */
-    handleLevelUp(att) {
-        const minMax = this.findMinMax();
-        const min = minMax[`min${att}`];
-        const max = minMax[`max${att}`];
-        
-        const rating = this.props.character.attributes[att];
+    handleLevelUp(att: string) {
+        const minMax = this.findMinMax(att);
+        const min = minMax.min;
+        const max = minMax.max;
+        const rating = this.getAttribute(att);
 
         if(rating >= max){
             alert(`${att} is at its max rating.`);
-
         } else {
             if(att === 'ESS'){
                 //Essence is updated by decimal places and does not cost karma or time
-                this.props.updateAtt(att, 0.1, min, max);
-
+                setESS(0.1, min, max);
             } else {
                 const newRating = rating + 1;
                 const karmaNeeded = newRating * 5;
@@ -220,9 +252,10 @@ class Attributes extends React.Component {
                 } else {
                     const response = window.confirm(costString + `\n\nIs it OK to upgrade ${att}?`);
                     if (response) {
-                        this.props.updateAtt(att, 1, min, max);
-                        this.props.adjKarm(-1 * karmaNeeded, `Increased ${att} attribute from ${rating} to ` +
-                            `${newRating} (${time})`,"Karma");
+                        setAttribute(att, 1, min, max);
+                        adjustKarma(-1 * karmaNeeded);
+                        makeLog(-1 * karmaNeeded, `Increased ${att} attribute from ${rating} to ` +
+                            `${newRating} (${time})`,"Karma", new Date());
                     }
                 }
             }
@@ -277,7 +310,7 @@ class Attributes extends React.Component {
         }
     }
 
-    buttons(att) {
+    buttons(att: string) {
         return (
             <td className='att'>
                 <button onClick={() => this.handleLevelDown(att)}>-</button>
@@ -503,12 +536,33 @@ class Attributes extends React.Component {
      * @param {} att is the given attirbute shortened
      * @param {*} fullName is the attributes full name
      */
-    attRow(att, fullName) {
+    attRow(att: string, fullName: string) {
         return <tr className="att">
             {this.buttons(att)}
             <td className="att">{fullName}</td>
-            <td className="att">{this.props.character.attributes[att]}</td>
+            <td className="att">{this.getAttribute(att)}</td>
         </tr>
+    }
+
+    private getAttribute = (attribute: string) => {
+        const { character } = this.props;
+        const { attributes } = character;
+        attribute = attribute.toUpperCase();
+        switch (attribute) {
+            case 'BOD': return attributes.BOD;
+            case 'AGI': return attributes.AGI;
+            case 'REA': return attributes.REA;
+            case 'STR': return attributes.STR;
+            case 'WIL': return attributes.WIL;
+            case 'LOG': return attributes.LOG;
+            case 'INT': return attributes.INT;
+            case 'CHA': return attributes.CHA;
+            case 'EDG': return attributes.EDG;
+            case 'ESS': return attributes.ESS;
+            case 'MAG': return attributes.MAG;
+            case 'RES': return attributes.RES;
+            default: return 0;
+        }
     }
 
     /**
@@ -540,4 +594,7 @@ class Attributes extends React.Component {
     }
 }
 
-export default Attributes;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Attributes);
