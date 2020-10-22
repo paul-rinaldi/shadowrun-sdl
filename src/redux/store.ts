@@ -12,6 +12,9 @@ import { initiativeReducer } from './reducers/initiativeReducer';
 import { cyberDeckReducer } from './reducers/cyberDeckReducer';
 import { augmentationReducer } from './reducers/augmentationReducer';
 import { ritPrepComplexReducer } from './reducers/ritPrepComplexReducer';
+import { gearReducer } from './reducers/gearReducer';
+import { metaTypeReducer } from './reducers/metaTypeReducer';
+import { idReducer } from './reducers/idReducer';
 
 export interface IShadowRunState {
     player: ICharacter;
@@ -21,7 +24,7 @@ export interface IShadowRunState {
 export const rootReducer = combineReducers({
     player: combineReducers({
         name: nameReducer,
-        // metatype: metaTypeReducer,
+        metatype: metaTypeReducer,
         money: nuyenReducer,
         karma: karmaReducer,
         // currentEdge: edgeReducer,
@@ -32,14 +35,14 @@ export const rootReducer = combineReducers({
         initiative: initiativeReducer,
         // armor: armorReducer,
         // lifeStyle: lifestyleReducer,
-        // ID: idReducer,
+        ID: idReducer,
         skills: skillReducer,
         // knowledgeSkills, knowledgeSkillsReducer,
         // qualities: qualitiesReducer,
         augmentations: augmentationReducer,
         RitPrepRitComplex: ritPrepComplexReducer,
         cyberdeck: cyberDeckReducer,
-        // gear: gearReducer,
+        gear: gearReducer,
         log: logReducer,
     }),
     uploading: uploadReducer

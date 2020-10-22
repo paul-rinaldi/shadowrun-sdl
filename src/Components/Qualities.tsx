@@ -2,6 +2,22 @@ import React from 'react';
 import '../CSS_Files/Qualities.css'
 import qualityJSON from '../Qualities.json'
 import Select from 'react-select';
+import { IShadowRunState } from "../redux/store";
+import { adjustKarma } from '../redux/actions/karmaActions';
+
+type IQualityProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+
+interface IQualityState {
+    karmaButton: boolean;
+    nuyenButton: boolean;
+}
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player,
+});
+
+const mapDispatchToProps = {
+    adjustKarma
+};
 
 /**
  * @class Represents the contents displayed on the Qualities page. Qualities
@@ -9,15 +25,16 @@ import Select from 'react-select';
  * interact with a characters stats and actions on the action page.
  * Information about qualities can be found on page 71 of the core rulebook
  */
-class Qualities extends React.Component{
+class Qualities extends React.Component<IQualityProps, IQualityState>{
     render(){
+        const {character} = this.props;
         let page;
 
         //Handle if a character has not been loaded yet (or does not have skills)
-        if(this.props.character === null || typeof this.props.character === 'undefined'){
+        if(character === null || character === undefined){
             page = <p>Load a character file to see their qualities</p>;
 
-        }else if(typeof this.props.character.qualities === 'undefined'){
+        }else if(character.qualities === undefined){
             page = <p>No qualities found, load a character or add qualities to the character's file</p>;
 
         } else {
@@ -51,8 +68,9 @@ class Qualities extends React.Component{
      * Generates the table which will contain all qualities of the spesificed type
      * @param {*} type is what table is currently being created
      */
-    qualitiesTable(type){
-        let qualitiesList = this.props.character.qualities[type.toLowerCase()];
+    qualitiesTable(type: string){
+        const {character} = this.props;
+        let qualitiesList = character.qualities[type.toLowerCase()];
         let qualitiesRows = [];
 
         for(let i = 0; i < qualitiesList.length; i++){
@@ -89,7 +107,7 @@ class Qualities extends React.Component{
      * into a 
      * @param {*} type is positive/negative depending on the quality
      */
-    allQualitiesDropdown(type){
+    allQualitiesDropdown(type: string){
         const options = [];
 
         qualityJSON[type].forEach(quality => {
@@ -112,8 +130,9 @@ class Qualities extends React.Component{
      * @param {*} type is positive/negative depending on the type of quality
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
-    qualitiesRow(type, index){
-        let quality = this.props.character.qualities[type][index];
+    qualitiesRow(type: string, index: number){
+        const {character} = this.props;
+        let quality = character.qualities[type][index];
         let minusButton = <button className={'RemoveQ'} onClick={() => this.removeQuality(type, index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
         let ratingButtonPlus = <button onClick={() => this.addRating(type, index)}>+</button>;
         let ratingButtonMinus = <button onClick={() => this.removeRating(type, index)}>-</button>;
@@ -148,8 +167,9 @@ class Qualities extends React.Component{
      * @param {*} type is positive/negative depending on the type of quality
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
-    addRating(type, index){
-        const quality = this.props.character.qualities[type][index];
+    addRating(type: string, index: number){
+        const {character} = this.props;
+        const quality = character.qualities[type][index];
         let karmaAdjust = parseInt(quality.karma);
         if(quality.rating < quality.max){
             const response = window.confirm("Increasing " + quality.qName + " from " + quality.rating + " to " + (parseInt(quality.rating) + 1) + " will cost " + karmaAdjust + " karma.\n\nIs it OK to upgrade " + quality.qName + "?");
@@ -173,8 +193,9 @@ class Qualities extends React.Component{
      * @param {*} type is positive/negative depending on the type of quality
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
-    removeRating(type, index){
-        const quality = this.props.character.qualities[type][index];
+    removeRating(type: string, index: number){
+        const {character} = this.props;
+        const quality = character.qualities[type][index];
 
         const response = window.confirm(`Decreasing ${quality.qName} from ${quality.rating} to ${(parseInt(quality.rating) - 1)} will ` +
         `refund ${Math.abs(quality.karma)} karma.` +
@@ -201,7 +222,7 @@ class Qualities extends React.Component{
      * @param {*} max is the max rating of the quality
      * @param {*} type is if it is positive or negative
      */
-    addPresetQuality(qName, karmaAdjust, rating, max, type){
+    addPresetQuality(qName: string, karmaAdjust: number, rating: number, max: number, type: string){
         const response = window.confirm("This quality will cost " + karmaAdjust + " karma.");
         if(response){
             const notes = prompt("Enter any notes about the quality", "");
@@ -222,7 +243,7 @@ class Qualities extends React.Component{
      * karma that is being taken is correct
      * @param {*} type is positive/negative depending on the quality
      */
-    addQuality(type){
+    addQuality(type: string){
         const qNameNew = prompt("Enter the name of the quality:", "Addiction, (Moderate BTLs)");
         if (qNameNew === "") {
             alert("Name must be entered");
@@ -271,14 +292,15 @@ class Qualities extends React.Component{
      * @param {*} type is positive/negative depending on the quality
      * @param {*} index is where that quality is in the characters list.
      */
-    removeQuality(type, index){
+    removeQuality(type: string, index: number){
+        const {character} = this.props;
         const karmaNew = prompt("Enter the amount toof removing the quality:", "-5");
         if (karmaNew === "" || isNaN(karmaNew)) {
             alert("Must have a karma amount entered");
         } else if (karmaNew !== null){
             const check = this.props.adjKarm(parseInt(karmaNew), 'Removed quality: ' +
-                this.props.character.qualities[type][index].qName + ". (Original karma: " +
-                this.props.character.qualities[type][index].karma + ")","Karma");
+                character.qualities[type][index].qName + ". (Original karma: " +
+                character.qualities[type][index].karma + ")","Karma");
             if(check === true){
                 this.props.remQuality(type, index);
             } else {
