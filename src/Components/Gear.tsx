@@ -3,9 +3,13 @@ import '../CSS_Files/Gear.css';
 import armorJSON from '../Armor.json';
 import meleeJSON from '../Melee.json';
 import rangedJSON from '../Ranged.json';
+import { Ranged, Gear, Armor, Melee } from '../models/playerModels';
 import { connect } from 'react-redux';
 import { IShadowRunState } from '../redux/store';
-import Select from 'react-select';
+import Select, { ValueType } from 'react-select';
+
+interface RangedOption { value: Ranged; label: string; }
+interface MeleeOptions { value: Melee; label: string; }
 
 type IGearProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -21,7 +25,7 @@ const mapDispatchToProps = {
  * then all gear can be added or removed. They can be added by either a custom item or from a list
  * from the Armor.json, Melee.json, or the Ranged.json
  */
-class Gear extends React.Component<IGearProps>{
+class GearPage extends React.Component<IGearProps>{
     /**
      * Renders the Gear page, which contains tables containing various information about all the character's 
      * active gear.
@@ -53,7 +57,7 @@ class Gear extends React.Component<IGearProps>{
      * @param {*} typeGear is what kind of gear category it belongs to
      * @param {*} gear is the full json object of the new gear
      */
-    updateAddGear(typeGear: string, gear){
+    updateAddGear(typeGear: string, gear: Gear){
         let gearCopy = JSON.parse(JSON.stringify(this.state.gear));
         gearCopy[typeGear].push(gear);
 
@@ -87,7 +91,7 @@ class Gear extends React.Component<IGearProps>{
      * Armor can be found starting on page 436 of the core rulebook
      * @param type The type the gear that is currently being created
      */
-    gearTableArmor(type){
+    gearTableArmor(type: string){
         //A list of all gear of the armor type
         let gearList = this.props.character.gear[type.toLowerCase()];
         let gearRows = [];
@@ -130,7 +134,7 @@ class Gear extends React.Component<IGearProps>{
      * @param {*} type is the armor gear
      * @param {*} index is the current gear we are on
      */
-    gearRowArmor(type, index) {
+    gearRowArmor(type: string, index: number) {
         let gear = this.props.character.gear[type][index];
         let minusButton = <button className={'Gear'} onClick={() => this.removeGear(type, index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
 
@@ -182,7 +186,10 @@ class Gear extends React.Component<IGearProps>{
     /**
      * Adds the preset armor value from the allArmorDropdown() method
      */
-    addPresetArmor(armor) {
+    addPresetArmor(armor: Armor) {
+        if (armor === null || armor === undefined) {
+            return;
+        }
         const response = window.confirm("This armor will cost " + armor.cost + " nuyen.");
         if (response) {
             this.props.adjNuyen(1 * armor.cost, "Buying " + armor.name + " Armor", "Nuyen");
@@ -241,7 +248,7 @@ class Gear extends React.Component<IGearProps>{
      * Melee weapons can be found starting on page 421 of the core rulebook
      * @param type The type the gear that is currently being created
      */
-    gearTableMelee(type){
+    gearTableMelee(type: string){
         //A list of all gear of the melee type
         let gearList = this.props.character.gear[type.toLowerCase()];
         let gearRows = [];
@@ -282,7 +289,7 @@ class Gear extends React.Component<IGearProps>{
      * @param {*} type is the melee gear
      * @param {*} index is the current gear we are on
      */
-    gearRowMelee(type, index){
+    gearRowMelee(type: string, index: number){
         let gear = this.props.character.gear[type][index];
         let minusButton = <button className={'Gear'}onClick={() => this.removeGear(type, index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
 
@@ -307,27 +314,45 @@ class Gear extends React.Component<IGearProps>{
      * Returns the select menu with the values and calls the method to add the gear
      */
     allMeleeDropdown(){
-        const options = [];
-        var x;
-        for(x in meleeJSON["melee"]){
-            meleeJSON["melee"][x].forEach(melee => {
+        const options: MeleeOptions[] = [];
+        // var x;
+
+        // for(x in meleeJSON["melee"]){
+        //     meleeJSON["melee"][x].forEach(melee => {
+        //         options.push({
+        //             value: melee,
+        //             label: `${melee.name}`
+        //         });
+        //     });
+        // }
+
+        let meleeTypes: object = meleeJSON["melee"];
+        Object.entries(meleeTypes).forEach((meleeType) => {
+            meleeType.forEach(melee => {
                 options.push({
                     value: melee,
                     label: `${melee.name}`
                 });
             });
-        }
+        });
 
-        return <div className={'QualitiesDrop'}><Select
-            options={options}
-            onChange={val => this.addPresetMelee(val.value)}
-        /></div>
+        return (
+            <div className={'QualitiesDrop'}>
+                <Select
+                    options={options}
+                    onChange={val => this.addPresetMelee(val)}
+                />
+            </div>
+        );
     }
     
     /**
      * Adds the preset melee value from the allMeleeDropdown() method
      */
-    addPresetMelee(weapon){
+    addPresetMelee(weapon: Melee){
+        if (weapon === null || weapon === undefined) {
+            return;
+        }
         const response = window.confirm("This weapon will cost " + weapon.cost + " nuyen.");
         if(response){
             this.props.adjNuyen(weapon.cost, "Buying " + weapon.name, "Nuyen");
@@ -469,27 +494,45 @@ class Gear extends React.Component<IGearProps>{
      * Returns the select menu with the values and calls the method to add the gear
      */
     allRangedDropdown(){
-        const options = [];
-        var x;
-        for(x in rangedJSON["ranged"]){
-            rangedJSON["ranged"][x].forEach(ranged => {
+        const options: RangedOption[] = [];
+        // old javascript
+        // var x;
+        // for(x in rangedJSON["ranged"]){
+        //     rangedJSON["ranged"][x].forEach(ranged => {
+        //         options.push({
+        //             value: ranged,
+        //             label: `${ranged.name}`
+        //         });
+        //     });
+        // }
+
+        let rangeTypes: object = rangedJSON["ranged"];
+        Object.entries(rangeTypes).forEach((rangeType) => {
+            rangeType.forEach(ranged => {
                 options.push({
                     value: ranged,
                     label: `${ranged.name}`
                 });
             });
-        }
+        });
 
-        return <div className={'QualitiesDrop'}><Select
-            options={options}
-            onChange={val => this.addPresetRanged(val.value)}
-        /></div>
+        return (
+            <div className={'QualitiesDrop'}>
+                <Select
+                    options={options}
+                    onChange={val => this.addPresetRanged(val)}
+                />
+            </div>
+        );
     }
 
     /**
      * Adds the preset ranged value from the allRangedDropdown() method
      */
-    addPresetRanged(ranged){
+    addPresetRanged(ranged: ValueType<Range>){
+        if (ranged === undefined || ranged === null) {
+            return;
+        }
         const response = window.confirm("This weapon will cost " + ranged.cost + " nuyen.");
         if(response){
             this.props.adjNuyen(parseInt(ranged.cost), "Buying " + ranged.name, "Nuyen");
@@ -574,4 +617,4 @@ class Gear extends React.Component<IGearProps>{
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Gear);
+)(GearPage);
