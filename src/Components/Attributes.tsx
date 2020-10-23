@@ -266,12 +266,12 @@ class Attributes extends React.Component <IAttributesProps> {
      * This will calc if you can delevel up your desired ability
      * It changes depending on if it is any other attribute or ess, which increases in .1 increments
      */
-    handleLevelDown(att) {
-        const minMax = this.findMinMax();
-        const min = minMax[`min${att}`];
-        const max = minMax[`max${att}`];
+    handleLevelDown(att: string) {
+        const minMax = this.findMinMax(att);
+        const min = minMax.min;
+        const max = minMax.max;
 
-        const rating = this.props.character.attributes[att];
+        const rating = this.getAttribute(att);
 
         if(rating <= min){
             alert(`${att} is at its min rating.`);
@@ -279,7 +279,7 @@ class Attributes extends React.Component <IAttributesProps> {
         } else {
             if(att === 'ESS'){
                 //Essence is updated by decimal places and does not refund karma or time
-                this.props.updateAtt(att, -0.1, min, max);
+                setESS(-0.1, min, max);
 
             } else {
                 const newRating = rating - 1;
@@ -302,9 +302,9 @@ class Attributes extends React.Component <IAttributesProps> {
                     `to be done if you accidentally increased an attribute. Is it OK to revert ${att}?`);
 
                 if (response) {
-                    this.props.updateAtt(att, -1, min, max);
-                    this.props.adjKarm(karmaRefund, `Decreased ${att} attribute from ${rating} to ${newRating} ` +
-                        `(returned ${time})`,"Karma");
+                   setAttribute(att, -1, min, max);
+                   makeLog(karmaRefund, `Decreased ${att} attribute from ${rating} to ${newRating} ` +
+                        `(returned ${time})`,"Karma", new Date());
                 }
             }
         }
@@ -326,7 +326,7 @@ class Attributes extends React.Component <IAttributesProps> {
      * @param {int} IBW Mental:INT  Physical:BOD  Social:WIL
      * @param {int} WRE Mental:WIS  Physical:REA  Social:ESS
      */
-    limitCalculation(LSC, IBW, WRE) {
+    limitCalculation(LSC: number, IBW: number, WRE: number) {
         return Math.ceil(((LSC * 2) + IBW + WRE) / 3);
     }
 
@@ -460,58 +460,38 @@ class Attributes extends React.Component <IAttributesProps> {
      * @param type A string of the limit type to create a row for (Physical, Mental, or Social).
      * @returns A table row containing the limit name, the calculation for the limit, and the limit value.
      */
-    limitRow(type) {
-        const attributes = this.props.character.attributes;
-        let att1;
-        let att2;
-        let att3;
+    limitRow(type : string) {
+            const { character: { attributes} } = this.props;
+            let limit;
+            let attrStrings, attrValStrings;
+            switch (type) {
+                case 'Mental':
+                    attrStrings = ['LOG', 'INT', 'WIL'];
+                    attrValStrings = [attributes.LOG, attributes.INT, attributes.WIL];
+                    limit = this.limitCalculation(attributes.LOG, attributes.INT, attributes.WIL);
+                    this.setState({mentalLimit: limit});
+                    break;
+                case 'Physical':
+                    attrStrings = ['STR', 'BOD', 'REA'];
+                    attrValStrings = [attributes.STR, attributes.BOD, attributes.REA];
+                    limit = this.limitCalculation(attributes.STR, attributes.BOD, attributes.REA);
+                    this.setState({physicalLimit: limit});
+                    break;
+                case 'Social':
+                    attrStrings = ['CHA', 'WIL', 'ESS'];
+                    attrValStrings = [attributes.CHA, attributes.WIL, attributes.ESS];
+                    limit = this.limitCalculation(attributes.CHA, attributes.WIL, attributes.ESS);
+                    this.setState({socialLimit: limit});
+                    break;
+                default:
+                    attrStrings = ['Uknown', 'Uknown', 'Uknown'];
+                    attrValStrings = ['Uknown', 'Uknown', 'Uknown'];
+                    console.log('ERROR: Unknown limit type row requested.');
+                    break;
+            }
 
-        switch (type) {
-            case 'Mental':
-                att1 = 'LOG';
-                att2 = 'INT';
-                att3 = 'WIL';
-                break;
-
-            case 'Physical':
-                att1 = 'STR';
-                att2 = 'BOD';
-                att3 = 'REA';
-                break;
-
-            case 'Social':
-                att1 = 'CHA';
-                att2 = 'WIL';
-                att3 = 'ESS';
-                break;
-
-            default:
-                console.log('ERROR: Unknown limit type row requested.');
-                break;
-        }
-
-        const limit = this.limitCalculation(attributes[att1], attributes[att2], attributes[att3]);
-
-        switch (type) {
-            case 'Mental':
-                this.mentalLimit = limit;
-                break;
-
-            case 'Physical':
-                this.physicalLimit = limit;
-                break;
-
-            case 'Social':
-                this.socialLimit = limit;
-                break;
-
-            default:
-                console.log('ERROR: Unknown limit type row requested.');
-                break;
-        }
-
-        const calcVars = ['[(', <b>{att1}</b>, 'x 2) +', <b>{att2}</b>, '+', <b>{att3}</b>, '] / 3 (round up)'];
-        const calcVals = ['[(', <b>{attributes[att1]}</b>, 'x 2) +', <b>{attributes[att2]}</b>, '+', <b>{attributes[att3]}</b>, '] / 3 (round up)'];
+        const calcVars = ['[(', <b>{attrStrings[0]}</b>, 'x 2) +', <b>{attrStrings[1]}</b>, '+', <b>{attrStrings[2]}</b>, '] / 3 (round up)'];
+        const calcVals = ['[(', <b>{attrValStrings[0]}</b>, 'x 2) +', <b>{attrValStrings[1]}</b>, '+', <b>{attrValStrings[2]}</b>, '] / 3 (round up)'];
 
         const calcTable = <table>
             <tbody>
