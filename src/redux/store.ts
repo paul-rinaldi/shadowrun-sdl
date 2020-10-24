@@ -3,6 +3,7 @@ import {createLogger} from "redux-logger";
 import { ICharacter } from '../models/playerModels';
 import { IUploadModel } from '../models/uploadModels';
 import { karmaReducer } from './reducers/karmaReducer';
+import {knowledgeSkillsReducer} from './reducers/knowledgeSkillsReducer';
 import { logReducer } from './reducers/logReducer';
 import { nuyenReducer } from './reducers/nuyenReducer';
 import { skillReducer } from './reducers/skillReducer';
@@ -30,6 +31,7 @@ export const rootReducer = combineReducers({
         metatype: metaTypeReducer,
         money: nuyenReducer,
         karma: karmaReducer,
+
         // currentEdge: edgeReducer,
         // conditionMonitor: conditionReducer,
         // personal: personalReducer,
@@ -40,7 +42,7 @@ export const rootReducer = combineReducers({
         // lifeStyle: lifestyleReducer,
         ID: idReducer,
         skills: skillReducer,
-        // knowledgeSkills, knowledgeSkillsReducer,
+        knowledgeSkills: knowledgeSkillsReducer,
         // qualities: qualitiesReducer,
         augmentations: augmentationReducer,
         RitPrepRitComplex: ritPrepComplexReducer,

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../CSS_Files/KnowledgeSkills.css'
 import {IShadowRunState} from "../redux/store";
 import {setAttributes} from "../redux/actions/attributeAction";
+import {connect} from "react-redux";
 
 //Some useful 5e core rulebook pages about knowledge skills:
 //  147-149 - General explanation of knowledge skills, specializations, types, and ratings
@@ -332,6 +333,4 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
     }
 }
 
-export default connect(
-
-)(KnowledgeSkills);
+export default connect(mapStateToProps, mapDispatchToProps)(KnowledgeSkills);
