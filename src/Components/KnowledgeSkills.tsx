@@ -3,6 +3,7 @@ import '../CSS_Files/KnowledgeSkills.css'
 import {IShadowRunState} from "../redux/store";
 import {setAttributes} from "../redux/actions/attributeAction";
 import {connect} from "react-redux";
+import {increaseKSkill, decreaseKSkill, addKSkill} from "../redux/actions/knowledgeSkillsActions";
 
 //Some useful 5e core rulebook pages about knowledge skills:
 //  147-149 - General explanation of knowledge skills, specializations, types, and ratings
@@ -16,7 +17,9 @@ const mapStateToProps = (state: IShadowRunState) => ({
 })
 
 const mapDispatchToProps = {
-    setAttributes
+    increaseKSkill,
+    decreaseKSkill,
+    addKSkill
 }
 
 type IKnowledgeSkillsProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
