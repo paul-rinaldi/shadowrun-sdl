@@ -24,8 +24,6 @@ type IKnowledgeSkillsProps = ReturnType<typeof mapStateToProps> & typeof mapDisp
 type IState = {
     small : boolean
 }
-console.log("hello ");
-
 
 /**
  * @class Represents the Skills page. For every knowledge skill the character has the page displays the skill name, the
