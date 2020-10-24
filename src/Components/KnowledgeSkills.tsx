@@ -24,7 +24,7 @@ type IKnowledgeSkillsProps = ReturnType<typeof mapStateToProps> & typeof mapDisp
 type IState = {
     small : boolean
 }
-
+console.log("hello ");
 
 
 /**
