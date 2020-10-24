@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/redux-logger": "^3.0.8",
     "bootstrap": "^4.3.1",
     "downloadbutton": "^1.0.0",
     "enzyme": "^3.10.0",
@@ -20,6 +21,7 @@
     "react-scripts": "^3.4.3",
     "react-select": "^3.0.8",
     "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
     "serve": "^11.3.2",
     "typescript": "^4.0.3"
   },

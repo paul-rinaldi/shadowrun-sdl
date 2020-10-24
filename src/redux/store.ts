@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
+import {createLogger} from "redux-logger";
 import { ICharacter } from '../models/playerModels';
 import { IUploadModel } from '../models/uploadModels';
 import { karmaReducer } from './reducers/karmaReducer';
@@ -15,6 +16,8 @@ import { ritPrepComplexReducer } from './reducers/ritPrepComplexReducer';
 import { gearReducer } from './reducers/gearReducer';
 import { metaTypeReducer } from './reducers/metaTypeReducer';
 import { idReducer } from './reducers/idReducer';
+
+const logger = createLogger();
 
 export interface IShadowRunState {
     player: ICharacter;
@@ -47,5 +50,6 @@ export const rootReducer = combineReducers({
     }),
     uploading: uploadReducer
 });
-
-export const store = createStore(rootReducer);
+//applyMiddleWare will be great for when we are trying to debug, it shows what states are being changed.
+//look in dev tools on browser to see it in action.
+export const store = createStore(rootReducer, applyMiddleware(logger));
