@@ -1,11 +1,30 @@
 import React from 'react';
 import '../CSS_Files/Attributes.css';
+import {connect} from "react-redux";
+import {IShadowRunState} from "../redux/store";
+import {setAttribute, setAttributes, setESS} from "../redux/actions/attributeAction";
+import {adjustKarma} from "../redux/actions/karmaActions";
+import {makeLog} from "../redux/actions/logActions";
 
-class Attributes extends React.Component {
+type IAttributesProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+//state = the passed in state from the react-redux store (can be seen on index.tsx line 10)
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player
+});
 
-    constructor(props) {
+//These are the actions of the Attributes actions
+const mapDispatchToProps = {
+    setAttributes,
+    setESS,
+    setAttribute,
+    adjustKarma,
+    makeLog
+}
+
+class Attributes extends React.Component <IAttributesProps> {
+
+    constructor(props: IAttributesProps) {
         super(props);
-        this.updateAtt = this.props.updateAtt;
     }
 
     /**
@@ -13,8 +32,9 @@ class Attributes extends React.Component {
      * metatypes are human, elf, dwarf, ork, and troll
      * metatype is pulled directly from JSON, capitalization does not matter
      */
-    findMinMax() {
+    findMinMax = (attr: string): {min: number, max: number} => {
         let minMax;
+        const attribute = attr.toUpperCase();
 
         const human = {
             maxBOD: 6,
@@ -151,7 +171,8 @@ class Attributes extends React.Component {
             minRES: 0
         };
 
-        switch (this.props.character.metatype.toLowerCase()) {
+        const { character } = this.props;
+        switch (character.metatype.toLowerCase()) {
             case "human":
                 minMax = human;
                 break;
@@ -173,7 +194,21 @@ class Attributes extends React.Component {
                 break;
         }
 
-        return minMax;
+        switch (attribute) {
+            case 'BOD': return {min: minMax.minBOD, max: minMax.maxBOD};
+            case 'AGI': return {min: minMax.minAGI, max: minMax.maxAGI};
+            case 'REA': return {min: minMax.minREA, max: minMax.maxREA};
+            case 'STR': return {min: minMax.minSTR, max: minMax.maxSTR};
+            case 'WIL': return {min: minMax.minWIL, max: minMax.maxWIL};
+            case 'LOG': return {min: minMax.minLOG, max: minMax.maxLOG};
+            case 'INT': return {min: minMax.minINT, max: minMax.maxINT};
+            case 'CHA': return {min: minMax.minCHA, max: minMax.maxCHA};
+            case 'EDG': return {min: minMax.minEDG, max: minMax.maxEDG};
+            case 'ESS': return {min: minMax.minESS, max: minMax.maxESS};
+            case 'MAG': return {min: minMax.minMAG, max: minMax.maxMAG};
+            case 'RES': return {min: minMax.minRES, max: minMax.maxRES};
+            default: return {min: 0, max: 0};
+        }
     }
 
 
@@ -181,21 +216,18 @@ class Attributes extends React.Component {
      * This will calc if you can level up your desired ability
      * It changes depending on if it is any other attribute or ess, which increases in .1 increments
      */
-    handleLevelUp(att) {
-        const minMax = this.findMinMax();
-        const min = minMax[`min${att}`];
-        const max = minMax[`max${att}`];
-        
-        const rating = this.props.character.attributes[att];
+    handleLevelUp(att: string) {
+        const minMax = this.findMinMax(att);
+        const min = minMax.min;
+        const max = minMax.max;
+        const rating = this.getAttribute(att);
 
         if(rating >= max){
             alert(`${att} is at its max rating.`);
-
         } else {
             if(att === 'ESS'){
                 //Essence is updated by decimal places and does not cost karma or time
-                this.props.updateAtt(att, 0.1, min, max);
-
+                setESS(0.1, min, max);
             } else {
                 const newRating = rating + 1;
                 const karmaNeeded = newRating * 5;
@@ -220,9 +252,10 @@ class Attributes extends React.Component {
                 } else {
                     const response = window.confirm(costString + `\n\nIs it OK to upgrade ${att}?`);
                     if (response) {
-                        this.props.updateAtt(att, 1, min, max);
-                        this.props.adjKarm(-1 * karmaNeeded, `Increased ${att} attribute from ${rating} to ` +
-                            `${newRating} (${time})`,"Karma");
+                        setAttribute(att, 1, min, max);
+                        adjustKarma(-1 * karmaNeeded);
+                        makeLog(-1 * karmaNeeded, `Increased ${att} attribute from ${rating} to ` +
+                            `${newRating} (${time})`,"Karma", new Date());
                     }
                 }
             }
@@ -233,12 +266,12 @@ class Attributes extends React.Component {
      * This will calc if you can delevel up your desired ability
      * It changes depending on if it is any other attribute or ess, which increases in .1 increments
      */
-    handleLevelDown(att) {
-        const minMax = this.findMinMax();
-        const min = minMax[`min${att}`];
-        const max = minMax[`max${att}`];
+    handleLevelDown(att: string) {
+        const minMax = this.findMinMax(att);
+        const min = minMax.min;
+        const max = minMax.max;
 
-        const rating = this.props.character.attributes[att];
+        const rating = this.getAttribute(att);
 
         if(rating <= min){
             alert(`${att} is at its min rating.`);
@@ -246,7 +279,7 @@ class Attributes extends React.Component {
         } else {
             if(att === 'ESS'){
                 //Essence is updated by decimal places and does not refund karma or time
-                this.props.updateAtt(att, -0.1, min, max);
+                setESS(-0.1, min, max);
 
             } else {
                 const newRating = rating - 1;
@@ -269,15 +302,15 @@ class Attributes extends React.Component {
                     `to be done if you accidentally increased an attribute. Is it OK to revert ${att}?`);
 
                 if (response) {
-                    this.props.updateAtt(att, -1, min, max);
-                    this.props.adjKarm(karmaRefund, `Decreased ${att} attribute from ${rating} to ${newRating} ` +
-                        `(returned ${time})`,"Karma");
+                   setAttribute(att, -1, min, max);
+                   makeLog(karmaRefund, `Decreased ${att} attribute from ${rating} to ${newRating} ` +
+                        `(returned ${time})`,"Karma", new Date());
                 }
             }
         }
     }
 
-    buttons(att) {
+    buttons(att: string) {
         return (
             <td className='att'>
                 <button onClick={() => this.handleLevelDown(att)}>-</button>
@@ -293,7 +326,7 @@ class Attributes extends React.Component {
      * @param {int} IBW Mental:INT  Physical:BOD  Social:WIL
      * @param {int} WRE Mental:WIS  Physical:REA  Social:ESS
      */
-    limitCalculation(LSC, IBW, WRE) {
+    limitCalculation(LSC: number, IBW: number, WRE: number) {
         return Math.ceil(((LSC * 2) + IBW + WRE) / 3);
     }
 
@@ -427,58 +460,38 @@ class Attributes extends React.Component {
      * @param type A string of the limit type to create a row for (Physical, Mental, or Social).
      * @returns A table row containing the limit name, the calculation for the limit, and the limit value.
      */
-    limitRow(type) {
-        const attributes = this.props.character.attributes;
-        let att1;
-        let att2;
-        let att3;
+    limitRow(type : string) {
+            const { character: { attributes} } = this.props;
+            let limit;
+            let attrStrings, attrValStrings;
+            switch (type) {
+                case 'Mental':
+                    attrStrings = ['LOG', 'INT', 'WIL'];
+                    attrValStrings = [attributes.LOG, attributes.INT, attributes.WIL];
+                    limit = this.limitCalculation(attributes.LOG, attributes.INT, attributes.WIL);
+                    this.setState({mentalLimit: limit});
+                    break;
+                case 'Physical':
+                    attrStrings = ['STR', 'BOD', 'REA'];
+                    attrValStrings = [attributes.STR, attributes.BOD, attributes.REA];
+                    limit = this.limitCalculation(attributes.STR, attributes.BOD, attributes.REA);
+                    this.setState({physicalLimit: limit});
+                    break;
+                case 'Social':
+                    attrStrings = ['CHA', 'WIL', 'ESS'];
+                    attrValStrings = [attributes.CHA, attributes.WIL, attributes.ESS];
+                    limit = this.limitCalculation(attributes.CHA, attributes.WIL, attributes.ESS);
+                    this.setState({socialLimit: limit});
+                    break;
+                default:
+                    attrStrings = ['Uknown', 'Uknown', 'Uknown'];
+                    attrValStrings = ['Uknown', 'Uknown', 'Uknown'];
+                    console.log('ERROR: Unknown limit type row requested.');
+                    break;
+            }
 
-        switch (type) {
-            case 'Mental':
-                att1 = 'LOG';
-                att2 = 'INT';
-                att3 = 'WIL';
-                break;
-
-            case 'Physical':
-                att1 = 'STR';
-                att2 = 'BOD';
-                att3 = 'REA';
-                break;
-
-            case 'Social':
-                att1 = 'CHA';
-                att2 = 'WIL';
-                att3 = 'ESS';
-                break;
-
-            default:
-                console.log('ERROR: Unknown limit type row requested.');
-                break;
-        }
-
-        const limit = this.limitCalculation(attributes[att1], attributes[att2], attributes[att3]);
-
-        switch (type) {
-            case 'Mental':
-                this.mentalLimit = limit;
-                break;
-
-            case 'Physical':
-                this.physicalLimit = limit;
-                break;
-
-            case 'Social':
-                this.socialLimit = limit;
-                break;
-
-            default:
-                console.log('ERROR: Unknown limit type row requested.');
-                break;
-        }
-
-        const calcVars = ['[(', <b>{att1}</b>, 'x 2) +', <b>{att2}</b>, '+', <b>{att3}</b>, '] / 3 (round up)'];
-        const calcVals = ['[(', <b>{attributes[att1]}</b>, 'x 2) +', <b>{attributes[att2]}</b>, '+', <b>{attributes[att3]}</b>, '] / 3 (round up)'];
+        const calcVars = ['[(', <b>{attrStrings[0]}</b>, 'x 2) +', <b>{attrStrings[1]}</b>, '+', <b>{attrStrings[2]}</b>, '] / 3 (round up)'];
+        const calcVals = ['[(', <b>{attrValStrings[0]}</b>, 'x 2) +', <b>{attrValStrings[1]}</b>, '+', <b>{attrValStrings[2]}</b>, '] / 3 (round up)'];
 
         const calcTable = <table>
             <tbody>
@@ -503,12 +516,33 @@ class Attributes extends React.Component {
      * @param {} att is the given attirbute shortened
      * @param {*} fullName is the attributes full name
      */
-    attRow(att, fullName) {
+    attRow(att: string, fullName: string) {
         return <tr className="att">
             {this.buttons(att)}
             <td className="att">{fullName}</td>
-            <td className="att">{this.props.character.attributes[att]}</td>
+            <td className="att">{this.getAttribute(att)}</td>
         </tr>
+    }
+
+    private getAttribute = (attribute: string) => {
+        const { character } = this.props;
+        const { attributes } = character;
+        attribute = attribute.toUpperCase();
+        switch (attribute) {
+            case 'BOD': return attributes.BOD;
+            case 'AGI': return attributes.AGI;
+            case 'REA': return attributes.REA;
+            case 'STR': return attributes.STR;
+            case 'WIL': return attributes.WIL;
+            case 'LOG': return attributes.LOG;
+            case 'INT': return attributes.INT;
+            case 'CHA': return attributes.CHA;
+            case 'EDG': return attributes.EDG;
+            case 'ESS': return attributes.ESS;
+            case 'MAG': return attributes.MAG;
+            case 'RES': return attributes.RES;
+            default: return 0;
+        }
     }
 
     /**
@@ -540,4 +574,7 @@ class Attributes extends React.Component {
     }
 }
 
-export default Attributes;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Attributes);
