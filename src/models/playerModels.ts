@@ -129,6 +129,7 @@ export interface Armor {
 }
 
 export interface Melee {
+    weaponType: string;
     name: string;
     acc: number | string;
     acc_modifier: number;
@@ -141,6 +142,7 @@ export interface Melee {
 }
 
 export interface Ranged {
+    weaponType: string;
     name: string;
     acc: string;
     dam: string;
