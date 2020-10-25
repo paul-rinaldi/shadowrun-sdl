@@ -1,9 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component } from 'react';
 import '../CSS_Files/KnowledgeSkills.css'
-import {IShadowRunState} from "../redux/store";
-import {setAttributes} from "../redux/actions/attributeAction";
-import {connect} from "react-redux";
-import {increaseKSkill, decreaseKSkill, addKSkill} from "../redux/actions/knowledgeSkillsActions";
+import { IShadowRunState } from "../redux/store";
+import { setAttributes } from "../redux/actions/attributeAction";
+import { connect } from "react-redux";
+import { increaseKSkill, decreaseKSkill, addKSkill } from "../redux/actions/knowledgeSkillsActions";
+import { adjustKarma } from '../redux/actions/karmaActions';
+import { makeLog } from '../redux/actions/logActions';
 
 //Some useful 5e core rulebook pages about knowledge skills:
 //  147-149 - General explanation of knowledge skills, specializations, types, and ratings
@@ -202,15 +204,18 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
                             //Add the skill
                             this.props.addSkill(type, att, skillName, specialization);
 
-                            this.props.adjKarm(-1, `Added ${type} Knowledge Skill ${skillName}`,"Karma");
-                            this.props.adjKarm(-7, `Added ${specialization} specialization to the ${skillName} Knowledge Skill`,"Karma");
+                            makeLog(-1, `Added ${type} Knowledge Skill ${skillName}`,"Karma", new Date());
+                            makeLog(-7, `Added ${specialization} specialization to the ${skillName} Knowledge Skill`,"Karma", new Date());
+                            adjustKarma(-1);
+                            adjustKarma(-7);
                         } else {
                             alert('You do not have enough karma to add a knowledge skill and specialization.');
                         }
                     } else {
                         //Add the skill
                         this.props.addSkill(type, att, skillName, specialization); //addSkill comes from App
-                        this.props.adjKarm(-1, `Added ${type} Knowledge Skill ${skillName}`,"Karma");
+                        makeLog(-1, `Added ${type} Knowledge Skill ${skillName}`, "Karma", new Date());
+                        adjustKarma(-1);
                     }
                 }
             }
@@ -284,8 +289,9 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
                 //If player confirms the upgrade
                 if (response) {
                     //Adjust karma
-                    this.props.adjKarm(-cost, `Increased ${skill.name} knowledge skill from ${skill.rating} to ` +
-                        `${newRating} (${time})`,"Karma");
+                    makeLog(-cost, `Increased ${skill.name} knowledge skill from ${skill.rating} to ` +
+                        `${newRating} (${time})`, "Karma", new Date());
+                    adjustKarma(-cost);
                     this.props.updateKnowledgeSkill(type, index, 1); //Increment the skill with the function from App
                 }
             } else {
@@ -333,8 +339,9 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
             //If player confirms the reversion
             if (response) {
                 //Adjust karma
-                this.props.adjKarm(refund, `Decreased ${skill.name} knowledge skill from ${skill.rating} to ${newRating} ` +
-                    `(returned ${time})`,"Karma");
+                makeLog(refund, `Decreased ${skill.name} knowledge skill from ${skill.rating} to ${newRating} ` +
+                    `(returned ${time})`,"Karma", new Date());
+                adjustKarma(refund);
                 this.props.updateKnowledgeSkill(type, index, -1); //Decrement the skill with the function from App
             }
         } else {
