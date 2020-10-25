@@ -23,7 +23,8 @@ updateUnequipArmor={this.updateUnequipArmor}
 */
 
 interface RangedOption { value: Ranged; label: string; }
-interface MeleeOptions { value: Melee; label: string; }
+interface MeleeOption { value: Melee; label: string; }
+interface ArmorOption { value: Armor; label: string }
 
 type IGearProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -76,7 +77,7 @@ class GearPage extends React.Component<IGearProps>{
      */
     // THIS METHOD WAS COPIED FROM APP.JS. EVENTUALLY WE WANT TO CALL REDUCERS TO UPDATE STATE AND NOT USE THIS METHOD
     updateAddGear(typeGear: string, gear: Gear){
-        let gearCopy = JSON.parse(JSON.stringify(this.state.gear));
+        let gearCopy = JSON.parse(JSON.stringify(this.props.character.gear));
         gearCopy[typeGear].push(gear);
 
         this.setState({ // was state of the app.js, not this component
@@ -107,7 +108,6 @@ class GearPage extends React.Component<IGearProps>{
     /**
      * Starts the creation of the gear table which displays the armor
      * Armor can be found starting on page 436 of the core rulebook
-     * @param type The type the gear that is currently being created
      */
     gearTableArmor(){
         //A list of all gear of the armor type
@@ -187,19 +187,33 @@ class GearPage extends React.Component<IGearProps>{
      * Returns the select menu with the values and calls the method to add the gear
      */
     allArmorDropdown() {
-        const options = [];
+        const options: ArmorOption[] = [];
 
-        armorJSON["armor"].forEach(armor => {
-            options.push({
-                value: armor,
-                label: `${armor.name}`
+        // armorJSON["armor"].forEach(armor => {
+        //     options.push({
+        //         value: armor,
+        //         label: `${armor.name}`
+        //     });
+        // });
+
+        let armorTypes: object = armorJSON["armor"];
+        Object.entries(armorTypes).forEach((armorType) => {
+            armorType.forEach(armor => {
+                options.push({
+                    value: armor,
+                    label: `${armor.name}`
+                });
             });
         });
 
-        return <div className={'QualitiesDrop'}><Select
-            options={options}
-            onChange={val => this.addPresetArmor(val.value)}
-        /></div>
+        return (
+            <div className={'QualitiesDrop'}>
+                <Select
+                    options={options}
+                    onChange={val => this.addPresetArmor(val.value)}
+                />
+            </div>
+        );
     }
     
     /**
@@ -213,7 +227,7 @@ class GearPage extends React.Component<IGearProps>{
         if (response) {
             makeLog(1 * armor.cost, "Buying " + armor.name + " Armor", "Nuyen", new Date());
             adjustNuyen(1 * armor.cost);
-            gearReducer("SET_ARMOR_ACTION", armor); // old: this.props.updateAddGear("armor", armor);
+            this.props.updateAddGear("armor", armor);
         }
     }
 
@@ -241,6 +255,7 @@ class GearPage extends React.Component<IGearProps>{
                             if (costOfArmor === null || (typeof costOfArmor === 'number' && (isNaN(costOfArmor) || costOfArmor < 0))) {
                                 alert("Nuyen value must be greater than or equal to 0")
                             } else {
+                                costOfArmor = parseInt(costOfArmor);
                                 //Creating the new armor
                                 const armor = {
                                     name: aNameNew,
@@ -252,7 +267,7 @@ class GearPage extends React.Component<IGearProps>{
                                 };
                                 makeLog(-1 * costOfArmor, "Buying " + aNameNew, "Nuyen", new Date()); // FIXME
                                 adjustNuyen(-1 * costOfArmor);
-                                this.props.updateAddGear("armor", armor);
+                                this.props.updateAddGear("armor", armor); // @ts-ignore
                             }
                         }
                     }
@@ -267,7 +282,6 @@ class GearPage extends React.Component<IGearProps>{
      /**
      * Starts the creation of the gear table which displays the melee items.
      * Melee weapons can be found starting on page 421 of the core rulebook
-     * @param type The type the gear that is currently being created
      */
     gearTableMelee(){
         //A list of all gear of the melee type
@@ -336,7 +350,7 @@ class GearPage extends React.Component<IGearProps>{
      * Returns the select menu with the values and calls the method to add the gear
      */
     allMeleeDropdown(){
-        const options: MeleeOptions[] = [];
+        const options: MeleeOption[] = [];
         // var x;
 
         // for(x in meleeJSON["melee"]){
@@ -445,7 +459,6 @@ class GearPage extends React.Component<IGearProps>{
     /**
      * Starts the creation of the gear table which displays the ranged items
      * Ranged weapons can be found starting on page 424 of the core rulebook
-     * @param type The type the gear that is currently being created
      */
     gearTableRanged(){
         //A list of all gear of the ranged type
@@ -488,7 +501,6 @@ class GearPage extends React.Component<IGearProps>{
 
     /**
      * Generates the gear row by row by getting each of the current ranged items the player has
-     * @param {*} type is the ranged gear
      * @param {*} index is the current gear we are on
      */
     gearRowRanged(index: number){
@@ -625,12 +637,15 @@ class GearPage extends React.Component<IGearProps>{
     //Removes the gear by taking what type of gear it is and how much money is to be added or removed.
     // It also updates the nuyen value and puts into the log what was removed
     removeGear(type: string, index: number){
-        const nuyenVal = prompt("If selling this item, enter the nuyen gained from the item:", "1000");
+        let nuyenVal: string | number | null = prompt("If selling this item, enter the nuyen gained from the item:", "1000");
         if (nuyenVal !== null) {
-            //Removes the gear given depending on the type and what item it is
-            this.props.updateRemGear(index, type);
-            makeLog(1 * nuyenVal, "Selling" + type, "Nuyen", new Date()); // FIXME
-            adjustNuyen(1 * nuyenVal);
+            nuyenVal = parseInt(nuyenVal);
+            if (nuyenVal > 0 || !isNaN(nuyenVal)) {
+                //Removes the gear given depending on the type and what item it is
+                this.props.updateRemGear(index, type);
+                makeLog(1 * nuyenVal, "Selling" + type, "Nuyen", new Date()); // FIXME
+                adjustNuyen(1 * nuyenVal);
+            }
         }
     }
 
