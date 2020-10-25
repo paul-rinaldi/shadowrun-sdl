@@ -53,18 +53,18 @@ class Header extends React.Component<IHeaderProps> {
                 <table className="headertable">
                     <tbody>
                     <tr className="headertr">
-                        <td className="headertdatt" colSpan = {12}>
+                        <th className="headertdatt" colSpan = {12}>
                             {character.name} the {character.metatype}
-                        </td>
-                        <td className="headertd" colSpan={2}>
+                        </th>
+                        <th className="headertd" colSpan={2}>
                             Condition:
-                        </td>
-                        <td className="headertd">
+                        </th>
+                        <th className="headertd">
                             Init: {character.attributes.REA + character.attributes.INT}+{character.initiative.initDice}d6
-                        </td>
-                        <td className="headertd">
+                        </th>
+                        <th className="headertd">
                             Karma: {character.karma}
-                        </td>
+                        </th>
                     </tr>
                     <tr className="headertr">
                         <td className="headertdatt">

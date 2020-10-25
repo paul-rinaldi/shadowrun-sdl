@@ -19,6 +19,7 @@ import { metaTypeReducer } from './reducers/metaTypeReducer';
 import { idReducer } from './reducers/idReducer';
 import { imageReducer } from './reducers/imageReducer';
 import { qualityReducer } from './reducers/qualityReducer';
+import { conditionReducer } from './reducers/conditionReducer';
 
 const logger = createLogger();
 
@@ -34,7 +35,7 @@ export const rootReducer = combineReducers({
         money: nuyenReducer,
         karma: karmaReducer,
         // currentEdge: edgeReducer,
-        // conditionMonitor: conditionReducer,
+        conditionMonitor: conditionReducer,
         // personal: personalReducer,
         attributes: attributesReducer,
         img: imageReducer,

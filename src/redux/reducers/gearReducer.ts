@@ -1,8 +1,8 @@
-import { Armor, Gear } from "../../models/playerModels";
+import { Gear } from "../../models/playerModels";
 import { GearAction } from "../actions/gearAction";
 import { initialState } from "../initialState";
 
-export const gearReducer = (action: GearAction, state: Gear = initialState.gear) => {
+export const gearReducer = (state: Gear = initialState.gear, action: GearAction): Gear => {
     switch (action.type) {
         case 'SET_ARMOR_ACTION': return { ...state, armor: action.payload };
         case 'SET_MELEE_ACTION': return { ...state, melee: action.payload };
@@ -15,7 +15,6 @@ export const gearReducer = (action: GearAction, state: Gear = initialState.gear)
         case 'REM_RANGED_ACTION': return {...state, ranged: [ ...state.ranged.slice(0, action.payload).concat(state.ranged.slice(action.payload + 1, state.ranged.length)) ] };
         case 'REM_ARMOR_ACTION': return {...state, armor: [ ...state.armor.slice(0, action.payload).concat(state.armor.slice(action.payload + 1, state.armor.length)) ] };
         case 'TOG_EQUIP': return {...state, armor: [...state.armor.map((armor, i) => i === action.payload ? {...armor, equiped: !armor.equiped } : armor)]}
-
         default: return state;
     }
 }
