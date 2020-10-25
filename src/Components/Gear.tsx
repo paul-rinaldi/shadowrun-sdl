@@ -99,7 +99,7 @@ class GearPage extends React.Component<IGearProps>{
         let gearRows = [];
 
         for (let i = 0; i < gearList.length; i++) {
-            gearRows.push(this.gearRowArmor(type.toLowerCase(), i));
+            gearRows.push(this.gearRowArmor(i));
         }
         
         let plusButton = <button className={'Gear'} onClick={() => this.addGearArmor()}>Add {type}</button>;
@@ -136,20 +136,20 @@ class GearPage extends React.Component<IGearProps>{
      * @param {*} type is the armor gear
      * @param {*} index is the current gear we are on
      */
-    gearRowArmor(type: string, index: number) {
-        let gear = this.props.character.gear[type][index];
-        let minusButton = <button className={'Gear'} onClick={() => this.removeGear(type, index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
+    gearRowArmor(index: number) {
+        let gear = this.props.character.gear.armor[index];
+        let minusButton = <button className={'Gear'} onClick={() => this.removeGear('armor', index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
 
-        if (gear === null || gear === "") {
+        if (gear === null) { // || gear === ""
             return null;
         } else {
             let eButton;
             let equiped;
             if (gear.equiped) {
-                eButton = <button className={'Gear'} onClick={() => this.equip(type, index)}>Unequip</button>;
+                eButton = <button className={'Gear'} onClick={() => this.equip('armor', index)}>Unequip</button>;
                 equiped = "✓";
             } else {
-                eButton = <button className={'Gear'} onClick={() => this.equip(type, index)}>Equip</button>;
+                eButton = <button className={'Gear'} onClick={() => this.equip('armor', index)}>Equip</button>;
                 equiped = "";
             }
             return <tr className={'Gear'} key={index}>
@@ -254,18 +254,19 @@ class GearPage extends React.Component<IGearProps>{
         //A list of all gear of the melee type
         let gearList = this.props.character.gear.melee;
         let gearRows = [];
+        const title = "Melee";
 
         for(let i = 0; i < gearList.length; i++){
-            gearRows.push(this.gearRowMelee(type.toLowerCase(), i));
+            gearRows.push(this.gearRowMelee(i));
         }
         
-        let plusButton = <button className={'Gear'} onClick={() => this.addGearMelee()}>Add {type}</button>;
+        let plusButton = <button className={'Gear'} onClick={() => this.addGearMelee()}>Add {title}</button>;
 
         let presetButton = this.allMeleeDropdown();
 
         return(
             <div>
-            <h2 className={'Gear'}>{type}</h2>
+            <h2 className={'Gear'}>{title}</h2>
             <table className={'Gear'}>
                     <tbody>
                     <tr className={'Gear'}>
@@ -291,11 +292,11 @@ class GearPage extends React.Component<IGearProps>{
      * @param {*} type is the melee gear
      * @param {*} index is the current gear we are on
      */
-    gearRowMelee(type: string, index: number){
-        let gear = this.props.character.gear[type][index];
-        let minusButton = <button className={'Gear'}onClick={() => this.removeGear(type, index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
+    gearRowMelee(index: number){
+        let gear = this.props.character.gear.melee[index];
+        let minusButton = <button className={'Gear'}onClick={() => this.removeGear('melee', index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
 
-        if(gear === null || gear === ""){
+        if(gear === null) { //  || gear === ""
             return null;
         } else {
             return <tr className={'Gear'} key={index}>
@@ -373,25 +374,25 @@ class GearPage extends React.Component<IGearProps>{
         } else if(aNameNew !== null) {
             let skill = prompt('Enter the combat skill associated with the weapon:', 'Clubs');
             if (skill !== null) {
-                let accNew = prompt("Enter the acc:", "0");
-                if (accNew < 0 || isNaN(accNew)) {
+                let accNew: string | number | null = prompt("Enter the acc:", "0");
+                if (accNew === null || (typeof accNew === 'number' && (isNaN(accNew) || accNew < 0))) {
                     alert("Melee weapons must have an acc greater than or equal to 0");
                 } else if (accNew !== null) {
-                    let reachNew = prompt("Enter the reach:", "0");
-                    if (reachNew < 0) {
+                    let reachNew: string | number | null = prompt("Enter the reach:", "0");
+                    if (reachNew === null || (typeof reachNew === 'number' && (isNaN(reachNew) || reachNew < 0))) {
                         alert("Melee Weapons must have a reach greater than or equal to 0");
                     } else if (reachNew !== null) {
-                        let damNew = prompt("Enter the damage value:", "0");
+                        let damNew: string | number | null = prompt("Enter the damage value:", "0");
                         if (damNew !== null) {
-                            let apNew = prompt("Enter the ap:", "0");
-                            if (isNaN(apNew)) {
+                            let apNew: string | number | null = prompt("Enter the ap:", "0");
+                            if (apNew === null || (typeof apNew === 'number' && isNaN(apNew))) {
                                 alert("Melee weapons must have a numerical ap value");
                             } else if (damNew !== null) {
                                 let availability = prompt("Enter the availability:", "0");
                                 if (availability !== null) {
-                                    let costOfMelee = prompt("Enter the cost of the weapon", "0");
+                                    let costOfMelee: string | number | null = prompt("Enter the cost of the weapon", "0");
                                     if(costOfMelee !== null) {
-                                        if (costOfMelee < 0 || isNaN(costOfMelee)) {
+                                        if (costOfMelee === null || (typeof costOfMelee === 'number' && (isNaN(costOfMelee) || costOfMelee < 0))) {
                                             alert("Nuyen value must be greater than or equal to 0")
                                         } else {
                                             //Creating the new melee weapon
@@ -432,7 +433,7 @@ class GearPage extends React.Component<IGearProps>{
         let gearRows = [];
 
         for(let i = 0; i < gearList.length; i++){
-            gearRows.push(this.gearRowRanged(type.toLowerCase(), i));
+            gearRows.push(this.gearRowRanged(i));
         }
         
         let plusButton = <button className={'Gear'} onClick={() => this.addGearRanged()}>Add {type}</button>;
@@ -473,7 +474,7 @@ class GearPage extends React.Component<IGearProps>{
         let gear = this.props.character.gear.ranged[index];
         let minusButton = <button className={'Gear'}onClick={() => this.removeGear('ranged', index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
 
-        if(gear === null || gear === ""){
+        if(gear === null) { //  || gear === ""
             return null;
         } else {
             return <tr className={'Gear'} key={index}>
