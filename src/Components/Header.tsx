@@ -17,13 +17,32 @@ class Header extends React.Component<IHeaderProps> {
      */
     render() {
         const { character } = this.props;
-        return(
-            <div>
-                { (character === null || character === undefined) && this.unfilledHeader() }
-                { (character !== null && character !== undefined && character.gear === undefined) && this.unfilledHeader() }
-                { (character !== null && character !== undefined && character.gear !== undefined) && this.header(character) }
-            </div>
-        );
+
+        if (character === null || character === undefined) {
+            console.log("tier 1");
+            return (
+                <div>
+                    {this.unfilledHeader()}
+                </div>
+            )
+        } else {
+            if (character.gear === undefined) {
+                console.log("tier 2");
+                
+                return (
+                    <div>
+                        {this.unfilledHeader()}
+                    </div>
+                )
+            } else {
+                console.log("tier 3");
+                return(
+                    <div>
+                        {this.header(character)}
+                    </div>
+                );
+            }
+        }
     }
 
     /**
@@ -47,7 +66,9 @@ class Header extends React.Component<IHeaderProps> {
      * Generates the header and all of the needed information
      */
     header(character: ICharacter){
-        let armor = this.getArmorVal(character);
+        let armor: number = this.getArmorVal(character);
+        console.log("bootlicker", armor);
+        
         return (
             <div className="headerdiv">
                 <table className="headertable">
@@ -130,6 +151,8 @@ class Header extends React.Component<IHeaderProps> {
     getArmorVal(character: ICharacter){
         let armor = character.armor;
         let gearListArmor = character.gear.armor;
+        console.log("boi", character, armor, gearListArmor);
+        
         for(let i = 0; i < gearListArmor.length; i++){
             if(gearListArmor[i].equiped){
                 let rating = gearListArmor[i].rating;
