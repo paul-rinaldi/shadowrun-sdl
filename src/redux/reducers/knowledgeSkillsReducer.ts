@@ -16,7 +16,10 @@ export const knowledgeSkillReducer = (state: KnowledgeSkills = initialState.know
             return changeSkill(action.payload.type, action.payload.index, 1, state);
         }
         case "ADD_KSKILL": {
-            return updateKnowledgeSkill(action.payload.type,  action.payload.index, action.payload.att, action.payload.name, action.payload.specialization,state);
+            return addSkill(action.payload.type, action.payload.att, action.payload.name, action.payload.specialization,state);
+        }
+        case "UPDATE_KSKILL_ACTION": {
+            return updateKnowledgeSkill(action.payload.type, action.payload.index, action.payload.adjustment, state);
         }
         case "SET_KSKILLS_ACTION": {
             return action.payload;
@@ -55,16 +58,9 @@ const changeSkill = (type: string, index: number, delta: number, oldSkills: Know
     return skills;
 };
 
-/**
- * Update the knowledge skills for when a skill is added
- * @param type - type of the knowledge skill to update (4 to choose from)
- * @param index - index of the knowledge skill in the type array
- * @param att - attribute of the knowledge skill
- * @param name - name of the knowledge skill
- * @param specialization - specialization of the knowledge skill
- * @param oldSkills - the original knowledge skill values
- */
-const updateKnowledgeSkill = (type: string, index: number, att: string, name: string, specialization: string, oldSkills: KnowledgeSkills): KnowledgeSkills => {
+
+
+const addSkill = (type: string, att: string, name: string, specialization: string, oldSkills: KnowledgeSkills): KnowledgeSkills => {
     //Create a deep copy of the knowledgeSkills object
     const updatedKnowledgeSkills = {
         ...oldSkills
@@ -105,8 +101,44 @@ const updateKnowledgeSkill = (type: string, index: number, att: string, name: st
             });
             break;
     }
-//Replace the current knowledgeSkills object with the updated copy
-return updatedKnowledgeSkills;
+    //Replace the current knowledgeSkills object with the updated copy
+    return updatedKnowledgeSkills;
+}
+
+
+
+
+/**
+ * Update the knowledge skills for when a skill is added
+ * @param type - type of the knowledge skill to update (4 to choose from)
+ * @param att - attribute of the knowledge skill
+ * @param name - name of the knowledge skill
+ * @param specialization - specialization of the knowledge skill
+ * @param oldSkills - the original knowledge skill values
+ */
+const updateKnowledgeSkill = (type: string, index: number, adjustment: number, oldSkills: KnowledgeSkills): KnowledgeSkills => {
+    //Create a deep copy of the knowledgeSkills object
+    const updatedKnowledgeSkills = {
+        ...oldSkills
+    };
+
+    //Adjust the desired skill of the copy
+    switch (type.toLowerCase()) {
+        case "street":
+            updatedKnowledgeSkills.street[index].rating += adjustment;
+            break;
+        case "academic":
+            updatedKnowledgeSkills.academic[index].rating += adjustment;
+            break;
+        case 'professional':
+            updatedKnowledgeSkills.professional[index].rating += adjustment;
+            break;
+        case 'interests':
+            updatedKnowledgeSkills.interests[index].rating += adjustment;
+            break;
+    }
+    //Replace the current knowledgeSkills object with the updated copy
+    return updatedKnowledgeSkills;
 }
 
 

@@ -3,10 +3,11 @@ import {KnowledgeSkills} from "../../models/playerModels";
 // four types for increasing/descreasing/adding/setting knowledge skill actions
 type IncreaseKSkillAction = { type: 'INC_KSKILL_ACTION', payload: { type: string, index: number } }
 type DecreaseKSkillAction = { type: 'DEC_KSKILL_ACTION', payload: { type: string, index: number } }
-type AddKSkillAction = {type: 'ADD_KSKILL', payload: {type: string, att: string, index: number, name: string, specialization: string,}}
+type AddKSkillAction = {type: 'ADD_KSKILL', payload: {type: string, att: string, name: string, specialization: string}}
 type SetKSkillsAction = { type: 'SET_KSKILLS_ACTION', payload: KnowledgeSkills}
+type UpdateKSkillAction = { type: 'UPDATE_KSKILL_ACTION', payload: {type: string, index: number, adjustment: number}}
 
-export type KnowledgeSkillsActions = IncreaseKSkillAction | DecreaseKSkillAction | AddKSkillAction | SetKSkillsAction;
+export type KnowledgeSkillsActions = IncreaseKSkillAction | DecreaseKSkillAction | AddKSkillAction | SetKSkillsAction | UpdateKSkillAction;
 
 /**
  * Increases the knowledge skill
@@ -32,13 +33,17 @@ export const decreaseKSkill = (type: string, index: number): KnowledgeSkillsActi
  * Adds the knowledge skill
  * @param type - type of the knowledge skill to update
  * @param att - attribute of the knowledge skill
- * @param index - index of the knowledge skill in the type array
  * @param name - name of the knowledge skill
  * @param specialization - specialization of the knowledge skill
  */
-export const addKSkill = (type: string, att: string, index: number, name: string, specialization: string): KnowledgeSkillsActions => ({
+export const addKSkill = (type: string, att: string, name: string, specialization: string): KnowledgeSkillsActions => ({
     type: 'ADD_KSKILL',
-    payload: {type, att, index, name, specialization}
+    payload: {type, att, name, specialization}
+});
+
+export const updateKSkill = (type: string, index: number, adjustment: number): KnowledgeSkillsActions => ({
+    type: 'UPDATE_KSKILL_ACTION',
+    payload: {type, index, adjustment}
 });
 
 /**
