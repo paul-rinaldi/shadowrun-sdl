@@ -2,6 +2,11 @@ import {KnowledgeSkills} from "../../models/playerModels";
 import {initialState} from "../initialState";
 import {KnowledgeSkillsActions} from "../actions/knowledgeSkillsActions";
 
+/**
+ * Reducer for the knowledge skill
+ * @param state - the initial state of the knowledge skill
+ * @param action - the knowledge skill action that was passed in
+ */
 export const knowledgeSkillReducer = (state: KnowledgeSkills = initialState.knowledgeSkills, action: KnowledgeSkillsActions): KnowledgeSkills => {
     switch (action.type) {
         case "INC_KSKILL_ACTION": {
@@ -22,6 +27,13 @@ export const knowledgeSkillReducer = (state: KnowledgeSkills = initialState.know
     }
 }
 
+/**
+ * Changes the skills based on data passed in
+ * @param type - type of the knowledge skill to update (4 to choose from)
+ * @param index - index of the knowledge skill in the type array
+ * @param delta - value in which to increase/decrease a skill
+ * @param oldSkills - the original knowledge skill values
+ */
 const changeSkill = (type: string, index: number, delta: number, oldSkills: KnowledgeSkills): KnowledgeSkills => {
     let skills = {
         ...oldSkills
@@ -43,7 +55,15 @@ const changeSkill = (type: string, index: number, delta: number, oldSkills: Know
     return skills;
 };
 
-
+/**
+ * Update the knowledge skills for when a skill is added
+ * @param type - type of the knowledge skill to update (4 to choose from)
+ * @param index - index of the knowledge skill in the type array
+ * @param att - attribute of the knowledge skill
+ * @param name - name of the knowledge skill
+ * @param specialization - specialization of the knowledge skill
+ * @param oldSkills - the original knowledge skill values
+ */
 const updateKnowledgeSkill = (type: string, index: number, att: string, name: string, specialization: string, oldSkills: KnowledgeSkills): KnowledgeSkills => {
     //Create a deep copy of the knowledgeSkills object
     const updatedKnowledgeSkills = {
