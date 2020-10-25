@@ -1,15 +1,38 @@
-import {Qualities} from "../../models/playerModels";
-import {initialState} from "../initialState";
-import {adjustQuality, QualityAction} from "../actions/qualityActions";
+import { IQualities } from "../../models/playerModels";
+import { initialState } from "../initialState";
+import { adjustQuality, QualityAction } from "../actions/qualityActions";
 
-export const qualityReducer = (state: Qualities = initialState.qualities, action: QualityAction): Qualities => {
+export const qualityReducer = (state: IQualities = initialState.qualities, action: QualityAction): IQualities => {
     switch (action.type) {
         case "ADJUST_QUALITY_ACTION": {
-            return adjustQualities(action.payload.qName, action.payload.karmaAdjust, action.payload.rating, action.payload.max, action.payload.notes, 
-                action.payload.type, state);
+            switch (action.payload.type.toLocaleLowerCase()) {
+                case 'positive': 
+                    return { ...state, 
+                        positive: [...state.positive, {
+                            qName: action.payload.qName,
+                            karma: action.payload.karmaAdjust,
+                            rating: action.payload.rating,
+                            max: action.payload.max,
+                            notes: action.payload.notes
+                        }]};
+                case 'negative':
+                    return { ...state,
+                        negative: [...state.negative, {
+                            qName: action.payload.qName,
+                            karma: action.payload.karmaAdjust,
+                            rating: action.payload.rating,
+                            max: action.payload.max,
+                            notes: action.payload.notes
+                        }]};
+                default:
+                    return state;
+            }
         }
         case 'REMOVE_QUALITY_ACTION': {
             return removeQualities(action.payload.type, action.payload.index, state);
+        }
+        case 'SET_QUALITIES_ACTION': {
+            return action.payload;
         }
         default: {
             return state;
@@ -17,33 +40,7 @@ export const qualityReducer = (state: Qualities = initialState.qualities, action
     }
 }
 
-const adjustQualities = (qName: string, karmaAdjust: number, rating: number, max: number, notes: string, type: string, oldQualities: Qualities) => {
-    let qualities = {
-        ...oldQualities
-    };
-
-    switch(type.toLowerCase()){
-        case "positive":
-            qualities.positive.push({
-                qName: qName,
-                karma: karmaAdjust,
-                rating: rating,
-                max: max,
-                notes: notes
-            })
-        case "negative": 
-            qualities.negative.push({
-                qName: qName,
-                karma: karmaAdjust,
-                rating: rating,
-                max: max,
-                notes: notes
-            })
-    }
-    return qualities;
-}
-
-const removeQualities = (type: string, index: number, oldQualities: Qualities) => {
+const removeQualities = (type: string, index: number, oldQualities: IQualities) => {
     let qualities = {
         ...oldQualities
     };

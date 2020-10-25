@@ -1,9 +1,9 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux';
-import {createLogger} from "redux-logger";
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { createLogger } from "redux-logger";
 import { ICharacter } from '../models/playerModels';
 import { IUploadModel } from '../models/uploadModels';
 import { karmaReducer } from './reducers/karmaReducer';
-import {knowledgeSkillsReducer} from './reducers/knowledgeSkillsReducer';
+import { knowledgeSkillReducer } from './reducers/knowledgeSkillsReducer';
 import { logReducer } from './reducers/logReducer';
 import { nuyenReducer } from './reducers/nuyenReducer';
 import { skillReducer } from './reducers/skillReducer';
@@ -17,6 +17,8 @@ import { ritPrepComplexReducer } from './reducers/ritPrepComplexReducer';
 import { gearReducer } from './reducers/gearReducer';
 import { metaTypeReducer } from './reducers/metaTypeReducer';
 import { idReducer } from './reducers/idReducer';
+import { imageReducer } from './reducers/imageReducer';
+import { qualityReducer } from './reducers/qualityReducer';
 
 const logger = createLogger();
 
@@ -31,19 +33,18 @@ export const rootReducer = combineReducers({
         metatype: metaTypeReducer,
         money: nuyenReducer,
         karma: karmaReducer,
-
         // currentEdge: edgeReducer,
         // conditionMonitor: conditionReducer,
         // personal: personalReducer,
         attributes: attributesReducer,
-        // img: imageReducer,
+        img: imageReducer,
         initiative: initiativeReducer,
         // armor: armorReducer,
         // lifeStyle: lifestyleReducer,
         ID: idReducer,
         skills: skillReducer,
-        knowledgeSkills: knowledgeSkillsReducer,
-        // qualities: qualitiesReducer,
+        knowledgeSkills: knowledgeSkillReducer,
+        qualities: qualityReducer,
         augmentations: augmentationReducer,
         RitPrepRitComplex: ritPrepComplexReducer,
         cyberdeck: cyberDeckReducer,

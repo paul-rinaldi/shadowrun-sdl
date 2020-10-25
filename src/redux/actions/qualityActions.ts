@@ -1,9 +1,11 @@
+import { IQualities } from '../../models/playerModels';
 import { makeLog } from './logActions';
 
 type AdjustQualityAction = { type: "ADJUST_QUALITY_ACTION", payload: { qName: string, karmaAdjust: number, rating: number, max: number, notes: string, type: string } };
 type RemoveQualityAction = { type: 'REMOVE_QUALITY_ACTION', payload: { type: string, index: number} };
+type SetQualitiesAction = { type: 'SET_QUALITIES_ACTION', payload: IQualities}
 
-export type QualityAction = AdjustQualityAction | RemoveQualityAction;
+export type QualityAction = AdjustQualityAction | RemoveQualityAction | SetQualitiesAction;
 
 export const adjustQuality = (qName: string, karmaAdjust: number, rating: number, max: number, notes: string, type: string): QualityAction => {
     return ({
@@ -15,4 +17,9 @@ export const adjustQuality = (qName: string, karmaAdjust: number, rating: number
 export const removeQuality = (type: string, index: number): QualityAction => ({
     type: "REMOVE_QUALITY_ACTION",
     payload: {type, index}
+});
+
+export const setQualities = (qualities: IQualities): SetQualitiesAction => ({
+    type: 'SET_QUALITIES_ACTION',
+    payload: qualities
 });

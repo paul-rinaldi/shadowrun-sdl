@@ -12,6 +12,7 @@ import { setInitiative } from "./initiativeAction";
 import { setAugmentationDeck } from "./augmentationAction";
 import { setGear } from "./gearAction";
 import { setID } from "./idAction";
+import { setQualities } from "./qualityActions";
 
 export const uploadCharacter = (character: ICharacter) => {
     setName(character.name);
@@ -22,6 +23,7 @@ export const uploadCharacter = (character: ICharacter) => {
     setID(character.ID);
     setSkills(character.skills);
     setKSkill(character.knowledgeSkills);
+    setQualities(character.qualities);
     setAugmentationDeck(character.augmentations);
     setRitPrepPitComplexAction(character.RitPrepRitComplex);
     setCyberDeck(character.cyberdeck);
