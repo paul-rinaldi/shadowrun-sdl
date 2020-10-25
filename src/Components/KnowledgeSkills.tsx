@@ -245,7 +245,35 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
         let attrText;
 
         //A string of the associated attribute name and value
-        attrText = skill.attribute.toUpperCase() + ': ' + character.attributes[skill.attribute.toUpperCase()];
+        attrText = skill.attribute.toUpperCase() + ': ';
+
+        switch (skill.attribute.toUpperCase()) {
+            case 'BOD': attrText += character.attributes.BOD;
+                break;
+            case 'AGI': attrText += character.attributes.AGI;
+                break;
+            case 'REA': attrText += character.attributes.REA;
+                break;
+            case 'STR': attrText += character.attributes.STR;
+                break;
+            case 'WIL': attrText += character.attributes.WIL;
+                break;
+            case 'LOG': attrText += character.attributes.LOG;
+                break;
+            case 'INT': attrText += character.attributes.INT;
+                break;
+            case 'CHA': attrText += character.attributes.CHA;
+                break;
+            case 'EDG': attrText += character.attributes.EDG;
+                break;
+            case 'ESS': attrText += character.attributes.ESS;
+                break;
+            case 'MAG': attrText += character.attributes.MAG;
+                break;
+            case 'RES': attrText += character.attributes.RES;
+                break;
+            default: return;
+        }
 
         let plusButton = <button onClick={() => this.incrementSkill(type, index)}>+</button>;
         let minusButton = <button onClick={() => this.decrementSkill(type, index)}>-</button>;
