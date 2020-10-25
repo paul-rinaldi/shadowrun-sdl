@@ -3,6 +3,7 @@ import { setAttributes } from "./attributeAction";
 import { setKarma } from "./karmaActions";
 import { setLog } from './logActions';
 import { setNuyen } from "./nuyenActions";
+import { setKSkill} from "./knowledgeSkillsActions";
 import { setSkills } from "./skillActions";
 import { setName } from './nameActions';
 import { setCyberDeck } from "./cyberDeckActions";
@@ -20,6 +21,7 @@ export const uploadCharacter = (character: ICharacter) => {
     setInitiative(character.initiative);
     setID(character.ID);
     setSkills(character.skills);
+    setKSkill(character.knowledgeSkills);
     setAugmentationDeck(character.augmentations);
     setRitPrepPitComplexAction(character.RitPrepRitComplex);
     setCyberDeck(character.cyberdeck);

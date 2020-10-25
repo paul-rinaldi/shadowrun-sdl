@@ -1,5 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import '../CSS_Files/KnowledgeSkills.css'
+import {IShadowRunState} from "../redux/store";
+import {setAttributes} from "../redux/actions/attributeAction";
+import {connect} from "react-redux";
+import {increaseKSkill, decreaseKSkill, addKSkill} from "../redux/actions/knowledgeSkillsActions";
 
 //Some useful 5e core rulebook pages about knowledge skills:
 //  147-149 - General explanation of knowledge skills, specializations, types, and ratings
@@ -8,6 +12,23 @@ import '../CSS_Files/KnowledgeSkills.css'
 //  103-107 - Character advancement (how skills are upgraded)
 //  44-48 - Explanation of tests, i.e., how the skill ratings are used in dice rolls
 
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player
+})
+
+const mapDispatchToProps = {
+    increaseKSkill,
+    decreaseKSkill,
+    addKSkill
+}
+
+type IKnowledgeSkillsProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+
+
+type IState = {
+    small : boolean
+}
+
 /**
  * @class Represents the Skills page. For every knowledge skill the character has the page displays the skill name, the
  * character's rating in the skill, the associated attribute and the character's rating in that attribute, and any
@@ -15,12 +36,12 @@ import '../CSS_Files/KnowledgeSkills.css'
  * Professional, Academics, or Interests). There are also buttons for each skill that allow the player to increase or
  * decrease their rating in the skill as well as a button for each table to add new skills.
  */
-class KnowledgeSkills extends React.Component{
-    constructor(props){
+class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
+    constructor(props: IKnowledgeSkillsProps){
         super(props);
 
         this.state = {
-            small: false //Controls whether to render one or two columns of tables
+            small  : false //Controls whether to render one or two columns of tables
         };
 
         //Resize handler to determine if one or two columns of tables should be rendered
@@ -112,7 +133,7 @@ class KnowledgeSkills extends React.Component{
      * @param att The attribute associated with the knowledge skill type.
      * @returns a table containing information about every knowledge skill of the provided type.
      */
-    skillTable(type, att) {
+    skillTable(type: string, att: string) {
         //A list of all knowledge skills of the provided type
         let skillList = this.props.character.knowledgeSkills[type.toLowerCase()];
         let skillRows = []; //The rows to be displayed, each containing info about a single knowledge skill
@@ -141,6 +162,12 @@ class KnowledgeSkills extends React.Component{
                 </table>
             </div>
         );
+    }
+
+    private getKnowledgeSkills = (type: string) => {
+        const { character } = this.props;
+        const { skills } = character;
+
     }
 
     addSkill(type, att){
@@ -309,4 +336,4 @@ class KnowledgeSkills extends React.Component{
     }
 }
 
-export default KnowledgeSkills;
+export default connect(mapStateToProps, mapDispatchToProps)(KnowledgeSkills);

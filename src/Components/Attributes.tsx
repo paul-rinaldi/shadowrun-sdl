@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import '../CSS_Files/Attributes.css';
 import {connect} from "react-redux";
 import {IShadowRunState} from "../redux/store";
@@ -7,6 +7,7 @@ import {adjustKarma} from "../redux/actions/karmaActions";
 import {makeLog} from "../redux/actions/logActions";
 
 type IAttributesProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+
 //state = the passed in state from the react-redux store (can be seen on index.tsx line 10)
 const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player
@@ -21,7 +22,7 @@ const mapDispatchToProps = {
     makeLog
 }
 
-class Attributes extends React.Component <IAttributesProps> {
+class Attributes extends Component <IAttributesProps> {
 
     constructor(props: IAttributesProps) {
         super(props);
@@ -171,7 +172,7 @@ class Attributes extends React.Component <IAttributesProps> {
             minRES: 0
         };
 
-        const { character } = this.props;
+        const { character } = this.props; //decomposer to not have to constantly use this.props.? instead can just say character
         switch (character.metatype.toLowerCase()) {
             case "human":
                 minMax = human;
@@ -217,7 +218,7 @@ class Attributes extends React.Component <IAttributesProps> {
      * It changes depending on if it is any other attribute or ess, which increases in .1 increments
      */
     handleLevelUp(att: string) {
-        const minMax = this.findMinMax(att);
+        const minMax = this.findMinMax(att); //get min and max attributes based off of player meta type
         const min = minMax.min;
         const max = minMax.max;
         const rating = this.getAttribute(att);
@@ -252,10 +253,10 @@ class Attributes extends React.Component <IAttributesProps> {
                 } else {
                     const response = window.confirm(costString + `\n\nIs it OK to upgrade ${att}?`);
                     if (response) {
-                        setAttribute(att, 1, min, max);
-                        adjustKarma(-1 * karmaNeeded);
+                        setAttribute(att, 1, min, max); //sets the selected attribute to specified min and maxa
+                        adjustKarma(-1 * karmaNeeded); //adjust the karma
                         makeLog(-1 * karmaNeeded, `Increased ${att} attribute from ${rating} to ` +
-                            `${newRating} (${time})`,"Karma", new Date());
+                            `${newRating} (${time})`,"Karma", new Date()); //log the update that was completed
                     }
                 }
             }
@@ -390,46 +391,6 @@ class Attributes extends React.Component <IAttributesProps> {
         );
     }
 
-    // /**
-    //  * Creates the table for the limits a character has
-    //  */
-    // limitsTable() {
-    //     return (
-    //         <table className="lim">
-    //             <tbody>
-    //             <tr className="att">
-    //                 <th className="att">Type</th>
-    //                 <th className="lim">Rtg.</th>
-    //                 <th className="att">Inherent Limits</th>
-    //             </tr>
-    //             <tr className="lim">
-    //                 <td className="lim">Physical Limit</td>
-    //                 <td className="lim">{this.limitCalculation(this.props.character.attributes
-    //                     .STR, this.props.character.attributes
-    //                     .BOD, this.props.character.attributes
-    //                     .REA)}</td>
-    //                 <td className="lim">[(Strength x 2) + Body + Reaction]/3 Rounded Up</td>
-    //             </tr>
-    //             <tr className="lim">
-    //                 <td className="lim">Mental Limit</td>
-    //                 <td className="lim">{this.limitCalculation(this.props.character.attributes
-    //                     .LOG, this.props.character.attributes
-    //                     .INT, this.props.character.attributes
-    //                     .WIL)}</td>
-    //                 <td className="lim">[(Logic x 2) + Intuition + Willpower]/3 Rounded Up</td>
-    //             </tr>
-    //             <tr className="lim">
-    //                 <td className="lim">Social Limit</td>
-    //                 <td className="lim">{this.limitCalculation(this.props.character.attributes
-    //                     .CHA, this.props.character.attributes
-    //                     .WIL, this.props.character.attributes
-    //                     .ESS)}</td>
-    //                 <td className="lim">[(Charisma x 2) + Willpower + Essence]/3 Rounded Up</td>
-    //             </tr>
-    //             </tbody>
-    //         </table>
-    //     );
-    // }
 
     /**
      * Displays a table of the character's inherent limit calculations.
@@ -461,7 +422,7 @@ class Attributes extends React.Component <IAttributesProps> {
      * @returns A table row containing the limit name, the calculation for the limit, and the limit value.
      */
     limitRow(type : string) {
-            const { character: { attributes} } = this.props;
+            const { character: { attributes } } = this.props; //will get the attributes of the character. variable name is 'attributes'
             let limit;
             let attrStrings, attrValStrings;
             switch (type) {
@@ -578,3 +539,48 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Attributes);
+
+
+/**
+
+// /**
+//  * Creates the table for the limits a character has
+    *dont need rn but put back if its needed ever. Was commented out before SDL 2020 fall team inherited the project
+//  */
+// limitsTable() {
+//     return (
+//         <table className="lim">
+//             <tbody>
+//             <tr className="att">
+//                 <th className="att">Type</th>
+//                 <th className="lim">Rtg.</th>
+//                 <th className="att">Inherent Limits</th>
+//             </tr>
+//             <tr className="lim">
+//                 <td className="lim">Physical Limit</td>
+//                 <td className="lim">{this.limitCalculation(this.props.character.attributes
+//                     .STR, this.props.character.attributes
+//                     .BOD, this.props.character.attributes
+//                     .REA)}</td>
+//                 <td className="lim">[(Strength x 2) + Body + Reaction]/3 Rounded Up</td>
+//             </tr>
+//             <tr className="lim">
+//                 <td className="lim">Mental Limit</td>
+//                 <td className="lim">{this.limitCalculation(this.props.character.attributes
+//                     .LOG, this.props.character.attributes
+//                     .INT, this.props.character.attributes
+//                     .WIL)}</td>
+//                 <td className="lim">[(Logic x 2) + Intuition + Willpower]/3 Rounded Up</td>
+//             </tr>
+//             <tr className="lim">
+//                 <td className="lim">Social Limit</td>
+//                 <td className="lim">{this.limitCalculation(this.props.character.attributes
+//                     .CHA, this.props.character.attributes
+//                     .WIL, this.props.character.attributes
+//                     .ESS)}</td>
+//                 <td className="lim">[(Charisma x 2) + Willpower + Essence]/3 Rounded Up</td>
+//             </tr>
+//             </tbody>
+//         </table>
+//     );
+// }
