@@ -255,7 +255,7 @@ class GearPage extends React.Component<IGearProps>{
                                     cost: costOfArmor,
                                     equiped: true
                                 } as Armor;
-                                makeLog(-1 * costOfArmor, "Buying " + aNameNew, "Nuyen", new Date()); // FIXME
+                                makeLog(-1 * costOfArmor, "Buying " + aNameNew, "Nuyen", new Date());
                                 adjustNuyen(-1 * costOfArmor);
                                 addArmor(armor);
                             }
@@ -639,7 +639,7 @@ class GearPage extends React.Component<IGearProps>{
             if (nuyenVal > 0 || !isNaN(nuyenVal)) {
                 //Removes the gear given depending on the type and what item it is
                 this.props.updateRemGear(index, type);
-                makeLog(1 * nuyenVal, "Selling" + type, "Nuyen", new Date()); // FIXME
+                makeLog(1 * nuyenVal, "Selling" + type, "Nuyen", new Date());
                 adjustNuyen(1 * nuyenVal);
             }
         }
