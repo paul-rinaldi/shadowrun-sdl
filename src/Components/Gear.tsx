@@ -7,8 +7,20 @@ import { Ranged, Gear, Armor, Melee } from '../models/playerModels';
 import { connect } from 'react-redux';
 import { IShadowRunState } from '../redux/store';
 import Select, { ValueType } from 'react-select';
-// import { gearReducer } from '../redux/reducers/gearReducer';
+import { gearReducer } from '../redux/reducers/gearReducer';
 import { setGear } from '../redux/actions/gearAction';
+import { adjustNuyen } from "../redux/actions/nuyenActions";
+import { makeLog } from "../redux/actions/logActions";
+
+/*
+Fix following prop callbakcs:
+
+adjKarm={this.adjustKarma} =?
+updateAddGear={this.updateAddGear}
+updateRemGear={this.updateRemGear}
+adjNuyen={this.adjustNuyen}
+updateUnequipArmor={this.updateUnequipArmor}
+*/
 
 interface RangedOption { value: Ranged; label: string; }
 interface MeleeOptions { value: Melee; label: string; }
@@ -18,7 +30,10 @@ const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player
 });
 const mapDispatchToProps = {
-    // fx to pass in
+    gearReducer,
+    setGear,
+    adjustNuyen,
+    makeLog
 };
 
 /**
@@ -59,11 +74,12 @@ class GearPage extends React.Component<IGearProps>{
      * @param {*} typeGear is what kind of gear category it belongs to
      * @param {*} gear is the full json object of the new gear
      */
+    // THIS METHOD WAS COPIED FROM APP.JS. EVENTUALLY WE WANT TO CALL REDUCERS TO UPDATE STATE AND NOT USE THIS METHOD
     updateAddGear(typeGear: string, gear: Gear){
         let gearCopy = JSON.parse(JSON.stringify(this.state.gear));
         gearCopy[typeGear].push(gear);
 
-        this.setState({
+        this.setState({ // was state of the app.js, not this component
             gear: gearCopy
         });
     }
@@ -195,8 +211,9 @@ class GearPage extends React.Component<IGearProps>{
         }
         const response = window.confirm("This armor will cost " + armor.cost + " nuyen.");
         if (response) {
-            this.props.adjNuyen(1 * armor.cost, "Buying " + armor.name + " Armor", "Nuyen");
-            gearReducer("SET_ARMOR_ACTION", armor);
+            makeLog(1 * armor.cost, "Buying " + armor.name + " Armor", "Nuyen", new Date());
+            adjustNuyen(1 * armor.cost);
+            gearReducer("SET_ARMOR_ACTION", armor); // old: this.props.updateAddGear("armor", armor);
         }
     }
 
@@ -233,7 +250,8 @@ class GearPage extends React.Component<IGearProps>{
                                     cost: costOfArmor,
                                     equiped: true
                                 };
-                                this.props.adjNuyen(-1 * costOfArmor, "Buying " + aNameNew, "Nuyen");
+                                makeLog(-1 * costOfArmor, "Buying " + aNameNew, "Nuyen", new Date()); // FIXME
+                                adjustNuyen(-1 * costOfArmor);
                                 this.props.updateAddGear("armor", armor);
                             }
                         }
@@ -359,7 +377,8 @@ class GearPage extends React.Component<IGearProps>{
         }
         const response = window.confirm("This weapon will cost " + weapon.cost + " nuyen.");
         if(response){
-            this.props.adjNuyen(weapon.cost, "Buying " + weapon.name, "Nuyen");
+            makeLog(weapon.cost, "Buying " + weapon.name, "Nuyen", new Date());
+            adjustNuyen(weapon.cost);
             this.props.updateAddGear("melee", weapon);
         }
     }
@@ -407,8 +426,8 @@ class GearPage extends React.Component<IGearProps>{
                                                 cost: costOfMelee,
                                                 skill: skill
                                             };
-                                            this.props.adjNuyen(-1 * parseInt(costOfMelee), "Buying " + weapon.name, "Nuyen");
-                                            
+                                            makeLog(-1 * parseInt(costOfMelee), "Buying " + weapon.name, "Nuyen", new Date());
+                                            adjustNuyen(-1 * parseInt(costOfMelee));
                                             this.props.updateAddGear("melee", weapon);
                                         }
                                     }
@@ -540,7 +559,8 @@ class GearPage extends React.Component<IGearProps>{
         }
         const response = window.confirm("This weapon will cost " + ranged.cost + " nuyen.");
         if(response){
-            this.props.adjNuyen(parseInt(ranged.cost), "Buying " + ranged.name, "Nuyen");
+            makeLog(parseInt(ranged.cost), "Buying " + ranged.name, "Nuyen", new Date());
+            adjustNuyen(parseInt(ranged.cost));
             this.props.updateAddGear("ranged", ranged);
         }
     }
@@ -587,7 +607,8 @@ class GearPage extends React.Component<IGearProps>{
                                                     availability: availability,
                                                     cost: costOfRanged
                                                 }
-                                                this.props.adjNuyen(-1 * costOfRanged, "Buying " + aNameNew, "Nuyen");
+                                                makeLog(-1 * costOfRanged, "Buying " + aNameNew, "Nuyen", new Date());
+                                                adjustNuyen(-1 * costOfRanged);
                                                 this.props.updateAddGear("ranged", ranged);
                                             }
                                         }
@@ -608,13 +629,14 @@ class GearPage extends React.Component<IGearProps>{
         if (nuyenVal !== null) {
             //Removes the gear given depending on the type and what item it is
             this.props.updateRemGear(index, type);
-            this.props.adjNuyen(1 * nuyenVal, "Selling" + type, "Nuyen");
+            makeLog(1 * nuyenVal, "Selling" + type, "Nuyen", new Date()); // FIXME
+            adjustNuyen(1 * nuyenVal);
         }
     }
 
     //Sends the information back to app.js to unequip the gear (armor) by sending its name, if it is currently equiped, its rating, capacity, avaliability, cost. 
     //The index is used to go to the armor section in the characters gear
-    equip(type: string, index: number){
+    equip(type: string, index: number) {
         this.props.updateUnequipArmor(
             this.props.character.gear[type][index].name,
             this.props.character.gear[type][index].equiped,

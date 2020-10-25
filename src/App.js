@@ -436,7 +436,7 @@ export default class App extends React.Component {
                         )}/>
                         <Route path = '/Gear' render={() => (
                             <div>
-                                <Gear adjKarm={this.adjustKarma} updateAddGear={this.updateAddGear}  updateRemGear={this.updateRemGear} adjNuyen={this.adjustNuyen} updateUnequipArmor={this.updateUnequipArmor}/>
+                                <Gear />
                             </div>
                         )}/>
                         <Route path='/Log' render={() => (<Log character={this.state} adjKarm={this.adjustKarma} adjNuyen={this.adjustNuyen}/>)}/>
