@@ -1,13 +1,18 @@
 import React from 'react';
 import '../CSS_Files/Qualities.css'
 import qualityJSON from '../Qualities.json'
-import Select from 'react-select';
+import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from "../redux/store";
 import { adjustKarma } from '../redux/actions/karmaActions';
 import { adjustQuality, removeQuality } from '../redux/actions/qualityActions';
+import { IQuality } from "../models/playerModels";
 
 type IQualityProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
+interface QualityOption {
+    value: IQuality; 
+    label: string
+}
 interface IQualityState {
     karmaButton: boolean;
     nuyenButton: boolean;
@@ -120,19 +125,36 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} type is positive/negative depending on the quality
      */
     allQualitiesDropdown(type: string){
-        const options: string = [];
+        const options: QualityOption[] = [];
 
-        qualityJSON[type].forEach(quality => {
-            options.push({
-                value: quality,
-                label: `${quality.qName}` //TODO add full dice value here?
+        // qualityJSON[type].forEach(quality=> {
+        //     options.push({
+        //         value: quality,
+        //         label: `${quality.qName}` //TODO add full dice value here?
+        //     });
+        // });
+
+        let qualities: object = qualityJSON[type.toLowerCase() === "positive" ? "positive" : "negative"];
+            Object.entries(qualities).forEach((qualityType) =>{
+                qualityType.forEach((quality) => {
+                    options.push({
+                        value: quality,
+                        label: `${quality.qName}`
+                });
             });
         });
 
-        return <div className={'QualitiesDrop'}><Select
-            options={options}
-            onChange={val => this.addPresetQuality(val.value.qName, val.value.karma, val.value.rating, val.value.max, type)}
-        /></div>
+
+
+        // val.value.qName, val.value.karma, val.value.rating, val.value.max, type
+        return (
+            <div className={'QualitiesDrop'}>
+                <Select
+                    options={options}
+                    onChange={val => this.addPresetQuality(val, type)}
+                />
+            </div>
+        );
     }
 
     /**
@@ -237,13 +259,17 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} max is the max rating of the quality
      * @param {*} type is if it is positive or negative
      */
-    addPresetQuality(qName: string, karmaAdjust: number, rating: number, max: number, type: string){
-        const response = window.confirm("This quality will cost " + karmaAdjust + " karma.");
+    addPresetQuality(val: ValueType<QualityOption>, qualityType: string){
+        if(val === null || val === undefined){
+            return;
+        }
+        const quality = (val as QualityOption).value;
+        const response = window.confirm("This quality will cost " + quality.karma + " karma.");
         if(response){
             const notes = prompt("Enter any notes about the quality", "");
             if(notes !== null) {
-                adjustKarma(karmaAdjust);
-                adjustQuality(qName, karmaAdjust, rating, max, notes, type);
+                adjustKarma(quality.karma);
+                adjustQuality(quality.qName, quality.karma, quality.rating, quality.max, notes, qualityType);
                 //const check = this.props.adjKarm(karmaAdjust, 'Added Quality: ' + qName,"Karma");
                 //if(check === true){
                     //this.props.adjQuality(qName, karmaAdjust, rating, max, notes, type);

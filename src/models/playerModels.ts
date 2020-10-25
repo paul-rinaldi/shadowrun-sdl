@@ -85,7 +85,7 @@ export interface IQuality {
     notes: string;
 }
 
-export interface Qualities {
+export interface IQualities {
     positive: IQuality[];
     negative: IQuality[];
 }
@@ -181,7 +181,7 @@ export interface ICharacter {
     ID: string;
     skills: ISkills;
     knowledgeSkills: KnowledgeSkills;
-    qualities: Qualities;
+    qualities: IQualities;
     augmentations: Augmentation[];
     RitPrepRitComplex: RitPrepRitComplex;
     cyberdeck: Cyberdeck;
