@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { increaseKSkill, decreaseKSkill, addKSkill } from "../redux/actions/knowledgeSkillsActions";
 import { adjustKarma } from '../redux/actions/karmaActions';
 import { makeLog } from '../redux/actions/logActions';
+import { updateKSkill } from '../redux/actions/knowledgeSkillsActions';
 
 //Some useful 5e core rulebook pages about knowledge skills:
 //  147-149 - General explanation of knowledge skills, specializations, types, and ratings
@@ -21,7 +22,8 @@ const mapStateToProps = (state: IShadowRunState) => ({
 const mapDispatchToProps = {
     increaseKSkill,
     decreaseKSkill,
-    addKSkill
+    addKSkill,
+    updateKSkill
 }
 
 type IKnowledgeSkillsProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
@@ -179,10 +181,11 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
         }
     }
 
-    addSkill(type, att){
+    addSkill(type: string, att: string){
         //New knowledge skills cost 1 karma
-        if(this.props.character.karma >= 1) {
-            let skillName = '';
+        const { character } = this.props;
+        if (character.karma >= 1) {
+            let skillName: string | null = '';
 
             //Prompt the user for the skill name
             do {
@@ -200,9 +203,10 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
                 if (specialization !== null) {
                     if (specialization.trim() !== '') {
                         //Specializations cost 7 karma (plus the 1 for adding the skill)
-                        if (this.props.character.karma >= 8) {
+                        if (character.karma >= 8) {
                             //Add the skill
-                            this.props.addSkill(type, att, skillName, specialization);
+                            //this.props.addSkill(type, att, skillName, specialization);
+                            addKSkill(type, att, skillName, specialization);
 
                             makeLog(-1, `Added ${type} Knowledge Skill ${skillName}`,"Karma", new Date());
                             makeLog(-7, `Added ${specialization} specialization to the ${skillName} Knowledge Skill`,"Karma", new Date());
@@ -213,7 +217,8 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
                         }
                     } else {
                         //Add the skill
-                        this.props.addSkill(type, att, skillName, specialization); //addSkill comes from App
+                        //this.props.addSkill(type, att, skillName, specialization); //addSkill comes from App
+                        addKSkill(type, att, skillName, specialization);
                         makeLog(-1, `Added ${type} Knowledge Skill ${skillName}`, "Karma", new Date());
                         adjustKarma(-1);
                     }
@@ -233,12 +238,14 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
      * @returns a table row containing information about the skill of the provided type, at the provided index in the
      * type's list.
      */
-    skillRow(type, index){
-        let skill = this.props.character.knowledgeSkills[type][index];
+    skillRow(type: string, index: number){
+        const { character } = this.props;
+        let skill = this.getSkills(type)[index];
+        //let skill = character.knowledgeSkills[type][index];
         let attrText;
 
         //A string of the associated attribute name and value
-        attrText = skill.attribute.toUpperCase() + ': ' + this.props.character.attributes[skill.attribute.toUpperCase()];
+        attrText = skill.attribute.toUpperCase() + ': ' + character.attributes[skill.attribute.toUpperCase()];
 
         let plusButton = <button onClick={() => this.incrementSkill(type, index)}>+</button>;
         let minusButton = <button onClick={() => this.decrementSkill(type, index)}>-</button>;
@@ -252,6 +259,42 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
         </tr>
     }
 
+    private getSkills = (type: string) => {
+
+        const { character } = this.props;
+        const { knowledgeSkills } = character;
+
+        switch (type.toLowerCase()) {
+            case 'street': return knowledgeSkills.street;
+            case 'academic': return knowledgeSkills.academic;
+            case 'professional': return knowledgeSkills.professional;
+            case 'interests': return knowledgeSkills.interests;
+            default: return [];
+        }
+    }
+
+    private getAttributes = (type: string) => {
+
+        const { character } = this.props;
+        const { attributes } = character;
+
+        switch (type.toLowerCase()) {
+            case 'BOD': return attributes.BOD;
+            case 'AGI': return attributes.AGI;
+            case 'REA': return attributes.REA;
+            case 'STR': return attributes.STR;
+            case 'WIL': return attributes.WIL;
+            case 'LOG': return attributes.LOG;
+            case 'INT': return attributes.INT;
+            case 'CHA': return attributes.CHA;
+            case 'EDG': return attributes.EDG;
+            case 'ESS': return attributes.ESS;
+            case 'MAG': return attributes.MAG;
+            case 'RES': return attributes.RES;
+            default: return [];
+        }
+    }
+
     /**
      * Prompts the player with the karma cost and time needed to increase the rating of the skill at the given index in
      * the list of the given type. It will increment the rating of the skill if the player agrees to the cost and they
@@ -259,11 +302,12 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
      * @param type The type the skill belongs to.
      * @param index The index of the skill in the type list.
      */
-    incrementSkill(type, index){
-        const skill = this.props.character.knowledgeSkills[type][index];
+    incrementSkill(type: string, index: number){
+        const skill = this.getSkills(type)[index];
         const newRating = skill.rating + 1;
         const cost = newRating;
         let time;
+        //type: string, index: number, att: string, name: string, specialization: string
 
         //The max rating a skill can have is 13
         if(skill.rating < 13) {
@@ -292,7 +336,7 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
                     makeLog(-cost, `Increased ${skill.name} knowledge skill from ${skill.rating} to ` +
                         `${newRating} (${time})`, "Karma", new Date());
                     adjustKarma(-cost);
-                    this.props.updateKnowledgeSkill(type, index, 1); //Increment the skill with the function from App
+                    updateKSkill(type, index, 1); //Increment the skill with the function from App
                 }
             } else {
                 //Tell the player what the cost would be and that they don't have enough
@@ -312,8 +356,9 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
      * @param type The type the skill belongs to.
      * @param index The index of the skill in the type list.
      */
-    decrementSkill(type, index){
-        const skill = this.props.character.knowledgeSkills[type][index];
+    decrementSkill(type: string, index: number){
+        const { character } = this.props;
+        const skill = this.getSkills(type)[index];
         const newRating = skill.rating - 1;
         const refund = skill.rating;
         let time;
@@ -342,7 +387,7 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
                 makeLog(refund, `Decreased ${skill.name} knowledge skill from ${skill.rating} to ${newRating} ` +
                     `(returned ${time})`,"Karma", new Date());
                 adjustKarma(refund);
-                this.props.updateKnowledgeSkill(type, index, -1); //Decrement the skill with the function from App
+                updateKSkill(type, index, -1); //Decrement the skill with the function from App
             }
         } else {
             alert(`${skill.name} is at its min rating.`);
