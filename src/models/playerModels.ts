@@ -131,7 +131,6 @@ export interface Armor {
 export interface Melee {
     name: string;
     acc: number | string;
-    acc_modifier: number;
     reach: number;
     dam: string;
     ap: number;

@@ -38,7 +38,7 @@ export const addMelee = (melee: Melee): AddMeleeAction => ({
     payload: melee
 });
 
-export const addRaned = (ranged: Ranged): AddRangedAction => ({
+export const addRanged = (ranged: Ranged): AddRangedAction => ({
     type: 'ADD_RANGED_ACTION',
     payload: ranged
 });
