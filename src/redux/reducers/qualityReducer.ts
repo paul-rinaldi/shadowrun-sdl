@@ -48,8 +48,10 @@ const removeQualities = (type: string, index: number, oldQualities: IQualities) 
     switch(type.toLowerCase()){
         case "positive": 
             qualities.positive.splice(index, 1);
+            break;
         case "negative": 
             qualities.negative.splice(index, 1);
+            break;
     }
     return qualities;
 }
