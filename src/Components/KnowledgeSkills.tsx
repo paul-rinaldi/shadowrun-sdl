@@ -135,7 +135,7 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
      */
     skillTable(type: string, att: string) {
         //A list of all knowledge skills of the provided type
-        let skillList = this.props.character.knowledgeSkills[type.toLowerCase()];
+        let skillList = this.getKnowledgeSkills;
         let skillRows = []; //The rows to be displayed, each containing info about a single knowledge skill
 
         for(let i = 0; i < skillList.length; i++){
@@ -164,10 +164,17 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
         );
     }
 
+
     private getKnowledgeSkills = (type: string) => {
         const { character } = this.props;
-        const { skills } = character;
-
+        const { knowledgeSkills } = character;
+        switch (type.toLowerCase()) {
+            case 'street': return knowledgeSkills.street;
+            case 'academic': return knowledgeSkills.academic;
+            case 'professional': return knowledgeSkills.professional;
+            case 'interests': return knowledgeSkills.interests;
+            default: return [];
+        }
     }
 
     addSkill(type, att){
