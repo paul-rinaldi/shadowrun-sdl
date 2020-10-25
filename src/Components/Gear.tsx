@@ -7,6 +7,8 @@ import { Ranged, Gear, Armor, Melee } from '../models/playerModels';
 import { connect } from 'react-redux';
 import { IShadowRunState } from '../redux/store';
 import Select, { ValueType } from 'react-select';
+// import { gearReducer } from '../redux/reducers/gearReducer';
+import { setGear } from '../redux/actions/gearAction';
 
 interface RangedOption { value: Ranged; label: string; }
 interface MeleeOptions { value: Melee; label: string; }
@@ -75,9 +77,9 @@ class GearPage extends React.Component<IGearProps>{
 
         layout = 
         <div>
-            {this.gearTableArmor('Armor')}
-            {this.gearTableMelee('Melee')}
-            {this.gearTableRanged('Ranged')}
+            {this.gearTableArmor()}
+            {this.gearTableMelee()}
+            {this.gearTableRanged()}
         </div>
 
         return layout;
@@ -91,9 +93,9 @@ class GearPage extends React.Component<IGearProps>{
      * Armor can be found starting on page 436 of the core rulebook
      * @param type The type the gear that is currently being created
      */
-    gearTableArmor(type: string){
+    gearTableArmor(){
         //A list of all gear of the armor type
-        let gearList = this.props.character.gear[type.toLowerCase()];
+        let gearList = this.props.character.gear.armor;
         let gearRows = [];
 
         for (let i = 0; i < gearList.length; i++) {
@@ -193,7 +195,7 @@ class GearPage extends React.Component<IGearProps>{
         const response = window.confirm("This armor will cost " + armor.cost + " nuyen.");
         if (response) {
             this.props.adjNuyen(1 * armor.cost, "Buying " + armor.name + " Armor", "Nuyen");
-            this.props.updateAddGear("armor", armor);
+            gearReducer("SET_ARMOR_ACTION", armor);
         }
     }
 
@@ -248,9 +250,9 @@ class GearPage extends React.Component<IGearProps>{
      * Melee weapons can be found starting on page 421 of the core rulebook
      * @param type The type the gear that is currently being created
      */
-    gearTableMelee(type: string){
+    gearTableMelee(){
         //A list of all gear of the melee type
-        let gearList = this.props.character.gear[type.toLowerCase()];
+        let gearList = this.props.character.gear.melee;
         let gearRows = [];
 
         for(let i = 0; i < gearList.length; i++){
@@ -424,9 +426,9 @@ class GearPage extends React.Component<IGearProps>{
      * Ranged weapons can be found starting on page 424 of the core rulebook
      * @param type The type the gear that is currently being created
      */
-    gearTableRanged(type){
+    gearTableRanged(){
         //A list of all gear of the ranged type
-        let gearList = this.props.character.gear[type.toLowerCase()];
+        let gearList = this.props.character.gear.ranged;
         let gearRows = [];
 
         for(let i = 0; i < gearList.length; i++){
@@ -467,9 +469,9 @@ class GearPage extends React.Component<IGearProps>{
      * @param {*} type is the ranged gear
      * @param {*} index is the current gear we are on
      */
-    gearRowRanged(type, index){
-        let gear = this.props.character.gear[type][index];
-        let minusButton = <button className={'Gear'}onClick={() => this.removeGear(type, index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
+    gearRowRanged(index: number){
+        let gear = this.props.character.gear.ranged[index];
+        let minusButton = <button className={'Gear'}onClick={() => this.removeGear('ranged', index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
 
         if(gear === null || gear === ""){
             return null;
@@ -563,13 +565,16 @@ class GearPage extends React.Component<IGearProps>{
                                 if(ammoNew !== null){
                                     let availability = prompt("Enter the availability:", "0");
                                     if(availability !== null){
-                                        let costOfRanged = prompt("Enter the cost of the weapon", "0");
-                                        if(costOfRanged !== null) {
+                                        let costString: string | null = prompt("Enter the cost of the weapon", "0");
+                                        let costOfRanged: number;
+                                        if (costString !== null) {
+                                            costOfRanged = parseInt(costString);
                                             if (costOfRanged < 0 || isNaN(costOfRanged)) {
                                                 alert("Nuyen value must be greater than or equal to 0")
                                             } else {
                                                 //Creating the new ranged weapon
                                                 const ranged = {
+                                                    weaponType: ,
                                                     name: aNameNew,
                                                     acc: accNew,
                                                     dam: damNew,
@@ -580,7 +585,7 @@ class GearPage extends React.Component<IGearProps>{
                                                     availability: availability,
                                                     cost: costOfRanged
                                                 }
-                                                this.props.adjNuyen(-1 * parseInt(costOfRanged), "Buying " + aNameNew, "Nuyen");
+                                                this.props.adjNuyen(-1 * costOfRanged, "Buying " + aNameNew, "Nuyen");
                                                 this.props.updateAddGear("ranged", ranged);
                                             }
                                         }
@@ -596,7 +601,7 @@ class GearPage extends React.Component<IGearProps>{
 
     //Removes the gear by taking what type of gear it is and how much money is to be added or removed.
     // It also updates the nuyen value and puts into the log what was removed
-    removeGear(type, index){
+    removeGear(type: string, index: number){
         const nuyenVal = prompt("If selling this item, enter the nuyen gained from the item:", "1000");
         if (nuyenVal !== null) {
             //Removes the gear given depending on the type and what item it is
@@ -607,7 +612,7 @@ class GearPage extends React.Component<IGearProps>{
 
     //Sends the information back to app.js to unequip the gear (armor) by sending its name, if it is currently equiped, its rating, capacity, avaliability, cost. 
     //The index is used to go to the armor section in the characters gear
-    equip(type, index){
+    equip(type: string, index: number){
         this.props.updateUnequipArmor(this.props.character.gear[type][index].name, this.props.character.gear[type][index].equiped, this.props.character.gear[type][index].rating, this.props.character.gear[type][index].capacity, this.props.character.gear[type][index].availability, this.props.character.gear[type][index].cost, index);
     }
 
