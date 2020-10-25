@@ -12,16 +12,20 @@ import { setInitiative } from "./initiativeAction";
 import { setAugmentationDeck } from "./augmentationAction";
 import { setGear } from "./gearAction";
 import { setID } from "./idAction";
+import { setQualities } from "./qualityActions";
+import { setImage } from "./imageActions";
 
 export const uploadCharacter = (character: ICharacter) => {
     setName(character.name);
     setNuyen(character.money);
     setKarma(character.karma);
     setAttributes(character.attributes);
+    setImage(character.img);
     setInitiative(character.initiative);
     setID(character.ID);
     setSkills(character.skills);
     setKSkill(character.knowledgeSkills);
+    setQualities(character.qualities);
     setAugmentationDeck(character.augmentations);
     setRitPrepPitComplexAction(character.RitPrepRitComplex);
     setCyberDeck(character.cyberdeck);
