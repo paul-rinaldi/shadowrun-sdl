@@ -3,7 +3,7 @@ import '../CSS_Files/Qualities.css'
 import qualityJSON from '../Qualities.json'
 import Select from 'react-select';
 import { IShadowRunState } from "../redux/store";
-import { adjustKarma } from '../redux/actions/karmaActions';
+import { adjustKarma } from '../redux/actions/karmaActions'; 
 
 type IQualityProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -70,7 +70,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      */
     qualitiesTable(type: string){
         const {character} = this.props;
-        let qualitiesList = character.qualities[type.toLowerCase()];
+        let qualitiesList = this.getQualities(type);
         let qualitiesRows = [];
 
         for(let i = 0; i < qualitiesList.length; i++){
@@ -102,13 +102,24 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
         );
     }
 
+    private getQualities = (type: string) => {
+        const { character } = this.props;
+        const { qualities } = character;
+
+        switch (type.toLowerCase()) {
+            case 'positive': return qualities.positive;
+            case 'negative': return qualities.negative;
+            default: return [];
+        }
+    }
+
     /**
      * Generates the preset qualities from the qualities.json file
      * into a 
      * @param {*} type is positive/negative depending on the quality
      */
     allQualitiesDropdown(type: string){
-        const options = [];
+        const options: string = [];
 
         qualityJSON[type].forEach(quality => {
             options.push({
@@ -132,11 +143,11 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      */
     qualitiesRow(type: string, index: number){
         const {character} = this.props;
-        let quality = character.qualities[type][index];
+        let quality = this.getQualities(type)[index];
         let minusButton = <button className={'RemoveQ'} onClick={() => this.removeQuality(type, index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
         let ratingButtonPlus = <button onClick={() => this.addRating(type, index)}>+</button>;
         let ratingButtonMinus = <button onClick={() => this.removeRating(type, index)}>-</button>;
-        if(quality === null || quality === "" || quality === undefined){
+        if(quality === null || quality.qName === "" || quality === undefined){
             return null;
         } else {
             if(quality.rating === 0){
@@ -169,10 +180,10 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      */
     addRating(type: string, index: number){
         const {character} = this.props;
-        const quality = character.qualities[type][index];
-        let karmaAdjust = parseInt(quality.karma);
+        const quality = this.getQualities(type)[index];
+        let karmaAdjust = quality.karma;
         if(quality.rating < quality.max){
-            const response = window.confirm("Increasing " + quality.qName + " from " + quality.rating + " to " + (parseInt(quality.rating) + 1) + " will cost " + karmaAdjust + " karma.\n\nIs it OK to upgrade " + quality.qName + "?");
+            const response = window.confirm("Increasing " + quality.qName + " from " + quality.rating + " to " + (quality.rating + 1) + " will cost " + karmaAdjust + " karma.\n\nIs it OK to upgrade " + quality.qName + "?");
             if(response){
                 const check = this.props.adjKarm(karmaAdjust, `Increased rating of ${quality.qName} quality from ` +
                     `${quality.rating} to ${quality.rating + 1}`,"Karma");
@@ -180,7 +191,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
                     quality.rating = quality.rating + 1;
                 } else {
                     alert("Not enough karma");
-                }
+                }2
             }
         } else{
             alert("The quality is already at its max rating");
@@ -195,9 +206,9 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      */
     removeRating(type: string, index: number){
         const {character} = this.props;
-        const quality = character.qualities[type][index];
+        const quality = this.getQualities(type)[index];
 
-        const response = window.confirm(`Decreasing ${quality.qName} from ${quality.rating} to ${(parseInt(quality.rating) - 1)} will ` +
+        const response = window.confirm(`Decreasing ${quality.qName} from ${quality.rating} to ${(quality.rating - 1)} will ` +
         `refund ${Math.abs(quality.karma)} karma.` +
         `\n\nReverting qualities is not allowed by game rules, it is only meant ` +
         `to be done if you accidentally increased a quality. Is it OK to revert ${quality.qName}?`);
@@ -293,23 +304,47 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is where that quality is in the characters list.
      */
     removeQuality(type: string, index: number){
-        const {character} = this.props;
+        const {character, adjustKarma} = this.props;
+        let qualitiesList = this.getQualities(type);
+        let quality = qualitiesList[index];
         const karmaNew = prompt("Enter the amount toof removing the quality:", "-5");
-        if (karmaNew === "" || isNaN(karmaNew)) {
+        let karmaNewNumber: number = 0;
+        if(karmaNew !== null){
+            karmaNewNumber = this.getNumber(karmaNew)!;
+        }
+        if (karmaNewNumber === null) {
             alert("Must have a karma amount entered");
-        } else if (karmaNew !== null){
-            const check = this.props.adjKarm(parseInt(karmaNew), 'Removed quality: ' +
-                character.qualities[type][index].qName + ". (Original karma: " +
-                character.qualities[type][index].karma + ")","Karma");
-            if(check === true){
-                this.props.remQuality(type, index);
-            } else {
-                alert("Not enough karma");
-            }
-            
+        } else if (karmaNewNumber !== null){
+            // const check = this.props.adjustKarm(parseInt(karmaNew), "Removed quality: " + 
+            //     character.qualities[type][index].qName + ". (Original karma: " + 
+            //     character.qualities[type][index].karma + ")", "Karma");
+            // if(check === true){
+            //     this.props.remQuality(type, index);
+            // }else {
+            //     alert("Not enough karma");
+            // }
+            adjustKarma(karmaNewNumber)
+            this.props.remQuality(type, index);
         }
     }
 
+    private getNumber = (convertNumber: string) => {
+        let value: number = 0;
+        let validResponse: boolean = false;
+
+        if(convertNumber === null || convertNumber === ""){return null;};
+        value = Number.parseInt(convertNumber);
+        if (!isNaN(value) && Number.isInteger(value)) {
+            validResponse = true;
+        } 
+
+        if(validResponse === false){
+            alert("You have entered an invalid number.")
+        }
+        return value;
+    }
+
 }
+
 
 export default Qualities;
