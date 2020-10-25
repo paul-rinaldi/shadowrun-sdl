@@ -31,19 +31,19 @@ export default class App extends React.Component {
         super(props);
 
         //Passed as props to the Skills object to allow it to modify the App state
-        this.updateKnowledgeSkill = this.updateKnowledgeSkill.bind(this);
-        this.addKnowledgeSkill = this.addKnowledgeSkill.bind(this);
+        // this.updateKnowledgeSkill = this.updateKnowledgeSkill.bind(this);
+        // this.addKnowledgeSkill = this.addKnowledgeSkill.bind(this);
 
         //binding the upload and download so they can be components
         //located in components -> Save&Upload
         this.upload = this.upload.bind(this);
 
-        this.adjustKarma = this.adjustKarma.bind(this);
-        this.adjustNuyen = this.adjustNuyen.bind(this);
+        // this.adjustKarma = this.adjustKarma.bind(this);
+        // this.adjustNuyen = this.adjustNuyen.bind(this);
 
         //This adds and removes qualitys
-        this.adjustQualities = this.adjustQualities.bind(this);
-        this.removeQualities = this.removeQualities.bind(this);
+        // this.adjustQualities = this.adjustQualities.bind(this);
+        // this.removeQualities = this.removeQualities.bind(this);
 
         //A ref to allow referencing the invisible input element
         this.inputRef = React.createRef();
@@ -89,50 +89,50 @@ export default class App extends React.Component {
         }
     };
 
-    /**
-     * Passed as a prop to the KnowledgeSkills object. Adjusts the rating of the knowledge skill of the given type,
-     * at the given index, by the given adjustment.
-     * @param type The type of the knowledge skill to update
-     * @param index The index of the knowledge skill in the type array
-     * @param adjustment The amount to adjust the knowledge skill by
-     */
-    updateKnowledgeSkill(type, index, adjustment){
-        //Create a deep copy of the knowledgeSkills object
-        const updatedKnowledgeSkills = JSON.parse(JSON.stringify(this.state.knowledgeSkills)); //Converting to JSON, then parsing is an easy way to deep copy
+    // /**
+    //  * Passed as a prop to the KnowledgeSkills object. Adjusts the rating of the knowledge skill of the given type,
+    //  * at the given index, by the given adjustment.
+    //  * @param type The type of the knowledge skill to update
+    //  * @param index The index of the knowledge skill in the type array
+    //  * @param adjustment The amount to adjust the knowledge skill by
+    //  */
+    // updateKnowledgeSkill(type, index, adjustment){
+    //     //Create a deep copy of the knowledgeSkills object
+    //     const updatedKnowledgeSkills = JSON.parse(JSON.stringify(this.state.knowledgeSkills)); //Converting to JSON, then parsing is an easy way to deep copy
 
-        //Adjust the desired skill of the copy
-        updatedKnowledgeSkills[type][index].rating = updatedKnowledgeSkills[type][index].rating + adjustment;
+    //     //Adjust the desired skill of the copy
+    //     updatedKnowledgeSkills[type][index].rating = updatedKnowledgeSkills[type][index].rating + adjustment;
 
-        //Replace the current knowledgeSkills object with the updated copy
-        this.setState({
-            knowledgeSkills: updatedKnowledgeSkills
-        });
-    }
+    //     //Replace the current knowledgeSkills object with the updated copy
+    //     this.setState({
+    //         knowledgeSkills: updatedKnowledgeSkills
+    //     });
+    // }
 
-    /**
-     * Adds a knowledge skill with the specified information
-     * @param type The type of the knowledge skill
-     * @param att The attribute associated with the knowledge
-     * @param name The name of the knowledge skill
-     * @param specialization The specialization of the knowledge skill
-     */
-    addKnowledgeSkill(type, att, name, specialization){
-        //Create a deep copy of the knowledgeSkills object
-        const updatedKnowledgeSkills = JSON.parse(JSON.stringify(this.state.knowledgeSkills));
+    // /**
+    //  * Adds a knowledge skill with the specified information
+    //  * @param type The type of the knowledge skill
+    //  * @param att The attribute associated with the knowledge
+    //  * @param name The name of the knowledge skill
+    //  * @param specialization The specialization of the knowledge skill
+    //  */
+    // addKnowledgeSkill(type, att, name, specialization){
+    //     //Create a deep copy of the knowledgeSkills object
+    //     const updatedKnowledgeSkills = JSON.parse(JSON.stringify(this.state.knowledgeSkills));
 
-        //Add the skill
-        updatedKnowledgeSkills[type.toLowerCase()].push({
-            name: name,
-            rating: 1,
-            attribute: att,
-            specialization: specialization
-        });
+    //     //Add the skill
+    //     updatedKnowledgeSkills[type.toLowerCase()].push({
+    //         name: name,
+    //         rating: 1,
+    //         attribute: att,
+    //         specialization: specialization
+    //     });
 
-        //Replace the current knowledgeSkills object with the updated copy
-        this.setState({
-            knowledgeSkills: updatedKnowledgeSkills
-        });
-    }
+    //     //Replace the current knowledgeSkills object with the updated copy
+    //     this.setState({
+    //         knowledgeSkills: updatedKnowledgeSkills
+    //     });
+    // }
 
     updateAtt(att, increment, min, max){
         let updatedAtt = JSON.parse(JSON.stringify(this.state.attributes));
@@ -158,104 +158,104 @@ export default class App extends React.Component {
         this.handleLoadButton();
     }
 
-    /**
-     * Adjusts the players karma if they have enough for the adjustment. An entry will be added to the log with
-     * the given reason.
-     * @param adjustment The amount to adjust karma by.
-     * @param reason The reason for the karma adjustment
-     * @param reasonType The type of the adjustment for the log entry (karma).
-     * @returns {boolean} True if successful, false if unsuccessful (not enough karma for adjustment).
-     */
-    adjustKarma(adjustment, reason, reasonType){
-        if(this.state.karma + adjustment >= 0){
-            this.setState(currentState => {
-                const now = new Date(); //New Date() with no params gets current time
-                const logCopy = JSON.parse(JSON.stringify(currentState.log));
-                logCopy.unshift({
-                    adjustment: adjustment,
-                    reason: reason,
-                    reasonType: reasonType,
-                    time: now
-                });
+    // /**
+    //  * Adjusts the players karma if they have enough for the adjustment. An entry will be added to the log with
+    //  * the given reason.
+    //  * @param adjustment The amount to adjust karma by.
+    //  * @param reason The reason for the karma adjustment
+    //  * @param reasonType The type of the adjustment for the log entry (karma).
+    //  * @returns {boolean} True if successful, false if unsuccessful (not enough karma for adjustment).
+    //  */
+    // adjustKarma(adjustment, reason, reasonType){
+    //     if(this.state.karma + adjustment >= 0){
+    //         this.setState(currentState => {
+    //             const now = new Date(); //New Date() with no params gets current time
+    //             const logCopy = JSON.parse(JSON.stringify(currentState.log));
+    //             logCopy.unshift({
+    //                 adjustment: adjustment,
+    //                 reason: reason,
+    //                 reasonType: reasonType,
+    //                 time: now
+    //             });
 
-                return {
-                    karma: currentState.karma + adjustment,
-                    log: logCopy
-                };
-            });
+    //             return {
+    //                 karma: currentState.karma + adjustment,
+    //                 log: logCopy
+    //             };
+    //         });
 
-            return true;
-        } else {
-            return false;
-        }
-    }
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
-    /**
-     * Adjusts the players nuyen if they have enough for the adjustment. An entry will be added to the log with
-     * the given reason.
-     * @param adjustment The amount to adjust nuyen by.
-     * @param reason The reason for the nuyen adjustment
-     * @param reasonType The type of the adjustment for the log entry (nuyen).
-     * @returns {boolean} True if successful, false if unsuccessful (not enough nuyen for adjustment).
-     */
-    adjustNuyen(adjustment, reason,reasonType){
-        if(this.state.money + adjustment >= 0){
-            let now = new Date(); //New Date() with no params gets current time
-            let logCopy = JSON.parse(JSON.stringify(this.state.log));
-            logCopy.unshift({
-                adjustment: adjustment,
-                reason: reason,
-                reasonType: reasonType,
-                time: now
-            });
+    // /**
+    //  * Adjusts the players nuyen if they have enough for the adjustment. An entry will be added to the log with
+    //  * the given reason.
+    //  * @param adjustment The amount to adjust nuyen by.
+    //  * @param reason The reason for the nuyen adjustment
+    //  * @param reasonType The type of the adjustment for the log entry (nuyen).
+    //  * @returns {boolean} True if successful, false if unsuccessful (not enough nuyen for adjustment).
+    //  */
+    // adjustNuyen(adjustment, reason,reasonType){
+    //     if(this.state.money + adjustment >= 0){
+    //         let now = new Date(); //New Date() with no params gets current time
+    //         let logCopy = JSON.parse(JSON.stringify(this.state.log));
+    //         logCopy.unshift({
+    //             adjustment: adjustment,
+    //             reason: reason,
+    //             reasonType: reasonType,
+    //             time: now
+    //         });
 
-            this.setState({
-                money: this.state.money + adjustment,
-                log: logCopy
-            });
+    //         this.setState({
+    //             money: this.state.money + adjustment,
+    //             log: logCopy
+    //         });
 
-            return true;
-        } else {
-            return false;
-        }
-    }
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
-    /**
-     * This method creates a new quality with the given information
-     * @param {*} qName name of the new quality
-     * @param {*} karmaAdjust the ammount of karma that the quality requires
-     * @param {*} rating the current rating
-     * @param {*} max the max rating
-     * @param {*} notes notes about the quality
-     * @param {*} type either positive/negative
-     */
-    adjustQualities(qName, karmaAdjust, rating, max, notes, type){
-        let qualityCopy = JSON.parse(JSON.stringify(this.state.qualities));
-        qualityCopy[type].push({
-            qName: qName,
-            karma: karmaAdjust,
-            rating: rating,
-            max: max,
-            notes: notes
-        });
+    // /**
+    //  * This method creates a new quality with the given information
+    //  * @param {*} qName name of the new quality
+    //  * @param {*} karmaAdjust the ammount of karma that the quality requires
+    //  * @param {*} rating the current rating
+    //  * @param {*} max the max rating
+    //  * @param {*} notes notes about the quality
+    //  * @param {*} type either positive/negative
+    //  */
+    // adjustQualities(qName, karmaAdjust, rating, max, notes, type){
+    //     let qualityCopy = JSON.parse(JSON.stringify(this.state.qualities));
+    //     qualityCopy[type].push({
+    //         qName: qName,
+    //         karma: karmaAdjust,
+    //         rating: rating,
+    //         max: max,
+    //         notes: notes
+    //     });
 
-        this.setState({
-            qualities: qualityCopy
-        });
-    }
+    //     this.setState({
+    //         qualities: qualityCopy
+    //     });
+    // }
 
-    /**
-     * Removes the quality completely from the list without leaving a null in its place
-     * @param {*} type is positive/negative
-     * @param {*} index is where in the qualities list that quality is
-     */
-    removeQualities(type, index){
-        let qualityCopy = JSON.parse(JSON.stringify(this.state.qualities));
-        qualityCopy[type].splice(index, 1);
-        this.setState({
-            qualities: qualityCopy
-        });
-    }
+    // /**
+    //  * Removes the quality completely from the list without leaving a null in its place
+    //  * @param {*} type is positive/negative
+    //  * @param {*} index is where in the qualities list that quality is
+    //  */
+    // removeQualities(type, index){
+    //     let qualityCopy = JSON.parse(JSON.stringify(this.state.qualities));
+    //     qualityCopy[type].splice(index, 1);
+    //     this.setState({
+    //         qualities: qualityCopy
+    //     });
+    // }
 
     /**
      * just a simple adjust money in case it needs to be moved any
@@ -275,7 +275,8 @@ export default class App extends React.Component {
         return <div>
             <h3>Credits</h3>
             <p>Wizworm was created as a project for the Software Development Lab class at the <a href={'https://www.msoe.edu/'}>Milwaukee School of Engineering</a> taught by Dr. Robert Hasker.
-                <br/>The site was developed by Jason Urban, Jennifer Stillman, Josh Vogt, and Molly Uchtman, with Scott Sauer and Duane Raiche of <a href={'https://www.centare.com/'}>Centare</a> acting as Product Owners.</p>
+                <br/>The site was developed by Jason Urban, Jennifer Stillman, Josh Vogt, and Molly Uchtman, Jesse Sierra,
+                Paul Rinaldi, Seth Fenske, Nick Marinello, and Kam Mitchell, with Scott Sauer and Duane Raiche of <a href={'https://www.centare.com/'}>Centare</a> acting as Product Owners.</p>
         </div>
     }
 
@@ -314,24 +315,24 @@ export default class App extends React.Component {
                         )
                         }/>
                         <Route path = '/Attributes' render={() => (
-                            <Attributes updateAtt={this.updateAtt} adjKarm={this.adjustKarma}/>
+                            <Attributes updateAtt={this.updateAtt}/>
                         )}/>
                         <Route path = '/Skills'>
                             <Skills />
                         </Route>
                         <Route path = '/Knowledge Skills' render={() => (
-                            <KnowledgeSkills character={this.state} updateKnowledgeSkill={this.updateKnowledgeSkill} adjKarm={this.adjustKarma} addSkill={this.addKnowledgeSkill}/>
+                            <KnowledgeSkills/>
                         )}/>
                         <Route path = '/Qualities' render={() => (
-                            <Qualities character={this.state} adjKarm={this.adjustKarma} adjQuality={this.adjustQualities} remQuality={this.removeQualities}/>
+                            <Qualities/>
                         )}/>
                         <Route path = '/Gear' render={() => (
                             <div>
                                 <Gear />
                             </div>
                         )}/>
-                        <Route path='/Log' render={() => (<Log character={this.state} adjKarm={this.adjustKarma} adjNuyen={this.adjustNuyen}/>)}/>
-                        <Route path='/Action' render={()=>(<Action character={this.state}/>)}/>
+                        <Route path='/Log' render={() => (<Log />)}/>
+                        <Route path='/Action' render={()=>(<Action />)}/>
                     </div>
                 </div>
             </Router>
