@@ -26,3 +26,4 @@ export const setGear = (gear: Gear): SetGearAction => ({
     type: 'SET_GEAR_ACTION',
     payload: gear
 });
+
