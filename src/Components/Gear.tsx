@@ -210,7 +210,7 @@ class GearPage extends React.Component<IGearProps>{
             <div className={'QualitiesDrop'}>
                 <Select
                     options={options}
-                    onChange={val => this.addPresetArmor(val.value)}
+                    onChange={val => this.addPresetArmor(val)}
                 />
             </div>
         );
@@ -219,10 +219,12 @@ class GearPage extends React.Component<IGearProps>{
     /**
      * Adds the preset armor value from the allArmorDropdown() method
      */
-    addPresetArmor(armor: Armor) {
-        if (armor === null || armor === undefined) {
+    addPresetArmor(val: ValueType<ArmorOption>) {
+        if (val === null || val === undefined) {
             return;
         }
+        const armor = (val as ArmorOption).value;
+        
         const response = window.confirm("This armor will cost " + armor.cost + " nuyen.");
         if (response) {
             makeLog(1 * armor.cost, "Buying " + armor.name + " Armor", "Nuyen", new Date());
@@ -385,10 +387,11 @@ class GearPage extends React.Component<IGearProps>{
     /**
      * Adds the preset melee value from the allMeleeDropdown() method
      */
-    addPresetMelee(weapon: Melee){
-        if (weapon === null || weapon === undefined) {
+    addPresetMelee(val: ValueType<MeleeOption>){
+        if (val === null || val === undefined) {
             return;
         }
+        const weapon = (val as MeleeOption).value;
         const response = window.confirm("This weapon will cost " + weapon.cost + " nuyen.");
         if(response){
             makeLog(weapon.cost, "Buying " + weapon.name, "Nuyen", new Date());
@@ -565,14 +568,15 @@ class GearPage extends React.Component<IGearProps>{
     /**
      * Adds the preset ranged value from the allRangedDropdown() method
      */
-    addPresetRanged(ranged: ValueType<Range>){
-        if (ranged === undefined || ranged === null) {
+    addPresetRanged(val: ValueType<RangedOption>){
+        if (val === undefined || val === null) {
             return;
         }
+        const ranged = (val as RangedOption).value;
         const response = window.confirm("This weapon will cost " + ranged.cost + " nuyen.");
         if(response){
-            makeLog(parseInt(ranged.cost), "Buying " + ranged.name, "Nuyen", new Date());
-            adjustNuyen(parseInt(ranged.cost));
+            makeLog(ranged.cost, "Buying " + ranged.name, "Nuyen", new Date());
+            adjustNuyen(ranged.cost);
             this.props.updateAddGear("ranged", ranged);
         }
     }
