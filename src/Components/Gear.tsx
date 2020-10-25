@@ -3,11 +3,11 @@ import '../CSS_Files/Gear.css';
 import armorJSON from '../Armor.json';
 import meleeJSON from '../Melee.json';
 import rangedJSON from '../Ranged.json';
-import { Ranged, Gear, Armor, Melee } from '../models/playerModels';
+import { Ranged, Armor, Melee } from '../models/playerModels';
 import { connect } from 'react-redux';
 import { IShadowRunState } from '../redux/store';
 import Select, { ValueType } from 'react-select';
-import { setGear, addArmor, addMelee, addRanged, remArmor, remMelee, remRanged } from '../redux/actions/gearAction';
+import { setGear, addArmor, addMelee, addRanged, remArmor, remMelee, remRanged, toggleEquip } from '../redux/actions/gearAction';
 import { adjustNuyen } from "../redux/actions/nuyenActions";
 import { makeLog } from "../redux/actions/logActions";
 
@@ -38,7 +38,8 @@ const mapDispatchToProps = {
     addArmor,
     remArmor,
     remMelee,
-    remRanged
+    remRanged,
+    toggleEquip
 };
 
 /**
@@ -657,20 +658,17 @@ class GearPage extends React.Component<IGearProps>{
             }
         }
     }
-
-    //Sends the information back to app.js to unequip the gear (armor) by sending its name, if it is currently equiped, its rating, capacity, avaliability, cost. 
-    //The index is used to go to the armor section in the characters gear
+    
+    /**
+     * Sends the information back to app.js to unequip the gear (armor) by sending its name,
+     * The index is used to go to the armor section in the characters gear
+     * 2020.10.25 - To date, the only @param type that is passed is 'armor'  
+     * @param type - the type of gear (ex. armor, melee, ranged)
+     * @param index - row index of the gear on the table for this type of gear (ex. row 1 (index 1) on the armor table)
+     */
     equip(type: string, index: number) {
-        this.props.updateUnequipArmor(
-            this.props.character.gear[type][index].name,
-            this.props.character.gear[type][index].equiped,
-            this.props.character.gear[type][index].rating,
-            this.props.character.gear[type][index].capacity,
-            this.props.character.gear[type][index].availability,
-            this.props.character.gear[type][index].cost, index);
+        toggleEquip(index);
     }
-
-
 }
 
 export default connect(
