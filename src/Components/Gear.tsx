@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { IShadowRunState } from '../redux/store';
 import Select, { ValueType } from 'react-select';
 import { gearReducer } from '../redux/reducers/gearReducer';
-import { setGear } from '../redux/actions/gearAction';
+import { setArmor, setGear } from '../redux/actions/gearAction';
 import { adjustNuyen } from "../redux/actions/nuyenActions";
 import { makeLog } from "../redux/actions/logActions";
 
@@ -68,21 +68,6 @@ class GearPage extends React.Component<IGearProps>{
             <h1 className={'Gear'}>Gear</h1>
             {page}
         </div>)
-    }
-
-    /**
-     * Adds in gear to is appropriate place in the players list of gear
-     * @param {*} typeGear is what kind of gear category it belongs to
-     * @param {*} gear is the full json object of the new gear
-     */
-    // THIS METHOD WAS COPIED FROM APP.JS. EVENTUALLY WE WANT TO CALL REDUCERS TO UPDATE STATE AND NOT USE THIS METHOD
-    updateAddGear(typeGear: string, gear: Gear){
-        let gearCopy = JSON.parse(JSON.stringify(this.props.character.gear));
-        gearCopy[typeGear].push(gear);
-
-        this.setState({ // was state of the app.js, not this component
-            gear: gearCopy
-        });
     }
 
     /**
