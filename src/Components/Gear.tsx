@@ -97,18 +97,19 @@ class GearPage extends React.Component<IGearProps>{
         //A list of all gear of the armor type
         let gearList = this.props.character.gear.armor;
         let gearRows = [];
+        const title = "Armor";
 
         for (let i = 0; i < gearList.length; i++) {
             gearRows.push(this.gearRowArmor(i));
         }
         
-        let plusButton = <button className={'Gear'} onClick={() => this.addGearArmor()}>Add {type}</button>;
+        let plusButton = <button className={'Gear'} onClick={() => this.addGearArmor()}>Add {title}</button>;
 
         let presetButton = this.allArmorDropdown();
 
         return(
             <div>
-                <h2 className={'Gear'}>{type}</h2>
+                <h2 className={'Gear'}>{title}</h2>
                 <table className={'Gear'}>
                     <tbody>
                     <tr className={'Gear'}>
@@ -204,23 +205,23 @@ class GearPage extends React.Component<IGearProps>{
      * Takes away the ammount of money the user has and expects a positive input
      */
     addGearArmor(){
-        let aNameNew = prompt("Enter the name of the armor:", "Clothes");
+        let aNameNew: string | number | null = prompt("Enter the name of the armor:", "Clothes");
         if (aNameNew === "") {
             alert("Canceled input");
         } else if (aNameNew !== null) {
-            let rateCap = prompt("Enter the rating:", "0");
-            if (rateCap < 0 || isNaN(rateCap)) {
+            let rateCap: string | number | null = prompt("Enter the rating:", "0");
+            if (rateCap === null || (typeof rateCap === 'number' && (isNaN(rateCap) || rateCap < 0))) {
                 alert("Armor must have a rating greater than or equal to 0");
-            } else if (rateCap !== null) {
-                let capCap = prompt("Enter the capacity:", "0");
-                if (capCap < 0 || isNaN(capCap)) {
+            } else {
+                let capCap: string | number | null = prompt("Enter the capacity:", "0");
+                if (capCap === null || (typeof capCap === 'number' && (isNaN(capCap) || capCap < 0))) {
                     alert("Armor must have a capacity greater than or equal to 0");
-                } else if (capCap !== null) {
-                    let availability = prompt("Enter the availability:", "0");
+                } else {
+                    let availability: string | number | null = prompt("Enter the availability:", "0");
                     if (availability !== null) {
-                        let costOfArmor = prompt("Enter the cost of the armor", "0");
+                        let costOfArmor: string | number | null = prompt("Enter the cost of the armor", "0");
                         if(costOfArmor !== null) {
-                            if (costOfArmor < 0 || isNaN(costOfArmor)) {
+                            if (costOfArmor === null || (typeof costOfArmor === 'number' && (isNaN(costOfArmor) || costOfArmor < 0))) {
                                 alert("Nuyen value must be greater than or equal to 0")
                             } else {
                                 //Creating the new armor
@@ -431,18 +432,19 @@ class GearPage extends React.Component<IGearProps>{
         //A list of all gear of the ranged type
         let gearList = this.props.character.gear.ranged;
         let gearRows = [];
+        const title = "Ranged";
 
         for(let i = 0; i < gearList.length; i++){
             gearRows.push(this.gearRowRanged(i));
         }
         
-        let plusButton = <button className={'Gear'} onClick={() => this.addGearRanged()}>Add {type}</button>;
+        let plusButton = <button className={'Gear'} onClick={() => this.addGearRanged()}>Add {title}</button>;
 
         let presetButton = this.allRangedDropdown();
 
         return(
             <div>
-            <h2 className={'Gear'}>{type}</h2>
+            <h2 className={'Gear'}>{title}</h2>
             <table className={'Gear'}>
                     <tbody>
                     <tr className={'Gear'}>
@@ -575,7 +577,6 @@ class GearPage extends React.Component<IGearProps>{
                                             } else {
                                                 //Creating the new ranged weapon
                                                 const ranged = {
-                                                    weaponType: ,
                                                     name: aNameNew,
                                                     acc: accNew,
                                                     dam: damNew,
@@ -614,7 +615,13 @@ class GearPage extends React.Component<IGearProps>{
     //Sends the information back to app.js to unequip the gear (armor) by sending its name, if it is currently equiped, its rating, capacity, avaliability, cost. 
     //The index is used to go to the armor section in the characters gear
     equip(type: string, index: number){
-        this.props.updateUnequipArmor(this.props.character.gear[type][index].name, this.props.character.gear[type][index].equiped, this.props.character.gear[type][index].rating, this.props.character.gear[type][index].capacity, this.props.character.gear[type][index].availability, this.props.character.gear[type][index].cost, index);
+        this.props.updateUnequipArmor(
+            this.props.character.gear[type][index].name,
+            this.props.character.gear[type][index].equiped,
+            this.props.character.gear[type][index].rating,
+            this.props.character.gear[type][index].capacity,
+            this.props.character.gear[type][index].availability,
+            this.props.character.gear[type][index].cost, index);
     }
 
 
