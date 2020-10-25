@@ -31,8 +31,6 @@ export default class App extends React.Component {
         super(props);
 
         //Passed as props to the Skills object to allow it to modify the App state
-        this.incSkill = this.incSkill.bind(this);
-        this.decSkill = this.decSkill.bind(this);
         this.updateKnowledgeSkill = this.updateKnowledgeSkill.bind(this);
         this.addKnowledgeSkill = this.addKnowledgeSkill.bind(this);
 
@@ -54,7 +52,6 @@ export default class App extends React.Component {
         //Passed as prop to attributes to modify state
         this.updateAtt = this.updateAtt.bind(this);
 
-        this.updateUnequipArmor = this.updateUnequipArmor.bind(this);
         this.updateMoney = this.updateMoney.bind(this);
     }
 
@@ -91,48 +88,6 @@ export default class App extends React.Component {
             alert("There was an error loading " + this.state.name + ".JSON");
         }
     };
-
-    /**
-     * Passed as a prop to the Skills object to allow it to modify the App state. Increments the rating of the skill of
-     * the given type, at the given index in the type's list.
-     * @param type The type of the skill to increment
-     * @param index The index of the skill to increment in the type's list
-     */
-    incSkill(type, index){
-        //Create a deep copy of the skills object
-        let updatedSkills = JSON.parse(JSON.stringify(this.state.skills)); //Converting to JSON, then parsing is an easy way to deep copy
-
-        if(updatedSkills[type][index].rating < 12) {
-            //Increment the desired skill of the copy
-            updatedSkills[type][index].rating++;
-
-            //Replace the current skills object with the updated copy
-            this.setState({
-                skills: updatedSkills
-            });
-        }
-    }
-
-    /**
-     * Passed as a prop to the Skills object to allow it to modify the App state. Decrements the rating of the skill of
-     * the given type, at the given index in the type's list.
-     * @param type The type of the skill to decrement
-     * @param index The index of the skill to decrement in the type's list
-     */
-    decSkill(type, index) {
-        //Create a deep copy of the skills object
-        let updatedSkills = JSON.parse(JSON.stringify(this.state.skills)); //Converting to JSON, then parsing is an easy way to deep copy
-
-        if (updatedSkills[type][index].rating > 0) {
-            //Decrement the desired skill of the copy
-            updatedSkills[type][index].rating--;
-
-            //Replace the current skills object with the updated copy
-            this.setState({
-                skills: updatedSkills
-            });
-        }
-    }
 
     /**
      * Passed as a prop to the KnowledgeSkills object. Adjusts the rating of the knowledge skill of the given type,
@@ -300,40 +255,6 @@ export default class App extends React.Component {
         this.setState({
             qualities: qualityCopy
         });
-    }
-
-    /**
-     * Updates the player to have unequipped or equipped a piece of armor
-     * by replacing the json object with a new json object that has the
-     * equiped changed
-     * @param {*} aNameNew the armors name
-     * @param {*} aEquipped if that armor is equipped
-     * @param {*} rateCap the current rating of that gear
-     * @param {*} capCap the cap of that gear
-     * @param {*} availability the avaliability of that gear
-     * @param {*} cost the cost of the gear
-     * @param {*} index where in the armor that gear is found
-     */
-    updateUnequipArmor(aNameNew, aEquipped, rateCap, capCap, availability, cost, index){
-        let armorCopy = JSON.parse(JSON.stringify(this.state.gear));
-        if(aEquipped){
-            aEquipped = false;
-        } else {
-            aEquipped = true;
-        }
-        armorCopy.armor[index] = {
-            name: aNameNew,
-            rating: rateCap,
-            capacity: capCap,
-            availability: availability,
-            cost: cost,
-            equiped: aEquipped
-        };
-
-        this.setState({
-            gear: armorCopy
-        });
-
     }
 
     /**
