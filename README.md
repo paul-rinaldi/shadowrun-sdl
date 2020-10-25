@@ -18,7 +18,7 @@ This project was programmed in JavaScript with [React](https://reactjs.org/). Bo
 The project was tested using [Jest](https://jestjs.io/).
 
 # Deployment
-The project is deployed at https://wizworm.uc.r.appspot.com/ through Google Cloud Platform. Note that the deployment is not always actively running and may need to be re-started. See the Deployment Steps document on the project wiki.
+The project is deployed at https://shadow-run.netlify.app through Netlify.
 
 # Build
 In the project directory, you can run:
