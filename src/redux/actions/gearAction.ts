@@ -9,8 +9,14 @@ type AddMeleeAction = { type: 'ADD_MELEE_ACTION', payload: Melee}
 type AddRangedAction = { type: 'ADD_RANGED_ACTION', payload: Ranged}
 type AddArmorAction = { type: 'ADD_ARMOR_ACTION', payload: Armor}
 
+type RemoveMeleeAction = { type: 'REM_MELEE_ACTION', payload: number };
+type RemoveRangedAction = { type: 'REM_RANGED_ACTION', payload: number };
+type RemoveArmorAction = { type: 'REM_ARMOR_ACTION', payload: number };
+
+
 export type GearAction = SetArmorAction | SetMeleeAction | SetRangedAction | SetGearAction |
-    AddMeleeAction | AddArmorAction | AddRangedAction;
+    AddMeleeAction | AddArmorAction | AddRangedAction |
+    RemoveMeleeAction | RemoveRangedAction | RemoveArmorAction;
 
 
 export const setArmor = (armor: Armor[]): SetArmorAction => ({
@@ -46,4 +52,20 @@ export const addRanged = (ranged: Ranged): AddRangedAction => ({
 export const addArmor = (armor: Armor): AddArmorAction => ({
     type: 'ADD_ARMOR_ACTION',
     payload: armor
+});
+
+
+export const remMelee = (index: number): RemoveMeleeAction => ({
+    type: 'REM_MELEE_ACTION',
+    payload: index
+});
+
+export const remArmor = (index: number): RemoveArmorAction => ({
+    type: 'REM_ARMOR_ACTION',
+    payload: index
+});
+
+export const remRanged = (index: number): RemoveRangedAction => ({
+    type: 'REM_RANGED_ACTION',
+    payload: index
 });

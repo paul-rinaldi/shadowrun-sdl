@@ -54,9 +54,6 @@ export default class App extends React.Component {
         //Passed as prop to attributes to modify state
         this.updateAtt = this.updateAtt.bind(this);
 
-        //Adding and removing armor
-        this.updateAddGear = this.updateAddGear.bind(this);
-        this.updateRemGear = this.updateRemGear.bind(this);
         this.updateUnequipArmor = this.updateUnequipArmor.bind(this);
         this.updateMoney = this.updateMoney.bind(this);
     }
@@ -302,33 +299,6 @@ export default class App extends React.Component {
         qualityCopy[type].splice(index, 1);
         this.setState({
             qualities: qualityCopy
-        });
-    }
-
-    /**
-     * Adds in gear to is appropriate place in the players list of gear
-     * @param {*} typeGear is what kind of gear category it belongs to
-     * @param {*} gear is the full json object of the new gear
-     */
-    updateAddGear(typeGear, gear){
-        let gearCopy = JSON.parse(JSON.stringify(this.state.gear));
-        gearCopy[typeGear].push(gear);
-
-        this.setState({
-            gear: gearCopy
-        });
-    }
-
-    /**
-     * Removes the gear of the certain type without leaving a null in its place
-     * @param {*} index is where in the gear list that gear is
-     * @param {*} type is the type of gear that is currently being accessed
-     */
-    updateRemGear(index, type){
-        let gearCopy = JSON.parse(JSON.stringify(this.state.gear));
-        gearCopy[type].splice(index, 1);
-        this.setState({
-            gear: gearCopy
         });
     }
 

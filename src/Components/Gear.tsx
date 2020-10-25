@@ -7,7 +7,7 @@ import { Ranged, Gear, Armor, Melee } from '../models/playerModels';
 import { connect } from 'react-redux';
 import { IShadowRunState } from '../redux/store';
 import Select, { ValueType } from 'react-select';
-import { setArmor, setGear, addArmor, addMelee, addRanged } from '../redux/actions/gearAction';
+import { setGear, addArmor, addMelee, addRanged, remArmor, remMelee, remRanged } from '../redux/actions/gearAction';
 import { adjustNuyen } from "../redux/actions/nuyenActions";
 import { makeLog } from "../redux/actions/logActions";
 
@@ -35,7 +35,10 @@ const mapDispatchToProps = {
     makeLog,
     addRanged,
     addMelee,
-    addArmor
+    addArmor,
+    remArmor,
+    remMelee,
+    remRanged
 };
 
 /**
@@ -638,7 +641,17 @@ class GearPage extends React.Component<IGearProps>{
             nuyenVal = parseInt(nuyenVal);
             if (nuyenVal > 0 || !isNaN(nuyenVal)) {
                 //Removes the gear given depending on the type and what item it is
-                this.props.updateRemGear(index, type);
+                switch (type.toLowerCase()) {
+                    case 'armor':
+                        this.props.remArmor(index);
+                        break;
+                    case 'melee':
+                        this.props.remMelee(index);
+                        break;
+                    case 'ranged':
+                        this.props.remRanged(index);
+                        break;
+                }
                 makeLog(1 * nuyenVal, "Selling" + type, "Nuyen", new Date());
                 adjustNuyen(1 * nuyenVal);
             }
