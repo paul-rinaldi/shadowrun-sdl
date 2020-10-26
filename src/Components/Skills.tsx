@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import '../CSS_Files/Skills.css'
 import { adjustKarma } from '../redux/actions/karmaActions';
 import { makeLog } from '../redux/actions/logActions';

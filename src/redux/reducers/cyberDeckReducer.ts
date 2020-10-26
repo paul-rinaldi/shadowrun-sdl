@@ -16,8 +16,8 @@ export const cyberDeckReducer = (state: Cyberdeck = initialState.cyberdeck, acti
             return { ...state, deviceRating: action.payload };
         case 'SET_CYBERDECK_DATA_PROCESSING_ACTION':
             return { ...state, dataProcessing: action.payload };
-        case 'SET_CYBERDECK_DEVICE_RATING_ACTION':
-            return { ...state, deviceRating: action.payload };
+        // case 'SET_CYBERDECK_DEVICE_RATING_ACTION':
+        //     return { ...state, deviceRating: action.payload };
         case 'SET_CYBERDECK_PROGRAMS_ACTION':
             return { ...state, programs: action.payload };
         case 'SET_CYBERDECK_CONDITION_ACTION':

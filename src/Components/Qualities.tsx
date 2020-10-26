@@ -75,7 +75,6 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} type is what table is currently being created
      */
     qualitiesTable(type: string){
-        const {character} = this.props;
         let qualitiesList = this.getQualities(type);
         let qualitiesRows = [];
 
@@ -109,14 +108,13 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
     }
 
     private getQualities = (type: string) => {
-        const { character } = this.props;
-        const { qualities } = character;
+      const { qualities } = this.props.character;
 
-        switch (type.toLowerCase()) {
-            case 'positive': return qualities.positive;
-            case 'negative': return qualities.negative;
-            default: return [];
-        }
+      switch (type.toLowerCase()) {
+          case 'positive': return qualities.positive;
+          case 'negative': return qualities.negative;
+          default: return [];
+      }
     }
 
     /**
@@ -202,7 +200,6 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
     addRating(type: string, index: number){
-        const {character} = this.props;
         const quality = this.getQualities(type)[index];
         let karmaAdjust = quality.karma;
         if(quality.rating < quality.max){
@@ -229,7 +226,6 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
     removeRating(type: string, index: number){
-        const {character} = this.props;
         const quality = this.getQualities(type)[index];
 
         const response = window.confirm(`Decreasing ${quality.qName} from ${quality.rating} to ${(quality.rating - 1)} will ` +

@@ -1,6 +1,5 @@
 import { ICharacter } from "../../models/playerModels";
 import { SetImageURL } from "../actions/imageActions";
-import { KarmaAction } from "../actions/karmaActions";
 import { initialState } from "../initialState";
 
 

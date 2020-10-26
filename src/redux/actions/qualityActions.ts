@@ -1,5 +1,4 @@
 import { IQualities } from '../../models/playerModels';
-import { makeLog } from './logActions';
 
 type AdjustQualityAction = { type: "ADJUST_QUALITY_ACTION", payload: { qName: string, karmaAdjust: number, rating: number, max: number, notes: string, type: string } };
 type RemoveQualityAction = { type: 'REMOVE_QUALITY_ACTION', payload: { type: string, index: number} };

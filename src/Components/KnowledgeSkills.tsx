@@ -1,7 +1,6 @@
 import React, {Component } from 'react';
 import '../CSS_Files/KnowledgeSkills.css'
 import { IShadowRunState } from "../redux/store";
-import { setAttributes } from "../redux/actions/attributeAction";
 import { connect } from "react-redux";
 import { increaseKSkill, decreaseKSkill, addKSkill } from "../redux/actions/knowledgeSkillsActions";
 import { adjustKarma } from '../redux/actions/karmaActions';
@@ -385,7 +384,6 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
      * @param index The index of the skill in the type list.
      */
     decrementSkill(type: string, index: number){
-        const { character } = this.props;
         const skill = this.getSkills(type)[index];
         const newRating = skill.rating - 1;
         const refund = skill.rating;

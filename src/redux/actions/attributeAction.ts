@@ -1,4 +1,4 @@
-import { IAttributes, ISkills } from "../../models/playerModels"
+import { IAttributes } from "../../models/playerModels"
 
 export interface IActionPayload {
     delta: number,

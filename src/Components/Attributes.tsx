@@ -23,11 +23,6 @@ const mapDispatchToProps = {
 }
 
 class Attributes extends Component <IAttributesProps> {
-
-    constructor(props: IAttributesProps) {
-        super(props);
-    }
-
     /**
      * finds the minimum and maximum attribute values based off of character metatype
      * metatypes are human, elf, dwarf, ork, and troll

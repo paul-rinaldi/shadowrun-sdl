@@ -1,7 +1,9 @@
 import * as InitialCharacter from '../InitialState/InitialCharacter.json';
-import { ICharacter } from '../models/playerModels';
+import { ICharacter, ILog } from '../models/playerModels';
 
-export const initialState = {
+console.log("initial", InitialCharacter);
+
+export const initialState: ICharacter = {
     name: InitialCharacter.name,
     metatype: InitialCharacter.metatype,
     money: InitialCharacter.money,
@@ -22,5 +24,5 @@ export const initialState = {
     RitPrepRitComplex: InitialCharacter.RitPrepRitComplex,
     cyberdeck: InitialCharacter.cyberdeck,
     gear: InitialCharacter.gear,
-    log: InitialCharacter.log
-} as unknown as ICharacter;
+    log: Array.from(InitialCharacter.log, (log) => { return {...log, time: new Date(log.time)}})
+};

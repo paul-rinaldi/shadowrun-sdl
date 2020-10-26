@@ -1,6 +1,5 @@
 import { Initiative } from '../../models/playerModels';
 import { InitiativeAction } from '../actions/initiativeAction';
-import { NameAction } from '../actions/nameActions';
 import { initialState } from '../initialState';
 
 export const initiativeReducer = (state: Initiative = initialState.initiative, action: InitiativeAction): Initiative => {

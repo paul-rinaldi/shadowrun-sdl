@@ -1,6 +1,6 @@
 import { IQualities } from "../../models/playerModels";
 import { initialState } from "../initialState";
-import { adjustQuality, QualityAction } from "../actions/qualityActions";
+import { QualityAction } from "../actions/qualityActions";
 
 export const qualityReducer = (state: IQualities = initialState.qualities, action: QualityAction): IQualities => {
     switch (action.type) {

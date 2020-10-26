@@ -128,7 +128,6 @@ class Action extends React.Component<IActionProps, IActionState> {
     showSkillTest(val: ValueType<SelectSkill>) {
         if (val === undefined || val === null)
             return;
-        const { character } = this.props;
         const { physicalLimit, socialLimit, mentalLimit } = this.state;
         const skill = (val as SelectSkill).skill;
         const attValue = this.getCharacterAttribute(skill.attribute.toUpperCase());
@@ -206,7 +205,6 @@ class Action extends React.Component<IActionProps, IActionState> {
                 }
         }
 
-        const { character } = this.props;
         //Check if the character has the associated weapon skill
         if(foundSkills.length > 0){
             skill = foundSkills[0];
