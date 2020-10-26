@@ -66,7 +66,7 @@ class Header extends React.Component<IHeaderProps> {
       
       let armor: number = this.calcTotalArmorVal(character);
       
-      console.log("\n" + character.name + " the " + character.metatype);
+      console.log(character.name + " the " + character.metatype);
       console.log("Init:  " + character.attributes.REA + character.attributes.INT + "+" + character.initiative.initDice + "d6");
       console.log("Karma:  ", character.karma);
       console.log("BOD: " + character.attributes.BOD);
@@ -79,7 +79,7 @@ class Header extends React.Component<IHeaderProps> {
       console.log("CHA: " + character.attributes.CHA);
       console.log("MAG: " + character.attributes.MAG);
       console.log("RES: " + character.attributes.RES);
-      console.log("EDG: " + character.currentEdge/character.attributes.EDG);
+      console.log("EDG: " + character.currentEdge + " / " + character.attributes.EDG + " = " + (character.currentEdge/character.attributes.EDG));
       console.log("ESS: " + character.attributes.ESS);
       console.log("Physical: 0/12( " + character.conditionMonitor.physical + ")");
       console.log("Stun: 0/8( " + character.conditionMonitor.stun + ")");
@@ -101,7 +101,7 @@ class Header extends React.Component<IHeaderProps> {
                           Init: {character.attributes.REA + character.attributes.INT}+{character.initiative.initDice}d6
                       </th>
                       <th className="headertd">
-                          Karma: {character.karma}
+                          Karma: {/* {character.karma} // FIXME */}
                       </th>
                   </tr>
                   <tr className="headertr">

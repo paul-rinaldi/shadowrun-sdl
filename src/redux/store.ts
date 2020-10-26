@@ -20,6 +20,7 @@ import { idReducer } from './reducers/idReducer';
 import { imageReducer } from './reducers/imageReducer';
 import { qualityReducer } from './reducers/qualityReducer';
 import { conditionReducer } from './reducers/conditionReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const logger = createLogger();
 
@@ -54,6 +55,21 @@ export const rootReducer = combineReducers({
     }),
     uploading: uploadReducer
 });
+
+// /* eslint-disable no-underscore-dangle */
+// const composeEnhancers =
+//   typeof window === 'object' &&
+//   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+//   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+//       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+//     }) : compose;
+
+// const enhancer = composeEnhancers(
+//   applyMiddleware(logger),
+//   // other store enhancers if any
+// );
+// /* eslint-enable */
+
 //applyMiddleWare will be great for when we are trying to debug, it shows what states are being changed.
 //look in dev tools on browser to see it in action.
-export const store = createStore(rootReducer, applyMiddleware(logger));
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger)));
