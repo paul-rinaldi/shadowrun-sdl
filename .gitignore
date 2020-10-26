@@ -1,1 +1,7 @@
 node_modules
+/.idea/.gitignore
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/SDL 2020.iml
+/.idea/vcs.xml
