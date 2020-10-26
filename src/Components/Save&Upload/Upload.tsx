@@ -45,6 +45,7 @@ class Upload extends React.Component<IUploadProps> {
                 const characterObject = characterData as ICharacter;
                 if (this.isValidCharacter(characterObject)) {
                     uploadCharacter(characterObject);
+                    uploadPlayerJSON(JSON.stringify(characterObject));
                 } else {
                     alert("The JSON file does not contain all valid properties.");
                 }

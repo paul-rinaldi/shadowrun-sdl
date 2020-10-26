@@ -1,5 +1,5 @@
 import * as InitialCharacter from '../InitialState/InitialCharacter.json';
-import { ICharacter, ILog } from '../models/playerModels';
+import { ICharacter } from '../models/playerModels';
 
 console.log("initial", InitialCharacter);
 
