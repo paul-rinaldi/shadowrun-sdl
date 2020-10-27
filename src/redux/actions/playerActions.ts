@@ -14,14 +14,26 @@ import { setGear } from "./gearAction";
 import { setID } from "./idAction";
 import { setQualities } from "./qualityActions";
 import { setImage } from "./imageActions";
+import { setMetaType } from "./metatypeActions";
+import { setEdge } from "./edgeActions";
+import { setConditionMonitor } from "./conditionActions";
+import { SetPersonal } from "./personalActions";
+import { setArmorAction } from './armorActions';
+import { setLifeStyle } from "./lifestyleActions";
 
 export const uploadCharacter = (character: ICharacter) => {
     setName(character.name);
+    setMetaType(character.metatype);
     setNuyen(character.money);
     setKarma(character.karma);
+    setEdge(character.currentEdge);
+    setConditionMonitor(character.conditionMonitor);
+    SetPersonal(character.personal);
     setAttributes(character.attributes);
     setImage(character.img);
     setInitiative(character.initiative);
+    setArmorAction(character.armor);
+    setLifeStyle(character.lifestyle);
     setID(character.ID);
     setSkills(character.skills);
     setKSkill(character.knowledgeSkills);

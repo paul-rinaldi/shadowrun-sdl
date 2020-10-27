@@ -1,5 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { createLogger } from "redux-logger";
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { ICharacter } from '../models/playerModels';
 import { IUploadModel } from '../models/uploadModels';
 import { karmaReducer } from './reducers/karmaReducer';
@@ -20,7 +21,10 @@ import { idReducer } from './reducers/idReducer';
 import { imageReducer } from './reducers/imageReducer';
 import { qualityReducer } from './reducers/qualityReducer';
 import { conditionReducer } from './reducers/conditionReducer';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { edgeReducer } from './reducers/edgeReducer';
+import { personalReducer } from './reducers/personalReducer';
+import { armorReducer } from './reducers/armorReducer';
+import { lifestyleReducer } from './reducers/lifestyleReducer';
 
 const logger = createLogger();
 
@@ -35,14 +39,14 @@ export const rootReducer = combineReducers({
         metatype: metaTypeReducer,
         money: nuyenReducer,
         karma: karmaReducer,
-        // currentEdge: edgeReducer,
+        currentEdge: edgeReducer,
         conditionMonitor: conditionReducer,
-        // personal: personalReducer,
+        personal: personalReducer,
         attributes: attributesReducer,
         img: imageReducer,
         initiative: initiativeReducer,
-        // armor: armorReducer,
-        // lifeStyle: lifestyleReducer,
+        armor: armorReducer,
+        lifeStyle: lifestyleReducer,
         ID: idReducer,
         skills: skillReducer,
         knowledgeSkills: knowledgeSkillReducer,

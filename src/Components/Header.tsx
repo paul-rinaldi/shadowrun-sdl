@@ -86,11 +86,12 @@ class Header extends React.Component<IHeaderProps> {
       console.log("Armor: " + armor);
       console.log("¥:  " + character.money);
 
+      let index = 0;
       return (
           <div className="headerdiv">
               <table className="headertable">
                   <tbody>
-                  <tr className="headertr">
+                  <tr className="headertr" key={index++}>
                       <th className="headertdatt" colSpan = {12}>
                           {character.name} the {character.metatype}
                       </th>
@@ -104,7 +105,7 @@ class Header extends React.Component<IHeaderProps> {
                           Karma: {/* {character.karma} // FIXME */}
                       </th>
                   </tr>
-                  <tr className="headertr">
+                  <tr className="headertr" key={index++}>
                       <td className="headertdatt">
                           BOD:{character.attributes.BOD}
                       </td>
