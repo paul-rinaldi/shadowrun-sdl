@@ -13,6 +13,7 @@ const mapStateToProps = (state: IShadowRunState) => ({
 });
 const mapDispatchToProps = {
     onShow: showFileChooser,
+    uploadCharacter,
     uploadPlayerJSON
 };
 
@@ -36,7 +37,7 @@ class Upload extends React.Component<IUploadProps> {
 
     uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
-        const { uploadPlayerJSON } = this.props;
+        const { uploadCharacter, uploadPlayerJSON } = this.props;
         reader.onload = (event) => {
             try {
                 if (!event.target?.result || typeof(event.target.result) !== "string")
@@ -45,7 +46,7 @@ class Upload extends React.Component<IUploadProps> {
                 const characterObject = characterData as ICharacter;
                 if (this.isValidCharacter(characterObject)) {
                     uploadCharacter(characterObject);
-                    uploadPlayerJSON(JSON.stringify(characterObject));
+                    // uploadPlayerJSON(JSON.stringify(characterObject));
                 } else {
                     alert("The JSON file does not contain all valid properties.");
                 }
