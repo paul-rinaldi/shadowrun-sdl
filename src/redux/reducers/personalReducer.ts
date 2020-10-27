@@ -4,7 +4,7 @@ import { initialState } from "../initialState";
 
 export const personalReducer = (state: ICharacter = initialState, action: PersonalAction) => {
     switch (action.type) {
-        case 'SET_PERSONAL_ACTION': return {...state, personal: action.payload};
-        default: return state;
+        case 'SET_PERSONAL_ACTION': return action.payload;
+        default: return state.personal;
     }
 }
