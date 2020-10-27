@@ -277,6 +277,7 @@ class Skills extends React.Component <ISkillProps, ISkillState>{
                 if (response) {
                     //Adjust karma
                     const now = new Date();
+                    
                     makeLog(-cost, `Increased ${skill.name} skill from ${skill.rating} to ${newRating} (${time})`,"Karma", now);
                     adjustKarma(-cost);
                     increaseSkill(type, index); //Increment the skill with the function from App

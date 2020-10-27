@@ -102,7 +102,7 @@ class Header extends React.Component<IHeaderProps> {
                           Init: {character.attributes.REA + character.attributes.INT}+{character.initiative.initDice}d6
                       </th>
                       <th className="headertd">
-                          Karma: {/* {character.karma} // FIXME */}
+                          Karma: {character.karma}
                       </th>
                   </tr>
                   <tr className="headertr" key={index++}>
