@@ -210,7 +210,7 @@ class GearPage extends React.Component<IGearProps>{
      * Adds the preset armor value from the allArmorDropdown() method
      */
     addPresetArmor(val: ValueType<ArmorOption>) {
-        const { addArmor } = this.props;
+        const { makeLog, adjustNuyen, addArmor } = this.props;
         if (val === null || val === undefined) {
             return;
         }
@@ -229,7 +229,7 @@ class GearPage extends React.Component<IGearProps>{
      * Takes away the ammount of money the user has and expects a positive input
      */
     addGearArmor(){
-        const { addArmor } = this.props;
+        const { makeLog, adjustNuyen, addArmor } = this.props;
         let aNameNew: string | number | null = prompt("Enter the name of the armor:", "Clothes");
         if (aNameNew === "") {
             alert("Canceled input");
@@ -380,7 +380,7 @@ class GearPage extends React.Component<IGearProps>{
      * Adds the preset melee value from the allMeleeDropdown() method
      */
     addPresetMelee(val: ValueType<MeleeOption>){
-        const { addMelee } = this.props;
+        const { makeLog, adjustNuyen, addMelee } = this.props;
         if (val === null || val === undefined) {
             return;
         }
@@ -398,7 +398,7 @@ class GearPage extends React.Component<IGearProps>{
      * Takes away the ammount of money the user has and expects a positive input
      */
     addGearMelee(){
-        const { addMelee } = this.props;
+        const { makeLog, adjustNuyen, addMelee } = this.props;
         let aNameNew = prompt("Enter the name of the melee weapon:", "Club");
         if (aNameNew === "") {
             alert("Canceled input");
@@ -563,7 +563,7 @@ class GearPage extends React.Component<IGearProps>{
      * Adds the preset ranged value from the allRangedDropdown() method
      */
     addPresetRanged(val: ValueType<RangedOption>){
-        const { addRanged } = this.props;
+        const { makeLog, adjustNuyen, addRanged } = this.props;
         if (val === undefined || val === null) {
             return;
         }
@@ -581,7 +581,7 @@ class GearPage extends React.Component<IGearProps>{
      * Takes away the ammount of money the user has and expects a positive input
      */
     addGearRanged(){
-        const { addRanged } = this.props; 
+        const { makeLog, adjustNuyen, addRanged } = this.props;
         let aNameNew = prompt("Enter the name of the ranged weapon:", "Shotgun");
         if (aNameNew === "") {
             alert("Canceled input");
@@ -637,6 +637,7 @@ class GearPage extends React.Component<IGearProps>{
     //Removes the gear by taking what type of gear it is and how much money is to be added or removed.
     // It also updates the nuyen value and puts into the log what was removed
     removeGear(type: string, index: number){
+        const { makeLog, adjustNuyen } = this.props;
         let nuyenVal: string | number | null = prompt("If selling this item, enter the nuyen gained from the item:", "1000");
         if (nuyenVal !== null) {
             nuyenVal = parseInt(nuyenVal);
@@ -667,6 +668,7 @@ class GearPage extends React.Component<IGearProps>{
      * @param index - row index of the gear on the table for this type of gear (ex. row 1 (index 1) on the armor table)
      */
     equip(type: string, index: number) {
+        const { toggleEquip } = this.props;
         toggleEquip(index);
     }
 }
