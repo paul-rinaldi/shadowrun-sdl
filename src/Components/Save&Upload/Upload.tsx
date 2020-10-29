@@ -3,8 +3,28 @@ import { connect } from "react-redux";
 import { IShadowRunState } from "../../redux/store";
 import { showFileChooser, uploadPlayerJSON } from '../../redux/actions/uploadActions';
 import { ICharacter } from '../../models/playerModels';
-import { uploadCharacter } from "../../redux/actions/playerActions";
 import '../Save&Upload/upload&save.css'
+import { setArmorAction } from "../../redux/actions/armorActions";
+import { setAttributes } from "../../redux/actions/attributeAction";
+import { setAugmentationDeck } from "../../redux/actions/augmentationAction";
+import { setConditionMonitor } from "../../redux/actions/conditionActions";
+import { setCyberDeck } from "../../redux/actions/cyberDeckActions";
+import { setEdge } from "../../redux/actions/edgeActions";
+import { setGear } from "../../redux/actions/gearAction";
+import { setID } from "../../redux/actions/idAction";
+import { setImage } from "../../redux/actions/imageActions";
+import { setInitiative } from "../../redux/actions/initiativeAction";
+import { setKarma } from "../../redux/actions/karmaActions";
+import { setKSkill } from "../../redux/actions/knowledgeSkillsActions";
+import { setLifeStyle } from "../../redux/actions/lifestyleActions";
+import { setLog } from "../../redux/actions/logActions";
+import { setMetaType } from "../../redux/actions/metatypeActions";
+import { setName } from "../../redux/actions/nameActions";
+import { setNuyen } from "../../redux/actions/nuyenActions";
+import { SetPersonal } from "../../redux/actions/personalActions";
+import { setQualities } from "../../redux/actions/qualityActions";
+import { setRitPrepPitComplexAction } from "../../redux/actions/ritPrepPitComplexActions";
+import { setSkills } from "../../redux/actions/skillActions";
 
 type IUploadProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -12,9 +32,9 @@ const mapStateToProps = (state: IShadowRunState) => ({
     fileRef: React.createRef<HTMLInputElement>()
 });
 const mapDispatchToProps = {
-    onShow: showFileChooser,
-    uploadCharacter,
-    uploadPlayerJSON
+    setName, setMetaType, setNuyen, setKarma, setEdge, setConditionMonitor, SetPersonal, setAttributes, setImage, setInitiative, setArmorAction, setLifeStyle,
+        setID, setSkills, setKSkill, setQualities, setAugmentationDeck, setRitPrepPitComplexAction, setCyberDeck, setGear, setLog,
+    onShow: showFileChooser
 };
 
 
@@ -23,13 +43,13 @@ class Upload extends React.Component<IUploadProps> {
         const { choosingFile, fileRef } = this.props;
         return(
             <div className={'uploadSave'}>
-                <button onClick={this.showFileChooser}>Load Character</button>
+                <button onClick={() => this.showFileChooser()}>Load Character</button>
                 <input type="file" ref={fileRef} style={{display: 'none'}} accept='json' onChange={this.uploadFile}/>
             </div>
         );
     }
     
-    showFileChooser = (event: FormEvent<HTMLButtonElement>): void => {
+    showFileChooser = () => {
         const { onShow, fileRef } = this.props;
         fileRef.current?.click();
         onShow();
@@ -37,7 +57,6 @@ class Upload extends React.Component<IUploadProps> {
 
     uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
         const reader = new FileReader();
-        const { uploadCharacter, uploadPlayerJSON } = this.props;
         reader.onload = (event) => {
             try {
                 if (!event.target?.result || typeof(event.target.result) !== "string")
@@ -45,12 +64,12 @@ class Upload extends React.Component<IUploadProps> {
                 let characterData = JSON.parse(event.target.result);
                 const characterObject = characterData as ICharacter;
                 if (this.isValidCharacter(characterObject)) {
-                    uploadCharacter(characterObject);
+                    this.uploadCharacter(characterObject);
                 } else {
                     alert("The JSON file does not contain all valid properties.");
                 }
             } catch (e) {
-                alert("There was an error loading the file." + e);
+                alert("There was an error loading the file. " + e);
             }
         }
         try {
@@ -64,6 +83,33 @@ class Upload extends React.Component<IUploadProps> {
 
     isValidCharacter = (character: ICharacter) => {
         return true; // TODO: Validate
+    }
+
+    uploadCharacter = (player: ICharacter) => {
+        const { setName, setMetaType, setNuyen, setKarma, setEdge, setConditionMonitor, SetPersonal, setAttributes,
+            setImage, setInitiative, setArmorAction, setLifeStyle, setID, setSkills, setKSkill, setQualities, 
+            setAugmentationDeck, setRitPrepPitComplexAction, setCyberDeck, setGear, setLog, } = this.props;
+        setName(player.name);
+        setMetaType(player.metatype);
+        setNuyen(player.money);
+        setKarma(player.karma);
+        setEdge(player.currentEdge);
+        setConditionMonitor(player.conditionMonitor);
+        SetPersonal(player.personal);
+        setAttributes(player.attributes);
+        setImage(player.img);
+        setInitiative(player.initiative);
+        setArmorAction(player.armor);
+        setLifeStyle(player.lifestyle);
+        setID(player.ID);
+        setSkills(player.skills);
+        setKSkill(player.knowledgeSkills);
+        setQualities(player.qualities);
+        setAugmentationDeck(player.augmentations);
+        setRitPrepPitComplexAction(player.RitPrepRitComplex);
+        setCyberDeck(player.cyberdeck);
+        setGear(player.gear);
+        setLog(player.log);
     }
 
 }
