@@ -22,7 +22,22 @@ const mapDispatchToProps = {
     makeLog
 }
 
-class Attributes extends Component <IAttributesProps> {
+interface IAttributeState {
+    mentalLimit: number | null;
+    physicalLimit: number | null;
+    socialLimit: number | null;
+}
+
+class Attributes extends Component <IAttributesProps, IAttributeState> {
+    constructor(props: IAttributesProps) {
+        super(props);
+        this.state = {
+            mentalLimit: null,
+            physicalLimit: null,
+            socialLimit: null
+        };
+    }
+
     /**
      * finds the minimum and maximum attribute values based off of character metatype
      * metatypes are human, elf, dwarf, ork, and troll
@@ -425,19 +440,22 @@ class Attributes extends Component <IAttributesProps> {
                     attrStrings = ['LOG', 'INT', 'WIL'];
                     attrValStrings = [attributes.LOG, attributes.INT, attributes.WIL];
                     limit = this.limitCalculation(attributes.LOG, attributes.INT, attributes.WIL);
-                    this.setState({mentalLimit: limit});
+                    if (this.state.mentalLimit !== limit)
+                        this.setState({mentalLimit: limit});
                     break;
                 case 'Physical':
                     attrStrings = ['STR', 'BOD', 'REA'];
                     attrValStrings = [attributes.STR, attributes.BOD, attributes.REA];
                     limit = this.limitCalculation(attributes.STR, attributes.BOD, attributes.REA);
-                    this.setState({physicalLimit: limit});
+                    if (this.state.physicalLimit !== limit)
+                        this.setState({physicalLimit: limit});
                     break;
                 case 'Social':
                     attrStrings = ['CHA', 'WIL', 'ESS'];
                     attrValStrings = [attributes.CHA, attributes.WIL, attributes.ESS];
                     limit = this.limitCalculation(attributes.CHA, attributes.WIL, attributes.ESS);
-                    this.setState({socialLimit: limit});
+                    if (this.state.socialLimit !== limit)
+                        this.setState({socialLimit: limit});
                     break;
                 default:
                     attrStrings = ['Uknown', 'Uknown', 'Uknown'];

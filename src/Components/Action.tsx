@@ -84,7 +84,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                 attrStrings = ['STR', 'BOD', 'REA'];
                 attrValStrings = [attributes.STR, attributes.BOD, attributes.REA];
                 limit = this.limitCalculation(attributes.STR, attributes.BOD, attributes.REA);
-                if (this.state.physicalLimit != limit)
+                if (this.state.physicalLimit !== limit)
                     this.setState({physicalLimit: limit});
                 break;
             case 'Social':
