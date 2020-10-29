@@ -238,7 +238,7 @@ class Attributes extends Component <IAttributesProps, IAttributeState> {
         } else {
             if(att === 'ESS'){
                 //Essence is updated by decimal places and does not cost karma or time
-                setESS(0.1, min, max);
+                this.props.setESS(0.1, min, max);
             } else {
                 const newRating = rating + 1;
                 const karmaNeeded = newRating * 5;
@@ -263,6 +263,7 @@ class Attributes extends Component <IAttributesProps, IAttributeState> {
                 } else {
                     const response = window.confirm(costString + `\n\nIs it OK to upgrade ${att}?`);
                     if (response) {
+                        const { setAttribute, adjustKarma, makeLog } = this.props;
                         setAttribute(att, 1, min, max); //sets the selected attribute to specified min and maxa
                         adjustKarma(-1 * karmaNeeded); //adjust the karma
                         makeLog(-1 * karmaNeeded, `Increased ${att} attribute from ${rating} to ` +
@@ -290,7 +291,7 @@ class Attributes extends Component <IAttributesProps, IAttributeState> {
         } else {
             if(att === 'ESS'){
                 //Essence is updated by decimal places and does not refund karma or time
-                setESS(-0.1, min, max);
+                this.props.setESS(-0.1, min, max);
 
             } else {
                 const newRating = rating - 1;
@@ -313,6 +314,7 @@ class Attributes extends Component <IAttributesProps, IAttributeState> {
                     `to be done if you accidentally increased an attribute. Is it OK to revert ${att}?`);
 
                 if (response) {
+                   const { setAttribute, makeLog } = this.props;
                    setAttribute(att, -1, min, max);
                    makeLog(karmaRefund, `Decreased ${att} attribute from ${rating} to ${newRating} ` +
                         `(returned ${time})`,"Karma", new Date());

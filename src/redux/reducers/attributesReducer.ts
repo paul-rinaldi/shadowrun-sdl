@@ -3,7 +3,7 @@ import { initialState } from '../initialState';
 import {AttributeAction, IActionPayload} from '../actions/attributeAction';
 
 export const attributesReducer = (state: IAttributes = initialState.attributes, action: AttributeAction): IAttributes => {
-    const { min, max, delta } = isIActionPayload(action) ? action.payload as IActionPayload : {min: 0, max: 0, delta: 0};
+    const { min, max, delta } = action.payload && isIActionPayload(action.payload) ? action.payload as IActionPayload : {min: 0, max: 0, delta: 0};
     switch (action.type) {
         case 'BOD_ACTION':
             return min <= state.BOD + delta && max >= state.BOD + delta? {...state, BOD: state.BOD + delta} : state;
@@ -12,7 +12,7 @@ export const attributesReducer = (state: IAttributes = initialState.attributes, 
         case 'REA_ACTION':
             return min <= state.REA + delta && max >= state.REA + delta? {...state, REA: state.REA + delta} : state;
         case 'STR_ACTION':
-            return min <= state.STR + delta && max >= state.REA + delta? {...state, REA: state.REA + delta} : state;
+            return min <= state.STR + delta && max >= state.STR + delta? {...state, STR: state.STR + delta} : state;
         case 'WIL_ACTION':
             return min <= state.WIL + delta && max >= state.WIL + delta? {...state, WIL: state.WIL + delta} : state;
         case 'LOG_ACTION':
