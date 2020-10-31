@@ -5,7 +5,6 @@ import { IShadowRunState } from '../redux/store';
 import { Melee } from '../models/playerModels';
 import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
-import Attributes from './Attributes';
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -449,4 +448,4 @@ class Action extends React.Component<IActionProps, IActionState> {
 export default connect(
 mapStateToProps,
 mapDispatchToProps)
-(Attributes);
+(Action);
