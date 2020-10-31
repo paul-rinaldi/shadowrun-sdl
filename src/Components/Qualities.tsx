@@ -6,6 +6,7 @@ import { IShadowRunState } from "../redux/store";
 import { adjustKarma } from '../redux/actions/karmaActions';
 import { adjustQuality, removeQuality } from '../redux/actions/qualityActions';
 import { IQuality } from "../models/playerModels";
+import { connect } from 'react-redux';
 
 type IQualityProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -392,4 +393,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
 }
 
 
-export default Qualities;
+export default connect(
+mapStateToProps,
+mapDispatchToProps
+)(Qualities);
