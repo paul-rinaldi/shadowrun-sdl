@@ -23,7 +23,9 @@ const mapStateToProps = (state: IShadowRunState) => ({
 });
 
 const mapDispatchToProps = {
-    adjustKarma
+    adjustKarma,
+    adjustQuality,
+    removeQuality
 };
 
 /**
@@ -201,6 +203,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
     addRating(type: string, index: number){
+        const { adjustKarma } = this.props;
         const quality = this.getQualities(type)[index];
         let karmaAdjust = quality.karma;
         if(quality.rating < quality.max){
@@ -227,6 +230,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
     removeRating(type: string, index: number){
+        const { adjustKarma } = this.props;
         const quality = this.getQualities(type)[index];
 
         const response = window.confirm(`Decreasing ${quality.qName} from ${quality.rating} to ${(quality.rating - 1)} will ` +
@@ -260,6 +264,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
         if(val === null || val === undefined){
             return;
         }
+        const { adjustKarma, adjustQuality } = this.props;
         const quality = (val as QualityOption).value;
         const response = window.confirm("This quality will cost " + quality.karma + " karma.");
         if(response){
@@ -287,6 +292,8 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
         let karmaNewValue: number | null = 0;
         let ratingNewValue: number | null = 0;
         let maxRatingNewValue: number | null = 0;
+        const { adjustKarma, adjustQuality } = this.props;
+
         const qNameNew = prompt("Enter the name of the quality:", "Addiction, (Moderate BTLs)");
         if (qNameNew === "") {
             alert("Name must be entered");
@@ -351,7 +358,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is where that quality is in the characters list.
      */
     removeQuality(type: string, index: number){
-        const {character, adjustKarma} = this.props;
+        const {adjustKarma, removeQuality, character: { karma } } = this.props;
         //let quality = this.getQualities(type)[index];
         const karmaNew = prompt("Enter the amount toof removing the quality:", "-5");
         let karmaNewNumber: number = 0;
@@ -361,16 +368,12 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
         if (karmaNewNumber === null) {
             alert("Must have a karma amount entered");
         } else if (karmaNewNumber !== null){
-            // const check = this.props.adjustKarm(parseInt(karmaNew), "Removed quality: " + 
-            //     character.qualities[type][index].qName + ". (Original karma: " + 
-            //     character.qualities[type][index].karma + ")", "Karma");
-            // if(check === true){
-            //     this.props.remQuality(type, index);
-            // }else {
-            //     alert("Not enough karma");
-            // }
-            adjustKarma(karmaNewNumber)
+            if(karma + karmaNewNumber > 0){
+                adjustKarma(karmaNewNumber)
             removeQuality(type, index);
+            }else {
+                alert("Not enough karma");
+            }
         }
     }
 
