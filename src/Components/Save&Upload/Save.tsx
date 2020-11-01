@@ -29,10 +29,10 @@ class Save extends React.Component<ISaveProps> {
     downloadChar = () => {
         const { character } = this.props;
         
-        //doint do anything if its not there
+        //don't do anything if its not there
         if(!character || character.name === ""){
             alert("There was an error while uploading your character");
-        }else {
+        } else {
             //set name
             let filename = character.name + ".json";
             //type
