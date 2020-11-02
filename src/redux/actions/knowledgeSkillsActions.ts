@@ -41,6 +41,12 @@ export const addKSkill = (type: string, att: string, name: string, specializatio
     payload: {type, att, name, specialization}
 });
 
+/**
+ * Updates the knowledge skill
+ * @param type - type of the knowledge skill to update
+ * @param index - index of the knowledge skill in the type array
+ * @param adjustment - how much the value is changing
+ */
 export const updateKSkill = (type: string, index: number, adjustment: number): KnowledgeSkillsActions => ({
     type: 'UPDATE_KSKILL_ACTION',
     payload: {type, index, adjustment}
