@@ -186,13 +186,12 @@ class GearPage extends React.Component<IGearProps>{
         //     });
         // });
 
-        let armorTypes: object = armorJSON["armor"];
-        Object.entries(armorTypes).forEach((armorType) => {
-            armorType.forEach(armor => {
-                options.push({
-                    value: armor,
-                    label: `${armor.name}`
-                });
+        let armorTypes: Array<Armor> = armorJSON["armor"];
+        
+        armorTypes.forEach((armor) => {
+            options.push({
+                value: armor,
+                label: `${armor.name}`
             });
         });
 

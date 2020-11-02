@@ -122,19 +122,19 @@ export interface Cyberdeck {
 export interface Armor {
     name: string;
     rating: number | string;
-    capacity: number;
-    availability: number;
+    capacity: number | string;
+    availability: number | string;
     cost: number;
     equiped: boolean;
 }
 
 export interface Melee {
     name: string;
-    acc: number | string;
-    reach: number;
+    acc: number | string; // | string
+    reach: number | string;
     dam: string;
-    ap: number;
-    availability: string;
+    ap: number | string;
+    availability: number | string;
     cost: number;
     skill: string;
 }
