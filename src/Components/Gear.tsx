@@ -521,20 +521,12 @@ class GearPage extends React.Component<IGearProps>{
      */
     allRangedDropdown(){
         const options: RangedOption[] = [];
-        // old javascript
-        // var x;
-        // for(x in rangedJSON["ranged"]){
-        //     rangedJSON["ranged"][x].forEach(ranged => {
-        //         options.push({
-        //             value: ranged,
-        //             label: `${ranged.name}`
-        //         });
-        //     });
-        // }
 
-        let rangeTypes: object = rangedJSON["ranged"];
-        Object.entries(rangeTypes).forEach((rangeType) => {
-            rangeType.forEach(ranged => {
+        let rangeTypes: object = rangedJSON.ranged;
+        Object.entries(rangeTypes).forEach((values) => {
+            let rangedTypes: Array<Ranged> = values[1];
+
+            rangedTypes.forEach(ranged => {
                 options.push({
                     value: ranged,
                     label: `${ranged.name}`
