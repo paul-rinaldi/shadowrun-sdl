@@ -6,28 +6,59 @@ export const qualityReducer = (state: IQualities = initialState.qualities, actio
     switch (action.type) {
         case "ADJUST_QUALITY_ACTION": {
             switch (action.payload.type.toLocaleLowerCase()) {
-                case 'positive': 
-                    return { ...state, 
-                        positive: [...state.positive, {
-                            qName: action.payload.qName,
-                            karma: action.payload.karmaAdjust,
-                            rating: action.payload.rating,
-                            max: action.payload.max,
-                            notes: action.payload.notes
-                        }]};
+                case 'positive':  
+                    const posIndex = state.positive.findIndex(
+                        element => element.qName === action.payload.qName);
+                    if (posIndex < 0 || posIndex >= state.positive.length)
+                        return state;
+                    return { 
+                        ...state, 
+                        positive: [
+                            ...state.positive.slice(0, posIndex)
+                            .concat({
+                                qName: action.payload.qName,
+                                karma: action.payload.karmaAdjust,
+                                rating: action.payload.rating,
+                                max: action.payload.max,
+                                notes: action.payload.notes
+                            })
+                            .concat(state.positive.slice(posIndex + 1, state.positive.length))]
+                        };
                 case 'negative':
-                    return { ...state,
-                        negative: [...state.negative, {
-                            qName: action.payload.qName,
-                            karma: action.payload.karmaAdjust,
-                            rating: action.payload.rating,
-                            max: action.payload.max,
-                            notes: action.payload.notes
-                        }]};
+                    const negIndex = state.negative.findIndex(
+                        element => element.qName === action.payload.qName);
+                    if (negIndex < 0 || negIndex >= state.negative.length)
+                        return state;
+                    return { 
+                        ...state,
+                        negative: [
+                            ...state.negative.slice(0, negIndex)
+                            .concat({
+                                qName: action.payload.qName,
+                                karma: action.payload.karmaAdjust,
+                                rating: action.payload.rating,
+                                max: action.payload.max,
+                                notes: action.payload.notes
+                            })
+                            .concat(state.positive.slice(negIndex + 1, state.negative.length))
+                        ]
+                        };
                 default:
                     return state;
             }
         }
+        case 'ADD_QUALITY_ACTION':
+            if (action.payload.isPositive) {
+                return {
+                    ...state,
+                    positive: [...state.positive, action.payload.quality]
+                }
+            } else {
+                return {
+                    ...state,
+                    negative: [...state.negative, action.payload.quality]
+                }
+            }
         case 'REMOVE_QUALITY_ACTION': {
             return removeQualities(action.payload.type, action.payload.index, state);
         }

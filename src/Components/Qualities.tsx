@@ -4,9 +4,10 @@ import qualityJSON from '../Qualities.json'
 import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from "../redux/store";
 import { adjustKarma } from '../redux/actions/karmaActions';
-import { adjustQuality, removeQuality } from '../redux/actions/qualityActions';
+import { adjustQuality, removeQuality, addQuality } from '../redux/actions/qualityActions';
 import { IQuality } from "../models/playerModels";
 import { connect } from 'react-redux';
+import { makeLog } from '../redux/actions/logActions';
 
 type IQualityProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 
@@ -25,7 +26,9 @@ const mapStateToProps = (state: IShadowRunState) => ({
 const mapDispatchToProps = {
     adjustKarma,
     adjustQuality,
-    removeQuality
+    removeQuality,
+    addQuality,
+    makeLog
 };
 
 /**
@@ -203,20 +206,21 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
     addRating(type: string, index: number){
-        const { adjustKarma } = this.props;
+        const { adjustKarma, adjustQuality, makeLog, character: { karma } } = this.props;
         const quality = this.getQualities(type)[index];
         let karmaAdjust = quality.karma;
         if(quality.rating < quality.max){
             const response = window.confirm("Increasing " + quality.qName + " from " + quality.rating + " to " + (quality.rating + 1) + " will cost " + karmaAdjust + " karma.\n\nIs it OK to upgrade " + quality.qName + "?");
             if(response){
-                // const check = this.props.adjKarm(karmaAdjust, `Increased rating of ${quality.qName} quality from ` +
-                //     `${quality.rating} to ${quality.rating + 1}`,"Karma");
-                adjustKarma(karmaAdjust);
-                //if(check === true){
-                quality.rating = quality.rating + 1;
-                //} else {
-                    //alert("Not enough karma");
-                //}
+                const newRating = quality.rating + 1;
+                if(quality.karma + karma > 0 && newRating <= quality.max) {
+                    makeLog(karmaAdjust, `Increased rating of ${quality.qName} quality from ${quality.rating} to ${newRating}`,
+                        'Karma', new Date());
+                    adjustKarma(karmaAdjust);
+                    adjustQuality(quality.qName, quality.karma, newRating, quality.max, quality.notes, type);
+                } else {
+                    alert("Not enough karma, or rating can't go higher.");
+                }
             }
         } else{
             alert("The quality is already at its max rating");
@@ -230,7 +234,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
     removeRating(type: string, index: number){
-        const { adjustKarma } = this.props;
+        const { adjustKarma, adjustQuality, makeLog, character: { karma } } = this.props;
         const quality = this.getQualities(type)[index];
 
         const response = window.confirm(`Decreasing ${quality.qName} from ${quality.rating} to ${(quality.rating - 1)} will ` +
@@ -239,15 +243,16 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
         `to be done if you accidentally increased a quality. Is it OK to revert ${quality.qName}?`);
         if(response){
             if(quality.rating > 1){
-                adjustKarma(Math.abs(quality.karma));
-                quality.rating = quality.rating - 1;
-                //const check = this.props.adjKarm(Math.abs(quality.karma), `Decreased rating of ${quality.qName} ` +
-                    //`quality from ${quality.rating} to ${quality.rating - 1}`,"Karma");
-                //if(check === true){
-                    //quality.rating = quality.rating - 1;
-                //} else {
-                    //alert("Not enough karma");
-                //}
+                const newRating = quality.rating - 1;
+                if(newRating > 0){
+                    const newKarma = -1 * quality.karma;
+                    makeLog(newKarma, `Increased rating of ${quality.qName} quality from ${quality.rating} to ${newRating}`,
+                        'Karma', new Date());
+                    adjustKarma(newKarma);
+                    adjustQuality(quality.qName, quality.karma, newRating, quality.max, quality.notes, type);
+                } else {
+                    alert("Rating can't go below zero.");
+                }
             }
         }
     }
@@ -264,20 +269,20 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
         if(val === null || val === undefined){
             return;
         }
-        const { adjustKarma, adjustQuality } = this.props;
+        const { adjustKarma, addQuality, makeLog, character: { karma } } = this.props;
         const quality = (val as QualityOption).value;
         const response = window.confirm("This quality will cost " + quality.karma + " karma.");
         if(response){
             const notes = prompt("Enter any notes about the quality", "");
             if(notes !== null) {
-                adjustKarma(quality.karma);
-                adjustQuality(quality.qName, quality.karma, quality.rating, quality.max, notes, qualityType);
-                //const check = this.props.adjKarm(karmaAdjust, 'Added Quality: ' + qName,"Karma");
-                //if(check === true){
-                    //this.props.adjQuality(qName, karmaAdjust, rating, max, notes, type);
-                //} else {
-                    //alert("Not enough karma");
-                //}
+                if(karma + quality.karma > 0){
+                    // this.props.adjQuality(qName, karmaAdjust, rating, max, notes, type);
+                    adjustKarma(quality.karma);
+                    addQuality(quality.qName, quality.karma, quality.rating, quality.max, notes, qualityType.toLowerCase() == 'positive');
+                    makeLog(quality.karma, `Add Quality: ${quality.qName}`, 'Karma', new Date());
+                } else {
+                    alert("Not enough karma");
+                }
             }
         } 
     }
@@ -289,60 +294,65 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} type is positive/negative depending on the quality
      */
     addQuality(type: string){
-        let karmaNewValue: number | null = 0;
+        let karmaNewValue: number = 0;
         let ratingNewValue: number | null = 0;
         let maxRatingNewValue: number | null = 0;
-        const { adjustKarma, adjustQuality } = this.props;
+        const { adjustKarma, addQuality, makeLog, character: { karma } } = this.props;
 
         const qNameNew = prompt("Enter the name of the quality:", "Addiction, (Moderate BTLs)");
-        if (qNameNew === "") {
+        if (qNameNew === "") { // Invalid Name
             alert("Name must be entered");
-        } else if(qNameNew !== null) {
-            const karmaNew = prompt("Enter the cost of the quality:", "0");
-            if (karmaNew === "" || karmaNew === null) {
-                alert("Must have defined karma amount");
-            } else if(karmaNew !== null){
-                karmaNewValue = this.getNumber(karmaNew);
-                if(karmaNewValue !== null){
-                    const ratingNew = prompt("Enter the rating:", "0");
-                    if(ratingNew === "" || ratingNew === null){
-                        alert("Must have a rating with the quality");
-                    } else {
-                        ratingNewValue = this.getNumber(ratingNew);
-                        if(ratingNewValue !== null){
-                            if(ratingNewValue < 0 ){
-                                alert("Rating must be greater than 0");
-                            } else if(ratingNew !== null) {
-                                const maxRatingNew = prompt("Enter the max rating:", "0");
-                                if(maxRatingNew === "" || maxRatingNew === null){
-                                    alert("There must be a max rating");
+            return;
+        }
+        if(qNameNew === null) { return; } // Cancel
+        
+        const karmaNew = prompt("Enter the cost of the quality:", "0");
+        if (karmaNew === "" || karmaNew === null) { // Invalid Karma entry
+            alert("Must have defined karma amount");
+            return;
+        }
+
+        const karmaNewValueRaw = this.getNumber(karmaNew);
+        karmaNewValue = karmaNewValueRaw === null ? -1 : karmaNewValueRaw;
+        if(karmaNewValue === -1) { return; } // Cancel
+        
+        const ratingNew = prompt("Enter the rating:", "0");
+        if(ratingNew === "" || ratingNew === null){
+            alert("Must have a rating with the quality");
+            return;
+        }
+
+        ratingNewValue = this.getNumber(ratingNew);
+        if(ratingNewValue !== null){
+            if(ratingNewValue < 0 ){
+                alert("Rating must be greater than 0");
+            } else if(ratingNew !== null) {
+                const maxRatingNew = prompt("Enter the max rating:", "0");
+                if(maxRatingNew === "" || maxRatingNew === null){
+                    alert("There must be a max rating");
+                } else {
+                    maxRatingNewValue = this.getNumber(maxRatingNew);
+                    if(maxRatingNewValue !== null){
+                        if(maxRatingNewValue < 0 ){
+                            alert("Max rating must be greater than 0");
+                        } else if(maxRatingNew !== null) {
+                            //Positive must be negative karma and negative must be positive karma
+                            if((type === "positive" && karmaNewValue > 0) || (type === "negative" && karmaNewValue < 0)){
+                                if(type === "positive"){
+                                    alert("Positive qualities must be negative karma");
                                 } else {
-                                    maxRatingNewValue = this.getNumber(maxRatingNew);
-                                    if(maxRatingNewValue !== null){
-                                        if(maxRatingNewValue < 0 ){
-                                            alert("Max rating must be greater than 0");
-                                        } else if(maxRatingNew !== null) {
-                                            //Positive must be negative karma and negative must be positive karma
-                                            if((type === "positive" && karmaNewValue > 0) || (type === "negative" && karmaNewValue < 0)){
-                                                if(type === "positive"){
-                                                    alert("Positive qualities must be negative karma");
-                                                } else {
-                                                    alert("Negative qualities must be positive karma");
-                                                }
-                                            } else {
-                                                const notes = prompt("Enter any notes about the quality", "");
-                                                if(notes !== null) {
-                                                    adjustKarma(karmaNewValue);
-                                                    adjustQuality(qNameNew, karmaNewValue, ratingNewValue, maxRatingNewValue, notes, type.toLowerCase());
-                                                    //const check = this.props.adjKarm(parseInt(karmaNew), 'Added Quality: ' + qNameNew,"Karma");
-                                                    //if(check === true){
-                                                        //this.props.adjQuality(qNameNew, karmaNew, parseInt(ratingNew), parseInt(maxRatingNew), notes, type.toLowerCase());
-                                                    //} else {
-                                                        //alert("Not enough karma");
-                                                    //}
-                                                }
-                                            }
-                                        }
+                                    alert("Negative qualities must be positive karma");
+                                }
+                            } else {
+                                const notes = prompt("Enter any notes about the quality", "");
+                                if(notes !== null) {
+                                    if(karma + karmaNewValue > 0){
+                                        makeLog(karmaNewValue, `Added Quality: ${qNameNew}`,
+                                            'Karma', new Date());
+                                        adjustKarma(karmaNewValue);
+                                        addQuality(qNameNew, karmaNewValue, ratingNewValue, maxRatingNewValue, notes, type.toLowerCase() === 'positive');
+                                    } else {
+                                        alert("Not enough karma");
                                     }
                                 }
                             }
@@ -358,8 +368,8 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is where that quality is in the characters list.
      */
     removeQuality(type: string, index: number){
-        const {adjustKarma, removeQuality, character: { karma } } = this.props;
-        //let quality = this.getQualities(type)[index];
+        const {adjustKarma, removeQuality, makeLog, character: { karma } } = this.props;
+        let quality = this.getQualities(type)[index];
         const karmaNew = prompt("Enter the amount toof removing the quality:", "-5");
         let karmaNewNumber: number = 0;
         if(karmaNew !== null){
@@ -369,7 +379,9 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
             alert("Must have a karma amount entered");
         } else if (karmaNewNumber !== null){
             if(karma + karmaNewNumber > 0){
-                adjustKarma(karmaNewNumber)
+                makeLog(karmaNewNumber, `Removed quality: ${quality.qName} (Original karma: ${karma})`,
+                'Karma', new Date());
+                adjustKarma(karmaNewNumber);
             removeQuality(type, index);
             }else {
                 alert("Not enough karma");
