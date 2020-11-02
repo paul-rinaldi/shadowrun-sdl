@@ -138,13 +138,11 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
         //     });
         // });
 
-        let qualities: object = qualityJSON[type.toLowerCase() === "positive" ? "positive" : "negative"];
-            Object.entries(qualities).forEach((qualityType) =>{
-                qualityType.forEach((quality) => {
-                    options.push({
-                        value: quality,
-                        label: `${quality.qName}`
-                });
+        let qualities = qualityJSON[type.toLowerCase() === "positive" ? "positive" : "negative"];
+            qualities.forEach((quality) =>{
+                options.push({
+                    value: quality,
+                    label: `${quality.qName}`
             });
         });
 
