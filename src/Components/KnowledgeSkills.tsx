@@ -22,7 +22,9 @@ const mapDispatchToProps = {
     increaseKSkill,
     decreaseKSkill,
     addKSkill,
-    updateKSkill
+    updateKSkill,
+    makeLog,
+    adjustKarma
 }
 
 type IKnowledgeSkillsProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
@@ -138,7 +140,7 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
      */
     skillTable(type: string, att: string) {
         //A list of all knowledge skills of the provided type
-        let skillList = this.getKnowledgeSkills;
+        let skillList = this.getKnowledgeSkills(type);
         let skillRows = []; //The rows to be displayed, each containing info about a single knowledge skill
 
         for(let i = 0; i < skillList.length; i++){
@@ -182,7 +184,7 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
 
     addSkill(type: string, att: string){
         //New knowledge skills cost 1 karma
-        const { character } = this.props;
+        const { character, addKSkill, makeLog, adjustKarma } = this.props;
         if (character.karma >= 1) {
             let skillName: string | null = '';
 
@@ -330,6 +332,7 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
      * @param index The index of the skill in the type list.
      */
     incrementSkill(type: string, index: number){
+        const { makeLog, adjustKarma, updateKSkill} = this.props;
         const skill = this.getSkills(type)[index];
         const newRating = skill.rating + 1;
         const cost = newRating;
@@ -384,6 +387,7 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
      * @param index The index of the skill in the type list.
      */
     decrementSkill(type: string, index: number){
+        const {makeLog, adjustKarma, updateKSkill } = this.props;
         const skill = this.getSkills(type)[index];
         const newRating = skill.rating - 1;
         const refund = skill.rating;
