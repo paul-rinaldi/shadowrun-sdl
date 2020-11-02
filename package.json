@@ -8,7 +8,6 @@
     "downloadbutton": "^1.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "jest-enzyme": "^7.1.2",
     "mathjs": "^6.6.1",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",

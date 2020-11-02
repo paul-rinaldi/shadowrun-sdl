@@ -186,13 +186,12 @@ class GearPage extends React.Component<IGearProps>{
         //     });
         // });
 
-        let armorTypes: object = armorJSON["armor"];
-        Object.entries(armorTypes).forEach((armorType) => {
-            armorType.forEach(armor => {
-                options.push({
-                    value: armor,
-                    label: `${armor.name}`
-                });
+        let armorTypes: Array<Armor> = armorJSON["armor"];
+        
+        armorTypes.forEach((armor) => {
+            options.push({
+                value: armor,
+                label: `${armor.name}`
             });
         });
 
@@ -345,22 +344,17 @@ class GearPage extends React.Component<IGearProps>{
      */
     allMeleeDropdown(){
         const options: MeleeOption[] = [];
-
-        // for(const x in meleeJSON["melee"]){
-        //     meleeJSON["melee"][x].forEach(melee => {
-        //         options.push({
-        //             value: melee,
-        //             label: `${melee.name}`
-        //         });
-        //     });
-        // }
-
-        let meleeTypes: object = meleeJSON["melee"];
-        Object.entries(meleeTypes).forEach((meleeType) => {
-            meleeType.forEach(melee => {
+        
+        let meleeTypes: object = meleeJSON.melee;
+        console.log(meleeTypes);
+        
+        Object.entries(meleeTypes).forEach((values) => {
+            let melees: Array<Melee> = values[1];
+            
+            melees.forEach(melee => {
                 options.push({
                     value: melee,
-                    label: `${melee.name}`
+                    label: melee.name
                 });
             });
         });
@@ -527,20 +521,12 @@ class GearPage extends React.Component<IGearProps>{
      */
     allRangedDropdown(){
         const options: RangedOption[] = [];
-        // old javascript
-        // var x;
-        // for(x in rangedJSON["ranged"]){
-        //     rangedJSON["ranged"][x].forEach(ranged => {
-        //         options.push({
-        //             value: ranged,
-        //             label: `${ranged.name}`
-        //         });
-        //     });
-        // }
 
-        let rangeTypes: object = rangedJSON["ranged"];
-        Object.entries(rangeTypes).forEach((rangeType) => {
-            rangeType.forEach(ranged => {
+        let rangeTypes: object = rangedJSON.ranged;
+        Object.entries(rangeTypes).forEach((values) => {
+            let rangedTypes: Array<Ranged> = values[1];
+
+            rangedTypes.forEach(ranged => {
                 options.push({
                     value: ranged,
                     label: `${ranged.name}`
