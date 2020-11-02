@@ -344,22 +344,17 @@ class GearPage extends React.Component<IGearProps>{
      */
     allMeleeDropdown(){
         const options: MeleeOption[] = [];
-
-        // for(const x in meleeJSON["melee"]){
-        //     meleeJSON["melee"][x].forEach(melee => {
-        //         options.push({
-        //             value: melee,
-        //             label: `${melee.name}`
-        //         });
-        //     });
-        // }
-
-        let meleeTypes: object = meleeJSON["melee"];
-        Object.entries(meleeTypes).forEach((meleeType) => {
-            meleeType.forEach(melee => {
+        
+        let meleeTypes: object = meleeJSON.melee;
+        console.log(meleeTypes);
+        
+        Object.entries(meleeTypes).forEach((values) => {
+            let melees: Array<Melee> = values[1];
+            
+            melees.forEach(melee => {
                 options.push({
                     value: melee,
-                    label: `${melee.name}`
+                    label: melee.name
                 });
             });
         });
