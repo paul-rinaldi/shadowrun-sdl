@@ -1,6 +1,6 @@
-export type LifeStyleAction = { type: 'SET_LIFESTYLE_ACTION', payload: string};
+export type LifestyleAction = { type: 'SET_LIFESTYLE_ACTION', payload: string};
 
-export const setLifeStyle = (newLifestyle: string): LifeStyleAction => ({
+export const setLifestyle = (newLifestyle: string): LifestyleAction => ({
     type: 'SET_LIFESTYLE_ACTION',
     payload: newLifestyle
 });

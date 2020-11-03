@@ -16,7 +16,7 @@ import { setImage } from "../../redux/actions/imageActions";
 import { setInitiative } from "../../redux/actions/initiativeAction";
 import { setKarma } from "../../redux/actions/karmaActions";
 import { setKSkill } from "../../redux/actions/knowledgeSkillsActions";
-import { setLifeStyle } from "../../redux/actions/lifestyleActions";
+import { setLifestyle } from "../../redux/actions/lifestyleActions";
 import { setLog } from "../../redux/actions/logActions";
 import { setMetaType } from "../../redux/actions/metatypeActions";
 import { setName } from "../../redux/actions/nameActions";
@@ -32,7 +32,7 @@ const mapStateToProps = (state: IShadowRunState) => ({
     fileRef: React.createRef<HTMLInputElement>()
 });
 const mapDispatchToProps = {
-    setName, setMetaType, setNuyen, setKarma, setEdge, setConditionMonitor, SetPersonal, setAttributes, setImage, setInitiative, setArmorAction, setLifeStyle,
+    setName, setMetaType, setNuyen, setKarma, setEdge, setConditionMonitor, SetPersonal, setAttributes, setImage, setInitiative, setArmorAction, setLifestyle,
         setID, setSkills, setKSkill, setQualities, setAugmentationDeck, setRitPrepPitComplexAction, setCyberDeck, setGear, setLog,
     onShow: showFileChooser
 };
@@ -62,6 +62,8 @@ class Upload extends React.Component<IUploadProps> {
                 if (!event.target?.result || typeof(event.target.result) !== "string")
                     throw new Error("Result unreadable");
                 let characterData = JSON.parse(event.target.result);
+                console.log("cData", characterData);
+                
                 const characterObject = characterData as ICharacter;
                 if (this.isValidCharacter(characterObject)) {
                     this.uploadCharacter(characterObject);
@@ -87,8 +89,10 @@ class Upload extends React.Component<IUploadProps> {
 
     uploadCharacter = (player: ICharacter) => {
         const { setName, setMetaType, setNuyen, setKarma, setEdge, setConditionMonitor, SetPersonal, setAttributes,
-            setImage, setInitiative, setArmorAction, setLifeStyle, setID, setSkills, setKSkill, setQualities, 
+            setImage, setInitiative, setArmorAction, setLifestyle, setID, setSkills, setKSkill, setQualities, 
             setAugmentationDeck, setRitPrepPitComplexAction, setCyberDeck, setGear, setLog, } = this.props;
+        console.log("player", player);
+        
         setName(player.name);
         setMetaType(player.metatype);
         setNuyen(player.money);
@@ -100,7 +104,7 @@ class Upload extends React.Component<IUploadProps> {
         setImage(player.img);
         setInitiative(player.initiative);
         setArmorAction(player.armor);
-        setLifeStyle(player.lifestyle);
+        setLifestyle(player.lifestyle);
         setID(player.ID);
         setSkills(player.skills);
         setKSkill(player.knowledgeSkills);

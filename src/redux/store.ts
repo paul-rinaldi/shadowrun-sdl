@@ -46,7 +46,7 @@ export const rootReducer = combineReducers({
         img: imageReducer,
         initiative: initiativeReducer,
         armor: armorReducer,
-        lifeStyle: lifestyleReducer,
+        lifestyle: lifestyleReducer,
         ID: idReducer,
         skills: skillReducer,
         knowledgeSkills: knowledgeSkillReducer,
