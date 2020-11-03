@@ -167,7 +167,6 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
     qualitiesRow(type: string, index: number){
-        const {character} = this.props;
         let quality = this.getQualities(type)[index];
         let minusButton = <button className={'RemoveQ'} onClick={() => this.removeQuality(type, index)}><span role={'img'} aria-label={'wastebasket'}>🗑️</span></button>;
         let ratingButtonPlus = <button onClick={() => this.addRating(type, index)}>+</button>;
@@ -232,7 +231,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} index is the spot in the character file array which is currently being loaded
      */
     removeRating(type: string, index: number){
-        const { adjustKarma, adjustQuality, makeLog, character: { karma } } = this.props;
+        const { adjustKarma, adjustQuality, makeLog } = this.props;
         const quality = this.getQualities(type)[index];
 
         const response = window.confirm(`Decreasing ${quality.qName} from ${quality.rating} to ${(quality.rating - 1)} will ` +
@@ -276,7 +275,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
                 if(karma + quality.karma > 0){
                     // this.props.adjQuality(qName, karmaAdjust, rating, max, notes, type);
                     adjustKarma(quality.karma);
-                    addQuality(quality.qName, quality.karma, quality.rating, quality.max, notes, qualityType.toLowerCase() == 'positive');
+                    addQuality(quality.qName, quality.karma, quality.rating, quality.max, notes, qualityType.toLowerCase() === 'positive');
                     makeLog(quality.karma, `Add Quality: ${quality.qName}`, 'Karma', new Date());
                 } else {
                     alert("Not enough karma");

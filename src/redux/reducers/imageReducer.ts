@@ -1,4 +1,3 @@
-import { ICharacter } from "../../models/playerModels";
 import { SetImageURL } from "../actions/imageActions";
 import { initialState } from "../initialState";
 

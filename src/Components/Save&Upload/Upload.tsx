@@ -1,7 +1,7 @@
-import React, { FormEvent } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { IShadowRunState } from "../../redux/store";
-import { showFileChooser, uploadPlayerJSON } from '../../redux/actions/uploadActions';
+import { showFileChooser } from '../../redux/actions/uploadActions';
 import { ICharacter } from '../../models/playerModels';
 import '../Save&Upload/upload&save.css'
 import { setArmorAction } from "../../redux/actions/armorActions";
@@ -40,7 +40,7 @@ const mapDispatchToProps = {
 
 class Upload extends React.Component<IUploadProps> {
     render() {
-        const { choosingFile, fileRef } = this.props;
+        const { fileRef } = this.props;
         return(
             <div className={'uploadSave'}>
                 <button onClick={() => this.showFileChooser()}>Load Character</button>

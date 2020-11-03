@@ -1,5 +1,3 @@
-import { makeLog } from './logActions';
-
 type AdjustKarmaAction = { type: "ADJUST_KARMA_ACTION", payload: number };
 type SetKarmaAction = { type: 'SET_KARMA_ACTION', payload: number};
 

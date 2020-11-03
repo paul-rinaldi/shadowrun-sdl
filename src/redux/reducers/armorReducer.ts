@@ -1,4 +1,3 @@
-import { ICharacter } from "../../models/playerModels";
 import { ArmorAction } from "../actions/armorActions";
 import { initialState } from "../initialState";
 
