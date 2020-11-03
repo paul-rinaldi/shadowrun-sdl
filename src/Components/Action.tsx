@@ -259,16 +259,28 @@ class Action extends React.Component<IActionProps, IActionState> {
             <table className={'Action'}>
                 <tbody>
                 <tr className={'Action'}>
-                    <td className={'attrOnly'}><h5>Composure (<b>CHA</b> + <b>WIL</b>)<br/>{this.attrTest("CHA", "WIL")}
-                    </h5></td>
-                    <td className={'attrOnly'}><h5>Judge
-                        Intention(<b>CHA</b> + <b>INT</b>)<br/>{this.attrTest("CHA", "INT")}</h5></td>
+                    <td className={'attrOnly'}>
+                        <h5>
+                            Composure (<b>CHA</b> + <b>WIL</b>)<br/>{this.attrTest("CHA", "WIL")}
+                        </h5>
+                    </td>
+                    <td className={'attrOnly'}>
+                        <h5>Judge
+                            Intention(<b>CHA</b> + <b>INT</b>)<br/>{this.attrTest("CHA", "INT")}
+                        </h5>
+                    </td>
                 </tr>
                 <tr className={'Action'}>
-                    <td className={'attrOnly'}><h5>Lifting/Carrying
-                        (<b>BOD</b> + <b>STR</b>)<br/>{this.attrTest("BOD", "STR")}</h5></td>
-                    <td className={'attrOnly'}><h5>Memory (<b>LOG</b> + <b>WIL</b>)<br/> {this.attrTest("LOG", "WIL")}
-                    </h5></td>
+                    <td className={'attrOnly'}>
+                        <h5>
+                            Lifting/Carrying (<b>BOD</b> + <b>STR</b>)<br/>{this.attrTest("BOD", "STR")}
+                        </h5>
+                    </td>
+                    <td className={'attrOnly'}>
+                        <h5>
+                            Memory (<b>LOG</b> + <b>WIL</b>)<br/> {this.attrTest("LOG", "WIL")}
+                        </h5>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -284,10 +296,12 @@ class Action extends React.Component<IActionProps, IActionState> {
     attrTest(attr1: string, attr2: string) {
         const attr1String = attr1.toUpperCase();
         const attr2String = attr2.toUpperCase();
-        const sum = this.getCharacterAttribute(attr1String) + this.getCharacterAttribute(attr2String);
+        const charAttr1 = this.getCharacterAttribute(attr1String);
+        const charAttr2 = this.getCharacterAttribute(attr2String);
+        const sum = charAttr1 + charAttr2;
         return (
             <div>
-                <b>{attr1String}</b> + <b>{attr2String}</b> = {sum}
+                <b>{charAttr1}</b> + <b>{charAttr2}</b> = {sum}
             </div>
         );
     }
@@ -342,7 +356,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         skillCategory.forEach(skillValue => {
             options.push({
                 skill: skillValue,
-                label: `${skillValue.name} {${skillValue.specialization}} (${skillValue.rating + 2})`,
+                label: `${skillValue.name} (${skillValue.rating})`,
                 limit: skillValue.limit
             });
             if (skillValue.specialization) {
