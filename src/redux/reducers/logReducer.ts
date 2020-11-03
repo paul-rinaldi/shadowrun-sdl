@@ -6,8 +6,8 @@ export const logReducer = (state: ILog[] = initialState.log, action: LogAction):
     switch (action.type) {
         case 'New_Log_Action': {
            return [
-            ...state,
-            action.payload
+            action.payload,
+            ...state
            ]
         }
         case 'SET_LOG_ACTION': {
