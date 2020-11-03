@@ -65,26 +65,29 @@ class Header extends React.Component<IHeaderProps> {
       console.log('header::char', character);
       
       let armor: number = this.calcTotalArmorVal(character);
-      
-      console.log(character.name + " the " + character.metatype);
-      console.log("Init:  " + character.attributes.REA + character.attributes.INT + "+" + character.initiative.initDice + "d6");
-      console.log("Karma:  ", character.karma);
-      console.log("BOD: " + character.attributes.BOD);
-      console.log("AGI: " + character.attributes.AGI);
-      console.log("REA: " + character.attributes.REA);
-      console.log("STR: " + character.attributes.STR);
-      console.log("WIL: " + character.attributes.WIL);
-      console.log("LOG: " + character.attributes.LOG);
-      console.log("INT: " + character.attributes.INT);
-      console.log("CHA: " + character.attributes.CHA);
-      console.log("MAG: " + character.attributes.MAG);
-      console.log("RES: " + character.attributes.RES);
-      console.log("EDG: " + character.currentEdge + " / " + character.attributes.EDG + " = " + (character.currentEdge/character.attributes.EDG));
-      console.log("ESS: " + character.attributes.ESS);
-      console.log("Physical: 0/12( " + character.conditionMonitor.physical + ")");
-      console.log("Stun: 0/8( " + character.conditionMonitor.stun + ")");
-      console.log("Armor: " + armor);
-      console.log("¥:  " + character.money);
+
+
+      //use these console logs to test that everything is loaded
+
+      // console.log(character.name + " the " + character.metatype);
+      // console.log("Init:  " + character.attributes.REA + character.attributes.INT + "+" + character.initiative.initDice + "d6");
+      // console.log("Karma:  ", character.karma);
+      // console.log("BOD: " + character.attributes.BOD);
+      // console.log("AGI: " + character.attributes.AGI);
+      // console.log("REA: " + character.attributes.REA);
+      // console.log("STR: " + character.attributes.STR);
+      // console.log("WIL: " + character.attributes.WIL);
+      // console.log("LOG: " + character.attributes.LOG);
+      // console.log("INT: " + character.attributes.INT);
+      // console.log("CHA: " + character.attributes.CHA);
+      // console.log("MAG: " + character.attributes.MAG);
+      // console.log("RES: " + character.attributes.RES);
+      // console.log("EDG: " + character.currentEdge + " / " + character.attributes.EDG + " = " + (character.currentEdge/character.attributes.EDG));
+      // console.log("ESS: " + character.attributes.ESS);
+      // console.log("Physical: 0/12( " + character.conditionMonitor.physical + ")");
+      // console.log("Stun: 0/8( " + character.conditionMonitor.stun + ")");
+      // console.log("Armor: " + armor);
+      // console.log("¥:  " + character.money);
 
       let index = 0;
       return (

@@ -639,7 +639,7 @@ class GearPage extends React.Component<IGearProps>{
                         this.props.remRanged(index);
                         break;
                 }
-                makeLog(1 * nuyenVal, "Selling" + type, "Nuyen", new Date());
+                makeLog(1 * nuyenVal, "Selling " + type, "Nuyen", new Date());
                 adjustNuyen(1 * nuyenVal);
             }
         }
