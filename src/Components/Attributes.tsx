@@ -314,8 +314,9 @@ class Attributes extends Component <IAttributesProps, IAttributeState> {
                     `to be done if you accidentally increased an attribute. Is it OK to revert ${att}?`);
 
                 if (response) {
-                   const { setAttribute, makeLog } = this.props;
+                   const { setAttribute, makeLog, adjustKarma } = this.props;
                    setAttribute(att, -1, min, max);
+                   adjustKarma(karmaRefund);
                    makeLog(karmaRefund, `Decreased ${att} attribute from ${rating} to ${newRating} ` +
                         `(returned ${time})`,"Karma", new Date());
                 }
