@@ -310,8 +310,8 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
         }
 
         const karmaNewValueRaw = this.getNumber(karmaNew);
-        karmaNewValue = karmaNewValueRaw === null ? -1 : karmaNewValueRaw;
-        if(karmaNewValue === -1) { return; } // Cancel
+        if (karmaNewValueRaw === null) { return; } // cancel
+        karmaNewValue = karmaNewValueRaw;
         
         const ratingNew = prompt("Enter the rating:", "0");
         if(ratingNew === "" || ratingNew === null){
