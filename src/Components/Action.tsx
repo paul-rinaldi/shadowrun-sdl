@@ -215,7 +215,7 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         //If the character has the skill, show the skill value and the attribute.
         if(skill !== undefined && attribute !== undefined){
-            testVariables.unshift(skill.name, '+', <b>${skill.attribute}</b>);
+            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
             testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
             testValues.push('=', skill.rating + attribute);
         } else {
