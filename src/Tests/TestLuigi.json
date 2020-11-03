@@ -785,6 +785,13 @@
         "rating": 1,
         "max": 2,
         "notes": ""
+      },
+      {
+        "qName": "Analytical Mind",
+        "karma": -5,
+        "rating": 2,
+        "max": 5,
+        "notes": ""
       }
     ],
     "negative":[
@@ -825,8 +832,8 @@
     "firewall": 7,
     "programs":[
       {
-      "pName": "crack file",
-      "type": "complex"
+        "pName": "crack file",
+        "type": "complex"
       },
       {
         "pName": "change icon",

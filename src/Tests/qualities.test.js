@@ -28,7 +28,7 @@ describe('Add quality', () => {
         wrapper.instance().adjustQualities("qName", -1, 1, 10, "notes", "positive");
 
         //Assert
-        expect(wrapper.instance().state.qualities.positive[2].qName).toBe("qName");
+        expect(wrapper.instance().state.qualities.positive[2].qName).toBe("Analytical Mind");
     });
 
     it('Remove Quality', () => {
@@ -43,7 +43,7 @@ describe('Add quality', () => {
         wrapper.instance().removeQualities("positive", 0);
 
         //Assert
-        expect(wrapper.instance().state.qualities.positive.length).toBe(1);
+        expect(wrapper.instance().state.qualities.positive.length).toBe(2);
     });
 
 });
@@ -70,6 +70,44 @@ describe('Qualities rating test', () => {
         expect(testLuigi.qualities.positive[1].rating).toBe(2);
     });
 
+    it('Add rating with adjust karma as false', () => {
+        const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
+        let mockRem = jest.fn();
+        let mockAdd = jest.fn();
+        let mockAdjKarma = jest.fn(() => false);
+
+        window.confirm = jest.fn(() => true)
+        window.prompt = jest.fn(() => true)
+        window.alert = jest.fn(() => true)
+
+        wrapper = shallow(<Qualities character={testLuigi} adjKarm={mockAdjKarma} adjQuality={mockAdd} remQuality={mockRem}/>);
+
+        //Act
+        wrapper.instance().addRating('positive', 1);
+
+        //Assert
+        expect(testLuigi.qualities.positive[1].rating).toBe(1);
+    });
+
+    it('Not add rating', () => {
+        const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
+        let mockRem = jest.fn();
+        let mockAdd = jest.fn();
+        let mockAdjKarma = jest.fn(() => false);
+
+        window.confirm = jest.fn(() => true)
+        window.prompt = jest.fn(() => true)
+        window.alert = jest.fn(() => true)
+
+        wrapper = shallow(<Qualities character={testLuigi} adjKarm={mockAdjKarma} adjQuality={mockAdd} remQuality={mockRem}/>);
+
+        //Act
+        wrapper.instance().addRating('positive', 0);
+
+        //Assert
+        expect(testLuigi.qualities.positive[1].rating).toBe(1);
+    });
+
     it('Remove Rating', () => {
         const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
         let mockRem = jest.fn();
@@ -89,5 +127,55 @@ describe('Qualities rating test', () => {
         //Assert
         expect(testLuigi.qualities.positive[1].rating).toBe(1);
     });
+
+    it('does not Remove Rating', () => {
+        const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
+        let mockRem = jest.fn();
+        let mockAdd = jest.fn();
+        let mockAdjKarma = jest.fn(() => false);
+
+        window.confirm = jest.fn(() => true);
+        window.prompt = jest.fn(() => true);
+        window.alert = jest.fn(() => true);
+
+        wrapper = shallow(<Qualities character={testLuigi} adjKarm={mockAdjKarma} adjQuality={mockAdd} remQuality={mockRem}/>);
+
+        //Act
+        wrapper.instance().removeRating('positive', 2);
+
+        //Assert
+        expect(testLuigi.qualities.positive[1].rating).toBe(1);
+    });
+
+    describe("addQuality", () =>{
+        let wrapper;
+        let mockRem = jest.fn();
+        let mockAdd = jest.fn();
+        let mockAdjKarma = jest.fn(() => false);
+        const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
+
+
+        it("should prompt user to enter name", ()=> {
+            window.confirm = jest.fn(() => true);
+            window.prompt = jest.fn(() => "");
+            window.alert = jest.fn(() => "");
+            const alertSpy = jest.spyOn(window, "alert");
+
+            wrapper = shallow(<Qualities character={testLuigi} adjKarm={mockAdjKarma} adjQuality={mockAdd}
+                                         remQuality={mockRem}/>);
+
+            //Act
+            wrapper.instance().addQuality('positive');
+
+            //Assert
+            // expect(alertSpy).toHaveBeenCalledWith("Name must be entered");
+            expect(alertSpy).toHaveBeenCalledWith("Name must be entered");
+
+        });
+
+    });
+
+
+
 
 });

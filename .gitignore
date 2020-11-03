@@ -1,4 +1,5 @@
 node_modules
+build
 /.idea/.gitignore
 /.idea/codeStyles/codeStyleConfig.xml
 /.idea/misc.xml

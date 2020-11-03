@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/redux-logger": "^3.0.8",
     "bootstrap": "^4.3.1",
     "downloadbutton": "^1.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "jest-enzyme": "^7.1.2",
     "mathjs": "^6.6.1",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
@@ -20,7 +20,10 @@
     "react-scripts": "^3.4.3",
     "react-select": "^3.0.8",
     "redux": "^4.0.4",
-    "serve": "^11.3.2"
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "serve": "^11.3.2",
+    "typescript": "^4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,5 +46,11 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/react-select": "^3.0.21"
+  }
 }
