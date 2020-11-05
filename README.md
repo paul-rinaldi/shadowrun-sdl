@@ -1,8 +1,8 @@
 # Shadowrun
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/db4741db-4cb5-428a-a8c6-3a21ee63e892/deploy-status)](https://app.netlify.com/sites/shadowruntest/deploys) (master) Old Site: https://shadowruntest.netlify.app/
-[![Netlify Status](https://api.netlify.com/api/v1/badges/eac0351c-e5d6-4cf4-9e64-0b6427095e2d/deploy-status)](https://app.netlify.com/sites/shadow-run/deploys) (master) Production: https://shadow-run.netlify.app/
-[![Netlify Status](https://api.netlify.com/api/v1/badges/cb60a383-f456-46a6-adf6-cc5468d14de3/deploy-status)](https://app.netlify.com/sites/shadowrun-staging/deploys) (dev) Staging: https://shadowrun-staging.netlify.app/
+- [![Netlify Status](https://api.netlify.com/api/v1/badges/db4741db-4cb5-428a-a8c6-3a21ee63e892/deploy-status)](https://app.netlify.com/sites/shadowruntest/deploys) (master) Old Site: https://shadowruntest.netlify.app/
+- [![Netlify Status](https://api.netlify.com/api/v1/badges/eac0351c-e5d6-4cf4-9e64-0b6427095e2d/deploy-status)](https://app.netlify.com/sites/shadow-run/deploys) (master) Production: https://shadow-run.netlify.app/
+- [![Netlify Status](https://api.netlify.com/api/v1/badges/cb60a383-f456-46a6-adf6-cc5468d14de3/deploy-status)](https://app.netlify.com/sites/shadowrun-staging/deploys) (dev) Staging: https://shadowrun-staging.netlify.app/
 
 # Wizworm, Shadowrun Character Manager
 This SDL project is to create a web-based character manager and play assistant for the table top role-playing game Shadowrun 5th edition by The Topps Company, Inc. and Catalyst Game Lab.<br />
