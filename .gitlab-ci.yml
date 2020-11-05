@@ -32,6 +32,18 @@ deploy:
     url: https://shadow-run.netlify.app
   only:
     - master
+  script:
+    - npm i -g netlify-cli # here we install a global CLI (command line interface) via npm so that we can deploy to Netlify
+    - npm run build # builds the js bundle
+    - npx netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod 
+
+deploy:
+  stage: deploy
+  # For netlify we must specify the envrironment and its name/url which can be obtianed from site-settings in Netlify
+  environment:
+    name: staging
+    url: https://shadowrun-staging.netlify.app
+  only:
     - dev
   script:
     - npm i -g netlify-cli # here we install a global CLI (command line interface) via npm so that we can deploy to Netlify
