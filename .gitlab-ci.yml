@@ -48,7 +48,7 @@ deploy:
   script:
     - npm i -g netlify-cli # here we install a global CLI (command line interface) via npm so that we can deploy to Netlify
     - npm run build # builds the js bundle
-    - npx netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod 
+    - npx netlify deploy --site $STAGING_NETLIFY_ID --auth $NETLIFY_AUTH_TOKEN --prod 
 
 test:
   stage: test
