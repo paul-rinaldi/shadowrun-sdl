@@ -2,7 +2,7 @@ import React from 'react';
 import '../CSS_Files/Action.css';
 import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from '../redux/store';
-import { Melee } from '../models/playerModels';
+import { Melee, Ranged } from '../models/playerModels';
 import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
 
@@ -21,7 +21,8 @@ interface IActionState {
     socialLimit: number | null;
 }
 
-interface WeaponLabelOption {weapon: Melee; label: string};
+interface WeaponLabelOptionMelee {weapon: Melee; label: string};
+interface WeaponLabelOptionRanged {weapon: Ranged; label: string};
 interface SelectSkill { skill: ISkill; label: string; limit: string; specialization?: string; }
 
 //Note: There are tons of actions in Shadowrun. The Action page focuses specifically on the actions that require dice
@@ -170,10 +171,11 @@ class Action extends React.Component<IActionProps, IActionState> {
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showWeaponTest = (val: ValueType<WeaponLabelOption>) => {
+    showWeaponTest = (val: ValueType<WeaponLabelOptionMelee>) => {
         if (val === undefined || val === null)
             return;
-        const weapon = (val as WeaponLabelOption).weapon;
+        const weapon = (val as WeaponLabelOptionMelee).weapon;
+        // If melee do everything below
         const accValue = Number(weapon.acc);
         const foundSkills = this.props.character.skills.combat.filter((skill => skill.name.toLowerCase() === weapon.skill.toLowerCase()));
         let skill = undefined;
@@ -377,7 +379,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     meleeWeaponsDropdown(){
         const { character } = this.props;
-        const options: WeaponLabelOption[] = [];
+        const options: WeaponLabelOptionMelee[] = [];
 
         for (const weapon of character.gear.melee) {
             options.push({
@@ -387,6 +389,28 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
 
         return <div className={'Action'} id={'meleeWeaponSelector'}><Select
+            options={options}
+            onChange={this.showWeaponTest}
+        /></div>
+    }
+
+    /**
+     * Creates a dropdown of all the character's melee weapons and displays the weapon test when one is chosen from the
+     * dropdown.
+     * @returns A dropdown of all the character's melee weapons.
+     */
+    rangedWeaponsDropdown(){
+        const { character } = this.props;
+        const options: WeaponLabelOptionRanged[] = [];
+
+        for (const weapon of character.gear.ranged) {
+            options.push({
+                weapon: weapon,
+                label: `${weapon.name} (Acc: ${weapon.acc}, DV: ${weapon.dam}, AP: ${weapon.ap})`,
+            });
+        }
+
+        return <div className={'Action'} id={'rangedWeaponSelector'}><Select
             options={options}
             onChange={this.showWeaponTest}
         /></div>
