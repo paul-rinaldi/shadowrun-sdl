@@ -876,7 +876,8 @@
         "RC": 2,
         "ammo": "40(c)",
         "availability": "9R",
-        "cost": -830
+        "cost": -830,
+        "skill": "Automatics"
       }
     ]
   },
