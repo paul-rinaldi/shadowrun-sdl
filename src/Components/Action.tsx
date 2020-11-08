@@ -171,7 +171,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showWeaponTest = (val: ValueType<WeaponLabelOptionMelee>) => {
+    showMeleeWeaponTest = (val: ValueType<WeaponLabelOptionMelee>) => {
         if (val === undefined || val === null)
             return;
         const weapon = (val as WeaponLabelOptionMelee).weapon;
@@ -230,6 +230,73 @@ class Action extends React.Component<IActionProps, IActionState> {
             testVariables: testVariables,
             testValues: testValues
         });
+    }
+
+        /**
+     * Displays the weapon test using the associated val object from the weapons dropdown. The calculation is displayed
+     * as two table rows, with the first containing the names of the skill, attribute, and limit used and the second
+     * containing the associated values of each. IF the character does not possess the associated weapon skill, a ? will
+     * be displayed for its value.
+     * @param val The object from the weapons dropdown containing the weapon information.
+     */
+    showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
+        if (val === undefined || val === null)
+            return;
+        const weapon = (val as WeaponLabelOptionRanged).weapon;
+        const accValue = Number(weapon.acc);
+        // const foundSkills = this.props.character.skills.combat.filter((skill => skill.name.toLowerCase() === weapon.skill.toLowerCase()));
+        // let skill = undefined;
+        // let attribute = undefined;
+
+        const testVariables = [];
+        const testValues = [];
+
+        const {physicalLimit, mentalLimit, socialLimit} = this.state;
+
+        //Check if the weapon accuracy is an inherent limit
+        switch (weapon.acc) {
+            case 'Physical':
+                testVariables.push('[Physical]');
+                testValues.push(`[${physicalLimit}]`);
+                break;
+            case 'Mental':
+                testVariables.push('[Mental]');
+                testValues.push(`[${mentalLimit}]`);
+                break;
+            case 'Social':
+                testVariables.push('[Social]');
+                testValues.push(`[${socialLimit}]`);
+                break;
+            default:
+                testVariables.push('[Weapon Acc.]');
+                if(!isNaN(accValue)){
+                    testValues.push(`[${accValue}]`)
+                } else {
+                    testValues.push(`[${weapon.acc}]`)
+                }
+        }
+
+        // //Check if the character has the associated weapon skill
+        // if(foundSkills.length > 0){
+        //     skill = foundSkills[0];
+        //     attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
+        // }
+
+        // //If the character has the skill, show the skill value and the attribute.
+        // if(skill !== undefined && attribute !== undefined){
+        //     testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+        //     testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+        //     testValues.push('=', skill.rating + attribute);
+        // } else {
+        //     //If they don't have the skill, show a ?
+        //     testVariables.unshift(weapon.skill);
+        //     testValues.unshift('?')
+        // }
+
+        // this.setState({
+        //     testVariables: testVariables,
+        //     testValues: testValues
+        // });
     }
 
     getCharacterAttribute = (capitalizedName: string) => {
@@ -327,6 +394,8 @@ class Action extends React.Component<IActionProps, IActionState> {
         return <div>
             <h1 className={'Action'}>Melee Weapons</h1>
             {this.meleeWeaponsDropdown()}
+            <h1 className={'Action'}>Ranged Weapons</h1>
+            {this.rangedWeaponsDropdown()}
         </div>
     }
 
@@ -390,14 +459,14 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         return <div className={'Action'} id={'meleeWeaponSelector'}><Select
             options={options}
-            onChange={this.showWeaponTest}
+            onChange={this.showMeleeWeaponTest}
         /></div>
     }
 
     /**
-     * Creates a dropdown of all the character's melee weapons and displays the weapon test when one is chosen from the
+     * Creates a dropdown of all the character's ranged weapons and displays the weapon test when one is chosen from the
      * dropdown.
-     * @returns A dropdown of all the character's melee weapons.
+     * @returns A dropdown of all the character's ranged weapons.
      */
     rangedWeaponsDropdown(){
         const { character } = this.props;
@@ -410,9 +479,9 @@ class Action extends React.Component<IActionProps, IActionState> {
             });
         }
 
-        return <div className={'Action'} id={'rangedWeaponSelector'}><Select
-            options={options}
-            onChange={this.showWeaponTest}
+        return <div className={'Action'} id={'rangedWeaponSelector'}>
+            <Select options={options}
+            onChange={this.showRangedWeaponTest}
         /></div>
     }
 
