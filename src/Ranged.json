@@ -10,7 +10,8 @@
                 "RC": "-",
                 "ammo": "-",
                 "availability": "4R",
-                "cost": -25
+                "cost": -25,
+                "skill": "Throwing"
             },
             {
                 "name": "Throwing Knife",
@@ -21,7 +22,8 @@
                 "RC": "-",
                 "ammo": "-",
                 "availability": "4R",
-                "cost": -25
+                "cost": -25,
+                "skill": "Throwing"
             }
         ],
         "ballistic":[
@@ -34,7 +36,8 @@
                 "RC": "-",
                 "ammo": "-",
                 "availability": "Rating",
-                "cost": -100
+                "cost": -100,
+                "skill": "Strength"
             },
             {
                 "name": "Light Crossbow",
@@ -45,7 +48,8 @@
                 "RC": "-",
                 "ammo": "4(M)",
                 "availability": 2,
-                "cost": -300
+                "cost": -300,
+                "skill": "Strength"
             },
             {
                 "name": "Medium Crossbow",
@@ -56,7 +60,8 @@
                 "RC": "-",
                 "ammo": "4(M)",
                 "availability": "4R",
-                "cost": -500
+                "cost": -500,
+                "skill": "Strength"
             },
             {
                 "name": "Heavy Crossbow",
@@ -67,7 +72,8 @@
                 "RC": "-",
                 "ammo": "4(m)",
                 "availability": "8R",
-                "cost": -1000
+                "cost": -1000,
+                "skill": "Strength"
             }
         ],
         "exotic ranged weapons":[
@@ -80,7 +86,8 @@
                 "RC": "-",
                 "ammo": "1(ml)",
                 "availability": "8R",
-                "cost": -500
+                "cost": -500,
+                "skill": "Exotic Ranged Weapon"
             }
         ],
         "taser":[
@@ -93,7 +100,8 @@
                 "RC": "-",
                 "ammo": "4(m)",
                 "availability": "-",
-                "cost": -250
+                "cost": -250,
+                "skill": "Pistol"
             },
             {
                 "name": "Yamaha Pulsar",
@@ -104,7 +112,8 @@
                 "RC": "-",
                 "ammo": "4(m)",
                 "availability": "-",
-                "cost": -180
+                "cost": -180,
+                "skill": "Pistol"
             }
         ],
         "hold-out pistol":[
@@ -117,7 +126,8 @@
                 "RC": "-",
                 "ammo": "4(c)",
                 "availability": "6R",
-                "cost": -1000
+                "cost": -1000,
+                "skill": "Pistol"
             },
             {
                 "name": "Streetline Special",
@@ -128,7 +138,8 @@
                 "RC": "-",
                 "ammo": "6(c)",
                 "availability": "4R",
-                "cost": -120
+                "cost": -120,
+                "skill": "Pistol"
             },
             {
                 "name": "Walther Palm Pistol",
@@ -139,7 +150,8 @@
                 "RC": "-",
                 "ammo": "2(b)",
                 "availability": "4R",
-                "cost": -180
+                "cost": -180,
+                "skill": "Pistol"
             }
         ],
         "light pistol":[
@@ -152,7 +164,8 @@
                 "RC": "-",
                 "ammo": "16(c)",
                 "availability": "3R",
-                "cost": -200
+                "cost": -200,
+                "skill": "Pistol"
             },
             {
                 "name": "Ares Light Fire 75",
@@ -163,7 +176,8 @@
                 "RC": "-",
                 "ammo": "16(c)",
                 "availability": "6F",
-                "cost": -1250
+                "cost": -1250,
+                "skill": "Pistol"
             },
             {
                 "name": "Beretta 201T",
@@ -174,7 +188,8 @@
                 "RC": "- (1)",
                 "ammo": "21(c)",
                 "availability": "7R",
-                "cost": -210
+                "cost": -210,
+                "skill": "Pistol"
             },
             {
                 "name": "Colt America L36",
@@ -185,7 +200,8 @@
                 "RC": "-",
                 "ammo": "11(c)",
                 "availability": "4R",
-                "cost": -320
+                "cost": -320,
+                "skill": "Pistol"
             },
             {
                 "name": "Fichetti Security 600",
@@ -196,7 +212,8 @@
                 "RC": "- (1)",
                 "ammo": "30(c)",
                 "availability": "6R",
-                "cost": -350
+                "cost": -350,
+                "skill": "Pistol"
             },
             {
                 "name": "Taurus Omni-6, light pistol rounds",
@@ -207,7 +224,8 @@
                 "RC": "-",
                 "ammo": "6(cy)",
                 "availability": "3R",
-                "cost": -300
+                "cost": -300,
+                "skill": "Pistol"
             },
             {
                 "name": "Taurus Omni-6, heavy pistol rounds",
@@ -218,7 +236,8 @@
                 "RC": "-",
                 "ammo": "6(cy)",
                 "availability": "3R",
-                "cost": -300
+                "cost": -300,
+                "skill": "Pistol"
             }
         ],
         "heavy pistol":[
@@ -231,7 +250,8 @@
                 "RC": "-",
                 "ammo": "15(c)",
                 "availability": "5R",
-                "cost": -725
+                "cost": -725,
+                "skill": "Pistol"
             },
             {
                 "name": "Ares Viper Silvergun",
@@ -242,7 +262,8 @@
                 "RC": "-",
                 "ammo": "30(c)",
                 "availability": "8F",
-                "cost": -380
+                "cost": -380,
+                "skill": "Pistol"
             },
             {
                 "name": "Browning Ultra-Power",
@@ -253,7 +274,8 @@
                 "RC": "-",
                 "ammo": "10(c)",
                 "availability": "4R",
-                "cost": -640
+                "cost": -640,
+                "skill": "Pistol"
             },
             {
                 "name": "Colt Government 2066",
@@ -264,7 +286,8 @@
                 "RC": "-",
                 "ammo": "14(c)",
                 "availability": "7R",
-                "cost": -425
+                "cost": -425,
+                "skill": "Pistol"
             },
             {
                 "name": "Remington Roomsweeper",
@@ -275,7 +298,8 @@
                 "RC": "-",
                 "ammo": "8(n)",
                 "availability": "6R",
-                "cost": -250
+                "cost": -250,
+                "skill": "Pistol"
             },
             {
                 "name": "Ruger Super Warhawk",
@@ -286,7 +310,8 @@
                 "RC": "-",
                 "ammo": "6(cy)",
                 "availability": "4R",
-                "cost": -400
+                "cost": -400,
+                "skill": "Pistol"
             }
         ],
         "machine pistol":[
@@ -299,7 +324,8 @@
                 "RC": 2,
                 "ammo": "40(c)",
                 "availability": "9R",
-                "cost": -830
+                "cost": -830,
+                "skill": "Automatics"
             },
             {
                 "name": "Ceska Black Scorpion",
@@ -310,7 +336,8 @@
                 "RC": "- (1)",
                 "ammo": "35(c)",
                 "availability": "6R",
-                "cost": -270
+                "cost": -270,
+                "skill": "Automatics"
             },
             {
                 "name": "Steyr TMP",
@@ -321,7 +348,8 @@
                 "RC": "-",
                 "ammo": "30(c)",
                 "availability": "8R",
-                "cost": -350
+                "cost": -350,
+                "skill": "Automatics"
             }
         ],
         "submachine gun":[
@@ -334,7 +362,8 @@
                 "RC": "2 (3)",
                 "ammo": "32(c)",
                 "availability": "5R",
-                "cost": -660
+                "cost": -660,
+                "skill": "Automatics"
             },
             {
                 "name": "FN P93 Praetor",
@@ -345,7 +374,8 @@
                 "RC": "2 (3)",
                 "ammo": "50(c)",
                 "availability": "11R",
-                "cost": -900
+                "cost": -900,
+                "skill": "Automatics"
             },
             {
                 "name": "HK-227",
@@ -356,7 +386,8 @@
                 "RC": "- (1)",
                 "ammo": "28(c)",
                 "availability": "8R",
-                "cost": -730
+                "cost": -730,
+                "skill": "Automatics"
             },
             {
                 "name": "Ingram Smartgun X",
@@ -367,7 +398,8 @@
                 "RC": 2,
                 "ammo": "32(c)",
                 "availability": "6R",
-                "cost": -800
+                "cost": -800,
+                "skill": "Automatics"
             },
             {
                 "name": "SCK Model 100",
@@ -378,7 +410,8 @@
                 "RC": "- (1)",
                 "ammo": "30(c)",
                 "availability": "6R",
-                "cost": -875
+                "cost": -875,
+                "skill": "Automatics"
             },
             {
                 "name": "Uzi IV",
@@ -389,7 +422,8 @@
                 "RC": "- (1)",
                 "ammo": "24(c)",
                 "availability": "4R",
-                "cost": -450
+                "cost": -450,
+                "skill": "Automatics"
             }
         ],
         "assault rifle":[
@@ -402,7 +436,8 @@
                 "RC": "-",
                 "ammo": "38(c)",
                 "availability": "4R",
-                "cost": -950
+                "cost": -950,
+                "skill": "Automatics"
             },
             {
                 "name": "Ares Alpha",
@@ -413,7 +448,8 @@
                 "RC": 2,
                 "ammo": "42(c)",
                 "availability": "11F",
-                "cost": -2650
+                "cost": -2650,
+                "skill": "Automatics"
             },
             {
                 "name": "Colt M23",
@@ -424,7 +460,8 @@
                 "RC": "-",
                 "ammo": "40(c)",
                 "availability": "4R",
-                "cost": -550
+                "cost": -550,
+                "skill": "Automatics"
             },
             {
                 "name": "FN HAR",
@@ -435,7 +472,8 @@
                 "RC": 2,
                 "ammo": "35(c)",
                 "availability": "8R",
-                "cost": -1500
+                "cost": -1500,
+                "skill": "Automatics"
             },
             {
                 "name": "Yamaha Raiden",
@@ -446,7 +484,8 @@
                 "RC": 2,
                 "ammo": "60(c)",
                 "availability": "14F",
-                "cost": -2600
+                "cost": -2600,
+                "skill": "Automatics"
             }
         ],
         "sniper rifle":[
@@ -459,7 +498,8 @@
                 "RC": "- (1)",
                 "ammo": "14(c)",
                 "availability": "10F",
-                "cost": -17500
+                "cost": -17500,
+                "skill": "Longarms"
             },
             {
                 "name": "Cavalier Arms Crockett EBR",
@@ -470,7 +510,8 @@
                 "RC": "- (1)",
                 "ammo": "20(c)",
                 "availability": "12F",
-                "cost": -10300
+                "cost": -10300,
+                "skill": "Longarms"
             },
             {
                 "name": "Ranger Arms SM-5",
@@ -481,7 +522,8 @@
                 "RC": "- (1)",
                 "ammo": "15(c)",
                 "availability": "16F",
-                "cost": -28000
+                "cost": -28000,
+                "skill": "Longarms"
             },
             {
                 "name": "Remington 950",
@@ -492,7 +534,8 @@
                 "RC": "-",
                 "ammo": "5(m)",
                 "availability": "4R",
-                "cost": -2100
+                "cost": -2100,
+                "skill": "Longarms"
             },
             {
                 "name": "Ruger 100",
@@ -503,7 +546,8 @@
                 "RC": "- (1)",
                 "ammo": "8(m)",
                 "availability": "4R",
-                "cost": -1300
+                "cost": -1300,
+                "skill": "Longarms"
             }
         ],
         "shotgun":[
@@ -516,7 +560,8 @@
                 "RC": "-",
                 "ammo": "5(m)",
                 "availability": "4R",
-                "cost": -450
+                "cost": -450,
+                "skill": "Longarms"
             },
             {
                 "name": "Defiance T-250, short-barreled",
@@ -527,7 +572,8 @@
                 "RC": "-",
                 "ammo": "5(m)",
                 "availability": "4R",
-                "cost": -450
+                "cost": -450,
+                "skill": "Longarms"
             },
             {
                 "name": "Enfield AS-7",
@@ -538,7 +584,8 @@
                 "RC": "-",
                 "ammo": "10(c) or 24(d)",
                 "availability": "12R",
-                "cost": -1100
+                "cost": -1100,
+                "skill": "Longarms"
             },
             {
                 "name": "PJSS Model 55",
@@ -549,7 +596,8 @@
                 "RC": "- (1)",
                 "ammo": "2(b)",
                 "availability": "9R",
-                "cost": -1000
+                "cost": -1000,
+                "skill": "Longarms"
             }
         ],
         "light machine gun":[
@@ -562,7 +610,8 @@
                 "RC": "2 (3)",
                 "ammo": "50(c) or 100(belt)",
                 "availability": "12F",
-                "cost": -5800
+                "cost": -5800,
+                "skill": "Heavy Weapons"
             }
         ],
         "medium machine gun":[
@@ -575,7 +624,8 @@
                 "RC": "-",
                 "ammo": "50(c) or 100(belt)",
                 "availability": "12F",
-                "cost": -7000
+                "cost": -7000,
+                "skill": "Heavy Weapons"
             }
         ],
         "heavy machine gun":[
@@ -588,7 +638,8 @@
                 "RC": "- (6)",
                 "ammo": "50(c) or 100(belt)",
                 "availability": "16F",
-                "cost": -16300
+                "cost": -16300,
+                "skill": "Heavy Weapons"
             }
         ],
         "exotic firearms":[
@@ -601,7 +652,8 @@
                 "RC": "-",
                 "ammo": "20(c)",
                 "availability": "7R",
-                "cost": -950
+                "cost": -950,
+                "skill": "Exotic Ranged Weapon"
             },
             {
                 "name": "Fichetti Pain Inducer",
@@ -612,7 +664,8 @@
                 "RC": "-",
                 "ammo": "Spec.",
                 "availability": "11R",
-                "cost": -5000
+                "cost": -5000,
+                "skill": "Exotic Ranged Weapon"
             },
             {
                 "name": "Parashield Dart Pistol",
@@ -623,7 +676,8 @@
                 "RC": "-",
                 "ammo": "5(c)",
                 "availability": "4R",
-                "cost": -600
+                "cost": -600,
+                "skill": "Exotic Ranged Weapon"
             },
             {
                 "name": "Parashield Dart Rifle",
@@ -634,7 +688,8 @@
                 "RC": "-",
                 "ammo": "6(m)",
                 "availability": "6R",
-                "cost": -1200
+                "cost": -1200,
+                "skill": "Exotic Ranged Weapon"
             }
         ],
         "assault cannon":[
@@ -647,7 +702,8 @@
                 "RC": "- (1)",
                 "ammo": "6(m)",
                 "availability": "20F",
-                "cost": -21000
+                "cost": -21000,
+                "skill": "Heavy Weapons"
             },
             {
                 "name": "Panther XXL",
@@ -658,7 +714,8 @@
                 "RC": "-",
                 "ammo": "15(c)",
                 "availability": "20F",
-                "cost": -43000
+                "cost": -43000,
+                "skill": "Heavy Weapons"
             }
         ],
         "grenade launcher":[
@@ -671,7 +728,8 @@
                 "RC": "-",
                 "ammo": "6(c)",
                 "availability": "-",
-                "cost": -2650
+                "cost": -2650,
+                "skill": "Heavy Weapons"
             },
             {
                 "name": "Ares Antioch-2",
@@ -682,7 +740,8 @@
                 "RC": "-",
                 "ammo": "8(m)",
                 "availability": "8F",
-                "cost": -3200
+                "cost": -3200,
+                "skill": "Heavy Weapons"
             },
             {
                 "name": "ArmTech MGL-12",
@@ -693,7 +752,8 @@
                 "RC": "-",
                 "ammo": "12(c)",
                 "availability": "10F",
-                "cost": -5000
+                "cost": -5000,
+                "skill": "Heavy Weapons"
             }
         ],
         "missile launcher":[
@@ -706,7 +766,8 @@
                 "RC": "-",
                 "ammo": "2(ml)",
                 "availability": "10F",
-                "cost": -1200
+                "cost": -1200,
+                "skill": "Heavy Weapons"
             },
             {
                 "name": "Onotari Interceptor",
@@ -717,7 +778,8 @@
                 "RC": "-",
                 "ammo": "2(ml)",
                 "availability": "18F",
-                "cost": -14000
+                "cost": -14000,
+                "skill": "Heavy Weapons"
             }
         ],
         "implant":[
@@ -730,7 +792,8 @@
                 "RC": "-",
                 "ammo": "2(m)/6(c)",
                 "availability": "8R",
-                "cost": -2000
+                "cost": -2000,
+                "skill": "Exotic Ranged Weapon"
             },
             {
                 "name": "Cyber Machine Pistol",
@@ -741,7 +804,8 @@
                 "RC": 1,
                 "ammo": "18(m)/32(c)",
                 "availability": "12R",
-                "cost": -3500
+                "cost": -3500,
+                "skill": "Exotic Ranged Weapon"
             },
             {
                 "name": "Cyber Microgrenade Launcher",
@@ -752,7 +816,8 @@
                 "RC": "-",
                 "ammo": "2(m)/6(c)",
                 "availability": "20F",
-                "cost": -30000
+                "cost": -30000,
+                "skill": "Exotic Ranged Weapon"
             },
             {
                 "name": "Cyber Shotgun",
@@ -763,7 +828,8 @@
                 "RC": "-",
                 "ammo": "4(m)/10(c)",
                 "availability": "12R",
-                "cost": -8500
+                "cost": -8500,
+                "skill": "Exotic Ranged Weapon"
             },
             {
                 "name": "Cyber Submachine Pistol",
@@ -774,7 +840,8 @@
                 "RC": 2,
                 "ammo": "18(m)/32(c)",
                 "availability": "12R",
-                "cost": -4800
+                "cost": -4800,
+                "skill": "Exotic Ranged Weapon"
             },
             {
                 "name": "Heavy Cyber Pistol",
@@ -785,7 +852,8 @@
                 "RC": "-",
                 "ammo": "8(m)/12(c)",
                 "availability": "12R",
-                "cost": -4300
+                "cost": -4300,
+                "skill": "Exotic Ranged Weapon"
             },
             {
                 "name": "Light Cyber Pistol",
@@ -796,7 +864,8 @@
                 "RC": "-",
                 "ammo": "10(m)/15(c)",
                 "availability": "10R",
-                "cost": -3900
+                "cost": -3900,
+                "skill": "Exotic Ranged Weapon"
             }
         ]
     }
