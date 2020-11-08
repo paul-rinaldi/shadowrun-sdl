@@ -101,7 +101,7 @@
                 "ammo": "4(m)",
                 "availability": "-",
                 "cost": -250,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Yamaha Pulsar",
@@ -113,7 +113,7 @@
                 "ammo": "4(m)",
                 "availability": "-",
                 "cost": -180,
-                "skill": "Pistol"
+                "skill": "Pistols"
             }
         ],
         "hold-out pistol":[
@@ -127,7 +127,7 @@
                 "ammo": "4(c)",
                 "availability": "6R",
                 "cost": -1000,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Streetline Special",
@@ -139,7 +139,7 @@
                 "ammo": "6(c)",
                 "availability": "4R",
                 "cost": -120,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Walther Palm Pistol",
@@ -151,7 +151,7 @@
                 "ammo": "2(b)",
                 "availability": "4R",
                 "cost": -180,
-                "skill": "Pistol"
+                "skill": "Pistols"
             }
         ],
         "light pistol":[
@@ -165,7 +165,7 @@
                 "ammo": "16(c)",
                 "availability": "3R",
                 "cost": -200,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Ares Light Fire 75",
@@ -177,7 +177,7 @@
                 "ammo": "16(c)",
                 "availability": "6F",
                 "cost": -1250,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Beretta 201T",
@@ -189,7 +189,7 @@
                 "ammo": "21(c)",
                 "availability": "7R",
                 "cost": -210,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Colt America L36",
@@ -201,7 +201,7 @@
                 "ammo": "11(c)",
                 "availability": "4R",
                 "cost": -320,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Fichetti Security 600",
@@ -213,7 +213,7 @@
                 "ammo": "30(c)",
                 "availability": "6R",
                 "cost": -350,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Taurus Omni-6, light pistol rounds",
@@ -225,7 +225,7 @@
                 "ammo": "6(cy)",
                 "availability": "3R",
                 "cost": -300,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Taurus Omni-6, heavy pistol rounds",
@@ -237,7 +237,7 @@
                 "ammo": "6(cy)",
                 "availability": "3R",
                 "cost": -300,
-                "skill": "Pistol"
+                "skill": "Pistols"
             }
         ],
         "heavy pistol":[
@@ -251,7 +251,7 @@
                 "ammo": "15(c)",
                 "availability": "5R",
                 "cost": -725,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Ares Viper Silvergun",
@@ -263,7 +263,7 @@
                 "ammo": "30(c)",
                 "availability": "8F",
                 "cost": -380,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Browning Ultra-Power",
@@ -275,7 +275,7 @@
                 "ammo": "10(c)",
                 "availability": "4R",
                 "cost": -640,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Colt Government 2066",
@@ -287,7 +287,7 @@
                 "ammo": "14(c)",
                 "availability": "7R",
                 "cost": -425,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Remington Roomsweeper",
@@ -299,7 +299,7 @@
                 "ammo": "8(n)",
                 "availability": "6R",
                 "cost": -250,
-                "skill": "Pistol"
+                "skill": "Pistols"
             },
             {
                 "name": "Ruger Super Warhawk",
@@ -311,7 +311,7 @@
                 "ammo": "6(cy)",
                 "availability": "4R",
                 "cost": -400,
-                "skill": "Pistol"
+                "skill": "Pistols"
             }
         ],
         "machine pistol":[

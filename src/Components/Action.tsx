@@ -244,9 +244,9 @@ class Action extends React.Component<IActionProps, IActionState> {
             return;
         const weapon = (val as WeaponLabelOptionRanged).weapon;
         const accValue = Number(weapon.acc);
-        // const foundSkills = this.props.character.skills.combat.filter((skill => skill.name.toLowerCase() === weapon.skill.toLowerCase()));
-        // let skill = undefined;
-        // let attribute = undefined;
+        const foundSkills = this.props.character.skills.combat.filter((skill => skill.name.toLowerCase() === weapon.skill.toLowerCase()));
+        let skill = undefined;
+        let attribute = undefined;
 
         const testVariables = [];
         const testValues = [];
@@ -276,27 +276,27 @@ class Action extends React.Component<IActionProps, IActionState> {
                 }
         }
 
-        // //Check if the character has the associated weapon skill
-        // if(foundSkills.length > 0){
-        //     skill = foundSkills[0];
-        //     attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
-        // }
+        //Check if the character has the associated weapon skill
+        if(foundSkills.length > 0){
+            skill = foundSkills[0];
+            attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
+        }
 
-        // //If the character has the skill, show the skill value and the attribute.
-        // if(skill !== undefined && attribute !== undefined){
-        //     testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-        //     testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-        //     testValues.push('=', skill.rating + attribute);
-        // } else {
-        //     //If they don't have the skill, show a ?
-        //     testVariables.unshift(weapon.skill);
-        //     testValues.unshift('?')
-        // }
+        //If the character has the skill, show the skill value and the attribute.
+        if(skill !== undefined && attribute !== undefined){
+            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+            testValues.push('=', skill.rating + attribute);
+        } else {
+            //If they don't have the skill, show a ?
+            testVariables.unshift(weapon.skill);
+            testValues.unshift('?')
+        }
 
-        // this.setState({
-        //     testVariables: testVariables,
-        //     testValues: testValues
-        // });
+        this.setState({
+            testVariables: testVariables,
+            testValues: testValues
+        });
     }
 
     getCharacterAttribute = (capitalizedName: string) => {
