@@ -37,7 +37,7 @@
                 "ammo": "-",
                 "availability": "Rating",
                 "cost": -100,
-                "skill": "Strength"
+                "skill": "Archery"
             },
             {
                 "name": "Light Crossbow",
@@ -49,7 +49,7 @@
                 "ammo": "4(M)",
                 "availability": 2,
                 "cost": -300,
-                "skill": "Strength"
+                "skill": "Archery"
             },
             {
                 "name": "Medium Crossbow",
@@ -61,7 +61,7 @@
                 "ammo": "4(M)",
                 "availability": "4R",
                 "cost": -500,
-                "skill": "Strength"
+                "skill": "Archery"
             },
             {
                 "name": "Heavy Crossbow",
@@ -73,7 +73,7 @@
                 "ammo": "4(m)",
                 "availability": "8R",
                 "cost": -1000,
-                "skill": "Strength"
+                "skill": "Archery"
             }
         ],
         "exotic ranged weapons":[
