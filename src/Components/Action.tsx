@@ -505,6 +505,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     rangedWeaponsDropdown() {
         const {character} = this.props;
+        console.log(character);
         const options: WeaponLabelOptionRanged[] = [];
         for (const weapon of character.gear.ranged) {
             options.push({
@@ -526,10 +527,10 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     testDisplay() {
         if(option === "ranged") {
-            return <div onClick={this.rangedWeaponsDropdown}>{this.firingModesTable()}</div>
+            return <div>{this.firingModesTable()}</div>
         }
         else {
-            return <div onClick={this.meleeWeaponsDropdown}>{this.meleeModesTable()}</div>
+            return <div>{this.meleeModesTable()}</div>
         }
     }
 
@@ -575,11 +576,13 @@ class Action extends React.Component<IActionProps, IActionState> {
                     <td></td>
                     <td>Firing Modes:</td>
                 </tr>
-                {modes.map((part: string) => <tr>
+                {
+                    modes.map((part: string, index: number) => <tr key={index}>
                     <td></td>
                     <td><label htmlFor={part}><input type="radio" id={part} name="Firing Mode" value={part}/>{part}
                     </label></td>
-                </tr>)}
+                </tr>)
+                }
                 </tbody>
             </table>
                 </div>
