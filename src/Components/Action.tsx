@@ -485,7 +485,6 @@ class Action extends React.Component<IActionProps, IActionState> {
     meleeWeaponsDropdown() {
         const {character} = this.props;
         const options: WeaponLabelOptionMelee[] = [];
-        console.log(option);
         for (const weapon of character.gear.melee) {
             options.push({
                 weapon: weapon,
@@ -535,6 +534,11 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
 
+    /**
+     * This is the calculation table to display for melees.
+     * Will be used in testDisplay() method.
+     * @returns a table of the calculations for melees.
+     */
     meleeModesTable() {
         let {testValues, testVariables} = this.state;
         if (testVariables !== null && testValues !== null) {
@@ -551,6 +555,11 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     }
 
+    /**
+     *This is the calculation table to display for ranged weapons.
+     * Will be used in testDisplay() method.
+     * @returns a table of the calculations for ranged weapons.
+     */
     firingModesTable() {
         const {firingModes} = this.state;
         let modes = [];
