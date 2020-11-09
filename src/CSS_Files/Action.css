@@ -108,6 +108,22 @@ td.actLim:nth-child(3){
     border: 10px
 }
 
+.testResult1 {
+    font-size: 18px;
+    white-space: nowrap;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    border: 30px solid white;
+}
+
+.testResult1 td {
+    /*border: red solid 1px;*/
+    padding-left: 0.25vw;
+    padding-right: 0.25vw;
+}
+
 .testResult td {
     /*border: red solid 1px;*/
     padding-left: 0.25vw;

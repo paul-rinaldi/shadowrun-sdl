@@ -570,7 +570,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             }
             return <div>
                 {this.meleeModesTable()}
-                <table className={'testResult'}>
+                <table className={'testResult1'}>
                 <tbody>
                 <tr style={{padding: "20px"}}>
                     <td></td>
