@@ -5,6 +5,7 @@ import { IShadowRunState } from '../redux/store';
 import { Melee, Ranged } from '../models/playerModels';
 import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
+import { elementType } from 'prop-types';
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -16,6 +17,7 @@ const mapDispatchToProps = {
 interface IActionState {
     testVariables: any[] | null;
     testValues: any[] | null;
+    firingModes: any[] | null;
     mentalLimit: number | null;
     physicalLimit: number | null;
     socialLimit: number | null;
@@ -46,6 +48,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
             testValues: null,    //An array of the value equation to display. Ex: [7, '+', 3, '=', 10]
+            firingModes: null, //An array of firing modes to select from
             mentalLimit: null,
             physicalLimit: null,
             socialLimit: null
@@ -250,6 +253,7 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         const testVariables = [];
         const testValues = [];
+        const firingModes = [];
 
         const {physicalLimit, mentalLimit, socialLimit} = this.state;
 
@@ -287,6 +291,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
             testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
             testValues.push('=', skill.rating + attribute);
+            firingModes.push(weapon.mode);
         } else {
             //If they don't have the skill, show a ?
             testVariables.unshift(weapon.skill);
@@ -295,7 +300,8 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         this.setState({
             testVariables: testVariables,
-            testValues: testValues
+            testValues: testValues,
+            firingModes: firingModes
         });
     }
 
@@ -491,20 +497,60 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns A table of the test variables and values, displaying the test calculation.
      */
     testDisplay() {
-        const { testValues, testVariables } = this.state;
+        const { testValues, testVariables, firingModes } = this.state;
         if (testVariables !== null && testValues !== null) {
-            return <table className={'testResult'}>
-                <tbody>
-                <tr>
-                    {testVariables.map((part, index) => <td key={index}>{part}</td>)}
-                </tr>
-                <tr>
-                    {testValues.map((part, index) => <td key={index}>{part}</td>)}
-                </tr>
-                </tbody>
-            </table>
+            let modes = [];
+            if(firingModes !== null){
+                if(firingModes[0].indexOf('/') > -1){
+                    modes = firingModes[0].split("/")
+                }
+                return <div>
+                <table className={'testResult'}>
+                    <tbody>
+                         <tr>
+                            {testVariables.map((part, index) => <td key={index}>{part}</td>)}
+                        </tr>
+                        <tr>
+                            {testValues.map((part, index) => <td key={index}>{part}</td>)}
+                        </tr>
+                    </tbody>
+                </table>
+                <table className={'testResult'}>
+                    <tr style={{padding: "20px"}}><td></td><td>Firing Modes:</td></tr>
+                        {modes.map((part: string) => <tr><td></td>
+                            <td><label htmlFor={part}><input type="radio" id={part} name="Firing Mode" value={part}/>{part}</label></td>
+                        </tr>)}
+                </table>
+            </div>
+            } else {
+                return <div>
+                <table className={'testResult'}>
+                    <tbody>
+                         <tr>
+                            {testVariables.map((part, index) => <td key={index}>{part}</td>)}
+                        </tr>
+                        <tr>
+                            {testValues.map((part, index) => <td key={index}>{part}</td>)}
+                        </tr>
+                    </tbody>
+                </table>
+                <table className={'testResult'} style= {{visibility:"hidden"}}>
+                </table>
+            </div>
+            }
         }
     }
+
+    // firingModesTable(modes: string[]){
+    //     return <div>
+    //         <table className={'testResult'}>
+    //                 <tr style={{padding: "20px"}}><td></td><td>Firing Modes:</td></tr>
+    //                     {modes.map((part: string) => <tr><td></td>
+    //                         <td><label htmlFor={part}><input type="radio" id={part} name="Firing Mode" value={part}/>{part}</label></td>
+    //                 </tr>)}
+    //         </table>
+    //     </div>
+    // }
 
     /**
      * Displays a table of the character's inherent limit calculations.
