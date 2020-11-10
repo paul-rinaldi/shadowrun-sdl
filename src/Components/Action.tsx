@@ -1,11 +1,12 @@
-import React, {EventHandler} from 'react';
+import React, { useState } from 'react';
 import '../CSS_Files/Action.css';
-import Select, {ValueType} from 'react-select';
-import {IShadowRunState} from '../redux/store';
-import {Melee, Ranged} from '../models/playerModels';
-import {ISkill} from "../models/playerModels";
-import {connect} from 'react-redux';
-import {elementType} from 'prop-types';
+import Select, { ValueType } from 'react-select';
+import { IShadowRunState } from '../redux/store';
+import { Melee, Ranged } from '../models/playerModels';
+import { ISkill } from "../models/playerModels";
+import { connect } from 'react-redux';
+import Tab from 'react-bootstrap/esm/Tab';
+import Tabs from 'react-bootstrap/esm/Tabs';
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -624,11 +625,20 @@ class Action extends React.Component<IActionProps, IActionState> {
         } else {
             return (
                 <div>
-                    {this.limitsTables()}
-                    {this.attributeOnlySection()}
-                    {this.skillsSection()}
-                    {this.combatSection()}
-                    {this.testDisplay()}
+                    <Tabs
+                        id='defaultActionsTabs'
+                        defaultActiveKey='misc'
+                    >
+                        <Tab eventKey='misc' title='Misc'>
+                            {this.limitsTables()}
+                            {this.attributeOnlySection()}
+                            {this.skillsSection()}
+                        </Tab>
+                        <Tab eventKey='combat' title='Combat'>
+                            {this.combatSection()}
+                            {this.testDisplay()}
+                        </Tab>
+                    </Tabs>
                 </div>
             )
         }
