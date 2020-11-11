@@ -573,15 +573,134 @@ class Action extends React.Component<IActionProps, IActionState> {
                 <table className={'testResult1'}>
                 <tbody>
                 <tr style={{padding: "20px"}}>
-                    <td></td>
-                    <td>Firing Modes:</td>
+                    <td style={{fontWeight: "bold"}}>Firing Modes:</td>
                 </tr>
                 {
-                    modes.map((part: string, index: number) => <tr key={index}>
-                    <td></td>
-                    <td><label htmlFor={part}><input type="radio" id={part} name="Firing Mode" value={part}/>{part}
-                    </label></td>
-                </tr>)
+                    modes.map((part: string, index: number) => {
+                        if(part === 'SS'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: 0
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 1
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: No recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'SA'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: 0
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 1
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'SB'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -2
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 3
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'BF'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -2
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 3
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'LB'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -5
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 6
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'FA'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -5 (Simple) or -9 (Complex)
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 6 (Simple) or 10 (Complex)
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else {
+                            return <tr></tr>
+                        }
+                    })
                 }
                 </tbody>
             </table>
