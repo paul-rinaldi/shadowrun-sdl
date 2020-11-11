@@ -506,7 +506,6 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     rangedWeaponsDropdown() {
         const {character} = this.props;
-        console.log(character);
         const options: WeaponLabelOptionRanged[] = [];
         for (const weapon of character.gear.ranged) {
             options.push({
