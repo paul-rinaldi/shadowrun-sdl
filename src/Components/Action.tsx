@@ -7,6 +7,7 @@ import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
 import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
+import { Table } from 'react-bootstrap';
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -506,7 +507,6 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     rangedWeaponsDropdown() {
         const {character} = this.props;
-        console.log(character);
         const options: WeaponLabelOptionRanged[] = [];
         for (const weapon of character.gear.ranged) {
             options.push({
@@ -613,6 +613,83 @@ class Action extends React.Component<IActionProps, IActionState> {
         </div>
     }
 
+    sprintActionSection = () => {
+        const { character: { attributes: { AGI, STR }, skills: {physical}, metatype } } = this.props;
+        const runningResult = physical.find(iSkill => iSkill.name.toLowerCase() == 'running');
+        const runningRating = runningResult?.rating == undefined ? 0 : runningResult.rating;
+        let metaSprintIncrease = this.getMetaTypeSprintIncrease(metatype);
+        if (metaSprintIncrease == null) {
+            alert(`Metatype: ${metatype} is invalid`);
+            metaSprintIncrease = 1;
+        }
+
+        return(
+            <>
+                <h1 className='Action'>Sprint:</h1>
+                <h2 className='Action'>Complex Action</h2>
+                <table className='actLim'>
+                    <tbody>
+                        <tr><td><h5>Distance = <b>Run Rate</b> + (<b>Hits</b> * <b>Sprint Increase</b>)</h5></td></tr>
+                        <tr><td><h5>Distance = <b>{AGI * 4}</b> + (<b>Hits</b> * {metaSprintIncrease})</h5></td></tr>
+                    </tbody>
+                </table>
+                <table className={'actLim'}>
+                    <tbody>
+                        <tr className={'actLim'}>
+                            <th>METATYPE</th>
+                            <th>RUN RATE</th>
+                            <th>SPRINT INCREASE</th>
+                            <th>HITS</th>
+                        </tr>
+                        <tr className={'actLim'}>
+                            <td className={'actLim'}>Dwarf, Troll</td>
+                            <td className={'actLim'}>
+                                <b>AGI</b> * 4
+                                <br/>
+                                <b>{AGI}</b> * 4 = {AGI * 4}
+                            </td>
+                            <td className={'actLim'}>+1 m/hit</td>
+                            <td className={'actLim'}>
+                                Running + <b>STR</b> [<b>Physical</b>]
+                                <br/>
+                                {`${runningRating} + ${STR} [${this.state.physicalLimit}] = ${runningRating + STR}`}
+                            </td>
+                        </tr>
+                        <tr className={'actLim'}>
+                            <td className={'actLim'}>Elf, Human, Ork</td>
+                            <td className={'actLim'}>
+                                <b>AGI</b> * 4
+                                <br/>
+                                <b>{AGI}</b> * 4 = {AGI * 4}
+                            </td>
+                            <td className={'actLim'}>+2 m/hit</td>
+                            <td className={'actLim'}>
+                                Running + <b>STR</b> [<b>Physical</b>]
+                                <br/>
+                                {`${runningRating} + ${STR} [${this.state.physicalLimit}] = ${runningRating + STR}`}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </>
+        );
+    }
+
+    private getMetaTypeSprintIncrease(metatype: string) {
+        metatype = metatype.toLowerCase();
+        switch(metatype) {
+            case 'dwarf':
+            case 'troll':
+                return 1;
+            case 'elf':
+            case 'human':
+            case 'ork':
+                return 2;
+            default:
+                return null;
+        }
+    }
+
     /**
      * Renders the Action page.
      * @returns A message saying the character is not loaded or the contents of the Action page if the character is
@@ -637,6 +714,9 @@ class Action extends React.Component<IActionProps, IActionState> {
                         <Tab eventKey='combat' title='Combat'>
                             {this.combatSection()}
                             {this.testDisplay()}
+                        </Tab>
+                        <Tab eventKey='running' title='Running'>
+                            {this.sprintActionSection()}
                         </Tab>
                     </Tabs>
                 </div>
