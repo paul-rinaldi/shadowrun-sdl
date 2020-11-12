@@ -42,5 +42,5 @@ test:
     <<: *global_cache
     policy: pull
   script:
-    - CI=true; yarn test -- -u # here the CI=true flag is needed so that npm test does not wait for user input (prompts) and just runs the tests
+    - CI=true; yarn test -u # here the CI=true flag is needed so that npm test does not wait for user input (prompts) and just runs the tests
   coverage: /All files\s*\|\s*([\d\.]+)/
