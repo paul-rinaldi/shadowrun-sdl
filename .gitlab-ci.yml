@@ -14,6 +14,7 @@ cache: &global_cache
 build:
   stage: build #HERE1
   script:
+    - yarn add typescript
     - yarn # builds our dependencies (node_modules from package.json and package-lock.json)
   artifacts:
     paths:
@@ -42,5 +43,6 @@ test:
     <<: *global_cache
     policy: pull
   script:
+    - yarn add typescript
     - CI=true; yarn test -u # here the CI=true flag is needed so that npm test does not wait for user input (prompts) and just runs the tests
   coverage: /All files\s*\|\s*([\d\.]+)/
