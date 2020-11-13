@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^26.0.15",
     "@types/redux-logger": "^3.0.8",
     "bootstrap": "^4.3.1",
     "downloadbutton": "^1.0.0",
