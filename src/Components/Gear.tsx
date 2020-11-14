@@ -600,7 +600,7 @@ class GearPage extends React.Component<IGearProps>{
                                                     ap: apNew,
                                                     mode: modeNew,
                                                     RC: parseInt(rcNew),
-                                                    ammo: ammoNew,
+                                                    ammo: parseInt(ammoNew),
                                                     availability: availability,
                                                     cost: costOfRanged
                                                 } as Ranged;
