@@ -2,18 +2,21 @@ import React from 'react';
 import '../CSS_Files/Action.css';
 import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from '../redux/store';
-import { Melee, Ranged } from '../models/playerModels';
+import { ICharacter, Melee, Ranged } from '../models/playerModels';
 import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
 import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
-import Dropdown from "react-bootstrap/esm/Dropdown";
+import { remAmmo } from '../redux/actions/gearAction';
+import { Button } from 'react-bootstrap';
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player
 });
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  remAmmo
+};
 let option: string;
 interface IActionState {
     testVariables: any[] | null;
@@ -22,6 +25,7 @@ interface IActionState {
     mentalLimit: number | null;
     physicalLimit: number | null;
     socialLimit: number | null;
+    rangedWeaponSelected: Ranged | null;
 }
 
 interface WeaponLabelOptionMelee {
@@ -65,7 +69,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             firingModes: null, //An array of firing modes to select from
             mentalLimit: null,
             physicalLimit: null,
-            socialLimit: null
+            socialLimit: null,
+            rangedWeaponSelected: null
         };
     }
 
@@ -321,7 +326,8 @@ class Action extends React.Component<IActionProps, IActionState> {
         this.setState({
             testVariables: testVariables,
             testValues: testValues,
-            firingModes: firingModes
+            firingModes: firingModes,
+            rangedWeaponSelected: weapon
         });
     }
 
@@ -516,12 +522,15 @@ class Action extends React.Component<IActionProps, IActionState> {
             });
         }
 
-        return <div className={'Action'} id={'rangedWeaponSelector'}>
+        console.log("rangedWeaponSelectedYet:", this.state.rangedWeaponSelected);
+
+        return (
+          <div className={'Action'} id={'rangedWeaponSelector'}>
             <Select options={options}
                     onChange={this.showRangedWeaponTest}
-            />
-
-        </div>
+            /> 
+          </div>
+        );
     }
 
     /**
@@ -529,9 +538,12 @@ class Action extends React.Component<IActionProps, IActionState> {
      * are displayed in two table rows so that they line up with eachother.
      * @returns A table of the test variables and values, displaying the test calculation.
      */
-    testDisplay() {
+    testDisplay(character: ICharacter) {
         if(option === "ranged") {
-            return <div>{this.firingModesTable()}</div>
+            return <div>
+                {this.firingModesTable()}
+                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>} 
+              </div>
         }
         else {
             return <div>{this.meleeModesTable()}</div>
@@ -564,18 +576,21 @@ class Action extends React.Component<IActionProps, IActionState> {
      * Will display the option to adjust ammo left in gun after it fires.
      * @return a dropdown of new ammo to take away from gun.
      */
-    adjustAmmo(weapon: Ranged, rangedWeapons: Ranged[]) {
-        return <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Dropdown Button
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
+    adjustAmmo(weapon: Ranged | null) {
+      if (weapon !== null) {
+        const { remAmmo } = this.props;
+        let ammoInput: string | null = null;
+        ammoInput = prompt(`Ammo used with shot? (current ammo: ${weapon.ammo})`, "0");
+        if (ammoInput !== null) {
+          const ammo = parseInt(ammoInput);
+          if (weapon.ammo - ammo >= 0) {
+            remAmmo(weapon, ammo);
+            alert("You now have " + (weapon.ammo - ammo) + " ammo left.");
+          } else {
+            alert("You only have " + weapon.ammo + " ammo left.");
+          }
+        }
+      }
     }
 
     /**
@@ -778,7 +793,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                         </Tab>
                         <Tab eventKey='combat' title='Combat'>
                             {this.combatSection()}
-                            {this.testDisplay()}
+                            {this.testDisplay(character)}
                         </Tab>
                     </Tabs>
                 </div>
