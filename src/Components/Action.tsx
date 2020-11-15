@@ -272,7 +272,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
         const weapon = (val as WeaponLabelOptionRanged).weapon;
         const accValue = Number(weapon.acc);
-        const foundSkills = this.props.character.skills.combat.filter((skill => skill.name && skill.name.toLowerCase() === weapon.skill.toLowerCase()));
+        const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
         let skill = undefined;
         let attribute = undefined;
 
@@ -281,7 +281,6 @@ class Action extends React.Component<IActionProps, IActionState> {
         const firingModes = [];
 
         const {physicalLimit, mentalLimit, socialLimit} = this.state;
-
         //Check if the weapon accuracy is an inherent limit
         switch (weapon.acc) {
             case 'Physical':
@@ -303,7 +302,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                 } else {
                     testValues.push(`[${weapon.acc}]`)
                 }
-        }
+        }        
 
         //Check if the character has the associated weapon skill
         if (foundSkills.length > 0) {

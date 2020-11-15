@@ -346,7 +346,7 @@ class GearPage extends React.Component<IGearProps>{
         const options: MeleeOption[] = [];
         
         let meleeTypes: object = meleeJSON.melee;
-        console.log(meleeTypes);
+        // console.log(meleeTypes);
         
         Object.entries(meleeTypes).forEach((values) => {
             let melees: Array<Melee> = values[1];
