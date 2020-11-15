@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../CSS_Files/Action.css';
 import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from '../redux/store';
@@ -7,6 +7,7 @@ import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
 import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
+import Dropdown from "react-bootstrap/esm/Dropdown";
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -261,11 +262,12 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
         option = "ranged"; // for the
-        if (val === undefined || val === null)
+        if (val === undefined || val === null) {
             return;
+        }
         const weapon = (val as WeaponLabelOptionRanged).weapon;
         const accValue = Number(weapon.acc);
-        const foundSkills = this.props.character.skills.combat.filter((skill => skill.name.toLowerCase() === weapon.skill.toLowerCase()));
+        const foundSkills = this.props.character.skills.combat.filter((skill => skill.name && skill.name.toLowerCase() === weapon.skill.toLowerCase()));
         let skill = undefined;
         let attribute = undefined;
 
@@ -517,7 +519,9 @@ class Action extends React.Component<IActionProps, IActionState> {
         return <div className={'Action'} id={'rangedWeaponSelector'}>
             <Select options={options}
                     onChange={this.showRangedWeaponTest}
-            /></div>
+            />
+
+        </div>
     }
 
     /**
@@ -557,12 +561,31 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     /**
+     * Will display the option to adjust ammo left in gun after it fires.
+     * @return a dropdown of new ammo to take away from gun.
+     */
+    adjustAmmo(weapon: Ranged, rangedWeapons: Ranged[]) {
+        return <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Dropdown Button
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+            </Dropdown.Menu>
+        </Dropdown>
+    }
+
+    /**
      *This is the calculation table to display for ranged weapons.
      * Will be used in testDisplay() method.
      * @returns a table of the calculations for ranged weapons.
      */
     firingModesTable() {
         const {firingModes} = this.state;
+
         let modes = [];
         if (firingModes !== null) {
             if (firingModes[0].indexOf('/') > -1) {
@@ -611,6 +634,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                                         <td></td>
                                         <td>
                                             Number of Rounds Used: 1
+
                                         </td>
                                         <td></td>
                                         <td>
