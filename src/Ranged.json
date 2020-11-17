@@ -8,7 +8,7 @@
                 "ap": -1,
                 "mode": "-",
                 "RC": "-",
-                "ammo": "-",
+                "ammo": 0,
                 "availability": "4R",
                 "cost": -25,
                 "skill": "Throwing"
@@ -20,7 +20,7 @@
                 "ap": -1,
                 "mode": "-",
                 "RC": "-",
-                "ammo": "-",
+                "ammo": 0,
                 "availability": "4R",
                 "cost": -25,
                 "skill": "Throwing"
@@ -34,7 +34,7 @@
                 "ap": "-(Rating/4)",
                 "mode": "-",
                 "RC": "-",
-                "ammo": "-",
+                "ammo": 0,
                 "availability": "Rating",
                 "cost": -100,
                 "skill": "Archery"
@@ -46,7 +46,7 @@
                 "ap": -1,
                 "mode": "-",
                 "RC": "-",
-                "ammo": "4(M)",
+                "ammo": 4,
                 "availability": 2,
                 "cost": -300,
                 "skill": "Archery"
@@ -58,7 +58,7 @@
                 "ap": -2,
                 "mode": "-",
                 "RC": "-",
-                "ammo": "4(M)",
+                "ammo": 4,
                 "availability": "4R",
                 "cost": -500,
                 "skill": "Archery"
@@ -70,7 +70,7 @@
                 "ap": -3,
                 "mode": "-",
                 "RC": "-",
-                "ammo": "4(m)",
+                "ammo": 4,
                 "availability": "8R",
                 "cost": -1000,
                 "skill": "Archery"
@@ -84,7 +84,7 @@
                 "ap": -2,
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "1(ml)",
+                "ammo": 1,
                 "availability": "8R",
                 "cost": -500,
                 "skill": "Exotic Ranged Weapon"
@@ -98,7 +98,7 @@
                 "ap": -5,
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "4(m)",
+                "ammo": 4,
                 "availability": "-",
                 "cost": -250,
                 "skill": "Pistols"
@@ -110,7 +110,7 @@
                 "ap": -5,
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "4(m)",
+                "ammo": 4,
                 "availability": "-",
                 "cost": -180,
                 "skill": "Pistols"
@@ -124,7 +124,7 @@
                 "ap": 5,
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "4(c)",
+                "ammo": 4,
                 "availability": "6R",
                 "cost": -1000,
                 "skill": "Pistols"
@@ -136,7 +136,7 @@
                 "ap": "-",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "6(c)",
+                "ammo": 6,
                 "availability": "4R",
                 "cost": -120,
                 "skill": "Pistols"
@@ -148,7 +148,7 @@
                 "ap": "-",
                 "mode": "SS/BF",
                 "RC": "-",
-                "ammo": "2(b)",
+                "ammo": 2,
                 "availability": "4R",
                 "cost": -180,
                 "skill": "Pistols"
@@ -162,7 +162,7 @@
                 "ap": "-",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "16(c)",
+                "ammo": 16,
                 "availability": "3R",
                 "cost": -200,
                 "skill": "Pistols"
@@ -174,7 +174,7 @@
                 "ap": "-",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "16(c)",
+                "ammo": 16,
                 "availability": "6F",
                 "cost": -1250,
                 "skill": "Pistols"
@@ -186,7 +186,7 @@
                 "ap": "-",
                 "mode": "SA/BF",
                 "RC": "- (1)",
-                "ammo": "21(c)",
+                "ammo": 21,
                 "availability": "7R",
                 "cost": -210,
                 "skill": "Pistols"
@@ -198,7 +198,7 @@
                 "ap": "-",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "11(c)",
+                "ammo": 11,
                 "availability": "4R",
                 "cost": -320,
                 "skill": "Pistols"
@@ -210,7 +210,7 @@
                 "ap": "-",
                 "mode": "SA",
                 "RC": "- (1)",
-                "ammo": "30(c)",
+                "ammo": 30,
                 "availability": "6R",
                 "cost": -350,
                 "skill": "Pistols"
@@ -222,7 +222,7 @@
                 "ap": "-",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "6(cy)",
+                "ammo": 6,
                 "availability": "3R",
                 "cost": -300,
                 "skill": "Pistols"
@@ -234,7 +234,7 @@
                 "ap": -1,
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "6(cy)",
+                "ammo": 6,
                 "availability": "3R",
                 "cost": -300,
                 "skill": "Pistols"
@@ -248,7 +248,7 @@
                 "ap": -1,
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "15(c)",
+                "ammo": 15,
                 "availability": "5R",
                 "cost": -725,
                 "skill": "Pistols"
@@ -260,7 +260,7 @@
                 "ap": 4,
                 "mode": "SA/BF",
                 "RC": "-",
-                "ammo": "30(c)",
+                "ammo": 30,
                 "availability": "8F",
                 "cost": -380,
                 "skill": "Pistols"
@@ -272,7 +272,7 @@
                 "ap": -1,
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "10(c)",
+                "ammo": 10,
                 "availability": "4R",
                 "cost": -640,
                 "skill": "Pistols"
@@ -284,7 +284,7 @@
                 "ap": -1,
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "14(c)",
+                "ammo": 14,
                 "availability": "7R",
                 "cost": -425,
                 "skill": "Pistols"
@@ -296,7 +296,7 @@
                 "ap": -1,
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "8(n)",
+                "ammo": 8,
                 "availability": "6R",
                 "cost": -250,
                 "skill": "Pistols"
@@ -308,7 +308,7 @@
                 "ap": -2,
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "6(cy)",
+                "ammo": 6,
                 "availability": "4R",
                 "cost": -400,
                 "skill": "Pistols"
@@ -322,7 +322,7 @@
                 "ap": "-",
                 "mode": "SA/BF",
                 "RC": 2,
-                "ammo": "40(c)",
+                "ammo": 40,
                 "availability": "9R",
                 "cost": -830,
                 "skill": "Automatics"
@@ -334,7 +334,7 @@
                 "ap": "-",
                 "mode": "SA/BF",
                 "RC": "- (1)",
-                "ammo": "35(c)",
+                "ammo": 35,
                 "availability": "6R",
                 "cost": -270,
                 "skill": "Automatics"
@@ -346,7 +346,7 @@
                 "ap": "-",
                 "mode": "SA/BF/FA",
                 "RC": "-",
-                "ammo": "30(c)",
+                "ammo": 30,
                 "availability": "8R",
                 "cost": -350,
                 "skill": "Automatics"
@@ -360,7 +360,7 @@
                 "ap": "-",
                 "mode": "SA/BF/FA",
                 "RC": "2 (3)",
-                "ammo": "32(c)",
+                "ammo": 32,
                 "availability": "5R",
                 "cost": -660,
                 "skill": "Automatics"
@@ -372,7 +372,7 @@
                 "ap": "-",
                 "mode": "SA/BF/FA",
                 "RC": "2 (3)",
-                "ammo": "50(c)",
+                "ammo": 50,
                 "availability": "11R",
                 "cost": -900,
                 "skill": "Automatics"
@@ -384,7 +384,7 @@
                 "ap": "-",
                 "mode": "SA/BF/FA",
                 "RC": "- (1)",
-                "ammo": "28(c)",
+                "ammo": 28,
                 "availability": "8R",
                 "cost": -730,
                 "skill": "Automatics"
@@ -396,7 +396,7 @@
                 "ap": "-",
                 "mode": "BF/FA",
                 "RC": 2,
-                "ammo": "32(c)",
+                "ammo": 32,
                 "availability": "6R",
                 "cost": -800,
                 "skill": "Automatics"
@@ -408,7 +408,7 @@
                 "ap": "-",
                 "mode": "SA/BF",
                 "RC": "- (1)",
-                "ammo": "30(c)",
+                "ammo": 30,
                 "availability": "6R",
                 "cost": -875,
                 "skill": "Automatics"
@@ -420,7 +420,7 @@
                 "ap": "-",
                 "mode": "BF",
                 "RC": "- (1)",
-                "ammo": "24(c)",
+                "ammo": 24,
                 "availability": "4R",
                 "cost": -450,
                 "skill": "Automatics"
@@ -434,7 +434,7 @@
                 "ap": -2,
                 "mode": "SA/BF/FA",
                 "RC": "-",
-                "ammo": "38(c)",
+                "ammo": 38,
                 "availability": "4R",
                 "cost": -950,
                 "skill": "Automatics"
@@ -446,7 +446,7 @@
                 "ap": -2,
                 "mode": "SA/BF/FA",
                 "RC": 2,
-                "ammo": "42(c)",
+                "ammo": 42,
                 "availability": "11F",
                 "cost": -2650,
                 "skill": "Automatics"
@@ -458,7 +458,7 @@
                 "ap": -2,
                 "mode": "SA/BF/FA",
                 "RC": "-",
-                "ammo": "40(c)",
+                "ammo": 40,
                 "availability": "4R",
                 "cost": -550,
                 "skill": "Automatics"
@@ -470,7 +470,7 @@
                 "ap": -2,
                 "mode": "SA/BF/FA",
                 "RC": 2,
-                "ammo": "35(c)",
+                "ammo": 35,
                 "availability": "8R",
                 "cost": -1500,
                 "skill": "Automatics"
@@ -482,7 +482,7 @@
                 "ap": -2,
                 "mode": "BF/FA",
                 "RC": 2,
-                "ammo": "60(c)",
+                "ammo": 60,
                 "availability": "14F",
                 "cost": -2600,
                 "skill": "Automatics"
@@ -496,7 +496,7 @@
                 "ap": -4,
                 "mode": "SA",
                 "RC": "- (1)",
-                "ammo": "14(c)",
+                "ammo": 14,
                 "availability": "10F",
                 "cost": -17500,
                 "skill": "Longarms"
@@ -508,7 +508,7 @@
                 "ap": -3,
                 "mode": "SA/BF",
                 "RC": "- (1)",
-                "ammo": "20(c)",
+                "ammo": 20,
                 "availability": "12F",
                 "cost": -10300,
                 "skill": "Longarms"
@@ -520,7 +520,7 @@
                 "ap": -5,
                 "mode": "SA",
                 "RC": "- (1)",
-                "ammo": "15(c)",
+                "ammo": 15,
                 "availability": "16F",
                 "cost": -28000,
                 "skill": "Longarms"
@@ -532,7 +532,7 @@
                 "ap": -4,
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "5(m)",
+                "ammo": 5,
                 "availability": "4R",
                 "cost": -2100,
                 "skill": "Longarms"
@@ -544,7 +544,7 @@
                 "ap": -3,
                 "mode": "SS",
                 "RC": "- (1)",
-                "ammo": "8(m)",
+                "ammo": 8,
                 "availability": "4R",
                 "cost": -1300,
                 "skill": "Longarms"
@@ -558,7 +558,7 @@
                 "ap": -1,
                 "mode": "SS/SA",
                 "RC": "-",
-                "ammo": "5(m)",
+                "ammo": 5,
                 "availability": "4R",
                 "cost": -450,
                 "skill": "Longarms"
@@ -570,7 +570,7 @@
                 "ap": -1,
                 "mode": "SS/SA",
                 "RC": "-",
-                "ammo": "5(m)",
+                "ammo": 5,
                 "availability": "4R",
                 "cost": -450,
                 "skill": "Longarms"
@@ -582,7 +582,19 @@
                 "ap": -1,
                 "mode": "SA/BF",
                 "RC": "-",
-                "ammo": "10(c) or 24(d)",
+                "ammo": 10,
+                "availability": "12R",
+                "cost": -1100,
+                "skill": "Longarms"
+            },
+            {
+                "name": " Special Enfield AS-7",
+                "acc": "4 (5)",
+                "dam": "13P",
+                "ap": -1,
+                "mode": "SA/BF",
+                "RC": "-",
+                "ammo": 24,
                 "availability": "12R",
                 "cost": -1100,
                 "skill": "Longarms"
@@ -594,7 +606,7 @@
                 "ap": -1,
                 "mode": "SS",
                 "RC": "- (1)",
-                "ammo": "2(b)",
+                "ammo": 2,
                 "availability": "9R",
                 "cost": -1000,
                 "skill": "Longarms"
@@ -602,13 +614,25 @@
         ],
         "light machine gun":[
             {
-                "name": "Ingram Valiant",
+                "name": "Small Ingram Valiant",
                 "acc": "5 (6)",
                 "dam": "9P",
                 "ap": -2,
                 "mode": "BF/FA",
                 "RC": "2 (3)",
-                "ammo": "50(c) or 100(belt)",
+                "ammo": 50,
+                "availability": "12F",
+                "cost": -5800,
+                "skill": "Heavy Weapons"
+            },
+            {
+                "name": "Big Ingram Valiant",
+                "acc": "5 (6)",
+                "dam": "9P",
+                "ap": -2,
+                "mode": "BF/FA",
+                "RC": "2 (3)",
+                "ammo": 100,
                 "availability": "12F",
                 "cost": -5800,
                 "skill": "Heavy Weapons"
@@ -616,13 +640,25 @@
         ],
         "medium machine gun":[
             {
-                "name": "Stoner-Ares M202",
+                "name": "Small Stoner-Ares M202",
                 "acc": 5,
                 "dam": "10P",
                 "ap": -3,
                 "mode": "FA",
                 "RC": "-",
-                "ammo": "50(c) or 100(belt)",
+                "ammo": 50,
+                "availability": "12F",
+                "cost": -7000,
+                "skill": "Heavy Weapons"
+            },
+            {
+                "name": "Big Stoner-Ares M202",
+                "acc": 5,
+                "dam": "10P",
+                "ap": -3,
+                "mode": "FA",
+                "RC": "-",
+                "ammo": 100,
                 "availability": "12F",
                 "cost": -7000,
                 "skill": "Heavy Weapons"
@@ -636,7 +672,19 @@
                 "ap": -4,
                 "mode": "FA",
                 "RC": "- (6)",
-                "ammo": "50(c) or 100(belt)",
+                "ammo": 50,
+                "availability": "16F",
+                "cost": -16300,
+                "skill": "Heavy Weapons"
+            },
+            {
+                "name": "RPK HMG",
+                "acc": 5,
+                "dam": "12P",
+                "ap": -4,
+                "mode": "FA",
+                "RC": "- (6)",
+                "ammo": 100,
                 "availability": "16F",
                 "cost": -16300,
                 "skill": "Heavy Weapons"
@@ -650,7 +698,7 @@
                 "ap": "Chemical",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "20(c)",
+                "ammo": 20,
                 "availability": "7R",
                 "cost": -950,
                 "skill": "Exotic Ranged Weapon"
@@ -662,7 +710,7 @@
                 "ap": "-",
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "Spec.",
+                "ammo": 10,
                 "availability": "11R",
                 "cost": -5000,
                 "skill": "Exotic Ranged Weapon"
@@ -674,7 +722,7 @@
                 "ap": "Drug/Toxin",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "5(c)",
+                "ammo": 5,
                 "availability": "4R",
                 "cost": -600,
                 "skill": "Exotic Ranged Weapon"
@@ -686,7 +734,7 @@
                 "ap": "Drug/Toxin",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "6(m)",
+                "ammo": 6,
                 "availability": "6R",
                 "cost": -1200,
                 "skill": "Exotic Ranged Weapon"
@@ -700,7 +748,7 @@
                 "ap": -6,
                 "mode": "SA",
                 "RC": "- (1)",
-                "ammo": "6(m)",
+                "ammo": 6,
                 "availability": "20F",
                 "cost": -21000,
                 "skill": "Heavy Weapons"
@@ -712,7 +760,7 @@
                 "ap": -6,
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "15(c)",
+                "ammo": 15,
                 "availability": "20F",
                 "cost": -43000,
                 "skill": "Heavy Weapons"
@@ -726,7 +774,7 @@
                 "ap": "Grenade",
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "6(c)",
+                "ammo": 6,
                 "availability": "-",
                 "cost": -2650,
                 "skill": "Heavy Weapons"
@@ -738,7 +786,7 @@
                 "ap": "Grenade",
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "8(m)",
+                "ammo": 8,
                 "availability": "8F",
                 "cost": -3200,
                 "skill": "Heavy Weapons"
@@ -750,7 +798,7 @@
                 "ap": "Grenade",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "12(c)",
+                "ammo": 12,
                 "availability": "10F",
                 "cost": -5000,
                 "skill": "Heavy Weapons"
@@ -764,7 +812,7 @@
                 "ap": "Missile",
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "2(ml)",
+                "ammo": 2,
                 "availability": "10F",
                 "cost": -1200,
                 "skill": "Heavy Weapons"
@@ -776,7 +824,7 @@
                 "ap": "Missile",
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "2(ml)",
+                "ammo": 2,
                 "availability": "18F",
                 "cost": -14000,
                 "skill": "Heavy Weapons"
@@ -784,85 +832,169 @@
         ],
         "implant":[
             {
-                "name": "Cyber Hold-Out Pistol",
+                "name": "Small Cyber Hold-Out Pistol",
                 "acc": "4 (6)",
                 "dam": "6P",
                 "ap": "-",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "2(m)/6(c)",
+                "ammo": 2,
                 "availability": "8R",
                 "cost": -2000,
                 "skill": "Exotic Ranged Weapon"
             },
             {
-                "name": "Cyber Machine Pistol",
+                "name": "Big Cyber Hold-Out Pistol",
+                "acc": "4 (6)",
+                "dam": "6P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": 6,
+                "availability": "8R",
+                "cost": -2000,
+                "skill": "Exotic Ranged Weapon"
+            },
+            {
+                "name": "Small Cyber Machine Pistol",
                 "acc": "4 (6)",
                 "dam": "6P",
                 "ap": "-",
                 "mode": "SA/FA",
                 "RC": 1,
-                "ammo": "18(m)/32(c)",
+                "ammo": 18,
                 "availability": "12R",
                 "cost": -3500,
                 "skill": "Exotic Ranged Weapon"
             },
             {
-                "name": "Cyber Microgrenade Launcher",
+                "name": "Big Cyber Machine Pistol",
+                "acc": "4 (6)",
+                "dam": "6P",
+                "ap": "-",
+                "mode": "SA/FA",
+                "RC": 1,
+                "ammo": 32,
+                "availability": "12R",
+                "cost": -3500,
+                "skill": "Exotic Ranged Weapon"
+            },
+            {
+                "name": "Small Cyber Microgrenade Launcher",
                 "acc": "4 (6)",
                 "dam": "Grenade",
                 "ap": "Grenade",
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "2(m)/6(c)",
+                "ammo": 2,
                 "availability": "20F",
                 "cost": -30000,
                 "skill": "Exotic Ranged Weapon"
             },
             {
-                "name": "Cyber Shotgun",
+                "name": "Big Cyber Microgrenade Launcher",
+                "acc": "4 (6)",
+                "dam": "Grenade",
+                "ap": "Grenade",
+                "mode": "SS",
+                "RC": "-",
+                "ammo": 6,
+                "availability": "20F",
+                "cost": -30000,
+                "skill": "Exotic Ranged Weapon"
+            },
+            {
+                "name": "Small Cyber Shotgun",
                 "acc": "4 (6)",
                 "dam": "10P",
                 "ap": -1,
                 "mode": "SS",
                 "RC": "-",
-                "ammo": "4(m)/10(c)",
+                "ammo": 4,
                 "availability": "12R",
                 "cost": -8500,
                 "skill": "Exotic Ranged Weapon"
             },
             {
-                "name": "Cyber Submachine Pistol",
+                "name": "Big Cyber Shotgun",
+                "acc": "4 (6)",
+                "dam": "10P",
+                "ap": -1,
+                "mode": "SS",
+                "RC": "-",
+                "ammo": 10,
+                "availability": "12R",
+                "cost": -8500,
+                "skill": "Exotic Ranged Weapon"
+            },
+            {
+                "name": "Small Cyber Submachine Pistol",
                 "acc": "4 (6)",
                 "dam": "7P",
                 "ap": "-",
                 "mode": "SA/FA",
                 "RC": 2,
-                "ammo": "18(m)/32(c)",
+                "ammo": 18,
                 "availability": "12R",
                 "cost": -4800,
                 "skill": "Exotic Ranged Weapon"
             },
             {
-                "name": "Heavy Cyber Pistol",
+                "name": "Big Cyber Submachine Pistol",
+                "acc": "4 (6)",
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA/FA",
+                "RC": 2,
+                "ammo": 32,
+                "availability": "12R",
+                "cost": -4800,
+                "skill": "Exotic Ranged Weapon"
+            },
+            {
+                "name": "Small Heavy Cyber Pistol",
                 "acc": "4 (6)",
                 "dam": "7P",
                 "ap": -1,
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "8(m)/12(c)",
+                "ammo": 8,
                 "availability": "12R",
                 "cost": -4300,
                 "skill": "Exotic Ranged Weapon"
             },
             {
-                "name": "Light Cyber Pistol",
+                "name": "Big Heavy Cyber Pistol",
+                "acc": "4 (6)",
+                "dam": "7P",
+                "ap": -1,
+                "mode": "SA",
+                "RC": "-",
+                "ammo": 12,
+                "availability": "12R",
+                "cost": -4300,
+                "skill": "Exotic Ranged Weapon"
+            },
+            {
+                "name": "Small Light Cyber Pistol",
                 "acc": "6 (8)",
                 "dam": "7P",
                 "ap": "-",
                 "mode": "SA",
                 "RC": "-",
-                "ammo": "10(m)/15(c)",
+                "ammo": 10,
+                "availability": "10R",
+                "cost": -3900,
+                "skill": "Exotic Ranged Weapon"
+            },
+            {
+                "name": "Big Light Cyber Pistol",
+                "acc": "6 (8)",
+                "dam": "7P",
+                "ap": "-",
+                "mode": "SA",
+                "RC": "-",
+                "ammo": 15,
                 "availability": "10R",
                 "cost": -3900,
                 "skill": "Exotic Ranged Weapon"
