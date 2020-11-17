@@ -146,9 +146,10 @@ export interface Ranged {
     ap: string;
     mode: string;
     RC: number;
-    ammo: string;
+    ammo: number;
     availability: string;
     cost: number;
+    skill: string;
 }
 
 export interface Gear {

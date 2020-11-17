@@ -2,27 +2,48 @@ import React from 'react';
 import '../CSS_Files/Action.css';
 import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from '../redux/store';
-import { Melee } from '../models/playerModels';
+import { ICharacter, Melee, Ranged } from '../models/playerModels';
 import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
+import Tab from 'react-bootstrap/esm/Tab';
+import Tabs from 'react-bootstrap/esm/Tabs';
+import { remAmmo } from '../redux/actions/gearAction';
+import { Button } from 'react-bootstrap';
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player
 });
 const mapDispatchToProps = {
+  remAmmo
 };
-
+let option: string;
 interface IActionState {
     testVariables: any[] | null;
     testValues: any[] | null;
+    firingModes: any[] | null;
     mentalLimit: number | null;
     physicalLimit: number | null;
     socialLimit: number | null;
+    rangedWeaponSelected: Ranged | null;
 }
 
-interface WeaponLabelOption {weapon: Melee; label: string};
-interface SelectSkill { skill: ISkill; label: string; limit: string; specialization?: string; }
+interface WeaponLabelOptionMelee {
+    weapon: Melee;
+    label: string
+};
+
+interface WeaponLabelOptionRanged {
+    weapon: Ranged;
+    label: string
+};
+
+interface SelectSkill {
+    skill: ISkill;
+    label: string;
+    limit: string;
+    specialization?: string;
+}
 
 //Note: There are tons of actions in Shadowrun. The Action page focuses specifically on the actions that require dice
 //rolls, like using skills or attacking with weapons.
@@ -45,9 +66,11 @@ class Action extends React.Component<IActionProps, IActionState> {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
             testValues: null,    //An array of the value equation to display. Ex: [7, '+', 3, '=', 10]
+            firingModes: null, //An array of firing modes to select from
             mentalLimit: null,
             physicalLimit: null,
-            socialLimit: null
+            socialLimit: null,
+            rangedWeaponSelected: null
         };
     }
 
@@ -68,7 +91,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns A table row containing the limit name, the calculation for the limit, and the limit value.
      */
     limitRow(type: string) {
-        const { character: { attributes} } = this.props;
+        const {character: {attributes}} = this.props;
         let limit;
         let attrStrings, attrValStrings;
         switch (type) {
@@ -100,8 +123,10 @@ class Action extends React.Component<IActionProps, IActionState> {
                 break;
         }
 
-        const calcVars = ['[(', <b>{attrStrings[0]}</b>, 'x 2) +', <b>{attrStrings[1]}</b>, '+', <b>{attrStrings[2]}</b>, '] / 3 (round up)'];
-        const calcVals = ['[(', <b>{attrValStrings[0]}</b>, 'x 2) +', <b>{attrValStrings[1]}</b>, '+', <b>{attrValStrings[2]}</b>, '] / 3 (round up)'];
+        const calcVars = ['[(', <b>{attrStrings[0]}</b>, 'x 2) +', <b>{attrStrings[1]}</b>, '+',
+            <b>{attrStrings[2]}</b>, '] / 3 (round up)'];
+        const calcVals = ['[(', <b>{attrValStrings[0]}</b>, 'x 2) +', <b>{attrValStrings[1]}</b>, '+',
+            <b>{attrValStrings[2]}</b>, '] / 3 (round up)'];
 
         const calcTable = <table>
             <tbody>
@@ -130,7 +155,7 @@ class Action extends React.Component<IActionProps, IActionState> {
     showSkillTest(val: ValueType<SelectSkill>) {
         if (val === undefined || val === null)
             return;
-        const { physicalLimit, socialLimit, mentalLimit } = this.state;
+        const {physicalLimit, socialLimit, mentalLimit} = this.state;
         const skill = (val as SelectSkill).skill;
         const attValue = this.getCharacterAttribute(skill.attribute.toUpperCase());
         let result = skill.rating + attValue;
@@ -151,7 +176,8 @@ class Action extends React.Component<IActionProps, IActionState> {
 
             //These arrays will be rendered in a table so the variables and values line up
             this.setState({
-                testVariables: [skill.name, '+', `{${skill.specialization}}`, '+', <b>{skill.attribute}</b>, `[${limitType}]`],
+                testVariables: [skill.name, '+', `{${skill.specialization}}`, '+',
+                    <b>{skill.attribute}</b>, `[${limitType}]`],
                 testValues: [skill.rating, '+', '{2}', '+', <b>{attValue}</b>, `[${limitVal}]`, '=', result]
             });
         } else {
@@ -170,10 +196,12 @@ class Action extends React.Component<IActionProps, IActionState> {
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showWeaponTest = (val: ValueType<WeaponLabelOption>) => {
+    showMeleeWeaponTest = (val: ValueType<WeaponLabelOptionMelee>) => {
+        option = "melee";
         if (val === undefined || val === null)
             return;
-        const weapon = (val as WeaponLabelOption).weapon;
+        const weapon = (val as WeaponLabelOptionMelee).weapon;
+        // If melee do everything below
         const accValue = Number(weapon.acc);
         const foundSkills = this.props.character.skills.combat.filter((skill => skill.name.toLowerCase() === weapon.skill.toLowerCase()));
         let skill = undefined;
@@ -200,7 +228,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                 break;
             default:
                 testVariables.push('[Weapon Acc.]');
-                if(!isNaN(accValue)){
+                if (!isNaN(accValue)) {
                     testValues.push(`[${accValue}]`)
                 } else {
                     testValues.push(`[${weapon.acc}]`)
@@ -208,13 +236,13 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
 
         //Check if the character has the associated weapon skill
-        if(foundSkills.length > 0){
+        if (foundSkills.length > 0) {
             skill = foundSkills[0];
             attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
         }
 
         //If the character has the skill, show the skill value and the attribute.
-        if(skill !== undefined && attribute !== undefined){
+        if (skill !== undefined && attribute !== undefined) {
             testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
             testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
             testValues.push('=', skill.rating + attribute);
@@ -230,22 +258,107 @@ class Action extends React.Component<IActionProps, IActionState> {
         });
     }
 
+    /**
+     * Displays the weapon test using the associated val object from the weapons dropdown. The calculation is displayed
+     * as two table rows, with the first containing the names of the skill, attribute, and limit used and the second
+     * containing the associated values of each. IF the character does not possess the associated weapon skill, a ? will
+     * be displayed for its value.
+     * @param val The object from the weapons dropdown containing the weapon information.
+     */
+    showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
+        option = "ranged"; // for the
+        if (val === undefined || val === null) {
+            return;
+        }
+        const weapon = (val as WeaponLabelOptionRanged).weapon;
+        const accValue = Number(weapon.acc);
+        const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
+        let skill = undefined;
+        let attribute = undefined;
+
+        const testVariables = [];
+        const testValues = [];
+        const firingModes = [];
+
+        const {physicalLimit, mentalLimit, socialLimit} = this.state;
+        //Check if the weapon accuracy is an inherent limit
+        switch (weapon.acc) {
+            case 'Physical':
+                testVariables.push('[Physical]');
+                testValues.push(`[${physicalLimit}]`);
+                break;
+            case 'Mental':
+                testVariables.push('[Mental]');
+                testValues.push(`[${mentalLimit}]`);
+                break;
+            case 'Social':
+                testVariables.push('[Social]');
+                testValues.push(`[${socialLimit}]`);
+                break;
+            default:
+                testVariables.push('[Weapon Acc.]');
+                if (!isNaN(accValue)) {
+                    testValues.push(`[${accValue}]`)
+                } else {
+                    testValues.push(`[${weapon.acc}]`)
+                }
+        }        
+
+        //Check if the character has the associated weapon skill
+        if (foundSkills.length > 0) {
+            skill = foundSkills[0];
+            attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
+        }
+
+        //If the character has the skill, show the skill value and the attribute.
+        if (skill !== undefined && attribute !== undefined) {
+            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+            testValues.push('=', skill.rating + attribute);
+            firingModes.push(weapon.mode);
+        } else {
+            //If they don't have the skill, show a ?
+            testVariables.unshift(weapon.skill);
+            testValues.unshift('?')
+        }
+
+        this.setState({
+            testVariables: testVariables,
+            testValues: testValues,
+            firingModes: firingModes,
+            rangedWeaponSelected: weapon
+        });
+    }
+
     getCharacterAttribute = (capitalizedName: string) => {
-        const { character: { attributes } } = this.props;
-        switch(capitalizedName) {
-            case "AGI": return attributes.AGI;
-            case "BOD": return attributes.BOD;
-            case "CHA": return attributes.CHA;
-            case "EDG": return attributes.EDG;
-            case "ESS": return attributes.ESS;
-            case "INT": return attributes.INT;
-            case "LOG": return attributes.LOG;
-            case "MAG": return attributes.MAG;
-            case "REA": return attributes.REA;
-            case "RES": return attributes.RES;
-            case "STR": return attributes.STR;
-            case "WIL": return attributes.WIL;
-            default: return 0;
+        const {character: {attributes}} = this.props;
+        switch (capitalizedName) {
+            case "AGI":
+                return attributes.AGI;
+            case "BOD":
+                return attributes.BOD;
+            case "CHA":
+                return attributes.CHA;
+            case "EDG":
+                return attributes.EDG;
+            case "ESS":
+                return attributes.ESS;
+            case "INT":
+                return attributes.INT;
+            case "LOG":
+                return attributes.LOG;
+            case "MAG":
+                return attributes.MAG;
+            case "REA":
+                return attributes.REA;
+            case "RES":
+                return attributes.RES;
+            case "STR":
+                return attributes.STR;
+            case "WIL":
+                return attributes.WIL;
+            default:
+                return 0;
         }
     }
 
@@ -325,6 +438,8 @@ class Action extends React.Component<IActionProps, IActionState> {
         return <div>
             <h1 className={'Action'}>Melee Weapons</h1>
             {this.meleeWeaponsDropdown()}
+            <h1 className={'Action'}>Ranged Weapons</h1>
+            {this.rangedWeaponsDropdown()}
         </div>
     }
 
@@ -335,9 +450,9 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     allSkillsDropdown() {
         const options: SelectSkill[] = [];
-        const { skills } = this.props.character;
+        const {skills} = this.props.character;
 
-        const { combat, physical, social, magical, resonance, technical, vehicle } = skills;
+        const {combat, physical, social, magical, resonance, technical, vehicle} = skills;
         this.pushSkilOptions(combat, options);
         this.pushSkilOptions(physical, options);
         this.pushSkilOptions(social, options);
@@ -375,10 +490,9 @@ class Action extends React.Component<IActionProps, IActionState> {
      * dropdown.
      * @returns A dropdown of all the character's melee weapons.
      */
-    meleeWeaponsDropdown(){
-        const { character } = this.props;
-        const options: WeaponLabelOption[] = [];
-
+    meleeWeaponsDropdown() {
+        const {character} = this.props;
+        const options: WeaponLabelOptionMelee[] = [];
         for (const weapon of character.gear.melee) {
             options.push({
                 weapon: weapon,
@@ -388,8 +502,34 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         return <div className={'Action'} id={'meleeWeaponSelector'}><Select
             options={options}
-            onChange={this.showWeaponTest}
+            onChange={this.showMeleeWeaponTest}
         /></div>
+    }
+
+    /**
+     * Creates a dropdown of all the character's ranged weapons and displays the weapon test when one is chosen from the
+     * dropdown.
+     * @returns A dropdown of all the character's ranged weapons.
+     */
+    rangedWeaponsDropdown() {
+        const {character} = this.props;
+        const options: WeaponLabelOptionRanged[] = [];
+        for (const weapon of character.gear.ranged) {
+            options.push({
+                weapon: weapon,
+                label: `${weapon.name} (Acc: ${weapon.acc}, DV: ${weapon.dam}, AP: ${weapon.ap})`,
+            });
+        }
+
+        console.log("rangedWeaponSelectedYet:", this.state.rangedWeaponSelected);
+
+        return (
+          <div className={'Action'} id={'rangedWeaponSelector'}>
+            <Select options={options}
+                    onChange={this.showRangedWeaponTest}
+            /> 
+          </div>
+        );
     }
 
     /**
@@ -397,8 +537,26 @@ class Action extends React.Component<IActionProps, IActionState> {
      * are displayed in two table rows so that they line up with eachother.
      * @returns A table of the test variables and values, displaying the test calculation.
      */
-    testDisplay() {
-        const { testValues, testVariables } = this.state;
+    testDisplay(character: ICharacter) {
+        if(option === "ranged") {
+            return <div>
+                {this.firingModesTable()}
+                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>} 
+              </div>
+        }
+        else {
+            return <div>{this.meleeModesTable()}</div>
+        }
+    }
+
+
+    /**
+     * This is the calculation table to display for melees.
+     * Will be used in testDisplay() method.
+     * @returns a table of the calculations for melees.
+     */
+    meleeModesTable() {
+        let {testValues, testVariables} = this.state;
         if (testVariables !== null && testValues !== null) {
             return <table className={'testResult'}>
                 <tbody>
@@ -410,6 +568,181 @@ class Action extends React.Component<IActionProps, IActionState> {
                 </tr>
                 </tbody>
             </table>
+        }
+    }
+
+    /**
+     * Will display the option to adjust ammo left in gun after it fires.
+     * @return a dropdown of new ammo to take away from gun.
+     */
+    adjustAmmo(weapon: Ranged | null) {
+      if (weapon !== null) {
+        const { remAmmo } = this.props;
+        let ammoInput: string | null = null;
+        ammoInput = prompt(`Ammo used with shot? (current ammo: ${weapon.ammo})`, "0");
+        if (ammoInput !== null) {
+          const ammo = parseInt(ammoInput);
+          if (weapon.ammo - ammo >= 0) {
+            remAmmo(weapon, ammo);
+            alert("You now have " + (weapon.ammo - ammo) + " ammo left.");
+          } else {
+            alert("You only have " + weapon.ammo + " ammo left.");
+          }
+        }
+      }
+    }
+
+    /**
+     *This is the calculation table to display for ranged weapons.
+     * Will be used in testDisplay() method.
+     * @returns a table of the calculations for ranged weapons.
+     */
+    firingModesTable() {
+        const {firingModes} = this.state;
+
+        let modes = [];
+        if (firingModes !== null) {
+            if (firingModes[0].indexOf('/') > -1) {
+                modes = firingModes[0].split("/")
+            }
+            return <div>
+                {this.meleeModesTable()}
+                <table className={'testResult1'}>
+                <tbody>
+                <tr style={{padding: "20px"}}>
+                    <td style={{fontWeight: "bold"}}>Firing Modes:</td>
+                </tr>
+                {
+                    modes.map((part: string, index: number) => {
+                        if(part === 'SS'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: 0
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 1
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: No recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'SA'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: 0
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 1
+
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'SB'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -2
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 3
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'BF'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -2
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 3
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'LB'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -5
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 6
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else if(part === 'FA'){
+                            return <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -5 (Simple) or -9 (Complex)
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 6 (Simple) or 10 (Complex)
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                        } else {
+                            return <tr></tr>
+                        }
+                    })
+                }
+                </tbody>
+            </table>
+                </div>
         }
     }
 
@@ -442,17 +775,26 @@ class Action extends React.Component<IActionProps, IActionState> {
      * loaded.
      */
     render() {
-        const { character } = this.props;
+        const {character} = this.props;
         if (character === null || character.skills === undefined) {
             return <p>Needed properties missing from character file or no character loaded.</p>
         } else {
             return (
                 <div>
-                    {this.limitsTables()}
-                    {this.attributeOnlySection()}
-                    {this.skillsSection()}
-                    {this.combatSection()}
-                    {this.testDisplay()}
+                    <Tabs
+                        id='defaultActionsTabs'
+                        defaultActiveKey='misc'
+                    >
+                        <Tab eventKey='misc' title='Misc'>
+                            {this.limitsTables()}
+                            {this.attributeOnlySection()}
+                            {this.skillsSection()}
+                        </Tab>
+                        <Tab eventKey='combat' title='Combat'>
+                            {this.combatSection()}
+                            {this.testDisplay(character)}
+                        </Tab>
+                    </Tabs>
                 </div>
             )
         }
@@ -460,6 +802,6 @@ class Action extends React.Component<IActionProps, IActionState> {
 }
 
 export default connect(
-mapStateToProps,
-mapDispatchToProps)
+    mapStateToProps,
+    mapDispatchToProps)
 (Action);

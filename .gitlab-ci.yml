@@ -14,7 +14,8 @@ cache: &global_cache
 build:
   stage: build #HERE1
   script:
-    - npm install # builds our dependencies (node_modules from package.json and package-lock.json) 
+    - yarn add typescript
+    - yarn # builds our dependencies (node_modules from package.json and package-lock.json)
   artifacts:
     paths:
       - public
@@ -33,8 +34,8 @@ deploy:
     - master
   script:
     - npm i -g netlify-cli # here we install a global CLI (command line interface) via npm so that we can deploy to Netlify
-    - npm run build # builds the js bundle
-    - npx netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod 
+    - yarn run build # builds the ts bundle
+    - npx netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
 
 test:
   stage: test
@@ -42,5 +43,6 @@ test:
     <<: *global_cache
     policy: pull
   script:
-    - CI=true; npm test -- -u # here the CI=true flag is needed so that npm test does not wait for user input (prompts) and just runs the tests 
+    - yarn add typescript
+    - CI=true; yarn test -u # here the CI=true flag is needed so that npm test does not wait for user input (prompts) and just runs the tests
   coverage: /All files\s*\|\s*([\d\.]+)/

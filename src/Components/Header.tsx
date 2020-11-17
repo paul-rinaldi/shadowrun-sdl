@@ -187,8 +187,6 @@ class Header extends React.Component<IHeaderProps> {
                 }
             }
         }
-        console.log("bruh");
-
         return armor;
     }
 
