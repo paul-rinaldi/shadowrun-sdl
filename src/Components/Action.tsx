@@ -7,7 +7,7 @@ import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
 import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
-import { Table, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { remAmmo } from '../redux/actions/gearAction';
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
@@ -774,7 +774,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         const runningResult = physical.find(iSkill => iSkill.name.toLowerCase() == 'running');
         const runningRating = runningResult?.rating == undefined ? 0 : runningResult.rating;
         let metaSprintIncrease = this.getMetaTypeSprintIncrease(metatype);
-        if (metaSprintIncrease == null) {
+        if (metaSprintIncrease === null) {
             alert(`Metatype: ${metatype} is invalid`);
             metaSprintIncrease = 1;
         }
