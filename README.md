@@ -1,7 +1,7 @@
 # Shadowrun
 
 - [![Netlify Status](https://api.netlify.com/api/v1/badges/eac0351c-e5d6-4cf4-9e64-0b6427095e2d/deploy-status)](https://app.netlify.com/sites/shadow-run/deploys) **Production**: https://shadow-run.netlify.app/ (branch=master) 
-- [![Netlify Status](https://api.netlify.com/api/v1/badges/cb60a383-f456-46a6-adf6-cc5468d14de3/deploy-status)](https://app.netlify.com/sites/shadowrun-staging/deploys) **Staging**: https://shadowrun-staging.netlify.app/ (branch=dev)
+- [![Netlify Status](https://api.netlify.com/api/v1/badges/cb60a383-f456-46a6-adf6-cc5468d14de3/deploy-status)](https://app.netlify.com/sites/shadowrun-staging/deploys) **Staging**: https://shadowrun-staging.netlify.app/ (branch=[dev](https://gitlab.com/msoe.edu/sdl/y21sdl/group-shadowrun/shadowrun/-/tree/dev))
 - [![Netlify Status](https://api.netlify.com/api/v1/badges/db4741db-4cb5-428a-a8c6-3a21ee63e892/deploy-status)](https://app.netlify.com/sites/shadowruntest/deploys) **Old Site**: https://shadowruntest.netlify.app/ (branch=master)
 
 # Wizworm, Shadowrun Character Manager
