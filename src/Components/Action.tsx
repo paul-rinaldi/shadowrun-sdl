@@ -152,7 +152,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * containing the associated values of each.
      * @param val The object from the skills dropdown containing the skill information.
      */
-    showSkillTest(val: ValueType<SelectSkill>) {
+    showSkillTest(val: ValueType<SelectSkill, any>) {
         if (val === undefined || val === null)
             return;
         const {physicalLimit, socialLimit, mentalLimit} = this.state;
@@ -196,7 +196,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showMeleeWeaponTest = (val: ValueType<WeaponLabelOptionMelee>) => {
+    showMeleeWeaponTest = (val: ValueType<WeaponLabelOptionMelee, any>) => {
         option = "melee";
         if (val === undefined || val === null)
             return;
@@ -265,7 +265,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
+    showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged, any>) => {
         option = "ranged"; // for the
         if (val === undefined || val === null) {
             return;
@@ -275,7 +275,6 @@ class Action extends React.Component<IActionProps, IActionState> {
         const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
         let skill = undefined;
         let attribute = undefined;
-
         const testVariables = [];
         const testValues = [];
         const firingModes = [];
@@ -312,6 +311,16 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         //If the character has the skill, show the skill value and the attribute.
         if (skill !== undefined && attribute !== undefined) {
+           const actualSkill = foundSkills.filter((aSK) => {
+               if(aSK.name === weapon.skill) {
+                   return aSK;
+               }
+            });
+
+
+            console.log("hello");
+            console.log(actualSkill);
+            console.log("bye");
             testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
             testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
             testValues.push('=', skill.rating + attribute);
@@ -513,6 +522,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     rangedWeaponsDropdown() {
         const {character} = this.props;
+        console.log(character);
         const options: WeaponLabelOptionRanged[] = [];
         for (const weapon of character.gear.ranged) {
             options.push({
