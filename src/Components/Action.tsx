@@ -9,6 +9,7 @@ import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
 import { Table, Button } from 'react-bootstrap';
 import { remAmmo } from '../redux/actions/gearAction';
+import {act} from "react-dom/test-utils";
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -206,6 +207,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         const foundSkills = this.props.character.skills.combat.filter((skill => skill.name.toLowerCase() === weapon.skill.toLowerCase()));
         let skill = undefined;
         let attribute = undefined;
+        let actualSkill = foundSkills[0];
 
         const testVariables = [];
         const testValues = [];
@@ -243,9 +245,16 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         //If the character has the skill, show the skill value and the attribute.
         if (skill !== undefined && attribute !== undefined) {
-            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-            testValues.push('=', skill.rating + attribute);
+            foundSkills.filter((aSK) => { // will filter through all skills and return the array of the skill associated with the weapon
+                if(aSK.name === weapon.skill) {
+                    actualSkill = aSK;
+                }
+                return actualSkill;
+            });
+
+            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, '+', actualSkill.specialization ? "Specialization" : null);
+            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, '+' , actualSkill.specialization ? "(2)" : null);
+            testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0));
         } else {
             //If they don't have the skill, show a ?
             testVariables.unshift(weapon.skill);
@@ -278,6 +287,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         const testVariables = [];
         const testValues = [];
         const firingModes = [];
+        let actualSkill = foundSkills[0];
 
         const {physicalLimit, mentalLimit, socialLimit} = this.state;
         //Check if the weapon accuracy is an inherent limit
@@ -311,19 +321,16 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         //If the character has the skill, show the skill value and the attribute.
         if (skill !== undefined && attribute !== undefined) {
-           const actualSkill = foundSkills.filter((aSK) => {
+            foundSkills.filter((aSK) => { // will filter through all skills and return the array of the skill associated with the weapon
                if(aSK.name === weapon.skill) {
-                   return aSK;
+                   actualSkill = aSK;
                }
+               return actualSkill;
             });
 
-
-            console.log("hello");
-            console.log(actualSkill);
-            console.log("bye");
-            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-            testValues.push('=', skill.rating + attribute);
+            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, '+', actualSkill.specialization ? "Specialization" : null);
+            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, '+' , actualSkill.specialization ? "(2)" : null);
+            testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0));
             firingModes.push(weapon.mode);
         } else {
             //If they don't have the skill, show a ?
