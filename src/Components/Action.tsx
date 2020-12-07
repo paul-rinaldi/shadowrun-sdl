@@ -328,8 +328,8 @@ class Action extends React.Component<IActionProps, IActionState> {
                return actualSkill;
             });
 
-            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, '+', actualSkill.specialization ? "Specialization" : null);
-            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, '+' , actualSkill.specialization ? "(2)" : null);
+            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, '+', <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : null}</span>);
+            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, '+' , <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : null}</b>);
             testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0));
             firingModes.push(weapon.mode);
         } else {
@@ -529,7 +529,6 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     rangedWeaponsDropdown() {
         const {character} = this.props;
-        console.log(character);
         const options: WeaponLabelOptionRanged[] = [];
         for (const weapon of character.gear.ranged) {
             options.push({
