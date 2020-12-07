@@ -252,8 +252,8 @@ class Action extends React.Component<IActionProps, IActionState> {
                 return actualSkill;
             });
 
-            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, '+', actualSkill.specialization ? "Specialization" : null);
-            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, '+' , actualSkill.specialization ? "(2)" : null);
+            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, '+', <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "Specialization" : null}</span>);
+            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, '+' , <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : null}</span>);
             testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0));
         } else {
             //If they don't have the skill, show a ?
