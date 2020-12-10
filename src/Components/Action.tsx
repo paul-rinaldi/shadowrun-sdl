@@ -310,16 +310,6 @@ class Action extends React.Component<IActionProps, IActionState> {
             attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
         }
 
-        //check if name = bow
-        //get bow rating
-        //then get character strength
-        //if character strength < bow rating
-        // subtract strength from bow rating
-        // multiply result by 3
-        // result is amount to subtract from dice pool
-        //ex. bow rating = 5, character strength is 3
-        // -6 from dice pool
-
         let bowDicePoolModifier: number = 0;
 
         if(weapon.name.substring(0,3) === "Bow"){
