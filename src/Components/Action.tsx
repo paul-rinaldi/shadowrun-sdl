@@ -310,11 +310,39 @@ class Action extends React.Component<IActionProps, IActionState> {
             attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
         }
 
+        //check if name = bow
+        //get bow rating
+        //then get character strength
+        //if character strength < bow rating
+        // subtract strength from bow rating
+        // multiply result by 3
+        // result is amount to subtract from dice pool
+        //ex. bow rating = 5, character strength is 3
+        // -6 from dice pool
+
+        let bowDicePoolModifier: number = 0;
+
+        if(weapon.name.substring(0,3) === "Bow"){
+            const rating: number = parseInt(weapon.name.substring(weapon.name.search(/\d/), weapon.name.length - 1));
+            const strength: number = this.props.character.attributes.STR;
+            if (strength < rating){
+                bowDicePoolModifier = (rating - strength) * 3;
+            }
+        }
+
         //If the character has the skill, show the skill value and the attribute.
         if (skill !== undefined && attribute !== undefined) {
-            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-            testValues.push('=', skill.rating + attribute);
+            // First row in table, displays the skill name and attribute
+            if (weapon.name.substring(0,3) === "Bow"){
+                testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>, '-', "Rating Modifier");
+                testValues.unshift(skill.rating, '+', <b>{attribute}</b>, '-', bowDicePoolModifier);
+                testValues.push('=', skill.rating + attribute - bowDicePoolModifier);
+            } else {
+                testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                testValues.push('=', skill.rating + attribute);
+            }
+            // Second row in table, displays the numbers
             firingModes.push(weapon.mode);
         } else {
             //If they don't have the skill, show a ?
