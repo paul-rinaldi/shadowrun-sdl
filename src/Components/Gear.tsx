@@ -208,7 +208,7 @@ class GearPage extends React.Component<IGearProps>{
     /**
      * Adds the preset armor value from the allArmorDropdown() method
      */
-    addPresetArmor(val: ValueType<ArmorOption, any>) {
+    addPresetArmor(val: ValueType<ArmorOption>) {
         const { makeLog, adjustNuyen, addArmor } = this.props;
         if (val === null || val === undefined) {
             return;
@@ -372,7 +372,7 @@ class GearPage extends React.Component<IGearProps>{
     /**
      * Adds the preset melee value from the allMeleeDropdown() method
      */
-    addPresetMelee(val: ValueType<MeleeOption, any>){
+    addPresetMelee(val: ValueType<MeleeOption>){
         const { makeLog, adjustNuyen, addMelee } = this.props;
         if (val === null || val === undefined) {
             return;
@@ -547,7 +547,7 @@ class GearPage extends React.Component<IGearProps>{
     /**
      * Adds the preset ranged value from the allRangedDropdown() method
      */
-    addPresetRanged(val: ValueType<RangedOption, any>){
+    addPresetRanged(val: ValueType<RangedOption>){
         const { makeLog, adjustNuyen, addRanged } = this.props;
         if (val === undefined || val === null) {
             return;

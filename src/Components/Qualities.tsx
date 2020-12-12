@@ -262,7 +262,7 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
      * @param {*} max is the max rating of the quality
      * @param {*} type is if it is positive or negative
      */
-    addPresetQuality(val: ValueType<QualityOption, any>, qualityType: string){
+    addPresetQuality(val: ValueType<QualityOption>, qualityType: string){
         if(val === null || val === undefined){
             return;
         }

@@ -153,7 +153,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * containing the associated values of each.
      * @param val The object from the skills dropdown containing the skill information.
      */
-    showSkillTest(val: ValueType<SelectSkill, any>) {
+    showSkillTest(val: ValueType<SelectSkill>) {
         if (val === undefined || val === null)
             return;
         const {physicalLimit, socialLimit, mentalLimit} = this.state;
@@ -197,7 +197,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showMeleeWeaponTest = (val: ValueType<WeaponLabelOptionMelee, any>) => {
+    showMeleeWeaponTest = (val: ValueType<WeaponLabelOptionMelee>) => {
         option = "melee";
         if (val === undefined || val === null)
             return;
@@ -274,7 +274,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged, any>) => {
+    showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
         option = "ranged"; // for the
         if (val === undefined || val === null) {
             return;
