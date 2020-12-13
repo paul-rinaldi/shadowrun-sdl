@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import '../CSS_Files/Action.css';
 import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from '../redux/store';
@@ -26,6 +26,7 @@ interface IActionState {
     physicalLimit: number | null;
     socialLimit: number | null;
     rangedWeaponSelected: Ranged | null;
+    mounted: string;
 }
 
 interface WeaponLabelOptionMelee {
@@ -70,7 +71,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             mentalLimit: null,
             physicalLimit: null,
             socialLimit: null,
-            rangedWeaponSelected: null
+            rangedWeaponSelected: null,
+            mounted: "Unmounted"
         };
     }
 
@@ -311,13 +313,17 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
 
         let bowDicePoolModifier: number = 0;
-
+        let mountedSkillsUsed: ISkill[] = [];
         if(weapon.name.substring(0,3) === "Bow"){
             const rating: number = parseInt(weapon.name.substring(weapon.name.search(/\d/), weapon.name.length - 1));
             const strength: number = this.props.character.attributes.STR;
             if (strength < rating){
                 bowDicePoolModifier = (rating - strength) * 3;
             }
+        } else {
+            if(this.state.mounted !== "Unmounted"){
+                mountedSkillsUsed = this.props.character.skills.combat.filter(skill => skill.name && (skill.name === "Heavy Weapons" || skill.name ==="Gunnery"));
+            } 
         }
 
         //If the character has the skill, show the skill value and the attribute.
@@ -328,9 +334,30 @@ class Action extends React.Component<IActionProps, IActionState> {
                 testValues.unshift(skill.rating, '+', <b>{attribute}</b>, '-', bowDicePoolModifier);
                 testValues.push('=', skill.rating + attribute - bowDicePoolModifier);
             } else {
-                testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-                testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-                testValues.push('=', skill.rating + attribute);
+                if (this.state.mounted === "Unmounted") {
+                    testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                    testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                    testValues.push('=', skill.rating + attribute);
+                } else if (this.state.mounted === "MountedNV") {
+                    if (mountedSkillsUsed.filter(skill => skill.name && skill.name === "Heavy Weapons")) {
+                        // Heavy Weapons + Agi     [Weapon Acc.]
+                        //      7        +  5           [7]       = 5
+                        testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                        testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                        testValues.push('=', skill.rating + attribute);
+                    } else {
+                        testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                        testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                        testValues.push('=', skill.rating + attribute);
+                    }
+                } else if (this.state.mounted === "MountedV") {
+                    // Uses Gunnery
+                    // Gunnery + Agi     [Weapon Acc.]
+                        //      7        +  5           [7]       = 5
+                    testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                    testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                    testValues.push('=', skill.rating + attribute);
+                }
             }
             // Second row in table, displays the numbers
             firingModes.push(weapon.mode);
@@ -560,7 +587,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             return <div>
                 {this.firingModesTable()}
                 {this.mountedTypeSelect()}
-                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>} 
+                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Fire Weapon</Button>} 
               </div>
         }
         else {
@@ -611,6 +638,12 @@ class Action extends React.Component<IActionProps, IActionState> {
       }
     }
 
+    changeWeaponMount = (e: React.FormEvent<HTMLInputElement>) => {
+        this.setState({
+            mounted: e.currentTarget.value
+        })
+    }
+
     /**
      * This displays a radio select for ways to mount a ranged weapon for firing.
      * @returns a radio select with handlers
@@ -619,35 +652,33 @@ class Action extends React.Component<IActionProps, IActionState> {
 
       return (
         <div className="testResult1" style={{textAlign: 'center'}}>
-          <div className="custom-control custom-radio custom-control-inline">
             <input
               type="radio"
-              className="custom-control-input" 
-              id="defaultInline1" 
-              name="inlineDefaultRadiosExample"
+            //   className="custom-control-input" 
+              id="Unmounted" 
+              name="Mounted Type"
+              value="Unmounted"
+              onChange={this.changeWeaponMount}
             />
-            <label className="custom-control-label">Unmounted</label>
-          </div>
-          
-          <div className="custom-control custom-radio custom-control-inline">
+            <label style={{marginRight: "2.5%"}}>Unmounted</label>
             <input
               type="radio" 
-              className="custom-control-input"
-              id="defaultInline2"
-              name="inlineDefaultRadiosExample"
+            //   className="custom-control-input"
+              id="MountedNV"
+              name="Mounted Type"
+              value="MountedNV"
+              onChange={this.changeWeaponMount}
             />
-            <label className="custom-control-label">Mounted (Non-Vehicle)</label>
-          </div>
-
-          <div className="custom-control custom-radio custom-control-inline">
+            <label style={{marginRight: "2.5%"}}>Mounted (Non-Vehicle)</label>
             <input 
               type="radio"
-              className="custom-control-input"
-              id="defaultInline3"
-              name="inlineDefaultRadiosExample"
+            //   className="custom-control-input"
+              id="MountedV"
+              name="Mounted Type"
+              value="MountedV"
+              onChange={this.changeWeaponMount}
             />
-            <label className="custom-control-label">Mounted (Vehicle)</label>
-          </div>
+            <label style={{marginRight: "2.5%"}}>Mounted (Vehicle)</label>
         </div>
       );
     }
