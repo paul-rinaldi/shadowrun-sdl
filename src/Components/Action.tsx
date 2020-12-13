@@ -559,6 +559,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         if(option === "ranged") {
             return <div>
                 {this.firingModesTable()}
+                {this.mountedTypeSelect()}
                 {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>} 
               </div>
         }
@@ -608,6 +609,47 @@ class Action extends React.Component<IActionProps, IActionState> {
           }
         }
       }
+    }
+
+    /**
+     * This displays a radio select for ways to mount a ranged weapon for firing.
+     * @returns a radio select with handlers
+     */
+    mountedTypeSelect() {
+
+      return (
+        <div className="testResult1" style={{textAlign: 'center'}}>
+          <div className="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio"
+              className="custom-control-input" 
+              id="defaultInline1" 
+              name="inlineDefaultRadiosExample"
+            />
+            <label className="custom-control-label">Unmounted</label>
+          </div>
+          
+          <div className="custom-control custom-radio custom-control-inline">
+            <input
+              type="radio" 
+              className="custom-control-input"
+              id="defaultInline2"
+              name="inlineDefaultRadiosExample"
+            />
+            <label className="custom-control-label">Mounted (Non-Vehicle)</label>
+          </div>
+
+          <div className="custom-control custom-radio custom-control-inline">
+            <input 
+              type="radio"
+              className="custom-control-input"
+              id="defaultInline3"
+              name="inlineDefaultRadiosExample"
+            />
+            <label className="custom-control-label">Mounted (Vehicle)</label>
+          </div>
+        </div>
+      );
     }
 
     /**
