@@ -313,17 +313,12 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
 
         let bowDicePoolModifier: number = 0;
-        let mountedSkillsUsed: ISkill[] = [];
         if(weapon.name.substring(0,3) === "Bow"){
             const rating: number = parseInt(weapon.name.substring(weapon.name.search(/\d/), weapon.name.length - 1));
             const strength: number = this.props.character.attributes.STR;
             if (strength < rating){
                 bowDicePoolModifier = (rating - strength) * 3;
             }
-        } else {
-            if(this.state.mounted !== "Unmounted"){
-                mountedSkillsUsed = this.props.character.skills.combat.filter(skill => skill.name && (skill.name === "Heavy Weapons" || skill.name ==="Gunnery"));
-            } 
         }
 
         //If the character has the skill, show the skill value and the attribute.
@@ -334,26 +329,30 @@ class Action extends React.Component<IActionProps, IActionState> {
                 testValues.unshift(skill.rating, '+', <b>{attribute}</b>, '-', bowDicePoolModifier);
                 testValues.push('=', skill.rating + attribute - bowDicePoolModifier);
             } else {
-                if (this.state.mounted === "Unmounted") {
-                    testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-                    testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-                    testValues.push('=', skill.rating + attribute);
-                } else if (this.state.mounted === "MountedNV") {
-                    if (mountedSkillsUsed.filter(skill => skill.name && skill.name === "Heavy Weapons")) {
-                        // Heavy Weapons + Agi     [Weapon Acc.]
-                        //      7        +  5           [7]       = 5
-                        testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-                        testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-                        testValues.push('=', skill.rating + attribute);
-                    } else {
-                        testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-                        testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-                        testValues.push('=', skill.rating + attribute);
+                if (this.state.mounted !== "Unmounted") {
+                    let mountedSkillsUsed: ISkill[] = this.props.character.skills.combat.filter(skill => skill.name && (skill.name === "Heavy Weapons" || skill.name ==="Gunnery"));
+                    if (this.state.mounted === "MountedNV") {
+                        if (mountedSkillsUsed.filter(skill => skill.name && skill.name === "Heavy Weapons")) {
+                            testVariables.unshift("Heavy Weapons", "+", skill.name, '+', <b>{skill.attribute}</b>);
+                            testValues.unshift(mountedSkillsUsed[0].rating, "+", skill.rating, '+', <b>{attribute}</b>);
+                            testValues.push('=', mountedSkillsUsed[0].rating + skill.rating + attribute);
+                        } else {
+                            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                            testValues.push('=', skill.rating + attribute);
+                        }
+                    } else if (this.state.mounted === "MountedV") {
+                        if (mountedSkillsUsed.filter(skill => skill.name && skill.name === "Gunnery")) {
+                            testVariables.unshift("Gunnery", "+", skill.name, '+', <b>{skill.attribute}</b>);
+                            testValues.unshift(mountedSkillsUsed[0].rating, "+",mountedSkillsUsed[0].name, "+", skill.rating, '+', <b>{attribute}</b>);
+                            testValues.push('=', mountedSkillsUsed[0].rating + skill.rating + attribute);
+                        } else {
+                          testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                          testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                          testValues.push('=', skill.rating + attribute);
+                        }
                     }
-                } else if (this.state.mounted === "MountedV") {
-                    // Uses Gunnery
-                    // Gunnery + Agi     [Weapon Acc.]
-                        //      7        +  5           [7]       = 5
+                } else {
                     testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
                     testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
                     testValues.push('=', skill.rating + attribute);
@@ -641,7 +640,8 @@ class Action extends React.Component<IActionProps, IActionState> {
     changeWeaponMount = (e: React.FormEvent<HTMLInputElement>) => {
         this.setState({
             mounted: e.currentTarget.value
-        })
+        });
+        this.render(); // not working todo
     }
 
     /**
@@ -649,21 +649,19 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns a radio select with handlers
      */
     mountedTypeSelect() {
-
       return (
         <div className="testResult1" style={{textAlign: 'center'}}>
             <input
               type="radio"
-            //   className="custom-control-input" 
               id="Unmounted" 
               name="Mounted Type"
               value="Unmounted"
               onChange={this.changeWeaponMount}
+              defaultChecked={true}
             />
             <label style={{marginRight: "2.5%"}}>Unmounted</label>
             <input
               type="radio" 
-            //   className="custom-control-input"
               id="MountedNV"
               name="Mounted Type"
               value="MountedNV"
@@ -672,7 +670,6 @@ class Action extends React.Component<IActionProps, IActionState> {
             <label style={{marginRight: "2.5%"}}>Mounted (Non-Vehicle)</label>
             <input 
               type="radio"
-            //   className="custom-control-input"
               id="MountedV"
               name="Mounted Type"
               value="MountedV"
