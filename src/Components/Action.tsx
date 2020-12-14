@@ -261,18 +261,28 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     /**
+     * Kills ppl
+     * @param weapon 
+     */
+    selectionToWeapon(val: ValueType<WeaponLabelOptionRanged>) {
+        if (val === undefined || val === null) {
+          return;
+        }
+        return (val as WeaponLabelOptionRanged).weapon;
+    }
+
+    /**
      * Displays the weapon test using the associated val object from the weapons dropdown. The calculation is displayed
      * as two table rows, with the first containing the names of the skill, attribute, and limit used and the second
      * containing the associated values of each. IF the character does not possess the associated weapon skill, a ? will
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
-        option = "ranged"; // for the
-        if (val === undefined || val === null) {
-            return;
+    showRangedWeaponTest = (weapon: Ranged | undefined | null) => {
+        option = "ranged"; // what is this
+        if (weapon === undefined || weapon === null) {
+          return;
         }
-        const weapon = (val as WeaponLabelOptionRanged).weapon;
         const accValue = Number(weapon.acc);
         const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
         let skill = undefined;
@@ -570,7 +580,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         return (
           <div className={'Action'} id={'rangedWeaponSelector'}>
             <Select options={options}
-                    onChange={this.showRangedWeaponTest}
+                    onChange={(weaponSelectedValue) => this.showRangedWeaponTest(this.selectionToWeapon(weaponSelectedValue))}
             /> 
           </div>
         );
@@ -641,8 +651,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         this.setState({
             mounted: e.currentTarget.value
         });
-        // this.render(); // not working todo
-        this.showRangedWeaponTest;
+        this.showRangedWeaponTest(this.state.rangedWeaponSelected);
     }
 
     /**
