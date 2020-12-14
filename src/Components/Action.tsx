@@ -304,7 +304,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * as two table rows, with the first containing the names of the skill, attribute, and limit used and the second
      * containing the associated values of each. IF the character does not possess the associated weapon skill, a ? will
      * be displayed for its value.
-     * @param val The object from the weapons dropdown containing the weapon information.
+     * @param weapon A ranged weapon
      */
     showRangedWeaponTest = (weapon: Ranged | undefined | null) => {
         if (weapon === undefined || weapon === null) {
