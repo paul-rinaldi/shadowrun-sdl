@@ -27,6 +27,7 @@ interface IActionState {
     physicalLimit: number | null;
     socialLimit: number | null;
     rangedWeaponSelected: Ranged | null;
+    modeSelected: modeLabelOption | null;
 }
 
 interface WeaponLabelOptionMelee {
@@ -38,6 +39,10 @@ interface WeaponLabelOptionRanged {
     weapon: Ranged;
     label: string
 };
+interface modeLabelOption {
+    mode: string;
+    label: string
+}
 
 interface SelectSkill {
     skill: ISkill;
@@ -71,7 +76,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             mentalLimit: null,
             physicalLimit: null,
             socialLimit: null,
-            rangedWeaponSelected: null
+            rangedWeaponSelected: null,
+            modeSelected: null
         };
     }
 
@@ -267,12 +273,22 @@ class Action extends React.Component<IActionProps, IActionState> {
         });
     }
 
+    modeSelection = (selectedMode: ValueType<modeLabelOption>) => {
+        let mode = (selectedMode as modeLabelOption).mode;
+        this.setState({modeSelected: {
+                ...this.state.modeSelected,
+                mode: mode,
+                label: mode
+            }})
+    }
+
     /**
      * Displays the weapon test using the associated val object from the weapons dropdown. The calculation is displayed
      * as two table rows, with the first containing the names of the skill, attribute, and limit used and the second
      * containing the associated values of each. IF the character does not possess the associated weapon skill, a ? will
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
+     * @param selectedMode The object from the firing modes dropdown containing the mode information.
      */
     showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
         option = "ranged"; // for the
@@ -280,6 +296,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             return;
         }
         const weapon = (val as WeaponLabelOptionRanged).weapon;
+        // const mode = (selectedMode as modeLabelOption).mode;
         const accValue = Number(weapon.acc);
         const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
         let skill = undefined;
@@ -548,6 +565,38 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    fireModesDropdown() {
+        const {rangedWeaponSelected} = this.state;
+        let modes = [];
+        const options: modeLabelOption[] = [];
+        if(rangedWeaponSelected) {
+            if (rangedWeaponSelected.mode.indexOf("/") > -1) {
+
+                modes = rangedWeaponSelected.mode.split("/");
+            } else {
+                modes.push(rangedWeaponSelected.mode);
+            }
+
+
+            for (const mode of modes) {
+                options.push({
+                    mode: mode,
+                    label: mode
+                });
+            }
+            console.log("modeSelectedYet:", this.state.modeSelected);
+            return (
+                <div className={'Action'} id={'weaponModeSelector'}>
+                    <Select options={options}
+                            onchange={this.modeSelection}
+
+                    />
+                </div>
+            );
+        }
+    }
+
+
     /**
      * If there are test variables and values in the state, this displays the test calculation. The variables and values
      * are displayed in two table rows so that they line up with eachother.
@@ -557,6 +606,8 @@ class Action extends React.Component<IActionProps, IActionState> {
         if(option === "ranged") {
             return <div>
                 {this.firingModesTable()}
+                {this.fireModesDropdown()}
+                {this.state.modeSelected}
                 {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>} 
               </div>
         }
