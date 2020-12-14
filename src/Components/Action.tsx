@@ -279,6 +279,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @param weapon A ranged weapon
      */
     showRangedWeaponTest = (weapon: Ranged | undefined | null) => {
+        // console.log("Ranged Weapon Test", this.state);
         option = "ranged"; // what is this
         if (weapon === undefined || weapon === null) {
           return;
@@ -341,22 +342,25 @@ class Action extends React.Component<IActionProps, IActionState> {
                 testValues.push('=', skill.rating + attribute - bowDicePoolModifier);
             } else {
                 if (this.state.mounted !== "Unmounted") {
-                    let mountedSkillsUsed: ISkill[] = this.props.character.skills.combat.filter(skill => skill.name && (skill.name === "Heavy Weapons" || skill.name ==="Gunnery"));
+                    let heavyWeaponsSkill: ISkill[] = this.props.character.skills.combat.filter(skill => skill.name && (skill.name === "Heavy Weapons"));
+                    let gunnerySkill: ISkill[] = this.props.character.skills.vehicle.filter(skill => skill.name && (skill.name === "Gunnery"));
                     if (this.state.mounted === "MountedNV") {
-                        if (mountedSkillsUsed.filter(skill => skill.name && skill.name === "Heavy Weapons")) {
-                            testVariables.unshift("Heavy Weapons", "+", skill.name, '+', <b>{skill.attribute}</b>);
-                            testValues.unshift(mountedSkillsUsed[0].rating, "+", skill.rating, '+', <b>{attribute}</b>);
-                            testValues.push('=', mountedSkillsUsed[0].rating + skill.rating + attribute);
+                        if (heavyWeaponsSkill.length > 0) {
+                            console.log(heavyWeaponsSkill[0]);
+                            testVariables.unshift(heavyWeaponsSkill[0].name, "+", <b>{skill.attribute}</b>);
+                            testValues.unshift(heavyWeaponsSkill[0].rating, "+", <b>{attribute}</b>);
+                            testValues.push('=', heavyWeaponsSkill[0].rating + attribute);
                         } else {
                             testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
                             testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
                             testValues.push('=', skill.rating + attribute);
                         }
                     } else if (this.state.mounted === "MountedV") {
-                        if (mountedSkillsUsed.filter(skill => skill.name && skill.name === "Gunnery")) {
-                            testVariables.unshift("Gunnery", "+", skill.name, '+', <b>{skill.attribute}</b>);
-                            testValues.unshift(mountedSkillsUsed[0].rating, "+",mountedSkillsUsed[0].name, "+", skill.rating, '+', <b>{attribute}</b>);
-                            testValues.push('=', mountedSkillsUsed[0].rating + skill.rating + attribute);
+                        if (gunnerySkill.length > 0) {
+                            console.log(gunnerySkill[0]);
+                            testVariables.unshift(gunnerySkill[0].name, "+", <b>{skill.attribute}</b>);
+                            testValues.unshift(gunnerySkill[0].rating, "+", <b>{attribute}</b>);
+                            testValues.push('=', gunnerySkill[0].rating + attribute);
                         } else {
                           testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
                           testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
@@ -648,11 +652,12 @@ class Action extends React.Component<IActionProps, IActionState> {
       }
     }
 
-    changeWeaponMount = (e: React.FormEvent<HTMLInputElement>) => {
+    changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => {
+        // console.log("Checking Value", e.currentTarget.value);
         this.setState({
             mounted: e.currentTarget.value
-        });
-        this.showRangedWeaponTest(this.state.rangedWeaponSelected);
+        }, () => this.showRangedWeaponTest(this.state.rangedWeaponSelected))
+        // console.log("After change", this.state.mounted);
     }
 
     /**
