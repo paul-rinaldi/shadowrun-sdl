@@ -614,27 +614,33 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns a table of the calculations for ranged weapons.
      */
     firingModesTable() {
-        const {firingModes} = this.state;
-
+        const {firingModes, rangedWeaponSelected} = this.state;
+        let recoil = rangedWeaponSelected?.RC;
         let modes = [];
+        let selected;
         if (firingModes !== null) {
             if (firingModes[0].indexOf('/') > -1) {
                 modes = firingModes[0].split("/")
+            }
+            else{
+                modes = firingModes;
             }
             return <div>
                 {this.meleeModesTable()}
                 <table className={'testResult1'}>
                 <tbody>
                 <tr style={{padding: "20px"}}>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td style={{fontWeight: "bold"}}>Firing Modes:</td>
                 </tr>
-                {
-                    modes.map((part: string, index: number) => {
+                {modes.map((part: string, index: number) => {
                         if(part === 'SS'){
                             return <tr key={index}>
                                         <td>
                                             <label htmlFor={part}>
-                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                                <input type="radio" id={part} name="FM" value={part}/>{part}
                                             </label>
                                         </td>
                                         <td></td>
@@ -647,14 +653,15 @@ class Action extends React.Component<IActionProps, IActionState> {
                                         </td>
                                         <td></td>
                                         <td>
-                                            Notes: No recoil.
+                                            No recoil.
                                         </td>
                                     </tr>
+
                         } else if(part === 'SA'){
                             return <tr key={index}>
                                         <td>
                                             <label htmlFor={part}>
-                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                                <input type="radio" id={part} name="FM" value={part}/>{part}
                                             </label>
                                         </td>
                                         <td></td>
@@ -668,14 +675,14 @@ class Action extends React.Component<IActionProps, IActionState> {
                                         </td>
                                         <td></td>
                                         <td>
-                                            Notes: Apply recoil.
+                                            {`Recoil: ${recoil}.`}
                                         </td>
                                     </tr>
                         } else if(part === 'SB'){
                             return <tr key={index}>
                                         <td>
                                             <label htmlFor={part}>
-                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                                <input type="radio" id={part} name="FM" value={part}/>{part}
                                             </label>
                                         </td>
                                         <td></td>
@@ -688,14 +695,14 @@ class Action extends React.Component<IActionProps, IActionState> {
                                         </td>
                                         <td></td>
                                         <td>
-                                            Notes: Apply recoil.
+                                            {`Recoil: ${recoil}.`}
                                         </td>
                                     </tr>
                         } else if(part === 'BF'){
                             return <tr key={index}>
                                         <td>
                                             <label htmlFor={part}>
-                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                                <input type="radio" id={part} name="FM" value={part}/>{part}
                                             </label>
                                         </td>
                                         <td></td>
@@ -708,14 +715,14 @@ class Action extends React.Component<IActionProps, IActionState> {
                                         </td>
                                         <td></td>
                                         <td>
-                                            Notes: Apply recoil.
+                                            {`Recoil: ${recoil}.`}
                                         </td>
                                     </tr>
                         } else if(part === 'LB'){
                             return <tr key={index}>
                                         <td>
                                             <label htmlFor={part}>
-                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                                <input type="radio" id={part} name="FM" value={part}/>{part}
                                             </label>
                                         </td>
                                         <td></td>
@@ -728,14 +735,14 @@ class Action extends React.Component<IActionProps, IActionState> {
                                         </td>
                                         <td></td>
                                         <td>
-                                            Notes: Apply recoil.
+                                            {`Recoil: ${recoil}.`}
                                         </td>
                                     </tr>
                         } else if(part === 'FA'){
                             return <tr key={index}>
                                         <td>
                                             <label htmlFor={part}>
-                                                <input type="radio" id={part} name="Firing Mode" value={part}/>{part}
+                                                <input type="radio" id={part} name="FM" value={part}/>{part}
                                             </label>
                                         </td>
                                         <td></td>
@@ -748,19 +755,22 @@ class Action extends React.Component<IActionProps, IActionState> {
                                         </td>
                                         <td></td>
                                         <td>
-                                            Notes: Apply recoil.
+                                            {`Recoil: ${recoil}.`}
                                         </td>
                                     </tr>
                         } else {
                             return <tr></tr>
                         }
+
                     })
                 }
+
                 </tbody>
             </table>
                 </div>
         }
     }
+
 
     /**
      * Displays a table of the character's inherent limit calculations.
