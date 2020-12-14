@@ -641,7 +641,8 @@ class Action extends React.Component<IActionProps, IActionState> {
         this.setState({
             mounted: e.currentTarget.value
         });
-        this.render(); // not working todo
+        // this.render(); // not working todo
+        this.showRangedWeaponTest;
     }
 
     /**
