@@ -284,7 +284,8 @@ class Action extends React.Component<IActionProps, IActionState> {
           return;
         }
         const accValue = Number(weapon.acc);
-        const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
+        const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && skill.name.toLowerCase() === weapon.skill.toLowerCase());
+        
         let skill = undefined;
         let attribute = undefined;
 
