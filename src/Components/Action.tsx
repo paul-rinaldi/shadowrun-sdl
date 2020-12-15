@@ -1076,6 +1076,14 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 }
 
+// changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => {
+//     // console.log("Checking Value", e.currentTarget.value);
+//     this.setState({
+//         mounted: e.currentTarget.value
+//     }, () => this.showRangedWeaponTest(this.state.rangedWeaponSelected))
+//     // console.log("After change", this.state.mounted);
+// }
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps)
