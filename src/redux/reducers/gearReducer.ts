@@ -1,5 +1,5 @@
 import { Gear, Ranged } from "../../models/playerModels";
-import { GearAction } from "../actions/gearAction";
+import {GearAction, remWepComp} from "../actions/gearAction";
 import { initialState } from "../initialState";
 
 export const gearReducer = (state: Gear = initialState.gear, action: GearAction): Gear => {
@@ -25,6 +25,18 @@ export const gearReducer = (state: Gear = initialState.gear, action: GearAction)
             }
           })
           return {...state, ranged: newRanged};
+        }
+        case "RED_WEPCOMP_ACTION": {
+            const newRC: Ranged = {...action.payload.weapon, RC: action.payload.weapon.RC - action.payload.newRC, ammo: action.payload.weapon.ammo - action.payload.newRC};
+            const newRanged = state.ranged.map((wep) => {
+                if (wep.name === action.payload.weapon.name) {
+                    return newRC;
+                }
+                else {
+                    return wep;
+                }
+            })
+            return {...state, ranged: newRanged};
         }
         default: return state;
     }

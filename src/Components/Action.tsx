@@ -8,17 +8,19 @@ import { connect } from 'react-redux';
 import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
 import { Table, Button } from 'react-bootstrap';
-import { remAmmo } from '../redux/actions/gearAction';
+import { remAmmo, remWepComp } from '../redux/actions/gearAction';
 import {act} from "react-dom/test-utils";
+
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player
 });
 const mapDispatchToProps = {
-  remAmmo
+  remAmmo, remWepComp
 };
 let option: string;
+let isProgressive: number;
 interface IActionState {
     testVariables: any[] | null;
     testValues: any[] | null;
@@ -67,7 +69,7 @@ interface SelectSkill {
 class Action extends React.Component<IActionProps, IActionState> {
     constructor(props: IActionProps) {
         super(props);
-
+        isProgressive = 0;
         this.state = {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
@@ -276,6 +278,23 @@ class Action extends React.Component<IActionProps, IActionState> {
     modeSelection = (selectedMode: ValueType<modeLabelOption>) => {
         let mode = (selectedMode as modeLabelOption).mode;
         this.setState({modeSelected:mode});
+        const {rangedWeaponSelected} = this.state;
+        const {character} = this.props;
+        let weapons = character.gear.ranged;
+        let weapon: WeaponLabelOptionRanged = {
+            weapon: weapons[0],
+            label: `this is not working`
+        }
+        weapons.filter(w => {
+            if (w.name === rangedWeaponSelected?.name) {
+                weapon = {
+                    weapon: w,
+                    label: `${w.name} (Acc: ${w.acc}, DV: ${w.dam}, AP: ${w.ap})`
+                };
+            }
+        });
+        console.log("again again");
+        this.showRangedWeaponTest(weapon);
     }
 
     /**
@@ -286,13 +305,12 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @param val The object from the weapons dropdown containing the weapon information.
      */
     showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
-        {this.fireModesDropdown()}
         option = "ranged"; // for the
         if (val === undefined || val === null) {
             return;
         }
 
-          let mode = this.state.modeSelected;
+          const mode = this.state.modeSelected;
 
 
         const weapon = (val as WeaponLabelOptionRanged).weapon;
@@ -345,10 +363,13 @@ class Action extends React.Component<IActionProps, IActionState> {
                }
                return actualSkill;
             });
-
-            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, '+', <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : null}</span>,  mode?.RC !== undefined? '+' : '', mode?.RC !== undefined? 'Recoil' : '' );
-            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, '+' , <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : null}</b>);
-            testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0));
+            let recoilMath = 0;
+            if(mode?.RC) {
+                recoilMath = Math.ceil(this.props.character.attributes.STR / 3) + 1 + mode.RC;
+            }
+            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, actualSkill.specialization? '+' : "", <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : ""}</span>,  mode?.RC !== undefined && mode.RC !==0? '+' : "", mode?.RC !== undefined && mode.RC !==0? 'Recoil' : "" );
+            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, actualSkill.specialization? '+' : "", <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : ""}</b>, mode?.RC !== undefined && mode.RC !==0? '+':"" , mode?.RC !== undefined && mode.RC !==0? ' ' + recoilMath: "");
+            testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0) + (recoilMath));
             firingModes.push(weapon.mode);
         } else {
             //If they don't have the skill, show a ?
@@ -360,7 +381,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             testVariables: testVariables,
             testValues: testValues,
             firingModes: firingModes,
-            rangedWeaponSelected: weapon
+            rangedWeaponSelected: weapon,
         });
     }
 
@@ -565,6 +586,7 @@ class Action extends React.Component<IActionProps, IActionState> {
               {
                   <h3 style={{display: this.state.rangedWeaponSelected? 'block' : 'none'}}>Mode selection</h3>
               }
+
               {this.fireModesDropdown()}
           </div>
 
@@ -647,21 +669,8 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     fireModesDropdown() {
         const {rangedWeaponSelected} = this.state;
-        const {character} = this.props;
         let modes = [];
         const options: modeLabelOption[] = [];
-
-        let weapons = character.gear.ranged;
-        let weapon: WeaponLabelOptionRanged;
-            weapons.filter(w => {
-            if (w.name === rangedWeaponSelected?.name) {
-                weapon = {
-                    weapon: w,
-                    label: `${w.name} (Acc: ${w.acc}, DV: ${w.dam}, AP: ${w.ap})`
-                };
-            }
-        });
-
         if(rangedWeaponSelected) {
             let split = rangedWeaponSelected.mode.split("/");
             if (rangedWeaponSelected.mode.indexOf("/") > -1) {
@@ -682,18 +691,12 @@ class Action extends React.Component<IActionProps, IActionState> {
             return (
                 <div>
                     <Select options={options}
-                            onChange={e=> {this.onchange(e, weapon)}}
+                            onChange={this.modeSelection}
                     />
                 </div>
             );
         }
     }
-
-    onchange = (e: any, weapon: any) => {
-        this.showRangedWeaponTest(weapon)
-        this.modeSelection(e)
-    }
-
 
     /**
      * If there are test variables and values in the state, this displays the test calculation. The variables and values
@@ -701,10 +704,12 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns A table of the test variables and values, displaying the test calculation.
      */
     testDisplay(character: ICharacter) {
+        const {modeSelected} = this.state
+
         if(option === "ranged") {
             return <div>
                 {this.firingModesTable()}
-                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>}
+                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected, modeSelected?.numOfRoundsSimp)}>Update Ammo After Shot</Button>}
               </div>
         }
         else {
@@ -738,22 +743,38 @@ class Action extends React.Component<IActionProps, IActionState> {
      * Will display the option to adjust ammo left in gun after it fires.
      * @return a dropdown of new ammo to take away from gun.
      */
-    adjustAmmo(weapon: Ranged | null) {
+    adjustAmmo(weapon: Ranged | null, fireAmm: number | undefined) {
       if (weapon !== null) {
-        const { remAmmo } = this.props;
-        let ammoInput: string | null = null;
-        ammoInput = prompt(`Ammo used with shot? (current ammo: ${weapon.ammo})`, "0");
-        if (ammoInput !== null) {
-          const ammo = parseInt(ammoInput);
-          if (weapon.ammo - ammo >= 0) {
-            remAmmo(weapon, ammo);
-            alert("You now have " + (weapon.ammo - ammo) + " ammo left.");
+        const { remAmmo, remWepComp, character } = this.props;
+        let recoilMath;
+        console.log("fireAmm: " + fireAmm);
+        if(isProgressive === 0 || weapon.ammo <= 0) {
+            let rc = weapon.RC;
+            let strength = character.attributes.STR;
+            recoilMath = Math.ceil(strength / 3) + rc + 1;
+            isProgressive++;
+        }
+        else {
+            recoilMath = weapon.RC - (fireAmm? fireAmm : 0);
+        }
+        if(weapon.ammo === 0) {
+            isProgressive = 0;
+        }
+          //let ammoInput: string | null = null;
+        //ammoInput = prompt(`Ammo used with shot? (current ammo: ${weapon.ammo})`, "0");
+        // if (ammoInput !== null) {
+        //   const ammo = parseInt(ammoInput);
+          let ammoLeft = weapon.ammo - (fireAmm? fireAmm : 0);
+          if (ammoLeft >= 0) {
+            remAmmo(weapon, (fireAmm? fireAmm : 0));
+            remWepComp(weapon, recoilMath);
+            alert("You now have " + ammoLeft + " ammo left.");
           } else {
-            alert("You only have " + weapon.ammo + " ammo left.");
+            alert("You only have " + ammoLeft + " ammo left.");
+
           }
         }
       }
-    }
 
     /**
      *This is the calculation table to display for ranged weapons.
