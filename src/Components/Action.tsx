@@ -2,7 +2,7 @@ import React from 'react';
 import '../CSS_Files/Action.css';
 import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from '../redux/store';
-import { ICharacter, Melee, Ranged } from '../models/playerModels';
+import { ICharacter, Melee, Ranged, WeaponModes } from '../models/playerModels';
 import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
 import Tab from 'react-bootstrap/esm/Tab';
@@ -27,20 +27,20 @@ interface IActionState {
     physicalLimit: number | null;
     socialLimit: number | null;
     rangedWeaponSelected: Ranged | null;
-    modeSelected: modeLabelOption | null;
+    modeSelected: WeaponModes | null;
 }
 
 interface WeaponLabelOptionMelee {
     weapon: Melee;
     label: string
-};
+}
 
 interface WeaponLabelOptionRanged {
     weapon: Ranged;
     label: string
-};
+}
 interface modeLabelOption {
-    mode: string;
+    mode: WeaponModes;
     label: string
 }
 
@@ -274,12 +274,9 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     modeSelection = (selectedMode: ValueType<modeLabelOption>) => {
+        console.log("hello");
         let mode = (selectedMode as modeLabelOption).mode;
-        this.setState({modeSelected: {
-                ...this.state.modeSelected,
-                mode: mode,
-                label: mode
-            }})
+        this.setState({modeSelected:mode});
     }
 
     /**
@@ -288,7 +285,6 @@ class Action extends React.Component<IActionProps, IActionState> {
      * containing the associated values of each. IF the character does not possess the associated weapon skill, a ? will
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
-     * @param selectedMode The object from the firing modes dropdown containing the mode information.
      */
     showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
         option = "ranged"; // for the
@@ -560,36 +556,112 @@ class Action extends React.Component<IActionProps, IActionState> {
           <div className={'Action'} id={'rangedWeaponSelector'}>
             <Select options={options}
                     onChange={this.showRangedWeaponTest}
-            /> 
+            />
+              {
+                  <h3 style={{display: this.state.rangedWeaponSelected? 'block' : 'none'}}>Mode selection</h3>
+              }
+              {this.fireModesDropdown()}
           </div>
+
         );
     }
 
+    /**
+     * Will assign the appropriate numbers to the fields of the Weapon Modes for the selected weapon mode
+     * @param mode: the name of the mode
+     */
+    modeObject(mode: string) {
+        const {rangedWeaponSelected} = this.state;
+        let dms = 0 //for defensive modifiers simple or generic
+        let dmc = undefined; // for defensive modifiers complex
+        let nrus = 0; // for number of rounds used simple or generic
+        let nruc = undefined; // for number of rounds used complex
+        let rc; // for recoil
+        let modes;
+
+        if(mode === "SS"){
+            dms = 0;
+            nrus = 1;
+            rc = 0;
+        }
+        else if(mode === "SA") {
+            dms = 0;
+            nrus = 1;
+            rc = rangedWeaponSelected?.RC;
+        }
+        else if(mode === "SB") {
+            dms = -2;
+            nrus = 3;
+            rc = rangedWeaponSelected?.RC;
+        }
+        else if(mode === "BF") {
+            dms = -2;
+            nrus = 3;
+            rc = rangedWeaponSelected?.RC;
+        }
+        else if(mode === "LB") {
+            dms = -5;
+            nrus = 6;
+            rc = rangedWeaponSelected?.RC;
+        }
+        else if(mode === "LB") {
+            dms = -5;
+            nrus = 6;
+            rc = rangedWeaponSelected?.RC;
+        }
+        else if(mode === "FA") {
+            dms = -5;
+            dmc = -9;
+            nrus = 6;
+            nruc = 10;
+            rc = rangedWeaponSelected?.RC;
+        }
+        if(dmc && nruc) {
+            modes = {
+                name: mode,
+                numOfRoundsSimp: nrus,
+                numOfRoundsComp: nruc,
+                RC: rc,
+                DefenseModSimp: dms, //for anything not complex
+                DefenseModComp: dmc
+            }
+        }
+        else {
+            modes = {
+                name: mode,
+                numOfRoundsSimp: nrus,
+                RC: rc,
+                DefenseModSimp: dms,
+            }
+        }
+        return modes;
+    }
     fireModesDropdown() {
         const {rangedWeaponSelected} = this.state;
         let modes = [];
         const options: modeLabelOption[] = [];
-        if(rangedWeaponSelected) {
-            if (rangedWeaponSelected.mode.indexOf("/") > -1) {
 
-                modes = rangedWeaponSelected.mode.split("/");
+        if(rangedWeaponSelected) {
+            let split = rangedWeaponSelected.mode.split("/");
+            if (rangedWeaponSelected.mode.indexOf("/") > -1) {
+                for(const s of split) {
+                    modes.push(this.modeObject(s));
+                }
             } else {
-                modes.push(rangedWeaponSelected.mode);
+                let s = rangedWeaponSelected.mode
+               modes.push(this.modeObject(s));
             }
 
-
-            for (const mode of modes) {
+            for(const mode of modes) {
                 options.push({
                     mode: mode,
-                    label: mode
+                    label: `${mode.name} (Defense Modifier: ${mode.DefenseModSimp} |  Number of Rounds Used: ${mode.numOfRoundsSimp} |  Recoil: ${mode.RC})`
                 });
             }
-            console.log("modeSelectedYet:", this.state.modeSelected);
             return (
-                <div className={'Action'} id={'weaponModeSelector'}>
+                <div>
                     <Select options={options}
-                            onchange={this.modeSelection}
-
+                            onChange={this.modeSelection}
                     />
                 </div>
             );
@@ -606,9 +678,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         if(option === "ranged") {
             return <div>
                 {this.firingModesTable()}
-                {this.fireModesDropdown()}
-                {this.state.modeSelected}
-                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>} 
+                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>}
               </div>
         }
         else {
@@ -668,7 +738,6 @@ class Action extends React.Component<IActionProps, IActionState> {
         const {firingModes, rangedWeaponSelected} = this.state;
         let recoil = rangedWeaponSelected?.RC;
         let modes = [];
-        let selected;
         if (firingModes !== null) {
             if (firingModes[0].indexOf('/') > -1) {
                 modes = firingModes[0].split("/")

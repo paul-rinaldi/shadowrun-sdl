@@ -153,6 +153,16 @@ export interface Ranged {
     skill: string;
 }
 
+export interface WeaponModes {
+    name: string;
+    numOfRoundsSimp: number;
+    numOfRoundsComp?: number;
+    RC?: number;
+    DefenseModSimp: number; //for anything not complex
+    DefenseModComp?: number; //only for complex actions
+
+}
+
 export interface Gear {
     armor: Armor[];
     melee: Melee[];
