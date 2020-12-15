@@ -274,7 +274,6 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     modeSelection = (selectedMode: ValueType<modeLabelOption>) => {
-        console.log("hello");
         let mode = (selectedMode as modeLabelOption).mode;
         this.setState({modeSelected:mode});
     }
@@ -287,11 +286,17 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @param val The object from the weapons dropdown containing the weapon information.
      */
     showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
+        {this.fireModesDropdown()}
         option = "ranged"; // for the
         if (val === undefined || val === null) {
             return;
         }
+
+          let mode = this.state.modeSelected;
+
+
         const weapon = (val as WeaponLabelOptionRanged).weapon;
+        console.log("mode, here: " + mode?.RC);
         // const mode = (selectedMode as modeLabelOption).mode;
         const accValue = Number(weapon.acc);
         const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
@@ -341,7 +346,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                return actualSkill;
             });
 
-            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, '+', <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : null}</span>);
+            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, '+', <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : null}</span>,  mode?.RC !== undefined? '+' : '', mode?.RC !== undefined? 'Recoil' : '' );
             testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, '+' , <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : null}</b>);
             testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0));
             firingModes.push(weapon.mode);
@@ -636,10 +641,26 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
         return modes;
     }
+
+    /**
+     * This is for the firing modes dropdown
+     */
     fireModesDropdown() {
         const {rangedWeaponSelected} = this.state;
+        const {character} = this.props;
         let modes = [];
         const options: modeLabelOption[] = [];
+
+        let weapons = character.gear.ranged;
+        let weapon: WeaponLabelOptionRanged;
+            weapons.filter(w => {
+            if (w.name === rangedWeaponSelected?.name) {
+                weapon = {
+                    weapon: w,
+                    label: `${w.name} (Acc: ${w.acc}, DV: ${w.dam}, AP: ${w.ap})`
+                };
+            }
+        });
 
         if(rangedWeaponSelected) {
             let split = rangedWeaponSelected.mode.split("/");
@@ -661,11 +682,16 @@ class Action extends React.Component<IActionProps, IActionState> {
             return (
                 <div>
                     <Select options={options}
-                            onChange={this.modeSelection}
+                            onChange={e=> {this.onchange(e, weapon)}}
                     />
                 </div>
             );
         }
+    }
+
+    onchange = (e: any, weapon: any) => {
+        this.showRangedWeaponTest(weapon)
+        this.modeSelection(e)
     }
 
 
