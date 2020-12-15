@@ -705,7 +705,6 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     testDisplay(character: ICharacter) {
         const {modeSelected} = this.state
-
         if(option === "ranged") {
             return <div>
                 {this.firingModesTable()}
@@ -745,29 +744,32 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     adjustAmmo(weapon: Ranged | null, fireAmm: number | undefined) {
       if (weapon !== null) {
+          console.log("weapon.ammo at top: " + this.state.rangedWeaponSelected?.ammo);
         const { remAmmo, remWepComp, character } = this.props;
         let recoilMath;
-        console.log("fireAmm: " + fireAmm);
         if(isProgressive === 0 || weapon.ammo <= 0) {
             let rc = weapon.RC;
             let strength = character.attributes.STR;
             recoilMath = Math.ceil(strength / 3) + rc + 1;
-            isProgressive++;
+            isProgressive = 1;
+            // console.log("in if");
+            // console.log("progressive: " + isProgressive );
         }
         else {
+            //console.log("in else");
             recoilMath = weapon.RC - (fireAmm? fireAmm : 0);
+            console.log("recoil: " + recoilMath )
         }
-        if(weapon.ammo === 0) {
-            isProgressive = 0;
-        }
+
           //let ammoInput: string | null = null;
         //ammoInput = prompt(`Ammo used with shot? (current ammo: ${weapon.ammo})`, "0");
         // if (ammoInput !== null) {
         //   const ammo = parseInt(ammoInput);
           let ammoLeft = weapon.ammo - (fireAmm? fireAmm : 0);
           if (ammoLeft >= 0) {
-            remAmmo(weapon, (fireAmm? fireAmm : 0));
-            remWepComp(weapon, recoilMath);
+              remAmmo(weapon, (fireAmm? fireAmm : 0));
+              console.log("weapon.ammo: " + weapon.ammo);
+              remWepComp(weapon, recoilMath);
             alert("You now have " + ammoLeft + " ammo left.");
           } else {
             alert("You only have " + ammoLeft + " ammo left.");
