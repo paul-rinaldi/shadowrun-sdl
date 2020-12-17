@@ -275,7 +275,9 @@ class Action extends React.Component<IActionProps, IActionState> {
         });
     }
 
-    modeSelection = async (e: any) => {
+    modeSelection = async (e: React.FormEvent<HTMLInputElement>) => {
+        console.log("hello");
+        console.log(e);
         let weapon = this.state.rangedWeaponSelected? this.state.rangedWeaponSelected: null;
         if (this.state.rangedWeaponSelected) {
             this.setState({
@@ -283,6 +285,17 @@ class Action extends React.Component<IActionProps, IActionState> {
             }, () => this.showRangedWeaponTest(weapon));
         }
     }
+    /**
+     * Converts a dropdown value to a ranged weapon type value
+     * @param val The object from the weapons dropdown containing the weapon information.
+     */
+    selectionToWeapon(val: ValueType<WeaponLabelOptionRanged>) {
+        if (val === undefined || val === null) {
+            return;
+        }
+        return (val as WeaponLabelOptionRanged).weapon;
+    }
+
 
     /**
      * Displays the weapon test using the associated val object from the weapons dropdown. The calculation is displayed
@@ -291,16 +304,14 @@ class Action extends React.Component<IActionProps, IActionState> {
      * be displayed for its value.
      * @param val The object from the weapons dropdown containing the weapon information.
      */
-    showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
+    showRangedWeaponTest = (weapon: Ranged | undefined | null) => {
         option = "ranged"; // for the
-        if (val === undefined || val === null) {
+        if (weapon === undefined || weapon === null) {
             return;
         }
 
           const mode = this.state.modeSelected;
 
-
-        const weapon = (val as WeaponLabelOptionRanged).weapon;
         console.log("mode, here: " + mode?.RC);
         // const mode = (selectedMode as modeLabelOption).mode;
         const accValue = Number(weapon.acc);
@@ -569,6 +580,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         /></div>
     }
 
+
     /**
      * Creates a dropdown of all the character's ranged weapons and displays the weapon test when one is chosen from the
      * dropdown.
@@ -589,7 +601,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         return (
           <div className={'Action'} id={'rangedWeaponSelector'}>
             <Select options={options}
-                    onChange={this.showRangedWeaponTest}
+                    onChange={(weaponSelectedValue) => this.showRangedWeaponTest(this.selectionToWeapon(weaponSelectedValue))}
             />
               {
                   <h3 style={{display: this.state.rangedWeaponSelected? 'block' : 'none'}}>Mode selection</h3>
@@ -699,11 +711,19 @@ class Action extends React.Component<IActionProps, IActionState> {
             return (
                 <div>
                     <Select options={options}
-                            onChange={this.modeSelection}
+                            onChange={(selectedMode) => this.modeSelection(this.selectionToMode(selectedMode))}
                     />
                 </div>
             );
         }
+    }
+
+    selectionToMode(val: ValueType<modeLabelOption>) {
+        if (val === undefined || val === null) {
+            return;
+        }
+        return (val as modeLabelOption).mode;
+
     }
 
     /**
