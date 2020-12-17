@@ -275,26 +275,13 @@ class Action extends React.Component<IActionProps, IActionState> {
         });
     }
 
-    modeSelection = (selectedMode: ValueType<modeLabelOption>) => {
-        let mode = (selectedMode as modeLabelOption).mode;
-        this.setState({modeSelected:mode});
-        const {rangedWeaponSelected} = this.state;
-        const {character} = this.props;
-        let weapons = character.gear.ranged;
-        let weapon: WeaponLabelOptionRanged = {
-            weapon: weapons[0],
-            label: `this is not working`
+    modeSelection = async (e: any) => {
+        let weapon = this.state.rangedWeaponSelected? this.state.rangedWeaponSelected: null;
+        if (this.state.rangedWeaponSelected) {
+            this.setState({
+                modeSelected: e
+            }, () => this.showRangedWeaponTest(weapon));
         }
-        weapons.filter(w => {
-            if (w.name === rangedWeaponSelected?.name) {
-                weapon = {
-                    weapon: w,
-                    label: `${w.name} (Acc: ${w.acc}, DV: ${w.dam}, AP: ${w.ap})`
-                };
-            }
-        });
-        console.log("again again");
-        this.showRangedWeaponTest(weapon);
     }
 
     /**
