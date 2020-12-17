@@ -342,6 +342,16 @@ class Action extends React.Component<IActionProps, IActionState> {
             attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
         }
 
+        let bowDicePoolModifier: number = 0;
+
+        if(weapon.name.substring(0,3) === "Bow"){
+            const rating: number = parseInt(weapon.name.substring(weapon.name.search(/\d/), weapon.name.length - 1));
+            const strength: number = this.props.character.attributes.STR;
+            if (strength < rating){
+                bowDicePoolModifier = (rating - strength) * 3;
+            }
+        }
+
         //If the character has the skill, show the skill value and the attribute.
         if (skill !== undefined && attribute !== undefined) {
             foundSkills.filter((aSK) => { // will filter through all skills and return the array of the skill associated with the weapon
@@ -357,6 +367,17 @@ class Action extends React.Component<IActionProps, IActionState> {
             testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, actualSkill.specialization? '+' : "", <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : ""}</span>,  mode?.RC !== undefined && mode.RC !==0? '+' : "", mode?.RC !== undefined && mode.RC !==0? 'Recoil' : "" );
             testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, actualSkill.specialization? '+' : "", <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : ""}</b>, mode?.RC !== undefined && mode.RC !==0? '+':"" , mode?.RC !== undefined && mode.RC !==0? ' ' + recoilMath: "");
             testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0) + (recoilMath));
+            // // First row in table, displays the skill name and attribute
+            // if (weapon.name.substring(0,3) === "Bow"){
+            //     testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>, '-', "Rating Modifier");
+            //     testValues.unshift(skill.rating, '+', <b>{attribute}</b>, '-', bowDicePoolModifier);
+            //     testValues.push('=', skill.rating + attribute - bowDicePoolModifier);
+            // } else {
+            //     testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+            //     testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+            //     testValues.push('=', skill.rating + attribute);
+            // }
+            // Second row in table, displays the numbers
             firingModes.push(weapon.mode);
         } else {
             //If they don't have the skill, show a ?
@@ -368,7 +389,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             testVariables: testVariables,
             testValues: testValues,
             firingModes: firingModes,
-            rangedWeaponSelected: weapon,
+            rangedWeaponSelected: weapon
         });
     }
 
