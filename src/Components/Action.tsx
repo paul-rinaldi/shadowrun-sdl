@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
 import { Table, Button } from 'react-bootstrap';
-import { remAmmo, remWepComp } from '../redux/actions/gearAction';
+//import { remAmmo, remWepComp } from '../redux/actions/gearAction';
 import {act} from "react-dom/test-utils";
 
 
@@ -17,7 +17,7 @@ const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player
 });
 const mapDispatchToProps = {
-  remAmmo, remWepComp
+  //remAmmo, remWepComp
 };
 let option: string;
 let isProgressive: number;
@@ -371,13 +371,10 @@ class Action extends React.Component<IActionProps, IActionState> {
                }
                return actualSkill;
             });
-            let recoilMath = 0;
-            if(mode?.RC) {
-                recoilMath = Math.ceil(this.props.character.attributes.STR / 3) + 1 + mode.RC;
-            }
-            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, actualSkill.specialization? '+' : "", <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : ""}</span>,  mode?.RC !== undefined && mode.RC !==0? '+' : "", mode?.RC !== undefined && mode.RC !==0? 'Recoil' : "" );
-            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, actualSkill.specialization? '+' : "", <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : ""}</b>, mode?.RC !== undefined && mode.RC !==0? '+':"" , mode?.RC !== undefined && mode.RC !==0? ' ' + recoilMath: "");
-            testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0) + (recoilMath));
+
+            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, actualSkill.specialization? '+' : "", <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : ""}</span>,  mode?.RC !== undefined && mode.RC !==0? '+' : "", mode?.RC !== undefined && mode.RC !==0? 'Recoil Compensation' : "" );
+            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, actualSkill.specialization? '+' : "", <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : ""}</b>, mode?.RC !== undefined && mode.RC !==0? '+':"" , mode?.RC !== undefined && mode.RC !==0? ' ' + weapon.RC: "");
+            testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0) + (weapon.RC < 0? weapon.RC : 0));
             // // First row in table, displays the skill name and attribute
             // if (weapon.name.substring(0,3) === "Bow"){
             //     testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>, '-', "Rating Modifier");
@@ -732,11 +729,12 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns A table of the test variables and values, displaying the test calculation.
      */
     testDisplay(character: ICharacter) {
-        const {modeSelected} = this.state
+        const {modeSelected, rangedWeaponSelected} = this.state
+        console.log(rangedWeaponSelected)
         if(option === "ranged") {
             return <div>
                 {this.firingModesTable()}
-                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected, modeSelected?.numOfRoundsSimp)}>Update Ammo After Shot</Button>}
+                { <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>}
               </div>
         }
         else {
@@ -770,41 +768,39 @@ class Action extends React.Component<IActionProps, IActionState> {
      * Will display the option to adjust ammo left in gun after it fires.
      * @return a dropdown of new ammo to take away from gun.
      */
-    adjustAmmo(weapon: Ranged | null, fireAmm: number | undefined) {
-      if (weapon !== null) {
-          console.log("weapon.ammo at top: " + this.state.rangedWeaponSelected?.ammo);
-        const { remAmmo, remWepComp, character } = this.props;
-        let recoilMath;
-        if(isProgressive === 0 || weapon.ammo <= 0) {
-            let rc = weapon.RC;
-            let strength = character.attributes.STR;
-            recoilMath = Math.ceil(strength / 3) + rc + 1;
-            isProgressive = 1;
-            // console.log("in if");
-            // console.log("progressive: " + isProgressive );
-        }
-        else {
-            //console.log("in else");
-            recoilMath = weapon.RC - (fireAmm? fireAmm : 0);
-            console.log("recoil: " + recoilMath )
-        }
+    adjustAmmo = (weapon: Ranged | null) => {
+        if (weapon !== null) {
+            const {modeSelected, rangedWeaponSelected} = this.state;
+            const {character} = this.props;
+            let fireAmm, recoilMath;
+            if (modeSelected) {
+                fireAmm = modeSelected.numOfRoundsSimp;
+            } else {
+                fireAmm = 0;
+            }
 
-          //let ammoInput: string | null = null;
-        //ammoInput = prompt(`Ammo used with shot? (current ammo: ${weapon.ammo})`, "0");
-        // if (ammoInput !== null) {
-        //   const ammo = parseInt(ammoInput);
-          let ammoLeft = weapon.ammo - (fireAmm? fireAmm : 0);
-          if (ammoLeft >= 0) {
-              remAmmo(weapon, (fireAmm? fireAmm : 0));
-              console.log("weapon.ammo: " + weapon.ammo);
-              remWepComp(weapon, recoilMath);
-            alert("You now have " + ammoLeft + " ammo left.");
-          } else {
-            alert("You only have " + ammoLeft + " ammo left.");
+            if (isProgressive === 0 || weapon.ammo <= 0) {
+                let rc = modeSelected?.RC || 0;
+                let strength = character.attributes.STR;
+                recoilMath = Math.ceil(strength / 3) + rc + 1;
+                isProgressive = 1;
+            } else {
+                recoilMath = weapon.RC - (fireAmm ? fireAmm : 0);
+            }
 
-          }
+            weapon.ammo = weapon.ammo - fireAmm;
+            if (weapon.ammo >= 0 && rangedWeaponSelected) {
+                weapon.RC = recoilMath;
+                this.setState({rangedWeaponSelected: weapon
+                }, () => this.showRangedWeaponTest(weapon));
+                alert("You now have " + weapon.ammo + " ammo left.");
+            } else {
+                alert("You only have " + weapon.ammo + " ammo left.");
+
+            }
         }
-      }
+    }
+
 
     /**
      *This is the calculation table to display for ranged weapons.

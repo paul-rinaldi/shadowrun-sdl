@@ -1,5 +1,5 @@
 import { Gear, Ranged } from "../../models/playerModels";
-import {GearAction, remWepComp} from "../actions/gearAction";
+import {GearAction} from "../actions/gearAction";
 import { initialState } from "../initialState";
 
 
@@ -16,34 +16,33 @@ export const gearReducer = (state: Gear = initialState.gear, action: GearAction)
         case 'REM_RANGED_ACTION': return {...state, ranged: [ ...state.ranged.slice(0, action.payload).concat(state.ranged.slice(action.payload + 1, state.ranged.length)) ] };
         case 'REM_ARMOR_ACTION': return {...state, armor: [ ...state.armor.slice(0, action.payload).concat(state.armor.slice(action.payload + 1, state.armor.length)) ] };
         case 'TOG_EQUIP': return {...state, armor: [...state.armor.map((armor, i) => i === action.payload ? {...armor, equiped: !armor.equiped } : armor)]};
-        case 'REM_AMMO_ACTION': {
-
-          const newWeapon: Ranged = {...action.payload.weapon, ammo: action.payload.weapon.ammo - action.payload.newAmmo};
-          const newRanged = state.ranged.map((wep) => {
-            if (wep.name === action.payload.weapon.name) {
-                 console.log("Ammo: " );
-                 console.log(newWeapon);
-                 return newWeapon;
-            } else {
-              return wep;
-            }
-          })
-          return {...state, ranged: newRanged};
-        }
-        case "RED_WEPCOMP_ACTION": {
-            const newRC: Ranged = {...action.payload.weapon, RC: action.payload.weapon.RC - action.payload.newRC};
-            const newRanged = state.ranged.map((wep) => {
-                if (wep.name === action.payload.weapon.name) {
-                    console.log("Reducer: " );
-                    console.log(newRC);
-                    return newRC;
-                }
-                else {
-                    return wep;
-                }
-            })
-            return {...state, ranged: newRanged};
-        }
+        // case 'REM_AMMO_ACTION': {
+        //     const newWeapon: Ranged = {...action.payload.weapon, ammo: action.payload.weapon.ammo - action.payload.newAmmo};
+        //     const newRanged = state.ranged.map((wep) => {
+        //         if (wep.name === action.payload.weapon.name) {
+        //             return newWeapon;
+        //         } else {
+        //             return wep;
+        //         }
+        //     })
+        //     return {...state, ranged: newRanged};
+        // }
+        //
+        // case "RED_WEPCOMP_ACTION": {
+        //     const newRC: Ranged = {...action.payload.weapon, RC: action.payload.weapon.RC - action.payload.newRC};
+        //     const newRanged = state.ranged.map((wep) => {
+        //         if (wep.name === action.payload.weapon.name) {
+        //             console.log("Reducer: " );
+        //             console.log("before comp reducer: " + action.payload.weapon.ammo);
+        //             console.log(newRC);
+        //             return newRC;
+        //         }
+        //         else {
+        //             return wep;
+        //         }
+        //     })
+        //     return {...state, ranged: newRanged};
+        // }
         default: return state;
     }
 }
