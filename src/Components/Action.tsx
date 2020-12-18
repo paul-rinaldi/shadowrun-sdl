@@ -9,8 +9,6 @@ import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
 import { Table, Button } from 'react-bootstrap';
 //import { remAmmo, remWepComp } from '../redux/actions/gearAction';
-import {act} from "react-dom/test-utils";
-
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -30,6 +28,7 @@ interface IActionState {
     socialLimit: number | null;
     rangedWeaponSelected: Ranged | null;
     modeSelected: WeaponModes | null;
+    mounted: string;
 }
 
 interface WeaponLabelOptionMelee {
@@ -79,7 +78,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             physicalLimit: null,
             socialLimit: null,
             rangedWeaponSelected: null,
-            modeSelected: null
+            modeSelected: null,
+            mounted: "Unmounted"
         };
     }
 
@@ -310,14 +310,13 @@ class Action extends React.Component<IActionProps, IActionState> {
             return;
         }
 
-          const mode = this.state.modeSelected;
-
-        console.log("mode, here: " + mode?.RC);
-        // const mode = (selectedMode as modeLabelOption).mode;
+        const mode = this.state.modeSelected;
         const accValue = Number(weapon.acc);
         const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
+
         let skill = undefined;
         let attribute = undefined;
+
         const testVariables = [];
         const testValues = [];
         const firingModes = [];
@@ -345,7 +344,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                 } else {
                     testValues.push(`[${weapon.acc}]`)
                 }
-        }        
+        }
 
         //Check if the character has the associated weapon skill
         if (foundSkills.length > 0) {
@@ -372,19 +371,44 @@ class Action extends React.Component<IActionProps, IActionState> {
                return actualSkill;
             });
 
-            testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, actualSkill.specialization? '+' : "", <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : ""}</span>,  mode?.RC !== undefined && mode.RC !==0? '+' : "", mode?.RC !== undefined && mode.RC !==0? 'Recoil Compensation' : "" );
-            testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, actualSkill.specialization? '+' : "", <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : ""}</b>, mode?.RC !== undefined && mode.RC !==0? '+':"" , mode?.RC !== undefined && mode.RC !==0? ' ' + weapon.RC: "");
-            testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0) + (weapon.RC < 0? weapon.RC : 0));
-            // // First row in table, displays the skill name and attribute
-            // if (weapon.name.substring(0,3) === "Bow"){
-            //     testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>, '-', "Rating Modifier");
-            //     testValues.unshift(skill.rating, '+', <b>{attribute}</b>, '-', bowDicePoolModifier);
-            //     testValues.push('=', skill.rating + attribute - bowDicePoolModifier);
-            // } else {
-            //     testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-            //     testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-            //     testValues.push('=', skill.rating + attribute);
-            // }
+            // First row in table, displays the skill name and attribute
+            if (weapon.name.substring(0,3) === "Bow"){
+                testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>, '-', "Rating Modifier");
+                testValues.unshift(skill.rating, '+', <b>{attribute}</b>, '-', bowDicePoolModifier);
+                testValues.push('=', skill.rating + attribute - bowDicePoolModifier);
+            } else {
+                if (this.state.mounted !== "Unmounted") {
+                    let heavyWeaponsSkill: ISkill[] = this.props.character.skills.combat.filter(skill => skill.name && (skill.name === "Heavy Weapons"));
+                    let gunnerySkill: ISkill[] = this.props.character.skills.vehicle.filter(skill => skill.name && (skill.name === "Gunnery"));
+                    if (this.state.mounted === "MountedNV") {
+                        if (heavyWeaponsSkill.length > 0) {
+                            console.log(heavyWeaponsSkill[0]);
+                            testVariables.unshift(heavyWeaponsSkill[0].name, "+", <b>{skill.attribute}</b>);
+                            testValues.unshift(heavyWeaponsSkill[0].rating, "+", <b>{attribute}</b>);
+                            testValues.push('=', heavyWeaponsSkill[0].rating + attribute);
+                        } else {
+                            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                            testValues.push('=', skill.rating + attribute);
+                        }
+                    } else if (this.state.mounted === "MountedV") {
+                        if (gunnerySkill.length > 0) {
+                            console.log(gunnerySkill[0]);
+                            testVariables.unshift(gunnerySkill[0].name, "+", <b>{skill.attribute}</b>);
+                            testValues.unshift(gunnerySkill[0].rating, "+", <b>{attribute}</b>);
+                            testValues.push('=', gunnerySkill[0].rating + attribute);
+                        } else {
+                            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                            testValues.push('=', skill.rating + attribute);
+                        }
+                    }
+                } else {
+                    testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, actualSkill.specialization? '+' : "", <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : ""}</span>,  mode?.RC !== undefined && mode.RC !==0? '+' : "", mode?.RC !== undefined && mode.RC !==0? 'Recoil Compensation' : "" );
+                    testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, actualSkill.specialization? '+' : "", <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : ""}</b>, mode?.RC !== undefined && mode.RC !==0? '+':"" , mode?.RC !== undefined && mode.RC !==0? ' ' + weapon.RC: "");
+                    testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0) + (weapon.RC < 0? weapon.RC : 0));
+                }
+            }
             // Second row in table, displays the numbers
             firingModes.push(weapon.mode);
         } else {
@@ -524,13 +548,13 @@ class Action extends React.Component<IActionProps, IActionState> {
         const {skills} = this.props.character;
 
         const {combat, physical, social, magical, resonance, technical, vehicle} = skills;
-        this.pushSkilOptions(combat, options);
-        this.pushSkilOptions(physical, options);
-        this.pushSkilOptions(social, options);
-        this.pushSkilOptions(magical, options);
-        this.pushSkilOptions(resonance, options);
-        this.pushSkilOptions(technical, options);
-        this.pushSkilOptions(vehicle, options);
+        this.pushSkillOptions(combat, options);
+        this.pushSkillOptions(physical, options);
+        this.pushSkillOptions(social, options);
+        this.pushSkillOptions(magical, options);
+        this.pushSkillOptions(resonance, options);
+        this.pushSkillOptions(technical, options);
+        this.pushSkillOptions(vehicle, options);
 
         return <div className={'Action'} id={'allSkillsSelector'}><Select
             options={options}
@@ -538,7 +562,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         /></div>
     }
 
-    private pushSkilOptions(skillCategory: ISkill[], options: SelectSkill[]): void {
+    private pushSkillOptions(skillCategory: ISkill[], options: SelectSkill[]): void {
         skillCategory.forEach(skillValue => {
             options.push({
                 skill: skillValue,
@@ -729,12 +753,12 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns A table of the test variables and values, displaying the test calculation.
      */
     testDisplay(character: ICharacter) {
-        const {modeSelected, rangedWeaponSelected} = this.state
-        console.log(rangedWeaponSelected)
+        const {rangedWeaponSelected} = this.state
         if(option === "ranged") {
             return <div>
                 {this.firingModesTable()}
-                { <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>}
+                {this.mountedTypeSelect()}
+                { <Button onClick={() => this.adjustAmmo(rangedWeaponSelected)}>Fire Weapon</Button>}
               </div>
         }
         else {
@@ -799,6 +823,50 @@ class Action extends React.Component<IActionProps, IActionState> {
 
             }
         }
+    }
+
+    changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => {
+        // console.log("Checking Value", e.currentTarget.value);
+        this.setState({
+            mounted: e.currentTarget.value
+        }, () => this.showRangedWeaponTest(this.state.rangedWeaponSelected))
+        // console.log("After change", this.state.mounted);
+    }
+
+    /**
+     * This displays a radio select for ways to mount a ranged weapon for firing.
+     * @returns a radio select with handlers
+     */
+    mountedTypeSelect() {
+        return (
+            <div className="testResult1" style={{textAlign: 'center'}}>
+                <input
+                    type="radio"
+                    id="Unmounted"
+                    name="Mounted Type"
+                    value="Unmounted"
+                    onChange={this.changeWeaponMount}
+                    defaultChecked={true}
+                />
+                <label style={{marginRight: "2.5%"}}>Unmounted</label>
+                <input
+                    type="radio"
+                    id="MountedNV"
+                    name="Mounted Type"
+                    value="MountedNV"
+                    onChange={this.changeWeaponMount}
+                />
+                <label style={{marginRight: "2.5%"}}>Mounted (Non-Vehicle)</label>
+                <input
+                    type="radio"
+                    id="MountedV"
+                    name="Mounted Type"
+                    value="MountedV"
+                    onChange={this.changeWeaponMount}
+                />
+                <label style={{marginRight: "2.5%"}}>Mounted (Vehicle)</label>
+            </div>
+        );
     }
 
 
@@ -1099,14 +1167,6 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     }
 }
-
-// changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => {
-//     // console.log("Checking Value", e.currentTarget.value);
-//     this.setState({
-//         mounted: e.currentTarget.value
-//     }, () => this.showRangedWeaponTest(this.state.rangedWeaponSelected))
-//     // console.log("After change", this.state.mounted);
-// }
 
 export default connect(
     mapStateToProps,
