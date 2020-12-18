@@ -275,13 +275,13 @@ class Action extends React.Component<IActionProps, IActionState> {
         });
     }
 
-    modeSelection = async (e: React.FormEvent<HTMLInputElement>) => {
+    modeSelection = (mode: modeLabelOption) => {
         console.log("hello");
-        console.log(e);
+        console.log(mode);
         let weapon = this.state.rangedWeaponSelected? this.state.rangedWeaponSelected: null;
         if (this.state.rangedWeaponSelected) {
             this.setState({
-                modeSelected: e
+                modeSelected: mode.mode
             }, () => this.showRangedWeaponTest(weapon));
         }
     }
@@ -711,7 +711,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             return (
                 <div>
                     <Select options={options}
-                            onChange={(selectedMode) => this.modeSelection(this.selectionToMode(selectedMode))}
+                            onChange={(e: any)=>{this.modeSelection(e)}}
                     />
                 </div>
             );
