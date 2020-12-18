@@ -18,7 +18,8 @@ const mapDispatchToProps = {
   //remAmmo, remWepComp
 };
 let option: string;
-let isProgressive: number;
+let modeWep: string;
+let isProgressive: boolean; //will control if the recoil compensation is progressive or not
 interface IActionState {
     testVariables: any[] | null;
     testValues: any[] | null;
@@ -29,6 +30,7 @@ interface IActionState {
     rangedWeaponSelected: Ranged | null;
     modeSelected: WeaponModes | null;
     mounted: string;
+    currentWeapon: string | null;
 }
 
 interface WeaponLabelOptionMelee {
@@ -68,7 +70,7 @@ interface SelectSkill {
 class Action extends React.Component<IActionProps, IActionState> {
     constructor(props: IActionProps) {
         super(props);
-        isProgressive = 0;
+        isProgressive = false;
         this.state = {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
@@ -79,7 +81,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             socialLimit: null,
             rangedWeaponSelected: null,
             modeSelected: null,
-            mounted: "Unmounted"
+            mounted: "Unmounted",
+            currentWeapon: null
         };
     }
 
@@ -276,8 +279,7 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     modeSelection = (mode: modeLabelOption) => {
-        console.log("hello");
-        console.log(mode);
+        //console.log(mode);
         let weapon = this.state.rangedWeaponSelected? this.state.rangedWeaponSelected: null;
         if (this.state.rangedWeaponSelected) {
             this.setState({
@@ -305,12 +307,12 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @param val The object from the weapons dropdown containing the weapon information.
      */
     showRangedWeaponTest = (weapon: Ranged | undefined | null) => {
-        option = "ranged"; // for the
         if (weapon === undefined || weapon === null) {
             return;
         }
 
         const mode = this.state.modeSelected;
+        const character = this.props.character;
         const accValue = Number(weapon.acc);
         const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
 
@@ -322,7 +324,17 @@ class Action extends React.Component<IActionProps, IActionState> {
         const firingModes = [];
         let actualSkill = foundSkills[0];
 
+        if(option !== "ranged" && mode?.RC) {
+            weapon.RC = mode.RC;
+        }
+        if(weapon.name !== this.state.currentWeapon ) {
+            isProgressive = false;
+            let strength = character.attributes.STR;
+            weapon.RC = Math.ceil(strength / 3) + weapon.RC + 1;
+
+        }
         const {physicalLimit, mentalLimit, socialLimit} = this.state;
+
         //Check if the weapon accuracy is an inherent limit
         switch (weapon.acc) {
             case 'Physical':
@@ -421,8 +433,10 @@ class Action extends React.Component<IActionProps, IActionState> {
             testVariables: testVariables,
             testValues: testValues,
             firingModes: firingModes,
-            rangedWeaponSelected: weapon
-        });
+            rangedWeaponSelected: weapon,
+            currentWeapon: weapon.name
+        }, () => this.fireModesDropdown(weapon));
+        option = "ranged"; // for showing the firing modes vs not showing it.
     }
 
     getCharacterAttribute = (capitalizedName: string) => {
@@ -628,7 +642,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                   <h3 style={{display: this.state.rangedWeaponSelected? 'block' : 'none'}}>Mode selection</h3>
               }
 
-              {this.fireModesDropdown()}
+              {this.fireModesDropdown(this.state.rangedWeaponSelected)}
           </div>
 
         );
@@ -708,18 +722,20 @@ class Action extends React.Component<IActionProps, IActionState> {
     /**
      * This is for the firing modes dropdown
      */
-    fireModesDropdown() {
-        const {rangedWeaponSelected} = this.state;
+    fireModesDropdown(weapon: Ranged | null) {
+        if(weapon === null || weapon === undefined) {
+            return;
+        }
         let modes = [];
         const options: modeLabelOption[] = [];
-        if(rangedWeaponSelected) {
-            let split = rangedWeaponSelected.mode.split("/");
-            if (rangedWeaponSelected.mode.indexOf("/") > -1) {
+        if(weapon) {
+            let split = weapon.mode.split("/");
+            if (weapon.mode.indexOf("/") > -1) {
                 for(const s of split) {
                     modes.push(this.modeObject(s));
                 }
             } else {
-                let s = rangedWeaponSelected.mode
+                let s = weapon.mode
                modes.push(this.modeObject(s));
             }
 
@@ -731,7 +747,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             }
             return (
                 <div>
-                    <Select options={options}
+                    <Select placeholder={"Select a default"} options={options}
                             onChange={(e: any)=>{this.modeSelection(e)}}
                     />
                 </div>
@@ -789,37 +805,36 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     /**
-     * Will display the option to adjust ammo left in gun after it fires.
+     * Will display the option to adjust ammo left in gun after it fires. This method also controls recoil compensation calculations.
      * @return a dropdown of new ammo to take away from gun.
      */
     adjustAmmo = (weapon: Ranged | null) => {
         if (weapon !== null) {
             const {modeSelected, rangedWeaponSelected} = this.state;
-            const {character} = this.props;
-            let fireAmm, recoilMath;
+            //const {character} = this.props;
+            let fireAmm;
             if (modeSelected) {
                 fireAmm = modeSelected.numOfRoundsSimp;
             } else {
                 fireAmm = 0;
             }
 
-            if (isProgressive === 0 || weapon.ammo <= 0) {
-                let rc = modeSelected?.RC || 0;
-                let strength = character.attributes.STR;
-                recoilMath = Math.ceil(strength / 3) + rc + 1;
-                isProgressive = 1;
-            } else {
-                recoilMath = weapon.RC - (fireAmm ? fireAmm : 0);
-            }
+            if ((weapon.ammo - fireAmm) >= 0 && rangedWeaponSelected) {
+                weapon.ammo = weapon.ammo - fireAmm;
+                isProgressive = true;
 
-            weapon.ammo = weapon.ammo - fireAmm;
-            if (weapon.ammo >= 0 && rangedWeaponSelected) {
-                weapon.RC = recoilMath;
+                //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
+                if(weapon.ammo <= 0) {
+                    isProgressive = false;
+                    weapon.RC = modeSelected?.RC as number;
+                }
+
+                weapon.RC = weapon.RC - (fireAmm ? fireAmm : 0);
                 this.setState({rangedWeaponSelected: weapon
                 }, () => this.showRangedWeaponTest(weapon));
                 alert("You now have " + weapon.ammo + " ammo left.");
             } else {
-                alert("You only have " + weapon.ammo + " ammo left.");
+                alert("You need to reload since you only have " + weapon.ammo + " ammo left.");
 
             }
         }
