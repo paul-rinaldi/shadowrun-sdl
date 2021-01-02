@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16'
 
 //Actual component to be tested
 import App from "../App";
-import Qualities from "../Components/Qualities.js";
+import Qualities from "../Components/Qualities";
 
 //Use the filesystem to load the test file
 const fs = require('fs');
