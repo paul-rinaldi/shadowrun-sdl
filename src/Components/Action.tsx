@@ -5,8 +5,8 @@ import { IShadowRunState } from '../redux/store';
 import { ICharacter, Melee, Ranged } from '../models/playerModels';
 import { ISkill } from "../models/playerModels";
 import { connect } from 'react-redux';
-import Tab from 'react-bootstrap/esm/Tab';
-import Tabs from 'react-bootstrap/esm/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import { Button } from 'react-bootstrap';
 import { remAmmo } from '../redux/actions/gearAction';
 
