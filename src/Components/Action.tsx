@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import '../CSS_Files/Action.css';
 import Select, { ValueType } from 'react-select';
 import { IShadowRunState } from '../redux/store';
@@ -26,6 +26,7 @@ interface IActionState {
     physicalLimit: number | null;
     socialLimit: number | null;
     rangedWeaponSelected: Ranged | null;
+    mounted: string;
 }
 
 interface WeaponLabelOptionMelee {
@@ -70,7 +71,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             mentalLimit: null,
             physicalLimit: null,
             socialLimit: null,
-            rangedWeaponSelected: null
+            rangedWeaponSelected: null,
+            mounted: "Unmounted"
         };
     }
 
@@ -259,20 +261,32 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     /**
+     * Converts a dropdown value to a ranged weapon type value
+     * @param val The object from the weapons dropdown containing the weapon information.
+     */
+    selectionToWeapon(val: ValueType<WeaponLabelOptionRanged>) {
+        if (val === undefined || val === null) {
+          return;
+        }
+        return (val as WeaponLabelOptionRanged).weapon;
+    }
+
+    /**
      * Displays the weapon test using the associated val object from the weapons dropdown. The calculation is displayed
      * as two table rows, with the first containing the names of the skill, attribute, and limit used and the second
      * containing the associated values of each. IF the character does not possess the associated weapon skill, a ? will
      * be displayed for its value.
-     * @param val The object from the weapons dropdown containing the weapon information.
+     * @param weapon A ranged weapon
      */
-    showRangedWeaponTest = (val: ValueType<WeaponLabelOptionRanged>) => {
-        option = "ranged"; // for the
-        if (val === undefined || val === null) {
-            return;
+    showRangedWeaponTest = (weapon: Ranged | undefined | null) => {
+        // console.log("Ranged Weapon Test", this.state);
+        option = "ranged"; // what is this
+        if (weapon === undefined || weapon === null) {
+          return;
         }
-        const weapon = (val as WeaponLabelOptionRanged).weapon;
         const accValue = Number(weapon.acc);
-        const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && (skill.name.toLowerCase() === weapon.skill.toLowerCase() || skill.default === "✓"));
+        const foundSkills = this.props.character.skills.combat.filter(skill => skill.name && skill.name.toLowerCase() === weapon.skill.toLowerCase());
+        
         let skill = undefined;
         let attribute = undefined;
 
@@ -310,11 +324,56 @@ class Action extends React.Component<IActionProps, IActionState> {
             attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
         }
 
+        let bowDicePoolModifier: number = 0;
+        if(weapon.name.substring(0,3) === "Bow"){
+            const rating: number = parseInt(weapon.name.substring(weapon.name.search(/\d/), weapon.name.length - 1));
+            const strength: number = this.props.character.attributes.STR;
+            if (strength < rating){
+                bowDicePoolModifier = (rating - strength) * 3;
+            }
+        }
+
         //If the character has the skill, show the skill value and the attribute.
         if (skill !== undefined && attribute !== undefined) {
-            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
-            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
-            testValues.push('=', skill.rating + attribute);
+            // First row in table, displays the skill name and attribute
+            if (weapon.name.substring(0,3) === "Bow"){
+                testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>, '-', "Rating Modifier");
+                testValues.unshift(skill.rating, '+', <b>{attribute}</b>, '-', bowDicePoolModifier);
+                testValues.push('=', skill.rating + attribute - bowDicePoolModifier);
+            } else {
+                if (this.state.mounted !== "Unmounted") {
+                    let heavyWeaponsSkill: ISkill[] = this.props.character.skills.combat.filter(skill => skill.name && (skill.name === "Heavy Weapons"));
+                    let gunnerySkill: ISkill[] = this.props.character.skills.vehicle.filter(skill => skill.name && (skill.name === "Gunnery"));
+                    if (this.state.mounted === "MountedNV") {
+                        if (heavyWeaponsSkill.length > 0) {
+                            console.log(heavyWeaponsSkill[0]);
+                            testVariables.unshift(heavyWeaponsSkill[0].name, "+", <b>{skill.attribute}</b>);
+                            testValues.unshift(heavyWeaponsSkill[0].rating, "+", <b>{attribute}</b>);
+                            testValues.push('=', heavyWeaponsSkill[0].rating + attribute);
+                        } else {
+                            testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                            testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                            testValues.push('=', skill.rating + attribute);
+                        }
+                    } else if (this.state.mounted === "MountedV") {
+                        if (gunnerySkill.length > 0) {
+                            console.log(gunnerySkill[0]);
+                            testVariables.unshift(gunnerySkill[0].name, "+", <b>{skill.attribute}</b>);
+                            testValues.unshift(gunnerySkill[0].rating, "+", <b>{attribute}</b>);
+                            testValues.push('=', gunnerySkill[0].rating + attribute);
+                        } else {
+                          testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                          testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                          testValues.push('=', skill.rating + attribute);
+                        }
+                    }
+                } else {
+                    testVariables.unshift(skill.name, '+', <b>{skill.attribute}</b>);
+                    testValues.unshift(skill.rating, '+', <b>{attribute}</b>);
+                    testValues.push('=', skill.rating + attribute);
+                }
+            }
+            // Second row in table, displays the numbers
             firingModes.push(weapon.mode);
         } else {
             //If they don't have the skill, show a ?
@@ -526,7 +585,7 @@ class Action extends React.Component<IActionProps, IActionState> {
         return (
           <div className={'Action'} id={'rangedWeaponSelector'}>
             <Select options={options}
-                    onChange={this.showRangedWeaponTest}
+                    onChange={(weaponSelectedValue) => this.showRangedWeaponTest(this.selectionToWeapon(weaponSelectedValue))}
             /> 
           </div>
         );
@@ -541,7 +600,8 @@ class Action extends React.Component<IActionProps, IActionState> {
         if(option === "ranged") {
             return <div>
                 {this.firingModesTable()}
-                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Update Ammo After Shot</Button>} 
+                {this.mountedTypeSelect()}
+                {this.state.rangedWeaponSelected && <Button onClick={() => this.adjustAmmo(this.state.rangedWeaponSelected)}>Fire Weapon</Button>} 
               </div>
         }
         else {
@@ -590,6 +650,50 @@ class Action extends React.Component<IActionProps, IActionState> {
           }
         }
       }
+    }
+
+    changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => {
+        // console.log("Checking Value", e.currentTarget.value);
+        this.setState({
+            mounted: e.currentTarget.value
+        }, () => this.showRangedWeaponTest(this.state.rangedWeaponSelected))
+        // console.log("After change", this.state.mounted);
+    }
+
+    /**
+     * This displays a radio select for ways to mount a ranged weapon for firing.
+     * @returns a radio select with handlers
+     */
+    mountedTypeSelect() {
+      return (
+        <div className="testResult1" style={{textAlign: 'center'}}>
+            <input
+              type="radio"
+              id="Unmounted" 
+              name="Mounted Type"
+              value="Unmounted"
+              onChange={this.changeWeaponMount}
+              defaultChecked={true}
+            />
+            <label style={{marginRight: "2.5%"}}>Unmounted</label>
+            <input
+              type="radio" 
+              id="MountedNV"
+              name="Mounted Type"
+              value="MountedNV"
+              onChange={this.changeWeaponMount}
+            />
+            <label style={{marginRight: "2.5%"}}>Mounted (Non-Vehicle)</label>
+            <input 
+              type="radio"
+              id="MountedV"
+              name="Mounted Type"
+              value="MountedV"
+              onChange={this.changeWeaponMount}
+            />
+            <label style={{marginRight: "2.5%"}}>Mounted (Vehicle)</label>
+        </div>
+      );
     }
 
     /**
