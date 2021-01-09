@@ -771,8 +771,8 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     sprintActionSection = () => {
         const { character: { attributes: { AGI, STR }, skills: {physical}, metatype } } = this.props;
-        const runningResult = physical.find(iSkill => iSkill.name.toLowerCase() == 'running');
-        const runningRating = runningResult?.rating == undefined ? 0 : runningResult.rating;
+        const runningResult = physical.find(iSkill => iSkill.name.toLowerCase() === 'running');
+        const runningRating = runningResult?.rating === undefined ? 0 : runningResult.rating;
         let metaSprintIncrease = this.getMetaTypeSprintIncrease(metatype);
         if (metaSprintIncrease === null) {
             alert(`Metatype: ${metatype} is invalid`);
