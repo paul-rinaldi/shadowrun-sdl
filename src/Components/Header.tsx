@@ -3,14 +3,34 @@ import { connect } from 'react-redux';
 import '../CSS_Files/Header.css';
 import { ICharacter } from '../models/playerModels';
 import { IShadowRunState } from '../redux/store';
-
-
+import { Button } from 'react-bootstrap';
+import BackPack from '../assets/icons8-school-backpack-48.png';
+import Inventory from './Inventory';
 type IHeaderProps = ReturnType<typeof mapStateToProps>;
 const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player
 });
 
-class Header extends React.Component<IHeaderProps> {
+interface IHeaderState {
+  inventoryOpened: boolean;
+};
+
+class Header extends React.Component<IHeaderProps, IHeaderState> {
+    constructor(props: IHeaderProps) {
+        super(props);    
+        this.state = {
+          inventoryOpened: false,
+        };
+    }
+
+    openInventory() {
+      this.setState({inventoryOpened: true})
+    };
+    
+    closeInventory() {
+      this.setState({inventoryOpened: false})
+    };
+
     /**
      * Will not render the header if there is not a character to prevent 
      * the usage of a state in app.js
@@ -158,6 +178,21 @@ class Header extends React.Component<IHeaderProps> {
                           ¥: {character.money}
                       </td>
                   </tr>
+                  <tr className="headertr" key={index++}>
+                      <Button className='btn bg-transparent'>
+                          <img src={BackPack} alt="open backpack" onClick={(e) => this.state.inventoryOpened ? this.closeInventory() : this.openInventory() }/>
+                      </Button>
+                  </tr>
+                  {
+                    this.state.inventoryOpened ? (
+                        <tr className="inventory" key={index++}>
+                            <Inventory character={this.props.character} />
+                        </tr>
+                    ) : React.Fragment
+                  }
+                  <tr className="headertr" key={index++}>
+                    <div></div>
+                  </tr>
                   </tbody>
               </table>
           </div>
@@ -168,7 +203,7 @@ class Header extends React.Component<IHeaderProps> {
      * Updates the armor value as it is changed by gear.js as this is the
      * only location where the current armor value is shown
      */
-    calcTotalArmorVal(character: ICharacter){
+    calcTotalArmorVal(character: ICharacter) {
         let armor = character.armor;
         
         let gearListArmor = character.gear.armor;
@@ -189,9 +224,8 @@ class Header extends React.Component<IHeaderProps> {
         }
         return armor;
     }
-
 }
 
 export default connect(
     mapStateToProps
-)(Header)
+)(Header);
