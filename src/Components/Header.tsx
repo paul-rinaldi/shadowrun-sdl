@@ -86,29 +86,6 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
       
       let armor: number = this.calcTotalArmorVal(character);
 
-
-      //use these console logs to test that everything is loaded
-
-      // console.log(character.name + " the " + character.metatype);
-      // console.log("Init:  " + character.attributes.REA + character.attributes.INT + "+" + character.initiative.initDice + "d6");
-      // console.log("Karma:  ", character.karma);
-      // console.log("BOD: " + character.attributes.BOD);
-      // console.log("AGI: " + character.attributes.AGI);
-      // console.log("REA: " + character.attributes.REA);
-      // console.log("STR: " + character.attributes.STR);
-      // console.log("WIL: " + character.attributes.WIL);
-      // console.log("LOG: " + character.attributes.LOG);
-      // console.log("INT: " + character.attributes.INT);
-      // console.log("CHA: " + character.attributes.CHA);
-      // console.log("MAG: " + character.attributes.MAG);
-      // console.log("RES: " + character.attributes.RES);
-      // console.log("EDG: " + character.currentEdge + " / " + character.attributes.EDG + " = " + (character.currentEdge/character.attributes.EDG));
-      // console.log("ESS: " + character.attributes.ESS);
-      // console.log("Physical: 0/12( " + character.conditionMonitor.physical + ")");
-      // console.log("Stun: 0/8( " + character.conditionMonitor.stun + ")");
-      // console.log("Armor: " + armor);
-      // console.log("¥:  " + character.money);
-
       let index = 0;
       return (
           <div className="headerdiv">
@@ -178,23 +155,22 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
                           ¥: {character.money}
                       </td>
                   </tr>
-                  <tr className="headertr" key={index++}>
-                      <Button className='btn bg-transparent'>
+                  </tbody>
+              </table>
+              <table>
+                  <tr className="headerdiv" key={index++}>
+                      <Button className='btn bg-transparent' style={{ outline: 'none !important', outlineOffset: 'none !important'}}>
                           <img src={BackPack} alt="open backpack" onClick={(e) => this.state.inventoryOpened ? this.closeInventory() : this.openInventory() }/>
                       </Button>
                   </tr>
-                  {
-                    this.state.inventoryOpened ? (
-                        <tr className="inventory" key={index++}>
-                            <Inventory character={this.props.character} />
-                        </tr>
-                    ) : React.Fragment
-                  }
-                  <tr className="headertr" key={index++}>
-                    <div></div>
-                  </tr>
-                  </tbody>
               </table>
+              {
+                this.state.inventoryOpened ? (
+                    <div key={'inventory'}>
+                        <Inventory character={this.props.character} />
+                    </div>
+                ) : React.Fragment
+              }
           </div>
         );
     }
@@ -208,16 +184,16 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
         
         let gearListArmor = character.gear.armor;
         
-        for(let i = 0; i < gearListArmor.length; i++){
-            if(gearListArmor[i].equiped){
+        for (let i = 0; i < gearListArmor.length; i++) {
+            if (gearListArmor[i].equiped) {
                 let rating = gearListArmor[i].rating;
-                if(typeof rating === "string"){
-                    if(rating.includes('+')){
+                if (typeof rating === "string") {
+                    if (rating.includes('+')) {
                         armor = armor + parseInt(rating);
-                    } else if(Number.parseInt(rating) > armor){
+                    } else if (Number.parseInt(rating) > armor) {
                         armor = parseInt(rating);
                     }
-                } else if(rating > armor){
+                } else if (rating > armor) {
                     armor = rating;
                 }
             }

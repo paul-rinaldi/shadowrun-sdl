@@ -14,20 +14,26 @@ class Inventory extends React.Component<IInventoryProps, IInventoryState> {
     }
 
     render() {
-      return (
-          <div>
-              <table>
-                  {this.props.character.gear.ranged.map((item) => {
-                      return (
-                          <tr>
-                              <td>{item.name}</td>
-                              <td>{item.ammo}</td>
-                          </tr>
-                      );
-                  })}
-              </table>
-          </div>
-      );
+        return (
+            <div style={{backgroundColor: '#303336', color: "#FFFFFF", margin: 5, borderRadius: 5}}>
+                <h2 style={{content: 'middle'}}>Inventory</h2>
+                <hr />
+                <table>
+                    <thead>
+                        <td>Name</td>
+                        <td>Ammo</td>
+                    </thead>
+                    {this.props.character.gear.ranged.map((item) => {
+                        return (
+                            <tr>
+                                <td>{item.name}</td>
+                                <td>{item.ammo}</td>
+                            </tr>
+                        );
+                    })}
+                </table>
+            </div>
+        );
     }
 } 
 
