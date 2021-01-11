@@ -110,6 +110,7 @@ td.actLim:nth-child(3){
 
 .testResult1 {
     font-size: 18px;
+    text-align: left;
     white-space: nowrap;
     width: auto;
     margin-left: auto;

@@ -874,7 +874,7 @@
         "ap": "-",
         "mode": "SA/BF",
         "RC": 2,
-        "ammo": "40(c)",
+        "ammo": 40,
         "availability": "9R",
         "cost": -830,
         "skill": "Automatics"
