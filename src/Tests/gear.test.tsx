@@ -5,8 +5,8 @@ import Adapter from 'enzyme-adapter-react-16'
 
 //Actual component to be tested
 import App from "../App";
-import Header from "../Components/Header.js";
-import Gear from "../Components/Qualities.js";
+import Header from "../Components/Header";
+import Gear from "../Components/Qualities";
 
 
 //Use the filesystem to load the test file
