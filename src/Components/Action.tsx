@@ -18,6 +18,7 @@ const mapDispatchToProps = {
   //remAmmo, remWepComp
 };
 let option: string;
+let selectRef: any;
 let modeWep: string;
 let isProgressive: boolean; //will control if the recoil compensation is progressive or not
 interface IActionState {
@@ -31,6 +32,8 @@ interface IActionState {
     modeSelected: WeaponModes | null;
     mounted: string;
     currentWeapon: string | null;
+    previousWeapon: string | null;
+    selectedMode: modeLabelOption | null
 }
 
 interface WeaponLabelOptionMelee {
@@ -82,7 +85,9 @@ class Action extends React.Component<IActionProps, IActionState> {
             rangedWeaponSelected: null,
             modeSelected: null,
             mounted: "Unmounted",
-            currentWeapon: null
+            currentWeapon: null,
+            previousWeapon: null,
+            selectedMode: null
         };
     }
 
@@ -283,9 +288,25 @@ class Action extends React.Component<IActionProps, IActionState> {
         let weapon = this.state.rangedWeaponSelected? this.state.rangedWeaponSelected: null;
         if (this.state.rangedWeaponSelected) {
             this.setState({
-                modeSelected: mode.mode
+                modeSelected: mode.mode,
+                selectedMode: mode
             }, () => this.showRangedWeaponTest(weapon));
         }
+    }
+
+    defaultVal = () => {
+        if(this.state.currentWeapon !== this.state.previousWeapon) {
+            this.setState({
+                previousWeapon: this.state.currentWeapon,
+                selectedMode: null
+            })
+        }
+        else{
+            this.setState({
+                selectedMode: selectRef
+            })
+        }
+
     }
     /**
      * Converts a dropdown value to a ranged weapon type value
@@ -311,6 +332,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             return;
         }
 
+        const prevWeapon = this.state.currentWeapon;
+        console.log(`Previous Weapon is: ${prevWeapon}   and the new weapon is: ${weapon.name} `);
         const mode = this.state.modeSelected;
         const character = this.props.character;
         const accValue = Number(weapon.acc);
@@ -434,8 +457,9 @@ class Action extends React.Component<IActionProps, IActionState> {
             testValues: testValues,
             firingModes: firingModes,
             rangedWeaponSelected: weapon,
-            currentWeapon: weapon.name
-        }, () => this.fireModesDropdown(weapon));
+            currentWeapon: weapon.name,
+            previousWeapon: prevWeapon
+        }, this.defaultVal);
         option = "ranged"; // for showing the firing modes vs not showing it.
     }
 
@@ -622,6 +646,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns A dropdown of all the character's ranged weapons.
      */
     rangedWeaponsDropdown() {
+
         const {character} = this.props;
         const options: WeaponLabelOptionRanged[] = [];
         for (const weapon of character.gear.ranged) {
@@ -630,13 +655,13 @@ class Action extends React.Component<IActionProps, IActionState> {
                 label: `${weapon.name} (Acc: ${weapon.acc}, DV: ${weapon.dam}, AP: ${weapon.ap})`,
             });
         }
-
         console.log("rangedWeaponSelectedYet:", this.state.rangedWeaponSelected);
 
         return (
           <div className={'Action'} id={'rangedWeaponSelector'}>
             <Select options={options}
                     onChange={(weaponSelectedValue) => this.showRangedWeaponTest(this.selectionToWeapon(weaponSelectedValue))}
+
             />
               {
                   <h3 style={{display: this.state.rangedWeaponSelected? 'block' : 'none'}}>Mode selection</h3>
@@ -723,37 +748,47 @@ class Action extends React.Component<IActionProps, IActionState> {
      * This is for the firing modes dropdown
      */
     fireModesDropdown(weapon: Ranged | null) {
-        if(weapon === null || weapon === undefined) {
+        if (weapon === null || weapon === undefined) {
             return;
         }
         let modes = [];
         const options: modeLabelOption[] = [];
-        if(weapon) {
+        if (weapon) {
             let split = weapon.mode.split("/");
             if (weapon.mode.indexOf("/") > -1) {
-                for(const s of split) {
+                for (const s of split) {
                     modes.push(this.modeObject(s));
                 }
             } else {
                 let s = weapon.mode
-               modes.push(this.modeObject(s));
+                modes.push(this.modeObject(s));
             }
 
-            for(const mode of modes) {
+            for (const mode of modes) {
                 options.push({
                     mode: mode,
                     label: `${mode.name} (Defense Modifier: ${mode.DefenseModSimp} |  Number of Rounds Used: ${mode.numOfRoundsSimp} |  Recoil: ${mode.RC})`
                 });
             }
+
+
             return (
                 <div>
-                    <Select placeholder={"Select a default"} options={options}
-                            onChange={(e: any)=>{this.modeSelection(e)}}
+                    {console.log(`selected ref = ${this.state.selectedMode}`)}
+                    <Select placeholder={"Select a default"} options={options} value={this.state.selectedMode}
+                            onChange={(e: any) => {
+                                this.modeSelection(e)
+                                selectRef = e;
+                            }}
+
                     />
                 </div>
             );
         }
     }
+
+
+
 
     selectionToMode(val: ValueType<modeLabelOption>) {
         if (val === undefined || val === null) {
