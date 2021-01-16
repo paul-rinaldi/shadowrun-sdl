@@ -18,8 +18,8 @@ const mapDispatchToProps = {
   //remAmmo, remWepComp
 };
 let option: string;
+let recoilComp = 0;
 let selectRef: any;
-let modeWep: string;
 let isProgressive: boolean; //will control if the recoil compensation is progressive or not
 interface IActionState {
     testVariables: any[] | null;
@@ -350,10 +350,11 @@ class Action extends React.Component<IActionProps, IActionState> {
         if(option !== "ranged" && mode?.RC) {
             weapon.RC = mode.RC;
         }
-        if(weapon.name !== this.state.currentWeapon ) {
+        if(weapon.name !== prevWeapon && mode?.RC) {
+            recoilComp = weapon.RC;
             isProgressive = false;
             let strength = character.attributes.STR;
-            weapon.RC = Math.ceil(strength / 3) + weapon.RC + 1;
+            recoilComp += (Math.ceil(strength / 3) +1) + mode.RC;
 
         }
         const {physicalLimit, mentalLimit, socialLimit} = this.state;
@@ -440,8 +441,8 @@ class Action extends React.Component<IActionProps, IActionState> {
                     }
                 } else {
                     testVariables.unshift(actualSkill.name, '+', <b>{actualSkill.attribute}</b>, actualSkill.specialization? '+' : "", <span style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? actualSkill.specialization + ' Spec' : ""}</span>,  mode?.RC !== undefined && mode.RC !==0? '+' : "", mode?.RC !== undefined && mode.RC !==0? 'Recoil Compensation' : "" );
-                    testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, actualSkill.specialization? '+' : "", <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : ""}</b>, mode?.RC !== undefined && mode.RC !==0? '+':"" , mode?.RC !== undefined && mode.RC !==0? ' ' + weapon.RC: "");
-                    testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0) + (weapon.RC < 0? weapon.RC : 0));
+                    testValues.unshift(actualSkill.rating, '+', <b>{attribute}</b>, actualSkill.specialization? '+' : "", <b style={{color: "#00802b", fontWeight: 495}}>{actualSkill.specialization ? "(2)" : ""}</b>, mode?.RC !== undefined && mode.RC !==0? '+':"" , mode?.RC !== undefined && mode.RC !==0? ' ' + recoilComp: "");
+                    testValues.push('=', actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0) + (recoilComp < 0? recoilComp : 0));
                 }
             }
             // Second row in table, displays the numbers
@@ -679,6 +680,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     modeObject(mode: string) {
         const {rangedWeaponSelected} = this.state;
+        console.log("in mode object: " + rangedWeaponSelected?.name);
         let dms = 0 //for defensive modifiers simple or generic
         let dmc = undefined; // for defensive modifiers complex
         let nrus = 0; // for number of rounds used simple or generic
@@ -861,10 +863,10 @@ class Action extends React.Component<IActionProps, IActionState> {
                 //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
                 if(weapon.ammo <= 0) {
                     isProgressive = false;
-                    weapon.RC = modeSelected?.RC as number;
+                    recoilComp = rangedWeaponSelected.RC;
                 }
 
-                weapon.RC = weapon.RC - (fireAmm ? fireAmm : 0);
+                recoilComp = recoilComp - (fireAmm ? fireAmm : 0);
                 this.setState({rangedWeaponSelected: weapon
                 }, () => this.showRangedWeaponTest(weapon));
                 alert("You now have " + weapon.ammo + " ammo left.");
