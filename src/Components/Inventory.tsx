@@ -16,7 +16,7 @@ class Inventory extends React.Component<IInventoryProps, IInventoryState> {
     render() {
         return (
             <div style={{backgroundColor: '#303336', color: "#FFFFFF", margin: 5, borderRadius: 5}}>
-                <h2 style={{content: 'middle'}}>Inventory</h2>
+                <h2 style={{content: 'middle'}}>Inventory (Ranged)</h2>
                 <hr />
                 <table>
                     <thead>
