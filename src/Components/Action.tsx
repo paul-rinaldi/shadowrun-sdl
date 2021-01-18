@@ -47,6 +47,7 @@ interface SelectSkill {
     specialization?: string;
 }
 
+// Page 178 textbook
 const firingTypeToAmmo = (fType: string): number => {
   let numAmmoToShoot = 0;
   switch (fType) {
@@ -55,24 +56,29 @@ const firingTypeToAmmo = (fType: string): number => {
       break;
     
     case 'SA': // semi automatic
-      numAmmoToShoot = 999;
+      numAmmoToShoot = 1;
       break;
 
-    case 'SB': // short burst
-      numAmmoToShoot = 999;
+    case 'SB': // semi automatic burst
+      numAmmoToShoot = 3;
       break;
 
     case 'BF': // burst fire
       numAmmoToShoot = 3;
       break;
+
     case 'LB': // long burst
-      numAmmoToShoot = 999;
+      numAmmoToShoot = 6;
       break;
 
-    case 'FA': // full auto
-      numAmmoToShoot = 999;
+    case 'FAS': // full auto simple
+      numAmmoToShoot = 6;
       break;
-  
+
+    case 'FAC': //full auto complex
+      numAmmoToShoot = 10;
+      break;
+
     default:
       break;
   }
@@ -641,9 +647,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                     const foundWeaponArray = character.gear.ranged.filter((item) => this.state.rangedWeaponSelected !== null && this.state.rangedWeaponSelected.name === item.name);
                     const foundWeapon = foundWeaponArray[0];
                     const currentAmmo = foundWeapon.ammo;
-
                     const firingRoundAmmoAmount = firingTypeToAmmo(this.state.firingType);
-
                     this.adjustAmmo(this.state.rangedWeaponSelected, currentAmmo, firingRoundAmmoAmount);
                   }
                 }>Fire Weapon</Button>} 
@@ -866,6 +870,48 @@ class Action extends React.Component<IActionProps, IActionState> {
                                         </td>
                                     </tr>
                         } else if(part === 'FA'){
+                            return <React.Fragment>
+                                <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" onChange={() => this.setState({firingType: part})} value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -5
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 6
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                                <tr key={index}>
+                                        <td>
+                                            <label htmlFor={part}>
+                                                <input type="radio" id={part} name="Firing Mode" onChange={() => this.setState({firingType: part})} value={part}/>{part}
+                                            </label>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Defense Modifier: -9
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Number of Rounds Used: 10
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            Notes: Apply recoil.
+                                        </td>
+                                    </tr>
+                                </React.Fragment>
+                                    
+                        } else if(part === 'FA'){
                             return <tr key={index}>
                                         <td>
                                             <label htmlFor={part}>
@@ -874,18 +920,18 @@ class Action extends React.Component<IActionProps, IActionState> {
                                         </td>
                                         <td></td>
                                         <td>
-                                            Defense Modifier: -5 (Simple) or -9 (Complex)
+                                            Defense Modifier: -9
                                         </td>
                                         <td></td>
                                         <td>
-                                            Number of Rounds Used: 6 (Simple) or 10 (Complex)
+                                            Number of Rounds Used: 10
                                         </td>
                                         <td></td>
                                         <td>
                                             Notes: Apply recoil.
                                         </td>
                                     </tr>
-                        } else {
+                        }else {
                             return <tr></tr>
                         }
                     })
