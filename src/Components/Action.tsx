@@ -9,7 +9,7 @@ import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
 import { Table, Button } from 'react-bootstrap';
 //import { remAmmo, remWepComp } from '../redux/actions/gearAction';
-
+console.log("hello");
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
     character: state.player
