@@ -26,6 +26,17 @@ export const gearReducer = (state: Gear = initialState.gear, action: GearAction)
           })
           return {...state, ranged: newRanged};
         }
+        case 'ADD_AMMO_ACTION': {
+          const newWeapon: Ranged = {...action.payload.weapon, ammo: action.payload.weapon.ammo + action.payload.additionalAmmo};
+          const newRanged = state.ranged.map((wep) => {
+            if (wep.name === action.payload.weapon.name) {
+              return newWeapon;
+            } else {
+              return wep;
+            }
+          })
+          return {...state, ranged: newRanged};
+        }
         default: return state;
     }
 }

@@ -167,7 +167,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
               {
                 this.state.inventoryOpened ? (
                     <div key={'inventory'}>
-                        <Inventory character={this.props.character} />
+                        <Inventory/>
                     </div>
                 ) : React.Fragment
               }

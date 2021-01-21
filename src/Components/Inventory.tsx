@@ -1,9 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { ICharacter } from '../models/playerModels';
+import { addAmmo } from '../redux/actions/gearAction';
+import { IShadowRunState } from '../redux/store';
 
-interface IInventoryProps {
-    character: ICharacter
-};
+const mapStateToProps = (state: IShadowRunState) => ({
+    character: state.player
+});
+const mapDispatchToProps = {
+    addAmmo
+  };
+type IInventoryProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+
 interface IInventoryState {};
 
 class Inventory extends React.Component<IInventoryProps, IInventoryState> {
@@ -23,11 +31,19 @@ class Inventory extends React.Component<IInventoryProps, IInventoryState> {
                         <td>Name</td>
                         <td>Ammo</td>
                     </thead>
-                    {this.props.character.gear.ranged.map((item) => {
+                    {this.props.character.gear.ranged.map((item, i) => {
                         return (
                             <tr>
                                 <td>{item.name}</td>
                                 <td>{item.ammo}</td>
+                                <input type="text" placeholder="Add Ammo" onKeyPress={event => {
+                                    if(event.key === "Enter"){
+                                        //console.log((event.target as HTMLInputElement).value);
+                                        //console.log(typeof((event.target as HTMLInputElement).value));
+                                        const ammoAdded = parseInt((event.target as HTMLInputElement).value);
+                                        this.props.addAmmo(item, ammoAdded);
+                                    }
+                                }}/>
                             </tr>
                         );
                     })}
@@ -37,4 +53,7 @@ class Inventory extends React.Component<IInventoryProps, IInventoryState> {
     }
 } 
 
-export default Inventory;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps)
+(Inventory);
