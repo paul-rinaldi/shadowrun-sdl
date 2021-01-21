@@ -9,6 +9,8 @@ import Tab from 'react-bootstrap/esm/Tab';
 import Tabs from 'react-bootstrap/esm/Tabs';
 import { Button } from 'react-bootstrap';
 import { remAmmo } from '../redux/actions/gearAction';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type IActionProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
 const mapStateToProps = (state: IShadowRunState) => ({
@@ -649,6 +651,15 @@ class Action extends React.Component<IActionProps, IActionState> {
                     const currentAmmo = foundWeapon.ammo;
                     const firingRoundAmmoAmount = firingTypeToAmmo(this.state.firingType);
                     this.adjustAmmo(this.state.rangedWeaponSelected, currentAmmo, firingRoundAmmoAmount);
+                    toast.error("Fired the " + foundWeapon.name + ".", {
+                      position: "bottom-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
                   }
                 }>Fire Weapon</Button>} 
               </div>
@@ -1078,6 +1089,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                             {this.sprintActionSection()}
                         </Tab>
                     </Tabs>
+                    <ToastContainer />
                 </div>
             )
         }
