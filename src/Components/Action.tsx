@@ -620,7 +620,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             });
         }
 
-        console.log("rangedWeaponSelectedYet:", this.state.rangedWeaponSelected);
+        //console.log("rangedWeaponSelectedYet:", this.state.rangedWeaponSelected);
 
         return (
           <div className={'Action'} id={'rangedWeaponSelector'}>
@@ -688,17 +688,24 @@ class Action extends React.Component<IActionProps, IActionState> {
     adjustAmmo(weapon: Ranged | null, currentAmmo: number, ammoAmountToBeUsed: number) {
       if (weapon !== null) {
         const { remAmmo } = this.props;
-        let ammoInput: string | null = null;
-        ammoInput = prompt(`Ammo used with shot? (current ammo: ${currentAmmo})`, ammoAmountToBeUsed.toString());
-        if (ammoInput !== null) {
-          const ammo = parseInt(ammoInput);
-          if (weapon.ammo - ammo >= 0) {
-            remAmmo(weapon, ammo);
-            alert("You now have " + (weapon.ammo - ammo) + " ammo left.");
-          } else {
-            alert("You only have " + weapon.ammo + " ammo left.");
-          }
+        if(currentAmmo - ammoAmountToBeUsed >= 0){
+            currentAmmo = currentAmmo - ammoAmountToBeUsed;
+            remAmmo(weapon, currentAmmo);
+        } else{
+            alert("You do not have enough ammo to shoot in this firing mode!");
         }
+
+        //let ammoInput: string | null = null;
+        //ammoInput = prompt(`Ammo used with shot? (current ammo: ${currentAmmo})`, ammoAmountToBeUsed.toString());
+        // if (ammoInput !== null) {
+        //   const ammo = parseInt(ammoInput);
+        //   if (weapon.ammo - ammo >= 0) {
+        //     remAmmo(weapon, ammo);
+        //     alert("You now have " + (weapon.ammo - ammo) + " ammo left.");
+        //   } else {
+        //     alert("You only have " + weapon.ammo + " ammo left.");
+        //   }
+        // }
       }
     }
 
@@ -874,7 +881,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                                 <tr key={index}>
                                         <td>
                                             <label htmlFor={part}>
-                                                <input type="radio" id={part} name="Firing Mode" onChange={() => this.setState({firingType: part})} value={part}/>{part}
+                                                <input type="radio" id={part} name="Firing Mode" onChange={() => this.setState({firingType: "FAS"})} value={part}/>{part}
                                             </label>
                                         </td>
                                         <td></td>
@@ -893,7 +900,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                                 <tr key={index}>
                                         <td>
                                             <label htmlFor={part}>
-                                                <input type="radio" id={part} name="Firing Mode" onChange={() => this.setState({firingType: part})} value={part}/>{part}
+                                                <input type="radio" id={part} name="Firing Mode" onChange={() => this.setState({firingType: "FAC"})} value={part}/>{part}
                                             </label>
                                         </td>
                                         <td></td>
@@ -967,8 +974,8 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     sprintActionSection = () => {
         const { character: { attributes: { AGI, STR }, skills: {physical}, metatype } } = this.props;
-        const runningResult = physical.find(iSkill => iSkill.name.toLowerCase() == 'running');
-        const runningRating = runningResult?.rating == undefined ? 0 : runningResult.rating;
+        const runningResult = physical.find(iSkill => iSkill.name.toLowerCase() === 'running');
+        const runningRating = runningResult?.rating === undefined ? 0 : runningResult.rating;
         let metaSprintIncrease = this.getMetaTypeSprintIncrease(metatype);
         if (metaSprintIncrease === null) {
             alert(`Metatype: ${metatype} is invalid`);

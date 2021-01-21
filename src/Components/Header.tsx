@@ -82,7 +82,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
      * Generates the header and all of the needed information
      */
     header(character: ICharacter){
-      console.log('header::char', character);
+      //console.log('header::char', character);
       
       let armor: number = this.calcTotalArmorVal(character);
 
