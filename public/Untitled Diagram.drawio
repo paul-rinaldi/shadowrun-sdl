@@ -1,0 +1,36 @@
+<mxfile host="app.diagrams.net" modified="2020-10-27T18:06:59.241Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36" etag="VWDfKxD3yRT89El4At1l" version="13.8.5" type="gitlab">
+  <diagram id="Js7E2vdQKjriO1nOOy2I" name="Page-1">
+    <mxGraphModel dx="822" dy="1602" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fSAB5A_bCEmiNPKu6XjB-1" value="Gitlab" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fSAB5A_bCEmiNPKu6XjB-2" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="fSAB5A_bCEmiNPKu6XjB-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="840" as="sourcePoint" />
+            <mxPoint x="520" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fSAB5A_bCEmiNPKu6XjB-9" value="API Call (webhook) to &lt;br&gt;deploy previews and production" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="fSAB5A_bCEmiNPKu6XjB-2">
+          <mxGeometry x="-0.2157" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fSAB5A_bCEmiNPKu6XjB-3" value="Netlify CMS" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fSAB5A_bCEmiNPKu6XjB-4" value="Version Control &amp;amp; Codebase Hosting" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="115" y="160" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="fSAB5A_bCEmiNPKu6XjB-5" value="Hosting" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="250" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="fSAB5A_bCEmiNPKu6XjB-8" value="GitLab Runner (CI/CD)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
