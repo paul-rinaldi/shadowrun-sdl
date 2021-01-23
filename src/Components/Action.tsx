@@ -910,7 +910,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      * Will display the option to adjust ammo left in gun after it fires. This method also controls recoil compensation calculations.
      * @return a dropdown of new ammo to take away from gun.
      */
-    adjustAmmo = (weapon: Ranged | null) => {
+    adjustAmmo(weapon: Ranged | null, currentAmmo: number, ammoAmountToBeUsed: number) {
         if (weapon !== null) {
             const {modeSelected, rangedWeaponSelected} = this.state;
             //const {character} = this.props;
