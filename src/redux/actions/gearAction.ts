@@ -1,4 +1,4 @@
-import {Armor, Gear, IAttributes, Melee, Ranged, WeaponModes} from '../../models/playerModels';
+import { Armor, Gear, Melee, Ranged } from '../../models/playerModels';
 
 type SetArmorAction = { type: 'SET_ARMOR_ACTION', payload: Armor[] }
 type SetMeleeAction = { type: 'SET_MELEE_ACTION', payload: Melee[] }
@@ -12,16 +12,16 @@ type AddArmorAction = { type: 'ADD_ARMOR_ACTION', payload: Armor}
 type RemoveMeleeAction = { type: 'REM_MELEE_ACTION', payload: number };
 type RemoveRangedAction = { type: 'REM_RANGED_ACTION', payload: number };
 type RemoveArmorAction = { type: 'REM_ARMOR_ACTION', payload: number };
-// type RemoveAmmoAction = {type: 'REM_AMMO_ACTION', payload: {weapon: Ranged, newAmmo: number}};
-// type ReduceWeaponCompAction = {type: 'RED_WEPCOMP_ACTION', payload: {weapon: Ranged, newRC: number}};
+type RemoveAmmoAction = {type: 'REM_AMMO_ACTION', payload: {weapon: Ranged, newAmmo: number}};
+type AddAmmoAction = {type: 'ADD_AMMO_ACTION', payload: {weapon: Ranged, additionalAmmo: number}};
 
 type ToggleEquipAction = { type: 'TOG_EQUIP', payload: number}
 
 export type GearAction = 
     SetArmorAction | SetMeleeAction | SetRangedAction | SetGearAction |
     AddMeleeAction | AddArmorAction | AddRangedAction |
-    RemoveMeleeAction | RemoveRangedAction | RemoveArmorAction | ToggleEquipAction;
-    //| RemoveAmmoAction | ReduceWeaponCompAction| ToggleEquipAction;
+    RemoveMeleeAction | RemoveRangedAction | RemoveArmorAction
+    | RemoveAmmoAction | AddAmmoAction | ToggleEquipAction;
 
 
 export const setArmor = (armor: Armor[]): SetArmorAction => ({
@@ -80,12 +80,12 @@ export const toggleEquip = (index: number) : ToggleEquipAction => ({
     payload: index
 });
 
-// export const remAmmo = (weapon: Ranged, newAmmo: number) : RemoveAmmoAction => ({
-//     type: "REM_AMMO_ACTION",
-//     payload: {weapon, newAmmo}
-// });
-//
-// export const remWepComp = (weapon: Ranged, newRC: number) : ReduceWeaponCompAction => ({
-//     type: "RED_WEPCOMP_ACTION",
-//     payload: {weapon, newRC}
-// });
+export const remAmmo = (weapon: Ranged, newAmmo: number) : RemoveAmmoAction => ({
+    type: "REM_AMMO_ACTION",
+    payload: {weapon, newAmmo}
+})
+
+export const addAmmo = (weapon: Ranged, additionalAmmo: number) : AddAmmoAction => ({
+    type: "ADD_AMMO_ACTION",
+    payload: {weapon, additionalAmmo}
+})
