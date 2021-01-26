@@ -1,6 +1,7 @@
 import { Gear, Ranged } from "../../models/playerModels";
-import { GearAction } from "../actions/gearAction";
+import {GearAction} from "../actions/gearAction";
 import { initialState } from "../initialState";
+
 
 export const gearReducer = (state: Gear = initialState.gear, action: GearAction): Gear => {
     switch (action.type) {
@@ -16,7 +17,18 @@ export const gearReducer = (state: Gear = initialState.gear, action: GearAction)
         case 'REM_ARMOR_ACTION': return {...state, armor: [ ...state.armor.slice(0, action.payload).concat(state.armor.slice(action.payload + 1, state.armor.length)) ] };
         case 'TOG_EQUIP': return {...state, armor: [...state.armor.map((armor, i) => i === action.payload ? {...armor, equiped: !armor.equiped } : armor)]};
         case 'REM_AMMO_ACTION': {
-          const newWeapon: Ranged = {...action.payload.weapon, ammo: action.payload.weapon.ammo - action.payload.newAmmo};
+          const newWeapon: Ranged = {...action.payload.weapon, ammo: action.payload.newAmmo};
+          const newRanged = state.ranged.map((wep) => {
+            if (wep.name === action.payload.weapon.name) {
+              return newWeapon;
+            } else {
+              return wep;
+            }
+          })
+          return {...state, ranged: newRanged};
+        }
+        case 'ADD_AMMO_ACTION': {
+          const newWeapon: Ranged = {...action.payload.weapon, ammo: action.payload.weapon.ammo + action.payload.additionalAmmo};
           const newRanged = state.ranged.map((wep) => {
             if (wep.name === action.payload.weapon.name) {
               return newWeapon;
