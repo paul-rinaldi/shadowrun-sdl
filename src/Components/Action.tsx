@@ -712,9 +712,8 @@ class Action extends React.Component<IActionProps, IActionState> {
                   <h3 style={{display: this.state.rangedWeaponSelected? 'block' : 'none'}}>Mode selection</h3>
               }
 
-            {/*  {this.fireModesDropdown(this.state.rangedWeaponSelected)}*/}
-            {/*        onChange={(weaponSelectedValue) => this.showRangedWeaponTest(this.selectionToWeapon(weaponSelectedValue))}*/}
-            {/*/> */}
+              {this.fireModesDropdown(this.state.rangedWeaponSelected)}
+
           </div>
 
         );

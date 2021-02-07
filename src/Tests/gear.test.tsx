@@ -4,9 +4,7 @@ import {configure, shallow} from 'enzyme';        //Enzyme makes testing react c
 import Adapter from 'enzyme-adapter-react-16'
 
 //Actual component to be tested
-import App from "../App";
-import Header from "../Components/Header";
-import Gear from "../Components/Qualities";
+import GearPage from "../Components/Gear";
 
 
 //Use the filesystem to load the test file
@@ -17,11 +15,11 @@ configure({adapter: new Adapter()});
 
 
 describe('Adding gear from app', () => {
-    let wrapper;
+    let wrapper : any // this needs to be any and cannot be "const" because const does not allow any class component to work
     
     it('Add gear', () => {
         //Arrange
-        wrapper = shallow(<App/>); //Shallow render of the App component
+        wrapper = shallow(<GearPage/>); //Shallow render of the Gear component
 
         //Load the test character from the file
         const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
@@ -45,7 +43,7 @@ describe('Adding gear from app', () => {
 
     it('Remove gear', () => {
         //Arrange
-        wrapper = shallow(<App/>); //Shallow render of the App component
+        wrapper = shallow(<GearPage/>); //Shallow render of the App component
 
         //Load the test character from the file
         const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
@@ -60,11 +58,11 @@ describe('Adding gear from app', () => {
 });
 
 describe('Equip and unequip gear', () => {
-    let wrapper;
+    let wrapper: any
 
     it('Add armor and check armor stat', () => {
         //Arrange
-        wrapper = shallow(<App/>); //Shallow render of the App component
+        wrapper = shallow(<GearPage/>); //Shallow render of the App component
 
         //Load the test character from the file
         const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
