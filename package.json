@@ -31,9 +31,9 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "serve": "^11.3.2",
-    "web-vitals": "^1.0.1",
     "ts-jest": "^26.4.4",
     "typescript": "^4.0.5",
+    "web-vitals": "^1.0.1",
     "yarn": "^1.22.10"
   },
   "scripts": {
@@ -63,17 +63,17 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
-    "jest": "^24.9.0",
+    "@babel/plugin-transform-react-jsx": "^7.12.5",
+    "@babel/preset-env": "^7.12.11",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "@types/jest": "^26.0.19",
-    "@babel/plugin-transform-react-jsx": "^7.12.5",
-    "@babel/preset-env": "^7.12.11",
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.6",
-    "@types/react-select": "^3.0.21"
+    "@types/react-select": "3.0.8",
+    "jest": "^24.9.0"
   }
 }
