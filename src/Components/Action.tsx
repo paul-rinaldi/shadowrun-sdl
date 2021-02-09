@@ -27,7 +27,6 @@ let isProgressive: boolean; //will control if the recoil compensation is progres
 interface IActionState {
     testVariables: any[] | null;
     testValues: any[] | null;
-    firingModes: any[] | null;
     mentalLimit: number | null;
     physicalLimit: number | null;
     socialLimit: number | null;
@@ -87,7 +86,6 @@ class Action extends React.Component<IActionProps, IActionState> {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
             testValues: null,    //An array of the value equation to display. Ex: [7, '+', 3, '=', 10]
-            firingModes: null, //An array of firing modes to select from
             mentalLimit: null,
             physicalLimit: null,
             socialLimit: null,
@@ -296,8 +294,10 @@ class Action extends React.Component<IActionProps, IActionState> {
     modeSelection = (mode: any) => {
         let weapon = this.state.rangedWeaponSelected? this.state.rangedWeaponSelected: null;
 
-        if(mode.name != this.state.modeSelected) {
-            recoilComp = 0;
+        if(this.state.modeSelected !== null && mode.name !== this.state.modeSelected && weapon) {
+            recoilComp = weapon.RC;
+            let strength = this.props.character.attributes.STR;
+            recoilComp += (Math.ceil(strength / 3) +1);
             isProgressive = false;
         }
         if (weapon) {
@@ -349,7 +349,6 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
 
         const prevWeapon = this.state.currentWeapon;
-        console.log(`Previous Weapon is: ${prevWeapon}   and the new weapon is: ${weapon.name} `);
         let mode = this.state.modeSelected;
         const character = this.props.character;
         const accValue = Number(weapon.acc);
@@ -360,7 +359,6 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         const testVariables = [];
         const testValues = [];
-        const firingModes = [];
         let actualSkill = foundSkills[0];
 
         // if(option !== "ranged" && mode?.RC) {
@@ -371,7 +369,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             recoilComp = weapon.RC;
             isProgressive = false;
             let strength = character.attributes.STR;
-            recoilComp += (Math.ceil(strength / 3) +1) + weapon.RC;
+            recoilComp += (Math.ceil(strength / 3) +1);
         }
         const {physicalLimit, mentalLimit, socialLimit} = this.state;
 
@@ -433,7 +431,6 @@ class Action extends React.Component<IActionProps, IActionState> {
                     let gunnerySkill: ISkill[] = this.props.character.skills.vehicle.filter(skill => skill.name && (skill.name === "Gunnery"));
                     if (this.state.mounted === "MountedNV") {
                         if (heavyWeaponsSkill.length > 0) {
-                            console.log(heavyWeaponsSkill[0]);
                             testVariables.unshift(heavyWeaponsSkill[0].name, "+", <b>{skill.attribute}</b>);
                             testValues.unshift(heavyWeaponsSkill[0].rating, "+", <b>{attribute}</b>);
                             testValues.push('=', heavyWeaponsSkill[0].rating + attribute);
@@ -444,7 +441,6 @@ class Action extends React.Component<IActionProps, IActionState> {
                         }
                     } else if (this.state.mounted === "MountedV") {
                         if (gunnerySkill.length > 0) {
-                            console.log(gunnerySkill[0]);
                             testVariables.unshift(gunnerySkill[0].name, "+", <b>{skill.attribute}</b>);
                             testValues.unshift(gunnerySkill[0].rating, "+", <b>{attribute}</b>);
                             testValues.push('=', gunnerySkill[0].rating + attribute);
@@ -460,8 +456,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                     testValues.push('=', (actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0) + (recoilComp < 0? recoilComp : 0)));
                 }
             }
-            // Second row in table, displays the numbers
-            firingModes.push(weapon.mode);
+
         } else {
             //If they don't have the skill, show a ?
             testVariables.unshift(weapon.skill);
@@ -471,7 +466,6 @@ class Action extends React.Component<IActionProps, IActionState> {
         this.setState({
             testVariables: testVariables,
             testValues: testValues,
-            firingModes: firingModes,
             rangedWeaponSelected: weapon,
             currentWeapon: weapon.name,
             previousWeapon: prevWeapon
@@ -796,7 +790,6 @@ class Action extends React.Component<IActionProps, IActionState> {
 
             return (
                 <div>
-                    {console.log(`selected ref = ${this.state.selectedMode}`)}
                     <Select placeholder={"Select a default"} options={options} value={this.state.selectedMode}
                             onChange={(e: any) => {
                                 this.modeSelection(e)
@@ -908,11 +901,9 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => {
-        // console.log("Checking Value", e.currentTarget.value);
         this.setState({
             mounted: e.currentTarget.value
         }, () => this.showRangedWeaponTest(this.state.rangedWeaponSelected))
-        // console.log("After change", this.state.mounted);
     }
 
     /**
