@@ -887,7 +887,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                 isProgressive = true;
 
                 //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
-                if(weapon.ammo <= 0) {
+                if(weapon.ammo = 0) {
                     isProgressive = false;
                     recoilComp = rangedWeaponSelected.RC;
                 }
