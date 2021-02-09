@@ -775,8 +775,8 @@ class Action extends React.Component<IActionProps, IActionState> {
                         modes.push(this.firingTypeToAmmo(s));
                     }
                     else {
-                        //needs to be changed in the ranged json
-                        modes.push(this.firingTypeToAmmo("FAC"))
+                        modes.push(this.firingTypeToAmmo("FAS"));
+                        modes.push(this.firingTypeToAmmo("FAC"));
                     }
                 }
             } else {
