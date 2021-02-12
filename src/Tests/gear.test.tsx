@@ -1,31 +1,23 @@
-// gear.test.js
 import React from 'react';
-import {configure, mount, render, shallow} from 'enzyme';        //Enzyme makes testing react components easier
+import {configure,shallow} from 'enzyme';        //Enzyme makes testing react components easier
 import Adapter from 'enzyme-adapter-react-16';
-import {Provider} from 'react-redux';
-import configureStore from 'redux-mock-store';
-//import renderer from 'react-test-renderer';
+
 //Actual component to be tested
 import {GearPage} from "../Components/Gear";
 import {addArmor, addRanged, remArmor} from "../redux/actions/gearAction";
 import {combineReducers, createStore} from "redux";
 import {makeLog} from "../redux/actions/logActions";
 import {adjustNuyen} from "../redux/actions/nuyenActions";
-import {store} from "../redux/store";
 import {logReducer} from "../redux/reducers/logReducer";
 import {nuyenReducer} from "../redux/reducers/nuyenReducer";
 import {gearReducer} from "../redux/reducers/gearReducer";
-import App from "../App";
-import exp from "constants";
+
 
 //Use the filesystem to load the test file
 const fs = require('fs');
 
 //Create the adapter for enzyme to work with React 16
 configure({adapter: new Adapter()});
-
-//setup mock store
-const mockStore = configureStore();
 
 //set up mock dispatch
 const armor = {
