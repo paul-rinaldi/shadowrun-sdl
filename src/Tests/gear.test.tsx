@@ -14,6 +14,8 @@ import {adjustNuyen} from "../redux/actions/nuyenActions";
 import {store} from "../redux/store";
 import {logReducer} from "../redux/reducers/logReducer";
 import {nuyenReducer} from "../redux/reducers/nuyenReducer";
+import {gearReducer} from "../redux/reducers/gearReducer";
+import App from "../App";
 
 //Use the filesystem to load the test file
 const fs = require('fs');
@@ -35,37 +37,49 @@ const armor = {
 };
 
 
-describe('Adding gear from app', () => {
+describe('Adding gear from app', ()=> {
     let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
     let testLuigi: any
     let store = createStore(
-        combineReducers({logReducer, nuyenReducer, addArmor})
+        combineReducers({logReducer, nuyenReducer, gearReducer})
     );
+
 
     testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
     window.prompt = jest.fn(() => {
         return "Jacket"
     });
 
-    wrapper = mount(<Provider store={store}>
-        <GearPage character={testLuigi}/>
-    </Provider>);
+    // wrapper = mount(<Provider store={store}>
+    //     <GearPage/>
+    //     </Provider>
+    //     );
 
+    let mockLog = jest.fn((()=> {return store.dispatch(makeLog(1, "idk", "idk", new Date()))}));
+    let mockNuyen = jest.fn((()=> store.dispatch(adjustNuyen(3))));
+    let mockAddArmor = jest.fn((()=> {return store.dispatch(addArmor(armor))}));
+    wrapper = shallow(<GearPage store={store} character={testLuigi} makeLog={mockLog} adjustNuyen={mockNuyen} addArmor={mockAddArmor}/>);
+    let instance = wrapper.instance();
+    wrapper.setState(testLuigi);
+    wrapper.instance().addGearArmor = jest.fn(()=> {
+        store.dispatch(addArmor(armor));
 
+    });
 
 it('Add gear', () => {
     //Arrange
-    wrapper.setState(testLuigi);
-    store.dispatch(makeLog(1, "idk", "idk", new Date()));
-    store.dispatch(adjustNuyen(3))
-    store.dispatch(addArmor(armor));
+
+    instance.addGearArmor();
+    // store.dispatch(makeLog(1, "idk", "idk", new Date()));
+    // store.dispatch(adjustNuyen(3))
+    // store.dispatch(addArmor(armor));
     //Act
     // store.dispatch(component.instance().removeGear("armor", 0));
-    wrapper.instance().addGearArmor();
+    // wrapper.instance().addGearArmor();
 
 
     //Assert
-    expect(wrapper.instance().state.gear.armor[1].name).toBe("Jacket")
+    expect(instance.state.gear.armor[2].name).toBe("Jacket")
 });
 //
 // it('Remove gear', () => {
@@ -86,8 +100,7 @@ it('Add gear', () => {
 //     //Assert
 //     expect(wrapper.instance().state.gear.armor.length).toBe(1)
 // });
-})
-;
+});
 
 
 // describe('Equip and unequip gear', () => {
