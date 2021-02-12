@@ -16,6 +16,7 @@ import {logReducer} from "../redux/reducers/logReducer";
 import {nuyenReducer} from "../redux/reducers/nuyenReducer";
 import {gearReducer} from "../redux/reducers/gearReducer";
 import App from "../App";
+import exp from "constants";
 
 //Use the filesystem to load the test file
 const fs = require('fs');
@@ -37,62 +38,53 @@ const armor = {
 };
 
 
-describe('Adding gear from app', ()=> {
+describe('Adding gear from app', () => {
     let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
     let testLuigi: any
     let store = createStore(
         combineReducers({logReducer, nuyenReducer, gearReducer})
     );
 
-
     testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
-    window.prompt = jest.fn(() => {
-        return "Jacket"
-    });
-
-    // wrapper = mount(<Provider store={store}>
-    //     <GearPage/>
-    //     </Provider>
-    //     );
 
     let mockLog = jest.fn();
     let mockNuyen = jest.fn();
     let mockAddArmor = jest.fn();
 
-    // wrapper = shallow(<GearPage store={store} character={testLuigi} makeLog={mockLog} adjustNuyen={mockNuyen} addArmor={mockAddArmor}/>);
-    // let instance = wrapper.instance();
-    // wrapper.setState(testLuigi);
-    // wrapper.instance().addGearArmor = jest.fn(()=> {
-    //     store.dispatch(addArmor(armor));
-    //
-    // });
-
-
-    //store.dispatch(addArmor(armor));
-    wrapper = shallow(<GearPage store={store} character={testLuigi} makeLog={mockLog} adjustNuyen={mockNuyen} addArmor={mockAddArmor}/>);
+    wrapper = shallow(<GearPage store={store} character={testLuigi} makeLog={mockLog} adjustNuyen={mockNuyen}
+                                addArmor={mockAddArmor}/>);
+    wrapper.makeLog = jest.fn(()=> {
+        console.log("did this work?");
+    })
     let instance = wrapper.instance();
-   wrapper.setState(testLuigi);
-    wrapper.instance().addGearArmor = jest.fn(()=> {
-
+    wrapper.setState(testLuigi);
+    //let date: any;
+    let log: any;
+   // wrapper.instance().addGearArmor = jest.fn(() => {
+        let date = new Date();
+        log = {
+            adjustment: 1, reason: "idk", reasonType: "idk", time: new Date()
+        };
+        store.dispatch(makeLog(1, "idk", "idk", date));
+        store.dispatch(adjustNuyen(3))
         store.dispatch(addArmor(armor));
         instance.state = store.getState();
+   // });
 
+    it('Adds gear armor', () => {
+        //Arrange
+        let increment = 0; // used for the different window prompts
+        window.prompt = jest.fn(()=> increment++ === 1? "Jacket": "3")
+
+        //Act
+        instance.addGearArmor();
+
+        //Assert
+        expect(instance.state.gearReducer.armor[2].name).toBe("Jacket");
+        expect(instance.state.gearReducer.armor.length).toBe(3);
+        expect(instance.state.nuyenReducer).toBe(10003);
+        expect(instance.state.logReducer[0]).toEqual(log);
     });
-it('Add gear', () => {
-    //Arrange
-
-    instance.addGearArmor();
-    // store.dispatch(makeLog(1, "idk", "idk", new Date()));
-    // store.dispatch(adjustNuyen(3))
-    // store.dispatch(addArmor(armor));
-    //Act
-    // store.dispatch(component.instance().removeGear("armor", 0));
-    // wrapper.instance().addGearArmor();
-
-
-    //Assert
-    expect(instance.state.gearReducer.armor[2].name).toBe("Jacket")
-});
 //
 // it('Remove gear', () => {
 //     //Arrange
