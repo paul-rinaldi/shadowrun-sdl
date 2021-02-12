@@ -28,7 +28,7 @@ const mockStore = configureStore();
 
 //set up mock dispatch
 const armor = {
-    name: "name",
+    name: "Jacket",
     rating: 20,
     capacity: 1,
     availability: 1,
@@ -55,17 +55,29 @@ describe('Adding gear from app', ()=> {
     //     </Provider>
     //     );
 
-    let mockLog = jest.fn((()=> {return store.dispatch(makeLog(1, "idk", "idk", new Date()))}));
-    let mockNuyen = jest.fn((()=> store.dispatch(adjustNuyen(3))));
-    let mockAddArmor = jest.fn((()=> {return store.dispatch(addArmor(armor))}));
+    let mockLog = jest.fn();
+    let mockNuyen = jest.fn();
+    let mockAddArmor = jest.fn();
+
+    // wrapper = shallow(<GearPage store={store} character={testLuigi} makeLog={mockLog} adjustNuyen={mockNuyen} addArmor={mockAddArmor}/>);
+    // let instance = wrapper.instance();
+    // wrapper.setState(testLuigi);
+    // wrapper.instance().addGearArmor = jest.fn(()=> {
+    //     store.dispatch(addArmor(armor));
+    //
+    // });
+
+
+    //store.dispatch(addArmor(armor));
     wrapper = shallow(<GearPage store={store} character={testLuigi} makeLog={mockLog} adjustNuyen={mockNuyen} addArmor={mockAddArmor}/>);
     let instance = wrapper.instance();
-    wrapper.setState(testLuigi);
+   wrapper.setState(testLuigi);
     wrapper.instance().addGearArmor = jest.fn(()=> {
+
         store.dispatch(addArmor(armor));
+        instance.state = store.getState();
 
     });
-
 it('Add gear', () => {
     //Arrange
 
@@ -79,7 +91,7 @@ it('Add gear', () => {
 
 
     //Assert
-    expect(instance.state.gear.armor[2].name).toBe("Jacket")
+    expect(instance.state.gearReducer.armor[2].name).toBe("Jacket")
 });
 //
 // it('Remove gear', () => {
