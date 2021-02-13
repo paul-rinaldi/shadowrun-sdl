@@ -1,0 +1,306 @@
+{
+    "ammo":{
+        "throwing":[
+            {
+                "name": "Shuriken",
+                "acc": "Physical",
+                "damage": "(STR+1)P",
+                "damage_modifier":"-",
+                "ap": -1,
+                "ap_modifier": 0,
+                "avail": "4R",
+                "cost": -25,
+                "amount": 1
+            },
+            {
+                "name": "Throwing Knife",
+                "acc": "Physical",
+                "damage": "(STR+1)P",
+                "damage_modifier":"-",
+                "ap": -1,
+                "ap_modifier": 0,
+                "avail": "4R",
+                "cost": -25,
+                "amount": 1
+            }
+
+        ],
+        "arrows":[
+            {
+                "name": "Arrow",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": 0,
+                "avail": "R",
+                "cost": -2,
+                "amount": 1
+            },
+            {
+                "name": "Injection Arrow",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": 0,
+                "avail": "(R+2)R",
+                "cost": -20,
+                "amount": 1
+            }
+        ],
+        "bolts":[
+            {
+                "name": "Bolt",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": 0,
+                "avail": "2",
+                "cost": -5,
+                "amount": 1
+            },
+            {
+                "name": "Injection Bolt",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": 0,
+                "avail": "8R",
+                "cost": -50,
+                "amount": 1
+            }
+        ],
+        "darts":[
+            {
+                "name": "Injection Dart",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": 0,
+                "avail": "4R",
+                "cost": -75,
+                "amount": 1
+            },
+            {
+                "name": "Taser Dart",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": 0,
+                "avail": "3",
+                "cost": -50,
+                "amount": 1
+            }
+        ],
+        "ballistic":[
+            {
+                "name": "Regular",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": 0,
+                "avail": "2R",
+                "cost": -20,
+                "amount": 10
+            },
+            {
+                "name": "Hollow Point",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier": "+1",
+                "ap": "-",
+                "ap_modifier": 2,
+                "avail": "4F",
+                "cost": -70,
+                "amount": 10
+            },
+            {
+                "name": "Armor-Piercing Discarding Sabot",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": -4,
+                "avail": "12F",
+                "cost": -120,
+                "amount": 10
+            },
+            {
+                "name": "Explosive",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"+1",
+                "ap": "-",
+                "ap_modifier": -1,
+                "avail": "9F",
+                "cost": -80,
+                "amount": 10
+            },
+            {
+                "name": "Flechette",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"+2",
+                "ap": "-",
+                "ap_modifier": 5,
+                "avail": "6R",
+                "cost": -65,
+                "amount": 10
+            },
+            {
+                "name": "Gel",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"+0S",
+                "ap": "-",
+                "ap_modifier": 1,
+                "avail": "2R",
+                "cost": -25,
+                "amount": 10
+            },
+            {
+                "name": "Stick-n-Shock",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-2S(e)",
+                "ap": "-",
+                "ap_modifier": -5,
+                "avail": "6R",
+                "cost": -80,
+                "amount": 10
+            },
+            {
+                "name": "Tracer",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": 0,
+                "avail": "6R",
+                "cost": -60,
+                "amount": 10
+            },
+            {
+                "name": "Assault Cannon",
+                "acc": "-",
+                "damage": "-",
+                "damage_modifier":"-",
+                "ap": "-",
+                "ap_modifier": 0,
+                "avail": "12F",
+                "cost": -400,
+                "amount": 10
+            }
+        ],
+        "grenades":[
+            {
+                "name": "Flash-bang",
+                "damage": "10S",
+                "ap": "-4",
+                "blast": "10m Radius",
+                "avail": "6R",
+                "cost": -100,
+                "amount": 1
+            },
+            {
+                "name": "Flash-pak",
+                "damage": "Special",
+                "ap": "-",
+                "blast": "Special",
+                "avail": "4",
+                "cost": -125,
+                "amount": 1
+            },
+            {
+                "name": "Fragmentation",
+                "damage": "18P(f)",
+                "ap": "+5",
+                "blast": "-1/m",
+                "avail": "11F",
+                "cost": -100,
+                "amount": 1
+            },
+            {
+                "name": "High Explosive",
+                "damage": "16P",
+                "ap": "-2",
+                "blast": "-2/m",
+                "avail": "11F",
+                "cost": -100,
+                "amount": 1
+            },
+            {
+                "name": "Gas",
+                "damage": "Chemical",
+                "ap": "-",
+                "blast": "10m Radius",
+                "avail": "2 + Chem availability",
+                "cost": -40,
+                "amount": 1
+            },
+            {
+                "name": "Smoke",
+                "damage": "-",
+                "ap": "-",
+                "blast": "10m Radius",
+                "avail": "4R",
+                "cost": -40,
+                "amount": 1
+            },
+            {
+                "name": "Thermal Smoke",
+                "damage": "-",
+                "ap": "-",
+                "blast": "10m Radius",
+                "avail": "6R",
+                "cost": -60,
+                "amount": 1
+            }
+        ],
+        "rockets":[
+            {
+                "name": "Anti-vehicle",
+                "damage": "24P",
+                "ap": "-4/-10",
+                "blast": "-4/m",
+                "avail": "18F",
+                "cost": -2800,
+                "amount": 1
+            },
+            {
+                "name": "Fragmentation",
+                "damage": "23P (f)",
+                "ap": "+5",
+                "blast": "-1/m",
+                "avail": "12F",
+                "cost": -2000,
+                "amount": 1
+            },
+            {
+                "name": "High Explosive",
+                "damage": "21P",
+                "ap": "-2",
+                "blast": "-2/m",
+                "avail": "18F",
+                "cost": -2100,
+                "amount": 1
+            },
+            {
+                "name": "Missile (As Rocket)",
+                "damage": "-",
+                "ap": "-",
+                "blast": "-",
+                "avail": "+4",
+                "cost": 0,
+                "amount": 1
+            }
+
+        ]
+    }
+}

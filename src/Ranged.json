@@ -155,7 +155,7 @@
                 "mode": "-",
                 "RC": 0,
                 "ammo": 4,
-                "availability": 2,
+                "availability": "2",
                 "cost": -300,
                 "skill": "ARChery"
             },
