@@ -1,5 +1,5 @@
 import React from 'react';
-import {configure,shallow} from 'enzyme';        //Enzyme makes testing react components easier
+import {configure, shallow} from 'enzyme';        //Enzyme makes testing react components easier
 import Adapter from 'enzyme-adapter-react-16';
 
 //Actual component to be tested
@@ -19,34 +19,32 @@ const fs = require('fs');
 //Create the adapter for enzyme to work with React 16
 configure({adapter: new Adapter()});
 
-//set up mock dispatch
-const armor = {
-    name: "Jacket",
-    rating: 20,
-    capacity: 1,
-    availability: 1,
-    cost: 100,
-    equiped: true
-};
 
+describe('Adding and Removing gear', () => {
 
-describe('Adding gear from app', () => {
+    //set up mock dispatch
+    const armor = {
+        name: "Jacket",
+        rating: 20,
+        capacity: 1,
+        availability: 1,
+        cost: 100,
+        equiped: true
+    };
 
     let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
     let testLuigi: any // is the character of the test
     let instance: any // for the wrapper.instance()
     let log: any; // will be used for the log object to pass to log reducer
     let date: any; // will be used for the date of the log object
+    let store:any;  //will be where the reducers methods are dispatched to
 
-    let store = createStore(
-        combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
-    );
-
-    testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
-
-    beforeEach(()=> {
+    beforeEach(() => {
         date = new Date();
-
+        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
+        store = createStore(
+            combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
+        );
         let props = { // props for the GearPage
             character: testLuigi,
             makeLog: jest.fn(),
@@ -65,7 +63,7 @@ describe('Adding gear from app', () => {
             adjustment: 1,
             reason: "idk",
             reasonType: "idk",
-            time: new Date()
+            time: date
         };
 
         wrapper = shallow(<GearPage {...props}/>);
@@ -82,7 +80,7 @@ describe('Adding gear from app', () => {
         store.dispatch(addArmor(armor)); //same as above
         instance.state = store.getState(); // get the new state from the store after all actions are computed
 
-        window.prompt = jest.fn(()=> increment++ === 1? "Jacket": "3") // will gives the following values to the prompt. The prompts asks for numbers after the initial one so change from word to number to parseInt
+        window.prompt = jest.fn(() => increment++ === 1 ? "Jacket" : "3") // will gives the following values to the prompt. The prompts asks for numbers after the initial one so change from word to number to parseInt
 
         //Act
         instance.addGearArmor(); //call the method to be done
@@ -93,25 +91,22 @@ describe('Adding gear from app', () => {
         expect(instance.state.nuyenReducer).toBe(9997); // same as above
         expect(instance.state.logReducer[0]).toEqual(log); // same as above
     });
-//
-// it('Remove gear', () => {
-//     //Arrange
-//     const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
-//
-//     // wrapper = shallow(<GearPage character={testLuigi} adjustNuyen={mockAdjustNuyen} makeLog={mockMakeLog} remArmor={remArmor}/>); //Shallow render of the App component
-//     window.prompt = jest.fn(() => {
-//         return '2'
-//     });
-//     //Load the test character from the file
-//
-//     //wrapper.setState(testLuigi);
-//
-//     //Act
-//     wrapper.instance().removeGear("armor", 1);
-//
-//     //Assert
-//     expect(wrapper.instance().state.gear.armor.length).toBe(1)
-// });
+
+    it('Remove gear', () => {
+        //Arrange
+        window.prompt = jest.fn(() => {return '300'});
+        store.dispatch(remArmor(1));
+        store.dispatch(makeLog(1, "idk", "idk", date));
+        store.dispatch(adjustNuyen(-3)) // same as above
+        instance.state = store.getState();
+        //Act
+        instance.removeGear("armor", 1);
+
+        //Assert
+        expect(instance.state.gearReducer.armor.length).toEqual(1);
+        expect(instance.state.nuyenReducer).toBe(9997);
+        expect(instance.state.logReducer[0]).toEqual(log);
+    });
 });
 
 
