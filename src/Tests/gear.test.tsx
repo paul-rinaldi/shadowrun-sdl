@@ -38,8 +38,9 @@ describe('Adding and Removing gear', () => {
     let log: any; // will be used for the log object to pass to log reducer
     let date: any; // will be used for the date of the log object
     let store:any;  //will be where the reducers methods are dispatched to
-
+    let increment: number;
     beforeEach(() => {
+        increment = 0; // used for the different window prompts questions
         date = new Date();
         testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
         store = createStore(
@@ -74,7 +75,7 @@ describe('Adding and Removing gear', () => {
 
     it('Adds gear armor', () => {
         //Arrange
-        let increment = 0; // used for the different window prompts of addGearArmor() method
+
         store.dispatch(makeLog(1, "idk", "idk", date)); //send the object to the reducer to calculate the new state
         store.dispatch(adjustNuyen(-3)) // same as above
         store.dispatch(addArmor(armor)); //same as above
@@ -92,13 +93,14 @@ describe('Adding and Removing gear', () => {
         expect(instance.state.logReducer[0]).toEqual(log); // same as above
     });
 
-    it('Remove gear', () => {
+    it('Remove gear armor', () => {
         //Arrange
         window.prompt = jest.fn(() => {return '300'});
         store.dispatch(remArmor(1));
         store.dispatch(makeLog(1, "idk", "idk", date));
         store.dispatch(adjustNuyen(-3)) // same as above
         instance.state = store.getState();
+
         //Act
         instance.removeGear("armor", 1);
 
