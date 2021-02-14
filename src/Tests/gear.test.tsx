@@ -109,6 +109,61 @@ describe('Adding and Removing gear', () => {
         expect(instance.state.nuyenReducer).toBe(9997);
         expect(instance.state.logReducer[0]).toEqual(log);
     });
+
+    it('Remove melee armor', () => {
+        //Arrange
+        window.prompt = jest.fn(() => {return '300'});
+        store.dispatch(remArmor(1));
+        store.dispatch(makeLog(1, "idk", "idk", date));
+        store.dispatch(adjustNuyen(-3)) // same as above
+        instance.state = store.getState();
+
+        //Act
+        instance.removeGear("melee", 1);
+
+        //Assert
+        expect(instance.state.gearReducer.melee.length).toEqual(1);
+        expect(instance.state.nuyenReducer).toBe(9997);
+        expect(instance.state.logReducer[0]).toEqual(log);
+    });
+
+    it('Remove ranged armor', () => {
+        //Arrange
+        window.prompt = jest.fn(() => {return '300'});
+        store.dispatch(remArmor(1));
+        store.dispatch(makeLog(1, "idk", "idk", date));
+        store.dispatch(adjustNuyen(-3)) // same as above
+        instance.state = store.getState();
+
+        //Act
+        instance.removeGear("ranged", 1);
+
+        //Assert
+        expect(instance.state.gearReducer.ranged.length).toEqual(1);
+        expect(instance.state.nuyenReducer).toBe(9997);
+        expect(instance.state.logReducer[0]).toEqual(log);
+    });
+
+
+
+
+    it('Remove ranged armor', () => {
+        //Arrange
+        window.prompt = jest.fn(() => {return '300'});
+        store.dispatch(remArmor(1));
+        store.dispatch(makeLog(1, "idk", "idk", date));
+        store.dispatch(adjustNuyen(-3)) // same as above
+        instance.state = store.getState();
+
+        //Act
+        instance.removeGear("ranged", 1);
+
+        //Assert
+        expect(instance.state.gearReducer.ranged.length).toEqual(1);
+        expect(instance.state.nuyenReducer).toBe(9997);
+        expect(instance.state.logReducer[0]).toEqual(log);
+    });
+
 });
 
 
