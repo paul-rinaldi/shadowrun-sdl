@@ -106,6 +106,7 @@ describe('Adding and Removing gear', () => {
         instance.addGearArmor(); //call the method to be done
 
         //Assert
+        // THIS WILL ALWAYS WORK NO MATTER WHAT THE ALERT IS, how do we check for a specific alert?
         expect(window.alert("Canceled input")); // see if the new state is correct
         //expect(instance.state.gearReducer.armor.length).toBe(3); // same as above
         //expect(instance.state.nuyenReducer).toBe(9997); // same as above
