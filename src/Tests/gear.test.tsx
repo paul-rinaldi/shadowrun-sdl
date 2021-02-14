@@ -75,7 +75,6 @@ describe('Adding and Removing gear', () => {
 
     it('Adds gear armor', () => {
         //Arrange
-
         store.dispatch(makeLog(1, "idk", "idk", date)); //send the object to the reducer to calculate the new state
         store.dispatch(adjustNuyen(-3)) // same as above
         store.dispatch(addArmor(armor)); //same as above
@@ -91,6 +90,26 @@ describe('Adding and Removing gear', () => {
         expect(instance.state.gearReducer.armor.length).toBe(3); // same as above
         expect(instance.state.nuyenReducer).toBe(9997); // same as above
         expect(instance.state.logReducer[0]).toEqual(log); // same as above
+    });
+
+    it('Adds empty gear armor name', () => {
+        //Arrange
+        jest.spyOn(window, 'alert').mockImplementation(() => {})
+        store.dispatch(makeLog(1, "idk", "idk", date)); //send the object to the reducer to calculate the new state
+        store.dispatch(adjustNuyen(-3)) // same as above
+        store.dispatch(addArmor(armor)); //same as above
+        instance.state = store.getState(); // get the new state from the store after all actions are computed
+
+        window.prompt = jest.fn(() => {return ""}) // will gives the following values to the prompt. The prompts asks for numbers after the initial one so change from word to number to parseInt
+
+        //Act
+        instance.addGearArmor(); //call the method to be done
+
+        //Assert
+        expect(window.alert("Canceled input")); // see if the new state is correct
+        //expect(instance.state.gearReducer.armor.length).toBe(3); // same as above
+        //expect(instance.state.nuyenReducer).toBe(9997); // same as above
+        //expect(instance.state.logReducer[0]).toEqual(log); // same as above
     });
 
     it('Remove gear armor', () => {
@@ -126,26 +145,6 @@ describe('Adding and Removing gear', () => {
         expect(instance.state.nuyenReducer).toBe(9997);
         expect(instance.state.logReducer[0]).toEqual(log);
     });
-
-    it('Remove ranged armor', () => {
-        //Arrange
-        window.prompt = jest.fn(() => {return '300'});
-        store.dispatch(remArmor(1));
-        store.dispatch(makeLog(1, "idk", "idk", date));
-        store.dispatch(adjustNuyen(-3)) // same as above
-        instance.state = store.getState();
-
-        //Act
-        instance.removeGear("ranged", 1);
-
-        //Assert
-        expect(instance.state.gearReducer.ranged.length).toEqual(1);
-        expect(instance.state.nuyenReducer).toBe(9997);
-        expect(instance.state.logReducer[0]).toEqual(log);
-    });
-
-
-
 
     it('Remove ranged armor', () => {
         //Arrange
