@@ -94,7 +94,7 @@ describe('Adding and Removing gear', () => {
 
     it('Adds empty gear armor name', () => {
         //Arrange
-        jest.spyOn(window, 'alert').mockImplementation(() => {})
+         window.alert = jest.fn();
         store.dispatch(makeLog(1, "idk", "idk", date)); //send the object to the reducer to calculate the new state
         store.dispatch(adjustNuyen(-3)) // same as above
         store.dispatch(addArmor(armor)); //same as above
@@ -106,8 +106,7 @@ describe('Adding and Removing gear', () => {
         instance.addGearArmor(); //call the method to be done
 
         //Assert
-        // THIS WILL ALWAYS WORK NO MATTER WHAT THE ALERT IS, how do we check for a specific alert?
-        expect(window.alert("Canceled input")); // see if the new state is correct
+        expect(window.alert).toHaveBeenCalledWith("Canceled input"); // see if the new state is correct
         //expect(instance.state.gearReducer.armor.length).toBe(3); // same as above
         //expect(instance.state.nuyenReducer).toBe(9997); // same as above
         //expect(instance.state.logReducer[0]).toEqual(log); // same as above
