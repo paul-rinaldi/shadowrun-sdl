@@ -94,7 +94,7 @@ describe('Adding and Removing gear', () => {
 
     it('Adds empty gear armor name', () => {
         //Arrange
-         window.alert = jest.fn();
+        window.alert = jest.fn();
         store.dispatch(makeLog(1, "idk", "idk", date)); //send the object to the reducer to calculate the new state
         store.dispatch(adjustNuyen(-3)) // same as above
         store.dispatch(addArmor(armor)); //same as above
@@ -107,9 +107,6 @@ describe('Adding and Removing gear', () => {
 
         //Assert
         expect(window.alert).toHaveBeenCalledWith("Canceled input"); // see if the new state is correct
-        //expect(instance.state.gearReducer.armor.length).toBe(3); // same as above
-        //expect(instance.state.nuyenReducer).toBe(9997); // same as above
-        //expect(instance.state.logReducer[0]).toEqual(log); // same as above
     });
 
     it('Remove gear armor', () => {
