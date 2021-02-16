@@ -152,6 +152,18 @@ export interface Ranged {
     skill: string;
 }
 
+export interface RangedAmmo {
+  name: string;
+  acc: string;
+  damage: string;
+  damage_modifier: string;
+  ap: string;
+  ap_modifier: string;
+  avail: string;
+  cost: number;
+  amount: string;
+}
+
 export interface WeaponModes {
     name: string;
     numOfRounds: number;
