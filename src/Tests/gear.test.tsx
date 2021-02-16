@@ -4,7 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 //Actual component to be tested
 import {GearPage} from "../Components/Gear";
-import {addArmor, addRanged, remArmor} from "../redux/actions/gearAction";
+import {addArmor, addMelee, addRanged, remArmor, toggleEquip} from "../redux/actions/gearAction";
 import {combineReducers, createStore} from "redux";
 import {makeLog} from "../redux/actions/logActions";
 import {adjustNuyen} from "../redux/actions/nuyenActions";
@@ -20,7 +20,150 @@ const fs = require('fs');
 configure({adapter: new Adapter()});
 
 
-describe('Adding and Removing gear', () => {
+describe('addPresetArmor()', ()=> {
+    //set up mock dispatch
+    const armor = {
+        name: "Jacket",
+        rating: 20,
+        capacity: 1,
+        availability: 1,
+        cost: 100,
+        equiped: true
+    };
+
+    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
+    let testLuigi: any // is the character of the test
+    let instance: any // for the wrapper.instance()
+    let log: any; // will be used for the log object to pass to log reducer
+    let date: any; // will be used for the date of the log object
+    let store: any;  //will be where the reducers methods are dispatched to
+    let increment: number;
+    beforeEach(() => {
+        increment = 0; // used for the different window prompts questions
+        date = new Date();
+        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
+        store = createStore(
+            combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
+        );
+        let props = { // props for the GearPage
+            character: testLuigi,
+            makeLog: jest.fn(),
+            addArmor: jest.fn(),
+            adjustNuyen: jest.fn(),
+            addRanged: jest.fn(),
+            addMelee: jest.fn(),
+            remArmor: jest.fn(),
+            remMelee: jest.fn(),
+            remRanged: jest.fn(),
+            toggleEquip: jest.fn(),
+            setGear: jest.fn()
+        };
+        log = {
+            adjustment: 1,
+            reason: "idk",
+            reasonType: "idk",
+            time: date
+        };
+
+        wrapper = shallow(<GearPage {...props}/>);
+        instance = wrapper.instance();
+        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
+    });
+
+    it('add the Preset Armor',()=> {
+
+        //Arrange
+        jest.spyOn(window, 'confirm').mockReturnValueOnce(true);
+
+
+        //Act
+        store.dispatch(makeLog(1, "idk", "idk", date));
+        store.dispatch(adjustNuyen(-3));
+        store.dispatch(addArmor(armor));
+        instance.addPresetArmor({value: armor, label: "armor"});
+        instance.state = store.getState();
+
+        //Assert
+        expect(instance.state.gearReducer.armor[2].name).toBe("Jacket"); // see if the new state is correct
+        expect(instance.state.gearReducer.armor.length).toBe(3); // same as above
+        expect(instance.state.nuyenReducer).toBe(9997); // same as above
+        expect(instance.state.logReducer[0]).toEqual(log); // same as above
+    })
+});
+
+describe('addPresetMelee()', ()=> {
+    //set up mock dispatch
+    const melee = {
+        name: "Killer Joke",
+        acc: 4,
+        reach: 2,
+        dam: "14/(15)P",
+        ap: -3,
+        availability: "10R",
+        cost: 1000,
+        skill: "Murder"
+    };
+
+    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
+    let testLuigi: any // is the character of the test
+    let instance: any // for the wrapper.instance()
+    let log: any; // will be used for the log object to pass to log reducer
+    let date: any; // will be used for the date of the log object
+    let store: any;  //will be where the reducers methods are dispatched to
+    let increment: number;
+    beforeEach(() => {
+        increment = 0; // used for the different window prompts questions
+        date = new Date();
+        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
+        store = createStore(
+            combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
+        );
+        let props = { // props for the GearPage
+            character: testLuigi,
+            makeLog: jest.fn(),
+            addArmor: jest.fn(),
+            adjustNuyen: jest.fn(),
+            addRanged: jest.fn(),
+            addMelee: jest.fn(),
+            remArmor: jest.fn(),
+            remMelee: jest.fn(),
+            remRanged: jest.fn(),
+            toggleEquip: jest.fn(),
+            setGear: jest.fn()
+        };
+        log = {
+            adjustment: 1,
+            reason: "idk",
+            reasonType: "idk",
+            time: date
+        };
+
+        wrapper = shallow(<GearPage {...props}/>);
+        instance = wrapper.instance();
+        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
+    });
+
+    it('will add the melee', ()=> {
+
+        //Arrange
+        jest.spyOn(window, 'confirm').mockReturnValueOnce(true);
+
+        //Act
+        store.dispatch(makeLog(1, 'idk', 'idk', date));
+        store.dispatch(adjustNuyen(-3));
+        store.dispatch(addMelee(melee))
+        instance.state = store.getState();
+        instance.addPresetMelee({value: melee, label: "stabby stab stab"});
+
+        //Assert
+        expect(instance.state.gearReducer.melee[1].name).toBe("Killer Joke"); // see if the new state is correct
+        expect(instance.state.gearReducer.melee.length).toBe(2); // same as above
+        expect(instance.state.nuyenReducer).toBe(9997); // same as above
+        expect(instance.state.logReducer[0]).toEqual(log); // same as above
+    });
+})
+
+describe('AddGearArmor()', () => {
 
     //set up mock dispatch
     const armor = {
@@ -75,7 +218,7 @@ describe('Adding and Removing gear', () => {
 
     it('Adds gear armor', () => {
         //Arrange
-        store.dispatch(makeLog(1, "idk", "idk", date)); //send the object to the reducer to calculate the new state
+        store.dispatch(makeLog(1, "idk", "idk", date)); //send the object to the redux action to calculate the new state
         store.dispatch(adjustNuyen(-3)) // same as above
         store.dispatch(addArmor(armor)); //same as above
         instance.state = store.getState(); // get the new state from the store after all actions are computed
@@ -166,22 +309,71 @@ describe('Adding and Removing gear', () => {
 });
 
 
-// describe('Equip and unequip gear', () => {
-//     let wrapper: any
-//
-//     it('Add armor and check armor stat', () => {
-//         //Arrange
-//         wrapper = shallow(<GearPage/>); //Shallow render of the App component
-//
-//         //Load the test character from the file
-//         const testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json'));
-//         wrapper.setState(testLuigi);
-//
-//
-//         //Act
-//         wrapper.instance().updateUnequipArmor("Actioneer Business Clothes", true, 8, 8, 8, -1500, 0);
-//
-//         //Assert
-//         expect(wrapper.instance().state.gear.armor[0].equiped).toBe(false)
-//     });
-// });
+describe('Equip and unequip gear', () => {
+    //set up mock dispatch
+    const armor = {
+        name: "Jacket",
+        rating: 20,
+        capacity: 1,
+        availability: 1,
+        cost: 100,
+        equiped: true
+    };
+
+    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
+    let testLuigi: any // is the character of the test
+    let instance: any // for the wrapper.instance()
+    let log: any; // will be used for the log object to pass to log reducer
+    let date: any; // will be used for the date of the log object
+    let store:any;  //will be where the reducers methods are dispatched to
+    let increment: number;
+    beforeEach(() => {
+        increment = 0; // used for the different window prompts questions
+        date = new Date();
+        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
+        store = createStore(
+            combineReducers({gearReducer}) // the reducers of the current function
+        );
+        let props = { // props for the GearPage
+            character: testLuigi,
+            makeLog: jest.fn(),
+            addArmor: jest.fn(),
+            adjustNuyen: jest.fn(),
+            addRanged: jest.fn(),
+            addMelee: jest.fn(),
+            remArmor: jest.fn(),
+            remMelee: jest.fn(),
+            remRanged: jest.fn(),
+            toggleEquip: jest.fn(),
+            setGear: jest.fn()
+        };
+
+        log = {
+            adjustment: 1,
+            reason: "idk",
+            reasonType: "idk",
+            time: date
+        };
+
+        wrapper = shallow(<GearPage {...props}/>);
+        instance = wrapper.instance();
+        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
+    });
+
+
+    it('will equip gear', ()=> {
+
+        //Arrange
+        store.dispatch(toggleEquip(1));
+        instance.state = store.getState();
+        instance.equip("armor", 2);
+
+
+        //Act
+        instance.state = store.getState();
+
+        //Assert
+        expect(instance.state.gearReducer.armor[1].equiped).toBeFalsy();
+
+    })
+});
