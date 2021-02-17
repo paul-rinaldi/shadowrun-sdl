@@ -877,7 +877,13 @@
           "ammo": 40,
           "availability": "9R",
           "cost": -830,
-          "skill": "Automatics"
+          "skill": "Automatics",
+          "ammoTypes": [
+            "ballistic"
+          ],
+          "subAmmoTypes": [
+            "Regular"
+          ]
         }
       ]
     },
