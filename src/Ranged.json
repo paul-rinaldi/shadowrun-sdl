@@ -11,7 +11,13 @@
                 "ammo": 0,
                 "availability": "4R",
                 "cost": -25,
-                "skill": "Throwing"
+                "skill": "Throwing",
+                "ammoTypes": [
+                  "throwing"
+                ],
+                "subAmmoTypes": [
+                  "Shuriken"
+                ]
             },
             {
                 "name": "Throwing Knife",
@@ -23,7 +29,13 @@
                 "ammo": 0,
                 "availability": "4R",
                 "cost": -25,
-                "skill": "Throwing"
+                "skill": "Throwing",
+                "ammoTypes": [
+                  "throwing"
+                ],
+                "subAmmoTypes": [
+                  "Throwing Knife"
+                ]
             }
         ],
         "ballistic":[
@@ -37,7 +49,13 @@
                 "ammo": 0,
                 "availability": "1",
                 "cost": -100,
-                "skill": "ARChery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Bow (Rating - 2)",
@@ -49,7 +67,13 @@
                 "ammo": 0,
                 "availability": "2",
                 "cost": -200,
-                "skill": "Archery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Bow (Rating - 3)",
@@ -61,7 +85,13 @@
                 "ammo": 0,
                 "availability": "3",
                 "cost": -300,
-                "skill": "Archery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Bow (Rating - 4)",
@@ -73,7 +103,13 @@
                 "ammo": 0,
                 "availability": "4",
                 "cost": -400,
-                "skill": "Archery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Bow (Rating - 5)",
@@ -85,7 +121,13 @@
                 "ammo": 0,
                 "availability": "5",
                 "cost": -500,
-                "skill": "Archery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Bow (Rating - 6)",
@@ -97,7 +139,13 @@
                 "ammo": 0,
                 "availability": "6",
                 "cost": -600,
-                "skill": "Archery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Bow (Rating - 7)",
@@ -109,7 +157,13 @@
                 "ammo": 0,
                 "availability": "7",
                 "cost": -700,
-                "skill": "Archery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Bow (Rating - 8)",
@@ -121,7 +175,13 @@
                 "ammo": 0,
                 "availability": "8",
                 "cost": -800,
-                "skill": "Archery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Bow (Rating - 9)",
@@ -133,7 +193,13 @@
                 "ammo": 0,
                 "availability": "9",
                 "cost": -900,
-                "skill": "Archery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Bow (Rating - 10)",
@@ -145,7 +211,13 @@
                 "ammo": 0,
                 "availability": "10",
                 "cost": -1000,
-                "skill": "Archery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "arrows"
+                ],
+                "subAmmoTypes": [
+                  "Arrow", "Injection Arrow"
+                ]
             },
             {
                 "name": "Light Crossbow",
@@ -157,7 +229,13 @@
                 "ammo": 4,
                 "availability": "2",
                 "cost": -300,
-                "skill": "ARChery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "bolts"
+                ],
+                "subAmmoTypes": [
+                  "Bolt", "Injection Bolt"
+                ]
             },
             {
                 "name": "Medium Crossbow",
@@ -169,7 +247,13 @@
                 "ammo": 4,
                 "availability": "4R",
                 "cost": -500,
-                "skill": "ARChery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "bolts"
+                ],
+                "subAmmoTypes": [
+                  "Bolt", "Injection Bolt"
+                ]
             },
             {
                 "name": "Heavy Crossbow",
@@ -181,7 +265,13 @@
                 "ammo": 4,
                 "availability": "8R",
                 "cost": -1000,
-                "skill": "ARChery"
+                "skill": "Archery",
+                "ammoTypes": [
+                  "bolts"
+                ],
+                "subAmmoTypes": [
+                  "Bolt", "Injection Bolt"
+                ]
             }
         ],
         "exotic ranged weapons":[
@@ -195,7 +285,13 @@
                 "ammo": 1,
                 "availability": "8R",
                 "cost": -500,
-                "skill": "Exotic Ranged Weapon"
+                "skill": "Exotic Ranged Weapon",
+                "ammoTypes": [
+                  "utility"
+                ],
+                "subAmmoTypes": [
+                  "Included With Weapon"
+                ]
             }
         ],
         "taser":[
@@ -209,7 +305,13 @@
                 "ammo": 4,
                 "availability": "-",
                 "cost": -250,
-                "skill": "Pistols"
+                "skill": "Pistols",
+                "ammoTypes": [
+                  "darts"
+                ],
+                "subAmmoTypes": [
+                  "Taser Dart"
+                ]
             },
             {
                 "name": "Yamaha Pulsar",
@@ -221,7 +323,13 @@
                 "ammo": 4,
                 "availability": "-",
                 "cost": -180,
-                "skill": "Pistols"
+                "skill": "Pistols",
+                "ammoTypes": [
+                  "darts"
+                ],
+                "subAmmoTypes": [
+                  "Dart"
+                ]
             }
         ],
         "hold-out pistol":[
