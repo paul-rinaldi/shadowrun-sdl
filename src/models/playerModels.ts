@@ -150,6 +150,8 @@ export interface Ranged {
     availability: string;
     cost: number;
     skill: string;
+    ammoTypes: Array<string>;
+    subAmmoTypes: Array<string>;
 }
 
 export interface RangedAmmo {
