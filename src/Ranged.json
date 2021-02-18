@@ -287,10 +287,10 @@
                 "cost": -500,
                 "skill": "Exotic Ranged Weapon",
                 "ammoTypes": [
-                  "utility"
+                  "ballistic"
                 ],
                 "subAmmoTypes": [
-                  "Included With Weapon"
+                  "Regular"
                 ]
             }
         ],
@@ -1230,10 +1230,10 @@
                 "cost": -5000,
                 "skill": "Exotic Ranged Weapon",
                 "ammoTypes": [
-                  "utility"
+                  "ballistic"
                 ],
                 "subAmmoTypes": [
-                  "Included With Weapon"
+                  "Regular"
                 ]
             },
             {

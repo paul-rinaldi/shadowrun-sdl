@@ -24,5 +24,6 @@ export const initialState: ICharacter = {
     RitPrepRitComplex: InitialCharacter.RitPrepRitComplex,
     cyberdeck: InitialCharacter.cyberdeck,
     gear: InitialCharacter.gear,
+    ammo: InitialCharacter.ammo,
     log: Array.from(InitialCharacter.log, (log) => { return {...log, time: new Date(log.time)}})
 };

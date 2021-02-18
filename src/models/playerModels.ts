@@ -1,3 +1,5 @@
+import { ESMap } from "typescript";
+
 export interface ConditionMonitor {
     stun: number;
     physical: number;
@@ -179,6 +181,16 @@ export interface Gear {
     ranged: Ranged[];
 }
 
+export interface Ammo {
+  throwing: ESMap<string, number>[];
+  arrows: ESMap<string, number>[];
+  bolts: ESMap<string, number>[];
+  darts: ESMap<string, number>[];
+  ballistic: ESMap<string, number>[];
+  grenades: ESMap<string, number>[];
+  rockets: ESMap<string, number>[];
+}
+
 export interface ILog {
     adjustment: number;
     reason: string;
@@ -207,5 +219,6 @@ export interface ICharacter {
     RitPrepRitComplex: RitPrepRitComplex;
     cyberdeck: Cyberdeck;
     gear: Gear;
+    ammo: Ammo;
     log: ILog[];
 }
