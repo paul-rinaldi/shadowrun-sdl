@@ -1,7 +1,7 @@
 import * as InitialCharacter from '../InitialState/InitialCharacter.json';
 import { ICharacter } from '../models/playerModels';
 
-console.log("initial", InitialCharacter);
+//console.log("initial", InitialCharacter);
 
 export const initialState: ICharacter = {
     name: InitialCharacter.name,

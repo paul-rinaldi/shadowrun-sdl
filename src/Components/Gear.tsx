@@ -48,7 +48,7 @@ const mapDispatchToProps = {
  * then all gear can be added or removed. They can be added by either a custom item or from a list
  * from the Armor.json, Melee.json, or the Ranged.json
  */
-class GearPage extends React.Component<IGearProps>{
+export class GearPage extends React.Component<IGearProps>{
     /**
      * Renders the Gear page, which contains tables containing various information about all the character's 
      * active gear.
@@ -651,6 +651,10 @@ class GearPage extends React.Component<IGearProps>{
      * 2020.10.25 - To date, the only @param type that is passed is 'armor'  
      * @param type - the type of gear (ex. armor, melee, ranged)
      * @param index - row index of the gear on the table for this type of gear (ex. row 1 (index 1) on the armor table)
+     *
+     *
+     *
+     * ADD MELEE, RANGED, ETC
      */
     equip(type: string, index: number) {
         const { toggleEquip } = this.props;
