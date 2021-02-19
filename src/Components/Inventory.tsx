@@ -14,17 +14,19 @@ const mapDispatchToProps = {
 type IInventoryProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
-interface IInventoryState {}
+class Inventory extends React.Component<IInventoryProps> {
+  // constructor(props: IInventoryProps) {
+  //   super(props);
 
-class Inventory extends React.Component<IInventoryProps, IInventoryState> {
-  constructor(props: IInventoryProps) {
-    super(props);
-
-    this.state = {};
+  //   this.state = {};
+  // }
+  getAmmo(){
+    let ammo = this.props.character.ammo;
+    console.log(ammo);
   }
 
   render() {
-    console.log(this.props.character.ammo);
+    this.getAmmo();
     return (
       <div
         style={{
@@ -44,14 +46,12 @@ class Inventory extends React.Component<IInventoryProps, IInventoryState> {
             <td>Name</td>
             <td>Ammo</td>
           </tr>
-          {Object.values(this.props.character.ammo).map((category: any) => {
+          {Object.values(AmmoJSON.ammo).map((category: any) => {
             return category.map((item: any) => {
-              console.log(category);
-              console.log(item);
               return (
                 <tr>
-                  {/* <td>{item.name}</td> */}
-                  {/* <td>{item.amount}</td> */}
+                  <td>{item.name}</td>
+                  {/* <td>{this.props.character.ammo}</td> */}
                   <td>
                     <input
                       type="text"
