@@ -1021,11 +1021,11 @@ class Action extends React.Component<IActionProps, IActionState> {
                 const currentAmmo = foundWeapon.ammo;
 
                 // TODO send the correct params especially the ammo used!
-                this.adjustAmmo(
-                  this.state.rangedWeaponSelected,
-                  currentAmmo,
-                  firingType
-                );
+                // this.adjustAmmo(
+                //   this.state.rangedWeaponSelected,
+                //   currentAmmo,
+                //   firingType
+                // );
                 toast.error("Fired the " + foundWeapon.name + ".", {
                   position: "bottom-center",
                   autoClose: 5000,
@@ -1084,41 +1084,41 @@ class Action extends React.Component<IActionProps, IActionState> {
     * Also need weapon because it's coupled with showing the ranged weapons test :(
     * 
     */
-  adjustAmmo(ammoType: string, ammoAmountToBeUsed: number) {
-    if (weapon !== null) {
-      const { remAmmo } = this.props;
-      const { rangedWeaponSelected } = this.state;
+  // adjustAmmo(ammoType: string, ammoAmountToBeUsed: number) {
+  //   if (weapon !== null) {
+  //     const { remAmmo } = this.props;
+  //     const { rangedWeaponSelected } = this.state;
 
-      const { ammo } = this.props.character;
-      // TODO find the correct ammo on character from the weapon's ammoType
-      // TODO dont use currentAmmo...
+  //     const { ammo } = this.props.character;
+  //     // TODO find the correct ammo on character from the weapon's ammoType
+  //     // TODO dont use currentAmmo...
 
-      if (currentAmmo - ammoAmountToBeUsed >= 0 && rangedWeaponSelected) {
-        recoilComp = recoilComp - ammoAmountToBeUsed;
-        currentAmmo = currentAmmo - ammoAmountToBeUsed;
-        remAmmo(characterAmmo, ammoType, currentAmmo);
-        isProgressive = true;
+  //     if (currentAmmo - ammoAmountToBeUsed >= 0 && rangedWeaponSelected) {
+  //       recoilComp = recoilComp - ammoAmountToBeUsed;
+  //       currentAmmo = currentAmmo - ammoAmountToBeUsed;
+  //       remAmmo(characterAmmo, ammoType, currentAmmo);
+  //       isProgressive = true;
 
-        //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
-        if ((weapon.ammo = 0)) {
-          isProgressive = false;
-          recoilComp = rangedWeaponSelected.RC;
-        }
+  //       //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
+  //       if ((weapon.ammo = 0)) {
+  //         isProgressive = false;
+  //         recoilComp = rangedWeaponSelected.RC;
+  //       }
 
-        this.setState({ rangedWeaponSelected: weapon }, () =>
-          this.showRangedWeaponTest(weapon)
-        );
-      } else {
-        // We are here if the ammo is 0
-        //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
-        if (rangedWeaponSelected) {
-          recoilComp = rangedWeaponSelected.RC;
-        }
-        isProgressive = false;
-        alert("You do not have enough ammo to shoot in this firing mode!");
-      }
-    }
-  }
+  //       this.setState({ rangedWeaponSelected: weapon }, () =>
+  //         this.showRangedWeaponTest(weapon)
+  //       );
+  //     } else {
+  //       // We are here if the ammo is 0
+  //       //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
+  //       if (rangedWeaponSelected) {
+  //         recoilComp = rangedWeaponSelected.RC;
+  //       }
+  //       isProgressive = false;
+  //       alert("You do not have enough ammo to shoot in this firing mode!");
+  //     }
+  //   }
+  // }
 
   changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => {
     this.setState(
