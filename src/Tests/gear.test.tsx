@@ -11,7 +11,6 @@ import {adjustNuyen} from "../redux/actions/nuyenActions";
 import {logReducer} from "../redux/reducers/logReducer";
 import {nuyenReducer} from "../redux/reducers/nuyenReducer";
 import {gearReducer} from "../redux/reducers/gearReducer";
-import {Ranged} from "../models/playerModels";
 
 
 //Use the filesystem to load the test file
