@@ -30,46 +30,50 @@
   "armor": 0,
   "ammo": {
     "throwing": [
-      { "name": "Shuriken", "amount": 0 },
-      { "name": "Throwing Knife", "amount": 0 }
+      { "name": "Shuriken", "amount": 0, "ammoType": "throwing" },
+      { "name": "Throwing Knife", "amount": 0, "ammoType": "throwing" }
     ],
     "arrows": [
-      { "name": "Arrow", "amount": 0 },
-      { "name": "Injection Arrow", "amount": 0 }
+      { "name": "Arrow", "amount": 0, "ammoType": "arrows" },
+      { "name": "Injection Arrow", "amount": 0, "ammoType": "arrows" }
     ],
     "bolts": [
-      { "name": "Bolt", "amount": 0 },
-      { "name": "Injection Bolt", "amount": 0 }
+      { "name": "Bolt", "amount": 0, "ammoType": "bolts" },
+      { "name": "Injection Bolt", "amount": 0, "ammoType": "bolts" }
     ],
     "darts": [
-      { "name": "Injection Dart", "amount": 0 },
-      { "name": "Taser Dart", "amount": 0 }
+      { "name": "Injection Dart", "amount": 0, "ammoType": "darts" },
+      { "name": "Taser Dart", "amount": 0, "ammoType": "darts" }
     ],
     "ballistic": [
-      { "name": "Regular", "amount": 0 },
-      { "name": "Hollow Point", "amount": 0 },
-      { "name": "Armor-Piercing Discarding Sabot", "amount": 0 },
-      { "name": "Explosive", "amount": 0 },
-      { "name": "Flechette", "amount": 0 },
-      { "name": "Gel", "amount": 0 },
-      { "name": "Stick-n-Shock", "amount": 0 },
-      { "name": "Tracer", "amount": 0 },
-      { "name": "Assault Cannon", "amount": 0 }
+      { "name": "Regular", "amount": 0, "ammoType": "ballistic" },
+      { "name": "Hollow Point", "amount": 0, "ammoType": "ballistic" },
+      {
+        "name": "Armor-Piercing Discarding Sabot",
+        "amount": 0,
+        "ammoType": "ballistic"
+      },
+      { "name": "Explosive", "amount": 0, "ammoType": "ballistic" },
+      { "name": "Flechette", "amount": 0, "ammoType": "ballistic" },
+      { "name": "Gel", "amount": 0, "ammoType": "ballistic" },
+      { "name": "Stick-n-Shock", "amount": 0, "ammoType": "ballistic" },
+      { "name": "Tracer", "amount": 0, "ammoType": "ballistic" },
+      { "name": "Assault Cannon", "amount": 0, "ammoType": "ballistic" }
     ],
     "grenades": [
-      { "name": "Flash-bang", "amount": 0 },
-      { "name": "Flash-pak", "amount": 0 },
-      { "name": "Fragmentation", "amount": 0 },
-      { "name": "High Explosive", "amount": 0 },
-      { "name": "Gas", "amount": 0 },
-      { "name": "Smoke", "amount": 0 },
-      { "name": "Thermal Smoke", "amount": 0 }
+      { "name": "Flash-bang", "amount": 0, "ammoType": "grenades" },
+      { "name": "Flash-pak", "amount": 0, "ammoType": "grenades" },
+      { "name": "Fragmentation", "amount": 0, "ammoType": "grenades" },
+      { "name": "High Explosive", "amount": 0, "ammoType": "grenades" },
+      { "name": "Gas", "amount": 0, "ammoType": "grenades" },
+      { "name": "Smoke", "amount": 0, "ammoType": "grenades" },
+      { "name": "Thermal Smoke", "amount": 0, "ammoType": "grenades" }
     ],
     "rockets": [
-      { "name": "Anti-vehicle", "amount": 0 },
-      { "name": "Fragmentation", "amount": 0 },
-      { "name": "High Explosive", "amount": 0 },
-      { "name": "Missile (As Rocket)", "amount": 0 }
+      { "name": "Anti-vehicle", "amount": 0, "ammoType": "rockets" },
+      { "name": "Fragmentation", "amount": 0, "ammoType": "rockets" },
+      { "name": "High Explosive", "amount": 0, "ammoType": "rockets" },
+      { "name": "Missile (As Rocket)", "amount": 0, "ammoType": "rockets" }
     ]
   },
   "lifestyle": "Low (Safehouse, 3 mths), Middle (5 mths)",

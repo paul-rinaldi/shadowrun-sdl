@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { Button } from 'react-bootstrap';
-import { remAmmo } from '../redux/actions/gearAction';
+import { remAmmo } from '../redux/actions/ammoAction';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -876,7 +876,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             if ((currentAmmo - ammoAmountToBeUsed) >= 0 && rangedWeaponSelected) {
                 recoilComp = recoilComp - ammoAmountToBeUsed;
                 currentAmmo = currentAmmo - ammoAmountToBeUsed;
-                remAmmo(weapon, currentAmmo);
+                // remAmmo(weapon, currentAmmo);
                 isProgressive = true;
 
                 //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)

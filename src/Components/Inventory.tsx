@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ICharacter, Ammo, RangedAmmo } from "../models/playerModels";
-import { addAmmo } from "../redux/actions/gearAction";
+import {
+  ICharacter,
+  Ammo,
+  RangedAmmo,
+  CharacterAmmo,
+} from "../models/playerModels";
+import { addAmmo } from "../redux/actions/ammoAction";
 import { IShadowRunState } from "../redux/store";
 import AmmoJSON from "../Ammo.json";
 
@@ -15,18 +20,13 @@ type IInventoryProps = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
 class Inventory extends React.Component<IInventoryProps> {
-  // constructor(props: IInventoryProps) {
-  //   super(props);
+  constructor(props: IInventoryProps) {
+    super(props);
 
-  //   this.state = {};
-  // }
-  getAmmo(){
-    let ammo = this.props.character.ammo;
-    console.log(ammo);
+    this.state = {};
   }
 
   render() {
-    this.getAmmo();
     return (
       <div
         style={{
@@ -46,32 +46,34 @@ class Inventory extends React.Component<IInventoryProps> {
             <td>Name</td>
             <td>Ammo</td>
           </tr>
-          {Object.values(AmmoJSON.ammo).map((category: any) => {
-            return category.map((item: any) => {
-              return (
-                <tr>
-                  <td>{item.name}</td>
-                  {/* <td>{this.props.character.ammo}</td> */}
-                  <td>
-                    <input
-                      type="text"
-                      placeholder="Add Ammo"
-                      onKeyPress={(event) => {
-                        if (event.key === "Enter") {
-                          //console.log((event.target as HTMLInputElement).value);
-                          //console.log(typeof((event.target as HTMLInputElement).value));
-                          const ammoAdded = parseInt(
-                            (event.target as HTMLInputElement).value
-                          );
-                          this.props.addAmmo(item, ammoAdded);
-                        }
-                      }}
-                    />
-                  </td>
-                </tr>
-              );
-            });
-          })}
+          {Object.values(this.props.character.ammo).map(
+            (category: CharacterAmmo[]) => {
+              return category.map((item: CharacterAmmo) => {
+                return (
+                  <tr>
+                    <td>{item.name}</td>
+                    <td style={{ textAlign: "center" }}>{item.amount}</td>
+                    <td>
+                      <input
+                        type="text"
+                        placeholder="Add Ammo"
+                        onKeyPress={(event) => {
+                          if (event.key === "Enter") {
+                            //console.log((event.target as HTMLInputElement).value);
+                            //console.log(typeof((event.target as HTMLInputElement).value));
+                            const ammoAdded = parseInt(
+                              (event.target as HTMLInputElement).value
+                            );
+                            this.props.addAmmo(item, item.ammoType, ammoAdded);
+                          }
+                        }}
+                      />
+                    </td>
+                  </tr>
+                );
+              });
+            }
+          )}
         </table>
       </div>
     );

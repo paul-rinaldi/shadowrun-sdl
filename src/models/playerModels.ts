@@ -169,8 +169,9 @@ export interface RangedAmmo {
 }
 
 export interface CharacterAmmo {
-  name: string;
-  amount: number;
+    name: string;
+    amount: number;
+    ammoType: string;
 }
 
 export interface WeaponModes {
