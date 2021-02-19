@@ -463,7 +463,6 @@ describe('addPresetRanged()', () => {
 });
 
 
-
 describe('addGearRanged()', () => {
     //set up mock dispatch
     const weapon = {
@@ -539,9 +538,6 @@ describe('addGearRanged()', () => {
 
     })
 });
-
-
-
 
 
 /**
