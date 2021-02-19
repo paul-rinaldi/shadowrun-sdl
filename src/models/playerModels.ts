@@ -146,21 +146,31 @@ export interface Ranged {
     ap: string;
     mode: string;
     RC: number;
-    equippedRC?: number;
     ammo: number;
     availability: string;
     cost: number;
     skill: string;
+    ammoTypes: Array<string>;
+    subAmmoTypes: Array<string>;
+}
+
+export interface RangedAmmo {
+  name: string;
+  acc: string;
+  damage: string;
+  damage_modifier: string;
+  ap: string;
+  ap_modifier: string;
+  avail: string;
+  cost: number;
+  amount: string;
 }
 
 export interface WeaponModes {
     name: string;
-    numOfRoundsSimp: number;
-    numOfRoundsComp?: number;
+    numOfRounds: number;
     RC?: number;
-    DefenseModSimp: number; //for anything not complex
-    DefenseModComp?: number; //only for complex actions
-
+    DefenseMod: number;
 }
 
 export interface Gear {
