@@ -29,35 +29,47 @@
   },
   "armor": 0,
   "ammo": {
-    "throwing": [{ "Shuriken": 0 }, { "Throwing Knife": 0 }],
-    "arrows": [{ "Arrow": 0 }, { "Injection Arrow": 0 }],
-    "bolts": [{ "Bolt": 0 }, { "Injection Bolt": 0 }],
-    "darts": [{ "Injection Dart": 0 }, { "Taser Dart": 0 }],
+    "throwing": [
+      { "name": "Shuriken", "amount": 0 },
+      { "name": "Throwing Knife", "amount": 0 }
+    ],
+    "arrows": [
+      { "name": "Arrow", "amount": 0 },
+      { "name": "Injection Arrow", "amount": 0 }
+    ],
+    "bolts": [
+      { "name": "Bolt", "amount": 0 },
+      { "name": "Injection Bolt", "amount": 0 }
+    ],
+    "darts": [
+      { "name": "Injection Dart", "amount": 0 },
+      { "name": "Taser Dart", "amount": 0 }
+    ],
     "ballistic": [
-      { "Regular": 0 },
-      { "Hollow Point": 0 },
-      { "Armor-Piercing Discarding Sabot": 0 },
-      { "Explosive": 0 },
-      { "Flechette": 0 },
-      { "Gel": 0 },
-      { "Stick-n-Shock": 0 },
-      { "Tracer": 0 },
-      { "Assault Cannon": 0 }
+      { "name": "Regular", "amount": 0 },
+      { "name": "Hollow Point", "amount": 0 },
+      { "name": "Armor-Piercing Discarding Sabot", "amount": 0 },
+      { "name": "Explosive", "amount": 0 },
+      { "name": "Flechette", "amount": 0 },
+      { "name": "Gel", "amount": 0 },
+      { "name": "Stick-n-Shock", "amount": 0 },
+      { "name": "Tracer", "amount": 0 },
+      { "name": "Assault Cannon", "amount": 0 }
     ],
     "grenades": [
-      { "Flash-bang": 0 },
-      { "Flash-pak": 0 },
-      { "Fragmentation": 0 },
-      { "High Explosive": 0 },
-      { "Gas": 0 },
-      { "Smoke": 0 },
-      { "Thermal Smoke": 0 }
+      { "name": "Flash-bang", "amount": 0 },
+      { "name": "Flash-pak", "amount": 0 },
+      { "name": "Fragmentation", "amount": 0 },
+      { "name": "High Explosive", "amount": 0 },
+      { "name": "Gas", "amount": 0 },
+      { "name": "Smoke", "amount": 0 },
+      { "name": "Thermal Smoke", "amount": 0 }
     ],
     "rockets": [
-      { "Anti-vehicle": 0 },
-      { "Fragmentation": 0 },
-      { "High Explosive": 0 },
-      { "Missile (As Rocket)": 0 }
+      { "name": "Anti-vehicle", "amount": 0 },
+      { "name": "Fragmentation", "amount": 0 },
+      { "name": "High Explosive", "amount": 0 },
+      { "name": "Missile (As Rocket)", "amount": 0 }
     ]
   },
   "lifestyle": "Low (Safehouse, 3 mths), Middle (5 mths)",

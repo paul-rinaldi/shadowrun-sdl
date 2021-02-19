@@ -168,6 +168,11 @@ export interface RangedAmmo {
   amount: string;
 }
 
+export interface CharacterAmmo {
+  name: string;
+  ammo: number;
+}
+
 export interface WeaponModes {
     name: string;
     numOfRounds: number;
@@ -182,13 +187,13 @@ export interface Gear {
 }
 
 export interface Ammo {
-  throwing: ESMap<string, number>[];
-  arrows: ESMap<string, number>[];
-  bolts: ESMap<string, number>[];
-  darts: ESMap<string, number>[];
-  ballistic: ESMap<string, number>[];
-  grenades: ESMap<string, number>[];
-  rockets: ESMap<string, number>[];
+  throwing: CharacterAmmo[];
+  arrows: CharacterAmmo[];
+  bolts: CharacterAmmo[];
+  darts: CharacterAmmo[];
+  ballistic: CharacterAmmo[];
+  grenades: CharacterAmmo[];
+  rockets: CharacterAmmo[];
 }
 
 export interface ILog {
