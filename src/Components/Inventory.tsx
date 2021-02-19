@@ -24,6 +24,7 @@ class Inventory extends React.Component<IInventoryProps, IInventoryState> {
   }
 
   render() {
+    console.log(this.props.character.ammo);
     return (
       <div
         style={{
@@ -43,12 +44,14 @@ class Inventory extends React.Component<IInventoryProps, IInventoryState> {
             <td>Name</td>
             <td>Ammo</td>
           </tr>
-          {Object.values(AmmoJSON.ammo).map((category: any) => {
+          {Object.values(this.props.character.ammo).map((category: any) => {
             return category.map((item: any) => {
+              console.log(category);
+              console.log(item);
               return (
                 <tr>
-                  <td>{item.name}</td>
-                  <td>{this.props.character.ammo[category as Ammo][item]}</td>
+                  {/* <td>{item.name}</td> */}
+                  {/* <td>{item.amount}</td> */}
                   <td>
                     <input
                       type="text"
