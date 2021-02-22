@@ -10,6 +10,5 @@ configure({adapter: new Adapter()});
 describe('Making sure the page renders', () => {
     it('renders without crashing', () => {
         shallow(<App/>);
-
     });
 });
