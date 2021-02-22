@@ -1,4 +1,4 @@
-import { Ranged, CharacterAmmo, Ammo } from '../../models/playerModels';
+import { CharacterAmmo } from '../../models/playerModels';
 
 type RemoveAmmoAction = {type: 'REM_AMMO_ACTION', payload: {characterAmmo: CharacterAmmo, ammoType: string, newAmmo: number}};
 type AddAmmoAction = {type: 'ADD_AMMO_ACTION', payload: {characterAmmo: CharacterAmmo, ammoType: string, additionalAmmo: number}};

@@ -154,6 +154,7 @@ export interface Ranged {
     skill: string;
     ammoTypes: Array<string>;
     subAmmoTypes: Array<string>;
+    currentLoadedAmmoType: string;
 }
 
 export interface RangedAmmo {
