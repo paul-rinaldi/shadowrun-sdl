@@ -1040,17 +1040,13 @@ class Action extends React.Component<IActionProps, IActionState> {
               onClick={() => {
                 const foundWeaponArray = character.gear.ranged.filter(
                   (item) =>
-                    this.state.rangedWeaponSelected !== null &&
-                    this.state.rangedWeaponSelected.name === item.name
+                    rangedWeaponSelected !== null &&
+                    rangedWeaponSelected.name === item.name
                 );
                 const foundWeapon = foundWeaponArray[0];
 
-                // TODO use the loaded ammo type
-
-                const currentAmmo = foundWeapon.ammo;
-
                 this.adjustAmmo(
-                  this.state.rangedWeaponSelected,
+                  foundWeapon,
                   this.state.ammoSelected,
                   firingType
                 );
@@ -1110,24 +1106,25 @@ class Action extends React.Component<IActionProps, IActionState> {
   ) {
     if (weapon !== null) {
       const { remAmmo } = this.props;
-      const { rangedWeaponSelected } = this.state;
+      // const { rangedWeaponSelected } = this.state;
 
       const { ammo } = this.props.character;
 
       if (
         ammoToBeUsed &&
         ammoToBeUsed.amount - ammoAmountToBeUsed >= 0 &&
-        rangedWeaponSelected
+        weapon // rangedWeaponSelected
       ) {
         recoilComp = recoilComp - ammoAmountToBeUsed;
         const newAmmo = ammoToBeUsed.amount - ammoAmountToBeUsed;
+
         remAmmo(ammoToBeUsed, ammoToBeUsed.ammoType, newAmmo);
         isProgressive = true;
 
         //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
         if ((weapon.ammo = 0)) {
           isProgressive = false;
-          recoilComp = rangedWeaponSelected.RC;
+          recoilComp = weapon.RC; // rangedWeaponSelected.RC;
         }
 
         toast.error("Fired the " + weapon.name + ".", {
@@ -1146,8 +1143,8 @@ class Action extends React.Component<IActionProps, IActionState> {
       } else {
         // We are here if the ammo is 0
         //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
-        if (rangedWeaponSelected) {
-          recoilComp = rangedWeaponSelected.RC;
+        if (weapon) {
+          recoilComp = weapon.RC;
         }
         isProgressive = false;
         alert("You do not have enough ammo to shoot in this firing mode!");
