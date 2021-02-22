@@ -1,3 +1,5 @@
+import { ESMap } from "typescript";
+
 export interface ConditionMonitor {
     stun: number;
     physical: number;
@@ -152,6 +154,7 @@ export interface Ranged {
     skill: string;
     ammoTypes: Array<string>;
     subAmmoTypes: Array<string>;
+    currentLoadedAmmoType: string;
 }
 
 export interface RangedAmmo {
@@ -166,6 +169,12 @@ export interface RangedAmmo {
   amount: string;
 }
 
+export interface CharacterAmmo {
+    name: string;
+    amount: number;
+    ammoType: string;
+}
+
 export interface WeaponModes {
     name: string;
     numOfRounds: number;
@@ -177,6 +186,16 @@ export interface Gear {
     armor: Armor[];
     melee: Melee[];
     ranged: Ranged[];
+}
+
+export interface Ammo {
+  throwing: CharacterAmmo[];
+  arrows: CharacterAmmo[];
+  bolts: CharacterAmmo[];
+  darts: CharacterAmmo[];
+  ballistic: CharacterAmmo[];
+  grenades: CharacterAmmo[];
+  rockets: CharacterAmmo[];
 }
 
 export interface ILog {
@@ -207,5 +226,6 @@ export interface ICharacter {
     RitPrepRitComplex: RitPrepRitComplex;
     cyberdeck: Cyberdeck;
     gear: Gear;
+    ammo: Ammo;
     log: ILog[];
 }

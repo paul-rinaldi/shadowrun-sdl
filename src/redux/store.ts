@@ -16,6 +16,7 @@ import { cyberDeckReducer } from './reducers/cyberDeckReducer';
 import { augmentationReducer } from './reducers/augmentationReducer';
 import { ritPrepComplexReducer } from './reducers/ritPrepComplexReducer';
 import { gearReducer } from './reducers/gearReducer';
+import { ammoReducer } from './reducers/ammoReducer';
 import { metaTypeReducer } from './reducers/metaTypeReducer';
 import { idReducer } from './reducers/idReducer';
 import { imageReducer } from './reducers/imageReducer';
@@ -55,6 +56,7 @@ export const rootReducer = combineReducers({
         RitPrepRitComplex: ritPrepComplexReducer,
         cyberdeck: cyberDeckReducer,
         gear: gearReducer,
+        ammo: ammoReducer,
         log: logReducer,
     }),
     uploading: uploadReducer

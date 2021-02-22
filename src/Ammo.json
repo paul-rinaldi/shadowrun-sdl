@@ -198,19 +198,6 @@
                 "amount": 10
             }
         ],
-        "utility":[
-          {
-              "name": "Included With Weapon",
-              "acc": "-",
-              "damage": "-",
-              "damage_modifier":"-",
-              "ap": "-",
-              "ap_modifier": 0,
-              "avail": "8R",
-              "cost": 0,
-              "amount": 9999
-          }
-        ],
         "grenades":[
             {
                 "name": "Flash-bang",
@@ -346,7 +333,6 @@
                 "cost": 0,
                 "amount": 1
             }
-
         ]
     }
 }
