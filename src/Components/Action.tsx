@@ -1027,7 +1027,7 @@ class Action extends React.Component<IActionProps, IActionState> {
    */
   testDisplay(character: ICharacter) {
     const { rangedWeaponSelected, firingType } = this.state;
-    if (option === "ranged") {
+    if (option === "ranged" && firingType !== 0) {
       return (
         <div>
           {/* Will show the calculations for the weapon tests*/}
@@ -1044,6 +1044,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                     rangedWeaponSelected.name === item.name
                 );
                 const foundWeapon = foundWeaponArray[0];
+                console.log("firingType", firingType);
 
                 this.adjustAmmo(
                   foundWeapon,
@@ -1104,50 +1105,99 @@ class Action extends React.Component<IActionProps, IActionState> {
     ammoToBeUsed: CharacterAmmo | null,
     ammoAmountToBeUsed: number
   ) {
-    if (weapon !== null) {
+    if (weapon !== null && weapon !== undefined) {
       const { remAmmo } = this.props;
-      // const { rangedWeaponSelected } = this.state;
-
       const { ammo } = this.props.character;
 
-      if (
-        ammoToBeUsed &&
-        ammoToBeUsed.amount - ammoAmountToBeUsed >= 0 &&
-        weapon // rangedWeaponSelected
-      ) {
-        recoilComp = recoilComp - ammoAmountToBeUsed;
-        const newAmmo = ammoToBeUsed.amount - ammoAmountToBeUsed;
+      if (ammoToBeUsed) {
+        switch (ammoToBeUsed.ammoType) {
+          case "throwing":
+            ammoToBeUsed = ammo.throwing.filter(
+              (characterReduxAmmo) =>
+                characterReduxAmmo.name == ammoToBeUsed?.name
+            )[0];
+            break;
+          case "bolts":
+            ammoToBeUsed = ammo.bolts.filter(
+              (characterReduxAmmo) =>
+                characterReduxAmmo.name == ammoToBeUsed?.name
+            )[0];
+            break;
+          case "darts":
+            ammoToBeUsed = ammo.darts.filter(
+              (characterReduxAmmo) =>
+                characterReduxAmmo.name == ammoToBeUsed?.name
+            )[0];
+            break;
+          case "ballistic":
+            ammoToBeUsed = ammo.ballistic.filter(
+              (characterReduxAmmo) =>
+                characterReduxAmmo.name == ammoToBeUsed?.name
+            )[0];
+            break;
+          case "grenades":
+            ammoToBeUsed = ammo.grenades.filter(
+              (characterReduxAmmo) =>
+                characterReduxAmmo.name == ammoToBeUsed?.name
+            )[0];
+            break;
+          case "rockets":
+            ammoToBeUsed = ammo.rockets.filter(
+              (characterReduxAmmo) =>
+                characterReduxAmmo.name == ammoToBeUsed?.name
+            )[0];
+            break;
+          default:
+            ammoToBeUsed = ammo.throwing.filter(
+              (characterReduxAmmo) =>
+                characterReduxAmmo.name == ammoToBeUsed?.name
+            )[0];
+            break;
+        }
 
-        remAmmo(ammoToBeUsed, ammoToBeUsed.ammoType, newAmmo);
-        isProgressive = true;
+        if (ammoToBeUsed.amount - ammoAmountToBeUsed >= 0) {
+          recoilComp = recoilComp - ammoAmountToBeUsed;
+          const newAmmo = ammoToBeUsed.amount - ammoAmountToBeUsed;
 
-        //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
-        if ((weapon.ammo = 0)) {
+          remAmmo(ammoToBeUsed, ammoToBeUsed.ammoType, newAmmo);
+          isProgressive = true;
+
+          //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
+          if ((weapon.ammo = 0)) {
+            isProgressive = false;
+            recoilComp = weapon.RC; // rangedWeaponSelected.RC;
+          }
+
+          toast.error("Fired the " + weapon.name + ".", {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+
+          this.setState(
+            {
+              rangedWeaponSelected: weapon,
+              ammoSelected: {
+                name: ammoToBeUsed.name,
+                amount: newAmmo,
+                ammoType: ammoToBeUsed.ammoType,
+              } as CharacterAmmo,
+            },
+            () => this.showRangedWeaponTest(weapon)
+          );
+        } else {
+          // We are here if the ammo is 0
+          //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
+          if (weapon) {
+            recoilComp = weapon.RC;
+          }
           isProgressive = false;
-          recoilComp = weapon.RC; // rangedWeaponSelected.RC;
+          alert("You do not have enough ammo to shoot in this firing mode!");
         }
-
-        toast.error("Fired the " + weapon.name + ".", {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-
-        this.setState({ rangedWeaponSelected: weapon }, () =>
-          this.showRangedWeaponTest(weapon)
-        );
-      } else {
-        // We are here if the ammo is 0
-        //if ammo is 0, reset the recoil as this is a rule in the rule book (look at Recoil page in rule book)
-        if (weapon) {
-          recoilComp = weapon.RC;
-        }
-        isProgressive = false;
-        alert("You do not have enough ammo to shoot in this firing mode!");
       }
     }
   }
