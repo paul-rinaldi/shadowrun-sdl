@@ -1114,49 +1114,49 @@ class Action extends React.Component<IActionProps, IActionState> {
           case "arrows":
             ammoToBeUsed = ammo.arrows.filter(
               (characterReduxAmmo) =>
-                characterReduxAmmo.name == ammoToBeUsed?.name
+                characterReduxAmmo.name === ammoToBeUsed?.name
             )[0];
             break;
           case "throwing":
             ammoToBeUsed = ammo.throwing.filter(
               (characterReduxAmmo) =>
-                characterReduxAmmo.name == ammoToBeUsed?.name
+                characterReduxAmmo.name === ammoToBeUsed?.name
             )[0];
             break;
           case "bolts":
             ammoToBeUsed = ammo.bolts.filter(
               (characterReduxAmmo) =>
-                characterReduxAmmo.name == ammoToBeUsed?.name
+                characterReduxAmmo.name === ammoToBeUsed?.name
             )[0];
             break;
           case "darts":
             ammoToBeUsed = ammo.darts.filter(
               (characterReduxAmmo) =>
-                characterReduxAmmo.name == ammoToBeUsed?.name
+                characterReduxAmmo.name === ammoToBeUsed?.name
             )[0];
             break;
           case "ballistic":
             ammoToBeUsed = ammo.ballistic.filter(
               (characterReduxAmmo) =>
-                characterReduxAmmo.name == ammoToBeUsed?.name
+                characterReduxAmmo.name === ammoToBeUsed?.name
             )[0];
             break;
           case "grenades":
             ammoToBeUsed = ammo.grenades.filter(
               (characterReduxAmmo) =>
-                characterReduxAmmo.name == ammoToBeUsed?.name
+                characterReduxAmmo.name === ammoToBeUsed?.name
             )[0];
             break;
           case "rockets":
             ammoToBeUsed = ammo.rockets.filter(
               (characterReduxAmmo) =>
-                characterReduxAmmo.name == ammoToBeUsed?.name
+                characterReduxAmmo.name === ammoToBeUsed?.name
             )[0];
             break;
           default:
             ammoToBeUsed = ammo.throwing.filter(
               (characterReduxAmmo) =>
-                characterReduxAmmo.name == ammoToBeUsed?.name
+                characterReduxAmmo.name === ammoToBeUsed?.name
             )[0];
             break;
         }

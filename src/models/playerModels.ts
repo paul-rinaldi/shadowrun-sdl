@@ -155,6 +155,20 @@ export interface Ranged {
     ammoTypes: Array<string>;
     subAmmoTypes: Array<string>;
     currentLoadedAmmoType: string;
+    range: Ranges;
+}
+
+export interface Ranges {
+  default?: Range;
+  slug?: Range;
+  flechette?: Range;
+}
+
+export interface Range {
+  short: Array<number>,
+  medium: Array<number>,
+  long: Array<number>,
+  extreme: Array<number>,
 }
 
 export interface RangedAmmo {
