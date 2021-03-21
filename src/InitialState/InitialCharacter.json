@@ -928,7 +928,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       }
     ]
   },
