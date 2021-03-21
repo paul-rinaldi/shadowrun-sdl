@@ -58,12 +58,12 @@ class Dropdown extends React.Component<IDropdownProps, IDropdownState> {
       }
 
       toPush.forEach((ammo: CharacterAmmo) => {
-        if (this.props.subAmmoTypes.includes(ammo.name)) {
+        //if (this.props.subAmmoTypes.includes(ammo.name)) {
           options.push({
             ammo: ammo,
             label: `${ammo.name} Ammo: ${ammo.amount} ammo left`,
           });
-        }
+        //}
       });
     });
 

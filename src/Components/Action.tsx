@@ -1111,6 +1111,12 @@ class Action extends React.Component<IActionProps, IActionState> {
 
       if (ammoToBeUsed) {
         switch (ammoToBeUsed.ammoType) {
+          case "arrows":
+            ammoToBeUsed = ammo.arrows.filter(
+              (characterReduxAmmo) =>
+                characterReduxAmmo.name == ammoToBeUsed?.name
+            )[0];
+            break;
           case "throwing":
             ammoToBeUsed = ammo.throwing.filter(
               (characterReduxAmmo) =>
