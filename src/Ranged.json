@@ -589,7 +589,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Explosive", "Stick-n-Shock", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        }
       },
       {
         "name": "FN P93 Praetor",
@@ -605,7 +613,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        }
       },
       {
         "name": "HK-227",
@@ -621,7 +637,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        }
       },
       {
         "name": "Ingram Smartgun X",
@@ -636,7 +660,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        }
       },
       {
         "name": "SCK Model 100",
@@ -652,7 +684,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        }
       },
       {
         "name": "Uzi IV",
@@ -668,7 +708,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        }
       }
     ],
     "assault rifle": [
@@ -685,7 +733,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        }
       },
       {
         "name": "Ares Alpha",
@@ -700,7 +756,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Explosive", "Stick-n-Shock", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        }
       },
       {
         "name": "Colt M23",
@@ -715,7 +779,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        }
       },
       {
         "name": "FN HAR",
@@ -730,7 +802,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        }
       },
       {
         "name": "Yamaha Raiden",
@@ -745,7 +825,15 @@
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Explosive", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        }
       }
     ],
     "sniper rifle": [
@@ -763,7 +851,15 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        }
       },
       {
         "name": "Cavalier Arms Crockett EBR",
@@ -779,7 +875,15 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        }
       },
       {
         "name": "Ranger Arms SM-5",
@@ -795,7 +899,15 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        }
       },
       {
         "name": "Remington 950",
@@ -810,7 +922,15 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        }
       },
       {
         "name": "Ruger 100",
@@ -826,7 +946,15 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        }
       }
     ],
     "shotgun": [
@@ -843,7 +971,21 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        }
       },
       {
         "name": "Defiance T-250, short-barreled",
@@ -858,7 +1000,21 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        }
       },
       {
         "name": "Enfield AS-7",
@@ -873,7 +1029,21 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        }
       },
       {
         "name": "Special Enfield AS-7",
@@ -888,7 +1058,21 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        }
       },
       {
         "name": "PJSS Model 55",
@@ -904,7 +1088,21 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        }
       }
     ],
     "light machine gun": [
@@ -922,7 +1120,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 200],
+            "long": [201, 400],
+            "extreme": [401, 800]
+          }
+        }
       },
       {
         "name": "Big Ingram Valiant",
@@ -938,7 +1144,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 200],
+            "long": [201, 400],
+            "extreme": [401, 800]
+          }
+        }
       }
     ],
     "medium machine gun": [
@@ -955,7 +1169,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 40],
+            "medium": [41, 250],
+            "long": [251, 750],
+            "extreme": [751, 1200]
+          }
+        }
       },
       {
         "name": "Big Stoner-Ares M202",
@@ -970,7 +1192,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 40],
+            "medium": [41, 250],
+            "long": [251, 750],
+            "extreme": [751, 1200]
+          }
+        }
       }
     ],
     "heavy machine gun": [
@@ -988,23 +1218,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
-      },
-      {
-        "name": "RPK HMG",
-        "acc": 5,
-        "dam": "12P",
-        "ap": -4,
-        "mode": "FA",
-        "RC": 0,
-        "equippedRC": 6,
-        "ammo": 100,
-        "availability": "16F",
-        "cost": -16300,
-        "skill": "Heavy Weapons",
-        "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 40],
+            "medium": [41, 250],
+            "long": [251, 750],
+            "extreme": [751, 1200]
+          }
+        }
       }
     ],
     "exotic firearms": [
@@ -1021,7 +1243,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Gel"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Fichetti Pain Inducer",
@@ -1036,7 +1266,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        }
       },
       {
         "name": "Parashield Dart Pistol",
@@ -1051,7 +1289,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["darts"],
         "subAmmoTypes": ["Injection Dart, Taser Dart"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        }
       },
       {
         "name": "Parashield Dart Rifle",
@@ -1066,7 +1312,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["darts"],
         "subAmmoTypes": ["Injection Dart"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        }
       }
     ],
     "assault cannon": [
@@ -1084,7 +1338,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 300],
+            "long": [301, 750],
+            "extreme": [751, 1500]
+          }
+        }
       },
       {
         "name": "Panther XXL",
@@ -1099,7 +1361,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 300],
+            "long": [301, 750],
+            "extreme": [751, 1500]
+          }
+        }
       }
     ],
     "grenade launcher": [
@@ -1116,7 +1386,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        }
       },
       {
         "name": "Ares Antioch-2",
@@ -1131,7 +1409,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        }
       },
       {
         "name": "ArmTech MGL-12",
@@ -1146,7 +1432,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        }
       }
     ],
     "missile launcher": [
@@ -1163,7 +1457,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["rockets"],
         "subAmmoTypes": ["Missile (As Rocket)"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [20, 70],
+            "medium": [71, 150],
+            "long": [151, 450],
+            "extreme": [451, 1500]
+          }
+        }
       },
       {
         "name": "Onotari Interceptor",
@@ -1178,7 +1480,15 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["rockets"],
         "subAmmoTypes": ["Missile (As Rocket)"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [20, 70],
+            "medium": [71, 150],
+            "long": [151, 450],
+            "extreme": [451, 1500]
+          }
+        }
       }
     ],
     "implant": [
@@ -1195,7 +1505,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Big Cyber Hold-Out Pistol",
@@ -1210,7 +1528,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Small Cyber Machine Pistol",
@@ -1225,7 +1551,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Big Cyber Machine Pistol",
@@ -1240,7 +1574,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        } 
       },
       {
         "name": "Small Cyber Microgrenade Launcher",
@@ -1255,7 +1597,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        }
       },
       {
         "name": "Big Cyber Microgrenade Launcher",
@@ -1270,7 +1620,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        }
       },
       {
         "name": "Small Cyber Shotgun",
@@ -1285,7 +1643,21 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        }
       },
       {
         "name": "Big Cyber Shotgun",
@@ -1300,7 +1672,21 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        }
       },
       {
         "name": "Small Cyber Submachine Pistol",
@@ -1315,7 +1701,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Big Cyber Submachine Pistol",
@@ -1330,7 +1724,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Small Heavy Cyber Pistol",
@@ -1345,7 +1747,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        }
       },
       {
         "name": "Big Heavy Cyber Pistol",
@@ -1360,7 +1770,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        }
       },
       {
         "name": "Small Light Cyber Pistol",
@@ -1375,7 +1793,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Big Light Cyber Pistol",
@@ -1390,7 +1816,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
         "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       }
     ]
   }
