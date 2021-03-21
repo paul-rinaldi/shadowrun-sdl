@@ -17,10 +17,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR2"],
-            "long": [0, "STR5"],
-            "extreme": [0, "STR7"]
+            "short": [0, 1],
+            "medium": [0, 2],
+            "long": [0, 5],
+            "extreme": [0, 7]
           }
         }
       },
@@ -40,10 +40,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR2"],
-            "long": [0, "STR3"],
-            "extreme": [0, "STR5"]
+            "short": [0, 1],
+            "medium": [0, 2],
+            "long": [0, 3],
+            "extreme": [0, 5]
           }
         }
       }
@@ -65,10 +65,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -88,10 +88,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -111,10 +111,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -134,10 +134,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -157,10 +157,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -180,10 +180,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -203,10 +203,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -226,10 +226,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -249,10 +249,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -272,10 +272,10 @@
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
-            "short": [0, "STR1"],
-            "medium": [0, "STR10"],
-            "long": [0, "STR30"],
-            "extreme": [0, "STR60"]
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
           }
         }
       },
@@ -919,7 +919,13 @@
         "cost": -660,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Explosive", "Stick-n-Shock", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Explosive",
+          "Stick-n-Shock",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -943,7 +949,11 @@
         "cost": -900,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -967,7 +977,11 @@
         "cost": -730,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -990,7 +1004,11 @@
         "cost": -800,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1014,7 +1032,11 @@
         "cost": -875,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1038,7 +1060,11 @@
         "cost": -450,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1063,7 +1089,11 @@
         "cost": -950,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1086,7 +1116,13 @@
         "cost": -2650,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Explosive", "Stick-n-Shock", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Explosive",
+          "Stick-n-Shock",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1109,7 +1145,11 @@
         "cost": -550,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1132,7 +1172,11 @@
         "cost": -1500,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1155,7 +1199,12 @@
         "cost": -2600,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Explosive", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Explosive",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1205,7 +1254,11 @@
         "cost": -10300,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1229,7 +1282,11 @@
         "cost": -28000,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1252,7 +1309,11 @@
         "cost": -2100,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1276,7 +1337,11 @@
         "cost": -1300,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1301,7 +1366,11 @@
         "cost": -450,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "slug": {
@@ -1330,7 +1399,11 @@
         "cost": -450,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "slug": {
@@ -1359,7 +1432,11 @@
         "cost": -1100,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "slug": {
@@ -1388,7 +1465,11 @@
         "cost": -1100,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "slug": {
@@ -1418,7 +1499,11 @@
         "cost": -1000,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "slug": {
@@ -1450,7 +1535,11 @@
         "cost": -5800,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1474,7 +1563,11 @@
         "cost": -5800,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1499,7 +1592,11 @@
         "cost": -7000,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1522,7 +1619,11 @@
         "cost": -7000,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1548,7 +1649,11 @@
         "cost": -16300,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1596,7 +1701,11 @@
         "cost": -5000,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1668,7 +1777,11 @@
         "cost": -21000,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1835,7 +1948,11 @@
         "cost": -2000,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1858,7 +1975,11 @@
         "cost": -2000,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1881,7 +2002,11 @@
         "cost": -3500,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1904,7 +2029,11 @@
         "cost": -3500,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -1913,7 +2042,7 @@
             "long": [16, 30],
             "extreme": [31, 50]
           }
-        } 
+        }
       },
       {
         "name": "Small Cyber Microgrenade Launcher",
@@ -1973,7 +2102,11 @@
         "cost": -8500,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "slug": {
@@ -2002,7 +2135,11 @@
         "cost": -8500,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "slug": {
@@ -2031,7 +2168,11 @@
         "cost": -4800,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -2054,7 +2195,11 @@
         "cost": -4800,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -2077,7 +2222,11 @@
         "cost": -4300,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -2100,7 +2249,11 @@
         "cost": -4300,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -2123,7 +2276,11 @@
         "cost": -3900,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
@@ -2146,7 +2303,11 @@
         "cost": -3900,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
         "currentLoadedAmmoType": "",
         "range": {
           "default": {
