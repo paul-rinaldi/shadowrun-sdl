@@ -14,7 +14,15 @@
         "skill": "Throwing",
         "ammoTypes": ["throwing"],
         "subAmmoTypes": ["Shuriken"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR2"],
+            "long": [0, "STR5"],
+            "extreme": [0, "STR7"]
+          }
+        }
       },
       {
         "name": "Throwing Knife",
@@ -29,7 +37,15 @@
         "skill": "Throwing",
         "ammoTypes": ["throwing"],
         "subAmmoTypes": ["Throwing Knife"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR2"],
+            "long": [0, "STR3"],
+            "extreme": [0, "STR5"]
+          }
+        }
       }
     ],
     "ballistic": [
@@ -46,7 +62,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Bow (Rating - 2)",
@@ -61,7 +85,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Bow (Rating - 3)",
@@ -76,7 +108,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Bow (Rating - 4)",
@@ -91,7 +131,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Bow (Rating - 5)",
@@ -106,7 +154,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Bow (Rating - 6)",
@@ -121,7 +177,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Bow (Rating - 7)",
@@ -136,7 +200,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Bow (Rating - 8)",
@@ -151,7 +223,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Bow (Rating - 9)",
@@ -166,7 +246,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Bow (Rating - 10)",
@@ -181,7 +269,15 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, "STR1"],
+            "medium": [0, "STR10"],
+            "long": [0, "STR30"],
+            "extreme": [0, "STR60"]
+          }
+        }
       },
       {
         "name": "Light Crossbow",
@@ -196,7 +292,15 @@
         "skill": "Archery",
         "ammoTypes": ["bolts"],
         "subAmmoTypes": ["Bolt", "Injection Bolt"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 6],
+            "medium": [7, 24],
+            "long": [25, 60],
+            "extreme": [61, 120]
+          }
+        }
       },
       {
         "name": "Medium Crossbow",
@@ -211,7 +315,15 @@
         "skill": "Archery",
         "ammoTypes": ["bolts"],
         "subAmmoTypes": ["Bolt", "Injection Bolt"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 9],
+            "medium": [10, 36],
+            "long": [37, 90],
+            "extreme": [91, 150]
+          }
+        }
       },
       {
         "name": "Heavy Crossbow",
@@ -226,7 +338,15 @@
         "skill": "Archery",
         "ammoTypes": ["bolts"],
         "subAmmoTypes": ["Bolt", "Injection Bolt"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 15],
+            "medium": [16, 36],
+            "long": [37, 90],
+            "extreme": [91, 150]
+          }
+        }
       }
     ],
     "exotic ranged weapons": [
@@ -243,7 +363,15 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 6],
+            "medium": [7, 24],
+            "long": [25, 60],
+            "extreme": [61, 120]
+          }
+        }
       }
     ],
     "taser": [
@@ -260,7 +388,15 @@
         "skill": "Pistols",
         "ammoTypes": ["darts"],
         "subAmmoTypes": ["Taser Dart, Injection Dart"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 10],
+            "long": [11, 15],
+            "extreme": [16, 20]
+          }
+        }
       },
       {
         "name": "Yamaha Pulsar",
@@ -275,7 +411,15 @@
         "skill": "Pistols",
         "ammoTypes": ["darts"],
         "subAmmoTypes": ["Taser Dart, Injection Dart"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 10],
+            "long": [11, 15],
+            "extreme": [16, 20]
+          }
+        }
       }
     ],
     "hold-out pistol": [
@@ -292,7 +436,15 @@
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Flechette"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Streetline Special",
@@ -306,8 +458,20 @@
         "cost": -120,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Walther Palm Pistol",
@@ -321,8 +485,20 @@
         "cost": -180,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       }
     ],
     "light pistol": [
@@ -338,8 +514,20 @@
         "cost": -200,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Ares Light Fire 75",
@@ -353,8 +541,20 @@
         "cost": -1250,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Beretta 201T",
@@ -369,8 +569,20 @@
         "cost": -210,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Colt America L36",
@@ -384,8 +596,20 @@
         "cost": -320,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Fichetti Security 600",
@@ -400,11 +624,23 @@
         "cost": -350,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
-        "name": "Taurus Omni-6, light pistol rounds",
+        "name": "Taurus Omni-6",
         "acc": "5 (6)",
         "dam": "6P",
         "ap": "-",
@@ -415,23 +651,20 @@
         "cost": -300,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
-      },
-      {
-        "name": "Taurus Omni-6, heavy pistol rounds",
-        "acc": "5 (6)",
-        "dam": "7P",
-        "ap": -1,
-        "mode": "SS",
-        "RC": 0,
-        "ammo": 6,
-        "availability": "3R",
-        "cost": -300,
-        "skill": "Pistols",
-        "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       }
     ],
     "heavy pistol": [
@@ -447,8 +680,20 @@
         "cost": -725,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        }
       },
       {
         "name": "Ares Viper Silvergun",
@@ -463,7 +708,15 @@
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Flechette", "Silvers"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        }
       },
       {
         "name": "Browning Ultra-Power",
@@ -477,8 +730,20 @@
         "cost": -640,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        }
       },
       {
         "name": "Colt Government 2066",
@@ -492,8 +757,20 @@
         "cost": -425,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        }
       },
       {
         "name": "Remington Roomsweeper",
@@ -508,7 +785,15 @@
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Flechette"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        }
       },
       {
         "name": "Ruger Super Warhawk",
@@ -523,7 +808,15 @@
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        }
       }
     ],
     "machine pistol": [
@@ -539,8 +832,20 @@
         "cost": -830,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Ceska Black Scorpion",
@@ -555,8 +860,20 @@
         "cost": -270,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       },
       {
         "name": "Steyr TMP",
@@ -570,8 +887,22 @@
         "cost": -350,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Explosive", "Stick-n-Shock", "Hollow Point", "Armor-Piercing Discarding Sabot"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Explosive",
+          "Stick-n-Shock",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        }
       }
     ],
     "submachine gun": [
