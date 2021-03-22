@@ -412,6 +412,34 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
   };
 
+  rangeSelect(){
+    let rangeRadioOptions = new Map();
+    if (this.state.rangedWeaponSelected !== null) {
+      const ranges = this.state.rangedWeaponSelected.range;
+
+      if (ranges.default !== null && ranges.default !== undefined) {
+        rangeRadioOptions.set("short", ranges.default.short);
+        rangeRadioOptions.set("medium", ranges.default.medium);
+        rangeRadioOptions.set("long", ranges.default.long);
+        rangeRadioOptions.set("extreme", ranges.default.extreme);
+      }
+
+      if (ranges.slug !== null && ranges.slug !== undefined) {
+        rangeRadioOptions.set("shortSlug", ranges.slug.short);
+        rangeRadioOptions.set("mediumSlug", ranges.slug.medium);
+        rangeRadioOptions.set("longSlug", ranges.slug.long);
+        rangeRadioOptions.set("extremeSlug", ranges.slug.extreme);
+      }
+
+      if (ranges.flechette !== null && ranges.flechette !== undefined) {
+        rangeRadioOptions.set("shortFle", ranges.flechette.short);
+        rangeRadioOptions.set("mediumFle", ranges.flechette.medium);
+        rangeRadioOptions.set("longFle", ranges.flechette.long);
+        rangeRadioOptions.set("extremeFle", ranges.flechette.extreme);
+      }
+    }
+  }
+
   defaultVal = () => {
     if (this.state.currentWeapon !== this.state.previousWeapon) {
       this.setState({
