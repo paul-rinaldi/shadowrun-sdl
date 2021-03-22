@@ -39,6 +39,7 @@ interface IActionState {
   socialLimit: number | null;
   rangedWeaponSelected: Ranged | null;
   mounted: string;
+  weaponFiringRange: String;
   firingType: number;
   modeSelected: WeaponModes | null;
   currentWeapon: string | null;
@@ -98,6 +99,7 @@ class Action extends React.Component<IActionProps, IActionState> {
       socialLimit: null,
       rangedWeaponSelected: null,
       mounted: "Unmounted",
+      weaponFiringRange: "",
       firingType: 0,
       modeSelected: null,
       currentWeapon: null,
@@ -412,33 +414,131 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
   };
 
-  rangeSelect(){
-    let rangeRadioOptions = new Map();
+  rangeSelect() {
+    let rangeRadioOptions = [];
+    let genOneDiv = false;
+    const strength = this.props.character.attributes.STR;
+
     if (this.state.rangedWeaponSelected !== null) {
-      const ranges = this.state.rangedWeaponSelected.range;
+      const ranges = this.state.rangedWeaponSelected?.range;
 
       if (ranges.default !== null && ranges.default !== undefined) {
-        rangeRadioOptions.set("short", ranges.default.short);
-        rangeRadioOptions.set("medium", ranges.default.medium);
-        rangeRadioOptions.set("long", ranges.default.long);
-        rangeRadioOptions.set("extreme", ranges.default.extreme);
+        rangeRadioOptions.push({
+          distanceType: "short",
+          values: ranges.default.short,
+        });
+        rangeRadioOptions.push({
+          distanceType: "medium",
+          values: ranges.default.medium,
+        });
+        rangeRadioOptions.push({
+          distanceType: "long",
+          values: ranges.default.long,
+        });
+        rangeRadioOptions.push({
+          distanceType: "extreme",
+          values: ranges.default.extreme,
+        });
+        genOneDiv = true;
       }
 
       if (ranges.slug !== null && ranges.slug !== undefined) {
-        rangeRadioOptions.set("shortSlug", ranges.slug.short);
-        rangeRadioOptions.set("mediumSlug", ranges.slug.medium);
-        rangeRadioOptions.set("longSlug", ranges.slug.long);
-        rangeRadioOptions.set("extremeSlug", ranges.slug.extreme);
+        rangeRadioOptions.push({
+          distanceType: "shortSlug",
+          values: ranges.slug.short,
+        });
+        rangeRadioOptions.push({
+          distanceType: "mediumSlug",
+          values: ranges.slug.medium,
+        });
+        rangeRadioOptions.push({
+          distanceType: "longSlug",
+          values: ranges.slug.long,
+        });
+        rangeRadioOptions.push({
+          distanceType: "extremeSlug",
+          values: ranges.slug.extreme,
+        });
       }
 
       if (ranges.flechette !== null && ranges.flechette !== undefined) {
-        rangeRadioOptions.set("shortFle", ranges.flechette.short);
-        rangeRadioOptions.set("mediumFle", ranges.flechette.medium);
-        rangeRadioOptions.set("longFle", ranges.flechette.long);
-        rangeRadioOptions.set("extremeFle", ranges.flechette.extreme);
+        rangeRadioOptions.push({
+          distanceType: "shortFlechette",
+          values: ranges.flechette.short,
+        });
+        rangeRadioOptions.push({
+          distanceType: "mediumFlechette",
+          values: ranges.flechette.medium,
+        });
+        rangeRadioOptions.push({
+          distanceType: "longFlechette",
+          values: ranges.flechette.long,
+        });
+        rangeRadioOptions.push({
+          distanceType: "extremeFlechette",
+          values: ranges.flechette.extreme,
+        });
       }
     }
+
+    let radioInputs: Array<JSX.Element>;
+    radioInputs = [];
+
+    if (genOneDiv) {
+      // One div generated for default ranges
+      rangeRadioOptions.forEach((individualRange) => {
+        if (
+          "Throwing" === this.state.rangedWeaponSelected?.skill ||
+          this.state.rangedWeaponSelected?.name.search("Bow") != -1
+        ) {
+          individualRange.values[1] *= strength;
+        }
+
+        radioInputs.push(
+          <React.Fragment>
+            <input
+              type="radio"
+              id={individualRange.distanceType}
+              name={
+                individualRange.distanceType +
+                " [" +
+                individualRange.values[0] +
+                "m - " +
+                individualRange.values[1] +
+                "m]"
+              }
+              value={
+                individualRange.values[0] + "-" + individualRange.values[1]
+              }
+              onChange={this.changeWeaponFiringRange}
+              defaultChecked={false}
+            />
+            <label style={{ marginRight: "2.5%" }}>
+              {this.capitalizeFirstLetter(individualRange.distanceType) +
+                " [" +
+                individualRange.values[0] +
+                "m - " +
+                individualRange.values[1] +
+                "m]"}
+            </label>
+          </React.Fragment>
+        );
+      });
+    } else {
+      // Two divs generated for slug and flechette ranges
+      radioInputs.push(<input></input>);
+    }
+
+    return (
+      <div className="radioOptions" style={{ textAlign: "center" }}>
+        {radioInputs}
+      </div>
+    );
   }
+
+  capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
   defaultVal = () => {
     if (this.state.currentWeapon !== this.state.previousWeapon) {
@@ -1060,8 +1160,8 @@ class Action extends React.Component<IActionProps, IActionState> {
         <div>
           {/* Will show the calculations for the weapon tests*/}
           {this.calculationTable()}
-
           {this.mountedTypeSelect()}
+          {this.rangeSelect()}
 
           {rangedWeaponSelected && (
             <Button
@@ -1245,13 +1345,22 @@ class Action extends React.Component<IActionProps, IActionState> {
     );
   };
 
+  changeWeaponFiringRange = async (e: React.FormEvent<HTMLInputElement>) => {
+    this.setState(
+      {
+        weaponFiringRange: e.currentTarget.value,
+      },
+      () => this.showRangedWeaponTest(this.state.rangedWeaponSelected)
+    );
+  };
+
   /**
    * This displays a radio select for ways to mount a ranged weapon for firing.
    * @returns a radio select with handlers
    */
   mountedTypeSelect() {
     return (
-      <div className="testResult1" style={{ textAlign: "center" }}>
+      <div className="radioOptions" style={{ textAlign: "center" }}>
         <input
           type="radio"
           id="Unmounted"
