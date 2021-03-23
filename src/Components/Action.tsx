@@ -491,7 +491,12 @@ class Action extends React.Component<IActionProps, IActionState> {
           "Throwing" === this.state.rangedWeaponSelected?.skill ||
           this.state.rangedWeaponSelected?.name.search("Bow") != -1
         ) {
+          // TODO fix bow calculation to properly use ranged.json values bc state updates so much
+          // this.state.rangedWeaponSelected?.name
+          // individualRange.distanceType
+
           individualRange.values[1] *= strength;
+          console.log("yaboi:", individualRange.values[1], strength);
         }
 
         radioInputs.push(
