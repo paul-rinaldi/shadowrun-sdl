@@ -444,38 +444,38 @@ class Action extends React.Component<IActionProps, IActionState> {
 
       if (ranges.slug !== null && ranges.slug !== undefined) {
         rangeRadioOptions.push({
-          distanceType: "shortSlug",
+          distanceType: "Short (Slug)",
           values: ranges.slug.short,
         });
         rangeRadioOptions.push({
-          distanceType: "mediumSlug",
+          distanceType: "Medium (Slug)",
           values: ranges.slug.medium,
         });
         rangeRadioOptions.push({
-          distanceType: "longSlug",
+          distanceType: "Long (Slug)",
           values: ranges.slug.long,
         });
         rangeRadioOptions.push({
-          distanceType: "extremeSlug",
+          distanceType: "Extreme (Slug)",
           values: ranges.slug.extreme,
         });
       }
 
       if (ranges.flechette !== null && ranges.flechette !== undefined) {
         rangeRadioOptions.push({
-          distanceType: "shortFlechette",
+          distanceType: "Short (Flechette)",
           values: ranges.flechette.short,
         });
         rangeRadioOptions.push({
-          distanceType: "mediumFlechette",
+          distanceType: "Medium (Flechette)",
           values: ranges.flechette.medium,
         });
         rangeRadioOptions.push({
-          distanceType: "longFlechette",
+          distanceType: "Long (Flechette)",
           values: ranges.flechette.long,
         });
         rangeRadioOptions.push({
-          distanceType: "extremeFlechette",
+          distanceType: "Extreme (Flechette)",
           values: ranges.flechette.extreme,
         });
       }
@@ -499,14 +499,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             <input
               type="radio"
               id={individualRange.distanceType}
-              name={
-                individualRange.distanceType +
-                " [" +
-                individualRange.values[0] +
-                "m - " +
-                individualRange.values[1] +
-                "m]"
-              }
+              name="Range Type"
               value={
                 individualRange.values[0] + "-" + individualRange.values[1]
               }
@@ -526,14 +519,50 @@ class Action extends React.Component<IActionProps, IActionState> {
       });
     } else {
       // Two divs generated for slug and flechette ranges
-      radioInputs.push(<input></input>);
+      rangeRadioOptions.forEach((individualRange) => {
+        radioInputs.push(
+          <React.Fragment>
+            <input
+              type="radio"
+              id={individualRange.distanceType}
+              name="Range Type"
+              value={
+                individualRange.values[0] + "-" + individualRange.values[1]
+              }
+              onChange={this.changeWeaponFiringRange}
+              defaultChecked={false}
+            />
+            <label style={{ marginRight: "2.5%" }}>
+              {this.capitalizeFirstLetter(individualRange.distanceType) +
+                " [" +
+                individualRange.values[0] +
+                "m - " +
+                individualRange.values[1] +
+                "m]"}
+            </label>
+          </React.Fragment>
+        );
+      });
     }
 
-    return (
-      <div className="radioOptions" style={{ textAlign: "center" }}>
-        {radioInputs}
-      </div>
-    );
+    if(radioInputs.length === 4){
+      return (
+        <div className="radioOptions" style={{ textAlign: "center" }}>
+          {radioInputs}
+        </div>
+      );
+    } else {
+      let radioInputsFirst = radioInputs.slice(0, 4);
+      let radioInputsLast = radioInputs.slice(4);
+      return (
+        <div className="radioOptions" style={{ textAlign: "center" }}>
+          {radioInputsFirst}
+          <div>
+            {radioInputsLast}
+          </div>
+        </div>
+      );
+    }
   }
 
   capitalizeFirstLetter = (string: string) => {
@@ -658,7 +687,7 @@ class Action extends React.Component<IActionProps, IActionState> {
       });
 
       // First row in table, displays the skill name and attribute
-      if (weapon.name.substring(0, 3) === "Bow") {
+      if (weapon.name.substring(0, 3) === "Bow" || weapon.skill === "Throwing") {
         testVariables.unshift(
           skill.name,
           "+",
