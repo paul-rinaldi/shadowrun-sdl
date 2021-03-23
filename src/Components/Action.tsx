@@ -39,7 +39,7 @@ interface IActionState {
   socialLimit: number | null;
   rangedWeaponSelected: Ranged | null;
   mounted: string;
-  weaponFiringRange: String;
+  weaponFiringRange: string;
   firingType: number;
   modeSelected: WeaponModes | null;
   currentWeapon: string | null;
@@ -424,19 +424,19 @@ class Action extends React.Component<IActionProps, IActionState> {
 
       if (ranges.default !== null && ranges.default !== undefined) {
         rangeRadioOptions.push({
-          distanceType: "short",
+          distanceType: "Short",
           values: ranges.default.short,
         });
         rangeRadioOptions.push({
-          distanceType: "medium",
+          distanceType: "Medium",
           values: ranges.default.medium,
         });
         rangeRadioOptions.push({
-          distanceType: "long",
+          distanceType: "Long",
           values: ranges.default.long,
         });
         rangeRadioOptions.push({
-          distanceType: "extreme",
+          distanceType: "Extreme",
           values: ranges.default.extreme,
         });
         genOneDiv = true;
@@ -500,9 +500,7 @@ class Action extends React.Component<IActionProps, IActionState> {
               type="radio"
               id={individualRange.distanceType}
               name="Range Type"
-              value={
-                individualRange.values[0] + "-" + individualRange.values[1]
-              }
+              value={individualRange.distanceType}
               onChange={this.changeWeaponFiringRange}
               defaultChecked={false}
             />
@@ -545,7 +543,7 @@ class Action extends React.Component<IActionProps, IActionState> {
       });
     }
 
-    if(radioInputs.length === 4){
+    if (radioInputs.length === 4) {
       return (
         <div className="radioOptions" style={{ textAlign: "center" }}>
           {radioInputs}
@@ -557,9 +555,7 @@ class Action extends React.Component<IActionProps, IActionState> {
       return (
         <div className="radioOptions" style={{ textAlign: "center" }}>
           {radioInputsFirst}
-          <div>
-            {radioInputsLast}
-          </div>
+          <div>{radioInputsLast}</div>
         </div>
       );
     }
@@ -605,6 +601,7 @@ class Action extends React.Component<IActionProps, IActionState> {
     if (weapon === undefined || weapon === null) {
       return;
     }
+    // let calculationStack = [];
 
     const prevWeapon = this.state.currentWeapon;
     let mode = this.state.modeSelected;
@@ -702,7 +699,8 @@ class Action extends React.Component<IActionProps, IActionState> {
           "-",
           bowDicePoolModifier
         );
-        testValues.push("=", skill.rating + attribute - bowDicePoolModifier);
+        // calculationStack.push(skill.rating, attribute, -bowDicePoolModifier);
+        testValues.push("=", skill.rating, attribute, -bowDicePoolModifier);
       } else {
         if (this.state.mounted !== "Unmounted") {
           let heavyWeaponsSkill: ISkill[] = this.props.character.skills.combat.filter(
@@ -727,6 +725,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             } else {
               testVariables.unshift(skill.name, "+", <b>{skill.attribute}</b>);
               testValues.unshift(skill.rating, "+", <b>{attribute}</b>);
+              // calculationStack.push(skill.rating, attribute)
               testValues.push("=", skill.rating + attribute);
             }
           } else if (this.state.mounted === "MountedV") {
@@ -745,6 +744,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             } else {
               testVariables.unshift(skill.name, "+", <b>{skill.attribute}</b>);
               testValues.unshift(skill.rating, "+", <b>{attribute}</b>);
+              // calculationStack.push(skill.rating, attribute)
               testValues.push("=", skill.rating + attribute);
             }
           }
@@ -782,9 +782,32 @@ class Action extends React.Component<IActionProps, IActionState> {
           );
         }
       }
-      
-      
 
+      if (this.state.weaponFiringRange) {
+        let locationToInsertRange = 7;
+        if (
+          this.state.mounted == "MountedNV" ||
+          this.state.mounted == "MountedV"
+        ) {
+          locationToInsertRange = 4;
+        }
+        testVariables.splice(locationToInsertRange, 0, "+ Range Modifier");
+        const firingDistanceModifier = this.firingDistanceToDiceModifier(
+          this.state.weaponFiringRange
+        );
+        testValues.splice(locationToInsertRange, 0, firingDistanceModifier);
+        let numericModifer: any;
+        if (typeof testValues[testValues.length - 1] === "number") {
+          numericModifer = testValues[testValues.length - 1];
+        } else {
+          console.log(
+            "shouldn't have gotten here, numeric modifier is type of " +
+              typeof testValues[testValues.length - 1]
+          );
+        }
+        testValues[testValues.length - 1] =
+          numericModifer + firingDistanceModifier;
+      }
     } else {
       //If they don't have the skill, show a ?
       testVariables.unshift(weapon.skill);
@@ -802,6 +825,31 @@ class Action extends React.Component<IActionProps, IActionState> {
       this.defaultVal
     );
     option = "ranged"; // for showing the firing modes vs not showing it.
+  };
+
+  // precondifitions: firingDistanceName will ONLY contain either Short, Medium, Long, or Extreme at the BEGINNING
+  firingDistanceToDiceModifier = (firingDistanceName: string) => {
+    const firstLetter = firingDistanceName.charAt(0);
+    let modifer: number;
+    switch (firstLetter) {
+      case "S":
+        modifer = 0;
+        break;
+      case "M":
+        modifer = -1;
+        break;
+      case "L":
+        modifer = -3;
+        break;
+      case "E":
+        modifer = -6;
+        break;
+      default:
+        modifer = 0;
+        break;
+    }
+
+    return modifer;
   };
 
   getCharacterAttribute = (capitalizedName: string) => {
