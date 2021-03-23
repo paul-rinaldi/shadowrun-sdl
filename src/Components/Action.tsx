@@ -687,7 +687,7 @@ class Action extends React.Component<IActionProps, IActionState> {
       });
 
       // First row in table, displays the skill name and attribute
-      if (weapon.name.substring(0, 3) === "Bow" || weapon.skill === "Throwing") {
+      if (weapon.name.substring(0, 3) === "Bow") {
         testVariables.unshift(
           skill.name,
           "+",
