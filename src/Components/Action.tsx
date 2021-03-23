@@ -782,6 +782,9 @@ class Action extends React.Component<IActionProps, IActionState> {
           );
         }
       }
+      
+      
+
     } else {
       //If they don't have the skill, show a ?
       testVariables.unshift(weapon.skill);
