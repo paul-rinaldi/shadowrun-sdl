@@ -1,0 +1,150 @@
+{
+  "attachments": {
+    "under": [
+      {
+        "name": "Speed Loader",
+        "cost": -25,
+        "mount": "",
+        "type": "revolver",
+        "effect": 0
+      },
+      {
+        "name": "Spare Clip",
+        "cost": -5,
+        "mount": "",
+        "type": "any",
+        "effect": 0
+      },
+      {
+        "name": "Smartgun System, Internal",
+        "cost": -2,
+        "mount": "",
+        "type": "any",
+        "effect": -3
+      },
+      {
+        "name": "Shock Pad",
+        "cost": -50,
+        "mount": "",
+        "type": "rifle/shotgun/heavy weapon",
+        "effect": 1
+      },
+      {
+        "name": "Quick-draw holster",
+        "cost": -175,
+        "mount": "",
+        "type": "machine pistol/pistol/laser",
+        "effect": 0
+      },
+      {
+        "name": "Airburst Link",
+        "cost": -600,
+        "mount": "",
+        "type": "any",
+        "effect": 0
+      },
+      {
+        "name": "Concealable Holster",
+        "cost": -150,
+        "mount": "",
+        "type": "pistols/tasers",
+        "effect": 0
+      },
+      {
+        "name": "Gyro Mount",
+        "cost": -1400,
+        "mount": "under",
+        "type": "assault rifle/heavy weapon",
+        "effect": 6
+      },
+      {
+        "name": "Bipod",
+        "cost": -200,
+        "mount": "under",
+        "type": "any",
+        "effect": 2
+      },
+      {
+        "name": "Hidden Arm Slide",
+        "cost": -350,
+        "mount": "",
+        "type": "hold out/light pistol/taser",
+        "effect": 0
+      },
+      {
+        "name": "Laser Sight",
+        "cost": -125,
+        "mount": "top or under",
+        "type": "any",
+        "effect": 0
+      },
+      {
+        "name": "Smart Firing Platform",
+        "cost": -2500,
+        "mount": "under",
+        "type": "any",
+        "effect": 5
+      },
+      {
+        "name": "Smartgun System, External",
+        "cost": -2,
+        "mount": "top or under",
+        "type": "any",
+        "effect": -3
+      },
+      {
+        "name": "Tripod",
+        "cost": -500,
+        "mount": "under",
+        "type": "any",
+        "effect": 6
+      }
+    ],
+    "barrel": [
+      {
+        "name": "Gas-vent System",
+        "cost": -200,
+        "mount": "barrel",
+        "type": "any",
+        "effect": 1
+      },
+      {
+        "name": "Silencer/Suppressor",
+        "cost": -500,
+        "mount": "barrel",
+        "type": "-shotgun/revolver",
+        "effect": 0
+      }
+    ],
+    "top": [
+      {
+        "name": "Imaging Scope",
+        "cost": -300,
+        "mount": "top",
+        "type": "any",
+        "effect": 0
+      },
+      {
+        "name": "Laser Sight",
+        "cost": -125,
+        "mount": "top or under",
+        "type": "any",
+        "effect": 0
+      },
+      {
+        "name": "Periscope",
+        "cost": -70,
+        "mount": "top",
+        "type": "any",
+        "effect": 1
+      },
+      {
+        "name": "Smartgun System, External",
+        "cost": -2,
+        "mount": "top or under",
+        "type": "any",
+        "effect": -3
+      }
+    ]
+  }
+}

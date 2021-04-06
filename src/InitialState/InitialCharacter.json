@@ -1,8 +1,8 @@
 {
   "name": "Luigi",
   "metatype": "Human",
-  "money": 10000,
-  "karma": 25,
+  "money": 1000000000000000000000000000000000000000000000000000000000000000000000000,
+  "karma": 2500000000000000000000000000000000000000000000000000000000000000000000000,
   "currentEdge": 2,
   "conditionMonitor": {
     "stun": -1,
@@ -936,7 +936,16 @@
             "long": [16, 30],
             "extreme": [31, 50]
           }
+        },
+        "category": "machine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
         }
+
+
       }
     ]
   },
