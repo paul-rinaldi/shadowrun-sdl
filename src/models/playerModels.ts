@@ -156,6 +156,9 @@ export interface Ranged {
     subAmmoTypes: Array<string>;
     currentLoadedAmmoType: string;
     range: Ranges;
+    category: string;
+    mounting: string;
+    equippedMount: { topAttachment: EquippedAttachments | null, underAttachment: EquippedAttachments | null, barrelAttachment: EquippedAttachments | null };
 }
 
 export interface Ranges {
@@ -242,4 +245,19 @@ export interface ICharacter {
     gear: Gear;
     ammo: Ammo;
     log: ILog[];
+}
+
+export interface Attachments {
+    name: string;
+    cost: number;
+    mount: string;
+    type: string;
+    effect: number;
+}
+
+export interface EquippedAttachments {
+    name: string;
+    cost: number;
+    type: string;
+    effect: number;
 }

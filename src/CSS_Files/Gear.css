@@ -260,7 +260,7 @@ td.GearRanged:first-child{
     border: 1px solid #000000;
     padding: 3px;
     white-space: pre;
-    width: 48%;
+    width: 24%;
     border-collapse: collapse;
     overflow-wrap:break-word;
 }
