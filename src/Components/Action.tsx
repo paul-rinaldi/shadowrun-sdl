@@ -606,6 +606,7 @@ class Action extends React.Component<IActionProps, IActionState> {
     if (weapon === undefined || weapon === null) {
       return;
     }
+    let isBow = false
     // let calculationStack = [];
 
     const prevWeapon = this.state.currentWeapon;
@@ -669,6 +670,7 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     let bowDicePoolModifier: number = 0;
     if (weapon.name.substring(0, 3) === "Bow") {
+      isBow = true
       const rating: number = parseInt(
         weapon.name.substring(weapon.name.search(/\d/), weapon.name.length - 1)
       );
