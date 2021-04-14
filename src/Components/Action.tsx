@@ -19,7 +19,9 @@ import { remAmmo } from "../redux/actions/ammoAction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AmmoDropdown from "./Inputs/AmmoDropdown";
-import attachers from "../Attachments.json" //this is attachments
+import ReactDice from "react-dice-complete"
+import 'react-dice-complete/dist/react-dice-complete.css';
+
 
 type IActionProps = ReturnType<typeof mapStateToProps> &
     typeof mapDispatchToProps;
@@ -116,6 +118,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             ammoSelected: null,
             attachmentSelected: null
         };
+
     }
 
     handleAmmoSelect(ammo: CharacterAmmo) {
@@ -768,6 +771,8 @@ class Action extends React.Component<IActionProps, IActionState> {
     combatSection() {
         return (
             <div style={{paddingBottom: "50px"}}>
+                <h1 className={"Action"}> Initiative Roll</h1>
+                {this.diceShow()}
                 <h1 className={"Action"}>Melee Weapons</h1>
                 {this.meleeWeaponsDropdown()}
                 <h1 className={"Action"}>Ranged Weapons</h1>
@@ -893,16 +898,6 @@ class Action extends React.Component<IActionProps, IActionState> {
                                 {this.fireModesDropdown(this.state.rangedWeaponSelected)}
                             </div>
                         }
-
-                        {/*{*/}
-                        {/*    <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>*/}
-                        {/*        <h3 style={{display: this.state.rangedWeaponSelected ? "block" : "none"}}>*/}
-                        {/*            Attachment selection*/}
-                        {/*        </h3>*/}
-                        {/*        {this.attachmentsDropDown(this.state.rangedWeaponSelected)}*/}
-
-                        {/*    </div>*/}
-                        {/*}*/}
 
                         {
                             <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
@@ -1284,76 +1279,21 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
-    // /**
-    //  * This will be for the attachments dropdown
-    //  */
-    // attachmentsDropDown(weapon: Ranged | null) {
-    //
-    //     if (weapon === null || weapon === undefined) {
-    //         return;
-    //     }
-    //
-    //     const options: AttachmentLabelOption[] = [];
-    //     let attachments = this.categoryAttachments(weapon.category)
-    //
-    //
-    //     for (const attachment of attachments) {
-    //         options.push({
-    //             name: attachment.name,
-    //             effect: attachment.effect,
-    //             label: `${attachment.name}`,
-    //         });
-    //     }
-    //
-    //     return (
-    //         <div>
-    //             <Select
-    //                 placeholder={"Select a default"}
-    //                 options={options}
-    //                 value={this.state.attachmentSelected}
-    //                 onChange={(e: any) => {
-    //                     this.attachmentSelection(e);
-    //                     // selectRef = e;
-    //                 }}
-    //             />
-    //         </div>
-    //     );
-    // }
-    //
-    // /**
-    //  * Helper method to determine if the attachments the gun is allowed to have
-    //  * @param category: the category of the weapon
-    //  */
-    // categoryAttachments(category: string) {
-    //
-    //     if (category === "shotgun" || category === "revolver") {
-    //         return attachers.attachments.filter((one) => !one.type.includes("-") && (one.type.includes(category) || one.type === "any"))
-    //     }
-    //     return attachers.attachments.filter((one) => (one.type.includes(category) || one.type === "any" || one.type.includes("-")))
-    // }
+    diceShow() {
+      return ( <div>
+          <ReactDice
+              numDice={2}
+              rollDone={this.rollDoneCallback}
 
-    /**
-     * Using the attachment selected, this will recalculate the die calculation
-     * @param attachment
-     */
-    attachmentSelection = (attachment: any) => {
-        let weapon = this.state.rangedWeaponSelected ? this.state.rangedWeaponSelected : null;
+          />
+      </div>
+    )
+}
 
-        if (attachment.name !== this.state.attachmentSelected && weapon) {
-            recoilComp = weapon.RC + attachment.effect;
-            let strength = this.props.character.attributes.STR;
-            recoilComp += Math.ceil(strength / 3) + 1;
-            isProgressive = false;
-        }
 
-        this.setState({
-                attachmentSelected: attachment
-            },
-            () => this.showRangedWeaponTest(weapon)
-        )
-
-    }
-
+rollDoneCallback(num:any) {
+    console.log(`You rolled a ${num}`)
+}
 
     /**
      * Displays a table of the character's inherent limit calculations.
