@@ -51,7 +51,7 @@ interface IActionState {
     selectedMode: modeLabelOption | null;
     ammoSelected: CharacterAmmo | null;
     attachmentSelected: AttachmentLabelOption | null;
-    initVal: number;
+    initiativeValue: number;
 }
 
 interface WeaponLabelOptionMelee {
@@ -120,7 +120,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             selectedMode: null,
             ammoSelected: null,
             attachmentSelected: null,
-            initVal: 0
+            initiativeValue: 8
         };
 
     }
@@ -1289,18 +1289,20 @@ class Action extends React.Component<IActionProps, IActionState> {
           <div>
               <ReactDice
                   numDice={2}
+                  rollTime = {0.25}
                   rollDone={this.rollDoneCallback}
               />
 
-              <p>Initiative: {this.state.initVal}</p>
+              <p>Initiative: {this.state.initiativeValue}</p>
       </div>
+
     )
 }
 
 rollDoneCallback(num:any) {
     console.log(`You rolled a ${num}`);
     // sets the state of the initiative value to be the rolled dice total
-    this.setState({initVal: num});
+    this.setState({initiativeValue: num});
 }
 
 
