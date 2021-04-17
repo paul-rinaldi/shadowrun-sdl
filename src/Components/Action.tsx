@@ -989,11 +989,19 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     combatSection() {
         return (
-            <div style={{paddingBottom: "50px"}}>
-                <h1 className={"Action"}>Melee Weapons</h1>
+            <div style={{display: "inline-flex", width: "100%", textAlign: "center"}}>
+              <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                <h1 style={{display: "block"}}>
+                  Melee Weapons        
+                </h1>
                 {this.meleeWeaponsDropdown()}
-                <h1 className={"Action"}>Ranged Weapons</h1>
+              </div>
+              <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                <h1 style={{display: "block"}}>
+                  Ranged Weapons        
+                </h1>
                 {this.rangedWeaponsDropdown()}
+              </div>
             </div>
         );
     }
@@ -1104,7 +1112,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                 {
                     <div style={{display: "inline-flex", width: "100%", textAlign: "center"}}>
                         {
-                            <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                            <div style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
                                 <h3
                                     style={{display: this.state.rangedWeaponSelected ? "block" : "none"}}
                                 >
@@ -1127,7 +1135,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                         {/*}*/}
 
                         {
-                            <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                            <div style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
 
                                 {
                                     this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? (
