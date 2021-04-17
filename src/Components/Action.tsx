@@ -33,6 +33,7 @@ const mapDispatchToProps = {
 };
 let option: string;
 let recoilComp = 0;
+//Val = 0;
 let selectRef: any;
 let isProgressive: boolean; //will control if the recoil compensation is progressive or not
 interface IActionState {
@@ -50,6 +51,7 @@ interface IActionState {
     selectedMode: modeLabelOption | null;
     ammoSelected: CharacterAmmo | null;
     attachmentSelected: AttachmentLabelOption | null;
+    initVal: number;
 }
 
 interface WeaponLabelOptionMelee {
@@ -101,6 +103,7 @@ class Action extends React.Component<IActionProps, IActionState> {
     constructor(props: IActionProps) {
         super(props);
         isProgressive = false;
+        this.rollDoneCallback = this.rollDoneCallback.bind(this);
         this.state = {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
@@ -116,7 +119,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             previousWeapon: null,
             selectedMode: null,
             ammoSelected: null,
-            attachmentSelected: null
+            attachmentSelected: null,
+            initVal: 0
         };
 
     }
@@ -1280,20 +1284,26 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     diceShow() {
-      return ( <div>
-          <ReactDice
-              numDice={2}
-              rollDone={this.rollDoneCallback}
 
-          />
+      return (
+          <div>
+              <ReactDice
+                  numDice={2}
+                  rollDone={this.rollDoneCallback}
+              />
+
+              <p>Initiative: {this.state.initVal}</p>
       </div>
     )
 }
 
-
 rollDoneCallback(num:any) {
-    console.log(`You rolled a ${num}`)
+    console.log(`You rolled a ${num}`);
+    // sets the state of the initiative value to be the rolled dice total
+    this.setState({initVal: num});
 }
+
+
 
     /**
      * Displays a table of the character's inherent limit calculations.
