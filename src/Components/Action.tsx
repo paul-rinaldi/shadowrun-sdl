@@ -120,6 +120,11 @@ class Action extends React.Component<IActionProps, IActionState> {
         };
     }
 
+    isMountable(weapon: Ranged | null): boolean {
+        // A person cannot mount a crossbow, bow, throwing weapon, or cyber implant weapon.
+        return weapon !== null && weapon.category !== "throwing" && weapon.skill.toLowerCase() !== "archery" && weapon.name.search(/cyber/i) === -1; // note the /i is for case insensitive regex searches
+    }
+
     handleAmmoSelect(ammo: CharacterAmmo) {
         this.setState({ammoSelected: ammo});
     }
@@ -1451,13 +1456,28 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     }
 
-    changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => {
-        this.setState(
-            {
-                mounted: e.currentTarget.value,
-            },
-            () => this.showRangedWeaponTest(this.state.rangedWeaponSelected)
-        );
+    changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => { 
+        if (e.currentTarget.value !== "Unmounted") {
+            const allowable = this.isMountable(this.state.rangedWeaponSelected)
+            if (allowable) {
+              this.setState(
+                {
+                    mounted: e.currentTarget.value,
+                },
+                () => this.showRangedWeaponTest(this.state.rangedWeaponSelected)
+              );
+            } else {
+                toast.error("You cannot mount this weapon.", {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        }
     };
 
     changeWeaponFiringRange = async (e: React.FormEvent<HTMLInputElement>) => {
@@ -1474,9 +1494,11 @@ class Action extends React.Component<IActionProps, IActionState> {
    * @returns a radio select with handlers
    */
   mountedTypeSelect() {
-    return (
-      <div className="radioOptions" style={{ textAlign: "center" }}>
-        <input
+
+    const allowMount = this.isMountable(this.state.rangedWeaponSelected)
+
+    const unmountedOptionRadio = <React.Fragment>
+      <input
           type="radio"
           id="Unmounted"
           name="Mounted Type"
@@ -1485,12 +1507,16 @@ class Action extends React.Component<IActionProps, IActionState> {
           defaultChecked={true}
         />
         <label style={{ marginRight: "2.5%" }}>Unmounted</label>
-        <input
+    </React.Fragment>;
+
+    const mountedOptionRadios = <React.Fragment>
+      <input
           type="radio"
           id="MountedNV"
           name="Mounted Type"
           value="MountedNV"
           onChange={this.changeWeaponMount}
+          disabled={false}
         />
         <label style={{ marginRight: "2.5%" }}>Mounted (Non-Vehicle)</label>
         <input
@@ -1499,8 +1525,15 @@ class Action extends React.Component<IActionProps, IActionState> {
           name="Mounted Type"
           value="MountedV"
           onChange={this.changeWeaponMount}
+          disabled={false}
         />
         <label style={{ marginRight: "2.5%" }}>Mounted (Vehicle)</label>
+    </React.Fragment>
+    
+    return (
+      <div className="radioOptions" style={{ textAlign: "center" }}>
+        {unmountedOptionRadio}
+        {allowMount ? mountedOptionRadios : null}
       </div>
     );
   }
