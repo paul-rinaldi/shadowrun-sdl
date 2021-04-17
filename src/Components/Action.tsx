@@ -49,6 +49,7 @@ interface IActionState {
     selectedMode: modeLabelOption | null;
     ammoSelected: CharacterAmmo | null;
     attachmentSelected: AttachmentLabelOption | null;
+    testSelected: string
 }
 
 interface WeaponLabelOptionMelee {
@@ -116,7 +117,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             previousWeapon: null,
             selectedMode: null,
             ammoSelected: null,
-            attachmentSelected: null
+            attachmentSelected: null,
+            testSelected: ""
         };
     }
 
@@ -400,6 +402,7 @@ class Action extends React.Component<IActionProps, IActionState> {
     this.setState({
       testVariables: testVariables,
       testValues: testValues,
+      testSelected: "melee"
     });
   }
 
@@ -841,6 +844,7 @@ class Action extends React.Component<IActionProps, IActionState> {
           rangedWeaponSelected: weapon,
           currentWeapon: weapon.name,
           previousWeapon: prevWeapon,
+          testSelected: "ranged"
         },
         this.defaultVal
       );
@@ -989,7 +993,7 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     combatSection() {
         return (
-            <div style={{display: "inline-flex", width: "100%", textAlign: "center"}}>
+          <React.Fragment>
               <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
                 <h1 style={{display: "block"}}>
                   Melee Weapons        
@@ -1002,7 +1006,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                 </h1>
                 {this.rangedWeaponsDropdown()}
               </div>
-            </div>
+          </React.Fragment>
         );
     }
 
@@ -1109,8 +1113,8 @@ class Action extends React.Component<IActionProps, IActionState> {
                         )
                     }
                 />
-                {
-                    <div style={{display: "inline-flex", width: "100%", textAlign: "center"}}>
+                {this.state.testSelected !== "melee" ?
+                    <div style={{width: "100%", verticalAlign: "top"}}>
                         {
                             <div style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
                                 <h3
@@ -1134,11 +1138,9 @@ class Action extends React.Component<IActionProps, IActionState> {
                         {/*    </div>*/}
                         {/*}*/}
 
-                        {
-                            <div style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
 
-                                {
-                                    this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? (
+                            <div style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
+                                {this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? (
 
                                         <AmmoDropdown
                                             ammoTypes={this.state.rangedWeaponSelected.ammoTypes}
@@ -1154,9 +1156,9 @@ class Action extends React.Component<IActionProps, IActionState> {
                                 }
 
                             </div>
-                        }
+
                     </div>
-                }
+                : null}
             </div>
         );
     }
@@ -1293,9 +1295,9 @@ class Action extends React.Component<IActionProps, IActionState> {
       return (
         <div>
           {/* Will show the calculations for the weapon tests*/}
-          {this.calculationTable()}
           {this.mountedTypeSelect()}
           {this.rangeSelect()}
+          {this.calculationTable()}
 
           {rangedWeaponSelected && (
             <Button
