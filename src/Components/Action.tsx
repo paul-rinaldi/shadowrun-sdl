@@ -1331,21 +1331,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             reactDice.rollAll()
         }
     }
-
-
-    // rollAll(e:any) {
-    //     //this.rollCount = 0
-    //     let temp = 0
-    //     let index = 0
-    //     for (let die of dieCount) {
-    //         if (die !== null) {
-    //             //this.rollCount++
-    //             //die.rollDie(temp)
-    //             console.log("die: ", die);
-    //             index++
-    //         }
-    //     }
-    // }
+    
 
     assignRef(ref:any) {
         reactDice = ref;
