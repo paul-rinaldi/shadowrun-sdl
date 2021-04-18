@@ -1284,26 +1284,38 @@ class Action extends React.Component<IActionProps, IActionState> {
     }
 
     diceShow() {
+        let rating = 0;
+        let {character} = this.props
+        let dice = character.initiative.initDice;
+        let initRating = character.attributes.INT + character.attributes.REA;
 
-      return (
+        character.augmentations.map((one: any)=>{
+            if(one.rating !== "")
+            rating += one.rating
+        });
+        console.log(initRating);
+        let diceRoll = dice + rating;
+        return (
           <div>
               <ReactDice
-                  numDice={2}
+                  numDice={diceRoll}
                   rollTime = {0.25}
                   rollDone={this.rollDoneCallback}
+                  disableIndividual = {false}
+                  rolling={true}
               />
-
-              <p>Initiative: {this.state.initiativeValue}</p>
+              <p>Initiative Score: {this.state.initiativeValue + initRating}</p>
       </div>
 
-    )
-}
+      )
+    }
 
-rollDoneCallback(num:any) {
-    console.log(`You rolled a ${num}`);
-    // sets the state of the initiative value to be the rolled dice total
-    this.setState({initiativeValue: num});
-}
+    rollDoneCallback(num:any) {
+        console.log(`You rolled a ${num}`);
+
+        // sets the state of the initiative value to be the rolled dice total
+        this.setState({initiativeValue: num});
+    }
 
 
 
