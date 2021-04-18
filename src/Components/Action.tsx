@@ -34,6 +34,7 @@ const mapDispatchToProps = {
 let option: string;
 let recoilComp = 0;
 //Val = 0;
+let reactDice: any;
 let selectRef: any;
 let isProgressive: boolean; //will control if the recoil compensation is progressive or not
 interface IActionState {
@@ -104,6 +105,9 @@ class Action extends React.Component<IActionProps, IActionState> {
         super(props);
         isProgressive = false;
         this.rollDoneCallback = this.rollDoneCallback.bind(this);
+        this.assignRef = this.assignRef.bind(this);
+        this.rollAll = this.rollAll.bind(this);
+
         this.state = {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
@@ -1295,19 +1299,24 @@ class Action extends React.Component<IActionProps, IActionState> {
         });
         console.log(initRating);
         let diceRoll = dice + rating;
-        return (
-          <div>
-              <ReactDice
-                  numDice={diceRoll}
-                  rollTime = {0.25}
-                  rollDone={this.rollDoneCallback}
-                  disableIndividual = {false}
-                  rolling={true}
-              />
-              <p>Initiative Score: {this.state.initiativeValue + initRating}</p>
-      </div>
 
-      )
+        return (
+            <div>
+                <ReactDice
+                    numDice={diceRoll}
+                    rollTime={0.25}
+                    rollDone={this.rollDoneCallback}
+                    disableIndividual={false}
+                    rolling={true}
+                    ref={this.assignRef}
+                />
+                <p>Initiative Score: {this.state.initiativeValue + initRating}</p>
+                <p>Just Initiative: {this.state.initiativeValue}</p>
+                <button onClick={this.rollAll}>Roll All</button>
+            </div>
+        );
+
+
     }
 
     rollDoneCallback(num:any) {
@@ -1316,6 +1325,32 @@ class Action extends React.Component<IActionProps, IActionState> {
         // sets the state of the initiative value to be the rolled dice total
         this.setState({initiativeValue: num});
     }
+
+    rollAll() {
+        if (reactDice !== undefined) {
+            reactDice.rollAll()
+        }
+    }
+
+
+    // rollAll(e:any) {
+    //     //this.rollCount = 0
+    //     let temp = 0
+    //     let index = 0
+    //     for (let die of dieCount) {
+    //         if (die !== null) {
+    //             //this.rollCount++
+    //             //die.rollDie(temp)
+    //             console.log("die: ", die);
+    //             index++
+    //         }
+    //     }
+    // }
+
+    assignRef(ref:any) {
+        reactDice = ref;
+    }
+
 
 
 
