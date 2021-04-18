@@ -1311,7 +1311,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                     ref={this.assignRef}
                 />
                 <p>Initiative Score: {this.state.initiativeValue + initRating}</p>
-                <p>Just Initiative: {this.state.initiativeValue}</p>
+                <p>Just Dice Total: {this.state.initiativeValue}</p>
                 <button onClick={this.rollAll}>Roll All</button>
             </div>
         );
@@ -1331,7 +1331,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             reactDice.rollAll()
         }
     }
-    
+
 
     assignRef(ref:any) {
         reactDice = ref;
