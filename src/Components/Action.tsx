@@ -14,13 +14,14 @@ import { ISkill } from "../models/playerModels";
 import { connect } from "react-redux";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import { Button } from "react-bootstrap";
+import {Button, Table} from "react-bootstrap";
 import { remAmmo } from "../redux/actions/ammoAction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AmmoDropdown from "./Inputs/AmmoDropdown";
 import ReactDice from "react-dice-complete"
 import 'react-dice-complete/dist/react-dice-complete.css';
+import Popup from "reactjs-popup";
 
 
 type IActionProps = ReturnType<typeof mapStateToProps> &
@@ -124,7 +125,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             selectedMode: null,
             ammoSelected: null,
             attachmentSelected: null,
-            initiativeValue: 8
+            initiativeValue: 0
         };
 
     }
@@ -1289,7 +1290,8 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     diceShow() {
         let rating = 0;
-        let {character} = this.props
+        let {character} = this.props;
+        let {initiativeValue} = this.state;
         let dice = character.initiative.initDice;
         let initRating = character.attributes.INT + character.attributes.REA;
 
@@ -1297,7 +1299,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             if(one.rating !== "")
             rating += one.rating
         });
-        console.log(initRating);
+
         let diceRoll = dice + rating;
 
         return (
@@ -1305,14 +1307,43 @@ class Action extends React.Component<IActionProps, IActionState> {
                 <ReactDice
                     numDice={diceRoll}
                     rollTime={0.25}
+                    defaultRoll={4}
                     rollDone={this.rollDoneCallback}
-                    disableIndividual={false}
+                    disableIndividual={true}
                     rolling={true}
                     ref={this.assignRef}
                 />
-                <p>Initiative Score: {this.state.initiativeValue + initRating}</p>
-                <p>Just Dice Total: {this.state.initiativeValue}</p>
-                <button onClick={this.rollAll}>Roll All</button>
+                <h3>Initiative Score: {initiativeValue === 0? 0: initiativeValue + initRating}</h3>
+                {/*<p>Just Dice Total: {this.state.initiativeValue}</p>*/}
+                <button onClick={this.rollAll}>{initiativeValue === 0? "Roll Dice": "Roll Again"}</button>
+                <Popup trigger={<button disabled={initiativeValue === 0}> Initiative Calculation Info </button>} position="center center"
+                       contentStyle={{maxWidth: '600px', width: '90%'}} modal nested>
+                    <div>
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                            <tr>
+                                <th>Initiative Dice</th>
+                                <th>Augmentation Effect</th>
+                                <th>Initiative Intuition</th>
+                                <th>Initiative Reaction</th>
+                                <th>Dice Roll Value</th>
+                                <th>Initiative Score (dice roll + initiative reaction + initiative intuition</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{dice}</td>
+                                <td>{rating}</td>
+                                <td>{character.attributes.INT}</td>
+                                <td>{character.attributes.REA}</td>
+                                <td>{initiativeValue}</td>
+                                <td>{initiativeValue + initRating}</td>
+                            </tr>
+                            </tbody>
+                        </Table>
+
+                    </div>
+                </Popup>
             </div>
         );
 
