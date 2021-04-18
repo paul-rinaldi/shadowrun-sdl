@@ -74,6 +74,11 @@ interface AttachmentLabelOption {
 
 }
 
+interface ISelectType {
+    label: string;
+    value: string;
+}
+
 interface SelectSkill {
     skill: ISkill;
     label: string;
@@ -1108,7 +1113,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                                 <h3
                                     style={{display: this.state.rangedWeaponSelected ? "block" : "none"}}
                                 >
-                                    Mode selection
+                                    Mode Selection
                                 </h3>
 
 
@@ -1285,9 +1290,9 @@ class Action extends React.Component<IActionProps, IActionState> {
       return (
         <div>
           {/* Will show the calculations for the weapon tests*/}
-          {this.calculationTable()}
           {this.mountedTypeSelect()}
           {this.rangeSelect()}
+          {this.calculationTable()}
 
           {rangedWeaponSelected && (
             <Button
@@ -1456,13 +1461,13 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     }
 
-    changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => { 
-        if (e.currentTarget.value !== "Unmounted") {
+    changeWeaponMount = async (mountType: string) => { 
+        if (mountType !== "Unmounted") {
             const allowable = this.isMountable(this.state.rangedWeaponSelected)
             if (allowable) {
               this.setState(
                 {
-                    mounted: e.currentTarget.value,
+                    mounted: mountType,
                 },
                 () => this.showRangedWeaponTest(this.state.rangedWeaponSelected)
               );
@@ -1497,43 +1502,72 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     const allowMount = this.isMountable(this.state.rangedWeaponSelected)
 
-    const unmountedOptionRadio = <React.Fragment>
-      <input
-          type="radio"
-          id="Unmounted"
-          name="Mounted Type"
-          value="Unmounted"
-          onChange={this.changeWeaponMount}
-          defaultChecked={true}
-        />
-        <label style={{ marginRight: "2.5%" }}>Unmounted</label>
-    </React.Fragment>;
+    let options = []
 
-    const mountedOptionRadios = <React.Fragment>
-      <input
-          type="radio"
-          id="MountedNV"
-          name="Mounted Type"
-          value="MountedNV"
-          onChange={this.changeWeaponMount}
-          disabled={false}
-        />
-        <label style={{ marginRight: "2.5%" }}>Mounted (Non-Vehicle)</label>
-        <input
-          type="radio"
-          id="MountedV"
-          name="Mounted Type"
-          value="MountedV"
-          onChange={this.changeWeaponMount}
-          disabled={false}
-        />
-        <label style={{ marginRight: "2.5%" }}>Mounted (Vehicle)</label>
-    </React.Fragment>
+    options.push({
+      label: "Unmounted",
+      value: "Unmounted"
+    })
+    // const unmountedOptionRadio = <React.Fragment>
+    //   <input
+    //       type="radio"
+    //       id="Unmounted"
+    //       name="Mounted Type"
+    //       value="Unmounted"
+    //       onChange={this.changeWeaponMount}
+    //       defaultChecked={true}
+    //     />
+    //     <label style={{ marginRight: "2.5%" }}>Unmounted</label>
+    // </React.Fragment>;
+
+    if (allowMount) {
+      options.push({
+        label: "Non-Vehicle Mounted",
+        value: "MountedNV"
+      })
+      options.push({
+        label: "Vehicle Mounted",
+        value: "MountedV"
+      })
+    }
+    // const mountedOptionRadios = <React.Fragment>
+    //   <input
+    //       type="radio"
+    //       id="MountedNV"
+    //       name="Mounted Type"
+    //       value="MountedNV"
+    //       onChange={this.changeWeaponMount}
+    //       disabled={false}
+    //     />
+    //     <label style={{ marginRight: "2.5%" }}>Mounted (Non-Vehicle)</label>
+    //     <input
+    //       type="radio"
+    //       id="MountedV"
+    //       name="Mounted Type"
+    //       value="MountedV"
+    //       onChange={this.changeWeaponMount}
+    //       disabled={false}
+    //     />
+    //     <label style={{ marginRight: "2.5%" }}>Mounted (Vehicle)</label>
+    // </React.Fragment>
     
     return (
-      <div className="radioOptions" style={{ textAlign: "center" }}>
-        {unmountedOptionRadio}
-        {allowMount ? mountedOptionRadios : null}
+      <div className={"Action"}>
+        <h3 style={{
+            display: "block",
+          }}>Mount Type Selection</h3>
+        <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+          <Select
+            id={"mountTypeSelector"}
+            options={options}
+            onChange={(boi: ValueType<ISelectType>) =>
+              this.changeWeaponMount(
+                (boi as ISelectType).value
+              )
+            }
+            default={{name: "Unmounted", value: "Unmounted"}}
+          />
+        </div>
       </div>
     );
   }

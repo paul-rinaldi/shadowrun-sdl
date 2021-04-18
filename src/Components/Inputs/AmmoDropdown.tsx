@@ -70,7 +70,7 @@ class Dropdown extends React.Component<IDropdownProps, IDropdownState> {
             display: "block",
           }}
         >
-          Ammo selection
+          Ammo Selection
         </h3>
         <Select
           options={options}
