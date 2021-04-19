@@ -521,24 +521,14 @@ class Action extends React.Component<IActionProps, IActionState> {
     if (genOneDiv) {
       // One div generated for default ranges
       rangeOptions.map((individualRange) => {
-        if (
-          "Throwing" === this.state.rangedWeaponSelected?.skill ||
-          this.state.rangedWeaponSelected?.name.search("Bow") !== -1
-        ) {
-          // TODO fix bow calculation to properly use ranged.json values bc state updates so much
-          // this.state.rangedWeaponSelected?.name
-          // individualRange.distanceType
-
-          individualRange.values[1] *= strength;
-          // console.log("yaboi:", individualRange.values[1], strength);
-        }
+        const useStrength = ("Throwing" === this.state.rangedWeaponSelected?.skill || this.state.rangedWeaponSelected?.name.search("Bow") !== -1); 
 
         individualRange.value = individualRange.distanceType
         individualRange.label = this.capitalizeFirstLetter(individualRange.distanceType) +
           " [" +
           individualRange.values[0] +
           "m - " +
-          individualRange.values[1] +
+          (useStrength ? individualRange.values[1] * strength : individualRange.values[1]) +
           "m]"
           return individualRange
       });
