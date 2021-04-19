@@ -1314,7 +1314,6 @@ class Action extends React.Component<IActionProps, IActionState> {
                     ref={this.assignRef}
                 />
                 <h3>Initiative Score: {initiativeValue === 0? 0: initiativeValue + initRating}</h3>
-                {/*<p>Just Dice Total: {this.state.initiativeValue}</p>*/}
                 <button onClick={this.rollAll}>{initiativeValue === 0? "Roll Dice": "Roll Again"}</button>
                 <Popup trigger={<button disabled={initiativeValue === 0}> Initiative Calculation Info </button>} position="center center"
                        contentStyle={{maxWidth: '600px', width: '90%'}} modal nested>
@@ -1327,7 +1326,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                                 <th>Initiative Intuition</th>
                                 <th>Initiative Reaction</th>
                                 <th>Dice Roll Value</th>
-                                <th>Initiative Score (dice roll + initiative reaction + initiative intuition</th>
+                                <th>Initiative Score (dice roll + initiative reaction + initiative intuition)</th>
                             </tr>
                             </thead>
                             <tbody>
