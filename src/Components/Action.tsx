@@ -1556,6 +1556,9 @@ class Action extends React.Component<IActionProps, IActionState> {
                     disableIndividual={true}
                     rolling={true}
                     ref={this.assignRef}
+                    outlineColor={"#000000"}
+                    faceColor={"#000000"}
+                    dotColor={"#00ffff"}
                 />
                 <h3>Initiative Score: {initiativeValue === 0 ? 0 : initiativeValue + initRating}</h3>
                 <button onClick={this.rollAll}>{initiativeValue === 0 ? "Roll Dice" : "Roll Again"}</button>
