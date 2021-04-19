@@ -49,6 +49,7 @@ interface IActionState {
     selectedMode: modeLabelOption | null;
     ammoSelected: CharacterAmmo | null;
     attachmentSelected: AttachmentLabelOption | null;
+    currentCombatType: string
 }
 
 interface WeaponLabelOptionMelee {
@@ -121,7 +122,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             previousWeapon: null,
             selectedMode: null,
             ammoSelected: null,
-            attachmentSelected: null
+            attachmentSelected: null,
+            currentCombatType: ""
         };
     }
 
@@ -405,6 +407,7 @@ class Action extends React.Component<IActionProps, IActionState> {
     this.setState({
       testVariables: testVariables,
       testValues: testValues,
+      currentCombatType: "melee"
     });
   }
 
@@ -846,6 +849,7 @@ class Action extends React.Component<IActionProps, IActionState> {
           rangedWeaponSelected: weapon,
           currentWeapon: weapon.name,
           previousWeapon: prevWeapon,
+          currentCombatType: "ranged"
         },
         this.defaultVal
       );
@@ -1106,9 +1110,9 @@ class Action extends React.Component<IActionProps, IActionState> {
                         )
                     }
                 />
-                {
+                {this.state.currentCombatType === "ranged" ?
                     <div style={{display: "inline-flex", width: "100%", textAlign: "center"}}>
-                        {
+                        
                             <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
                                 <h3
                                     style={{display: this.state.rangedWeaponSelected ? "block" : "none"}}
@@ -1119,7 +1123,7 @@ class Action extends React.Component<IActionProps, IActionState> {
 
                                 {this.fireModesDropdown(this.state.rangedWeaponSelected)}
                             </div>
-                        }
+                        
 
                         {/*{*/}
                         {/*    <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>*/}
@@ -1135,7 +1139,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                             <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
 
                                 {
-                                    this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? (
+                                    this.state.currentCombatType === "ranged" && this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? (
 
                                         <AmmoDropdown
                                             ammoTypes={this.state.rangedWeaponSelected.ammoTypes}
@@ -1146,14 +1150,16 @@ class Action extends React.Component<IActionProps, IActionState> {
                                             }
                                         />
                                     ) : (
-                                        <React.Fragment/>
+                                        null
                                     )
                                 }
 
                             </div>
                         }
+                      {this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? this.mountedTypeSelect() : null}
+                      {this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? this.rangeSelect() : null}
                     </div>
-                }
+                : null}
             </div>
         );
     }
@@ -1290,8 +1296,6 @@ class Action extends React.Component<IActionProps, IActionState> {
       return (
         <div>
           {/* Will show the calculations for the weapon tests*/}
-          {this.mountedTypeSelect()}
-          {this.rangeSelect()}
           {this.calculationTable()}
 
           {rangedWeaponSelected && (
@@ -1552,11 +1556,10 @@ class Action extends React.Component<IActionProps, IActionState> {
     // </React.Fragment>
     
     return (
-      <div className={"Action"}>
+      <div className={"Action"} style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
         <h3 style={{
             display: "block",
           }}>Mount Type Selection</h3>
-        <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
           <Select
             id={"mountTypeSelector"}
             options={options}
@@ -1567,7 +1570,6 @@ class Action extends React.Component<IActionProps, IActionState> {
             }
             default={{name: "Unmounted", value: "Unmounted"}}
           />
-        </div>
       </div>
     );
   }
