@@ -49,7 +49,7 @@ interface IActionState {
     selectedMode: modeLabelOption | null;
     ammoSelected: CharacterAmmo | null;
     attachmentSelected: AttachmentLabelOption | null;
-    currentCombatType: string
+    testSelected: string
 }
 
 interface WeaponLabelOptionMelee {
@@ -85,6 +85,18 @@ interface SelectSkill {
     label: string;
     limit: string;
     specialization?: string;
+}
+
+interface ISelectOption {
+    label: string;
+    value: string;
+}
+
+interface IRangeOption {
+    label?: string | undefined;
+    value?: string | undefined;
+    distanceType: string;
+    values: Array<number>
 }
 
 // Page 178 textbook
@@ -123,7 +135,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             selectedMode: null,
             ammoSelected: null,
             attachmentSelected: null,
-            currentCombatType: ""
+            testSelected: ""
         };
     }
 
@@ -407,7 +419,7 @@ class Action extends React.Component<IActionProps, IActionState> {
     this.setState({
       testVariables: testVariables,
       testValues: testValues,
-      currentCombatType: "melee"
+      testSelected: "melee"
     });
   }
 
@@ -440,7 +452,7 @@ class Action extends React.Component<IActionProps, IActionState> {
   };
 
   rangeSelect() {
-    let rangeRadioOptions = [];
+    let rangeOptions: Array<IRangeOption> = [];
     let genOneDiv = false;
     const strength = this.props.character.attributes.STR;
 
@@ -448,19 +460,19 @@ class Action extends React.Component<IActionProps, IActionState> {
       const ranges = this.state.rangedWeaponSelected?.range;
 
       if (ranges.default !== null && ranges.default !== undefined) {
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Short",
           values: ranges.default.short,
         });
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Medium",
           values: ranges.default.medium,
         });
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Long",
           values: ranges.default.long,
         });
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Extreme",
           values: ranges.default.extreme,
         });
@@ -468,50 +480,47 @@ class Action extends React.Component<IActionProps, IActionState> {
       }
 
       if (ranges.slug !== null && ranges.slug !== undefined) {
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Short (Slug)",
           values: ranges.slug.short,
         });
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Medium (Slug)",
           values: ranges.slug.medium,
         });
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Long (Slug)",
           values: ranges.slug.long,
         });
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Extreme (Slug)",
           values: ranges.slug.extreme,
         });
       }
 
       if (ranges.flechette !== null && ranges.flechette !== undefined) {
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Short (Flechette)",
           values: ranges.flechette.short,
         });
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Medium (Flechette)",
           values: ranges.flechette.medium,
         });
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Long (Flechette)",
           values: ranges.flechette.long,
         });
-        rangeRadioOptions.push({
+        rangeOptions.push({
           distanceType: "Extreme (Flechette)",
           values: ranges.flechette.extreme,
         });
       }
     }
 
-    let radioInputs: Array<JSX.Element>;
-    radioInputs = [];
-
     if (genOneDiv) {
       // One div generated for default ranges
-      rangeRadioOptions.forEach((individualRange) => {
+      rangeOptions.map((individualRange) => {
         if (
           "Throwing" === this.state.rangedWeaponSelected?.skill ||
           this.state.rangedWeaponSelected?.name.search("Bow") !== -1
@@ -521,74 +530,51 @@ class Action extends React.Component<IActionProps, IActionState> {
           // individualRange.distanceType
 
           individualRange.values[1] *= strength;
-          console.log("yaboi:", individualRange.values[1], strength);
+          // console.log("yaboi:", individualRange.values[1], strength);
         }
 
-        radioInputs.push(
-          <React.Fragment>
-            <input
-              type="radio"
-              id={individualRange.distanceType}
-              name="Range Type"
-              value={individualRange.distanceType}
-              onChange={this.changeWeaponFiringRange}
-              defaultChecked={false}
-            />
-            <label style={{ marginRight: "2.5%" }}>
-              {this.capitalizeFirstLetter(individualRange.distanceType) +
-                " [" +
-                individualRange.values[0] +
-                "m - " +
-                individualRange.values[1] +
-                "m]"}
-            </label>
-          </React.Fragment>
-        );
+        individualRange.value = individualRange.distanceType
+        individualRange.label = this.capitalizeFirstLetter(individualRange.distanceType) +
+          " [" +
+          individualRange.values[0] +
+          "m - " +
+          individualRange.values[1] +
+          "m]"
+          return individualRange
       });
     } else {
-      // Two divs generated for slug and flechette ranges
-      rangeRadioOptions.forEach((individualRange) => {
-        radioInputs.push(
-          <React.Fragment>
-            <input
-              type="radio"
-              id={individualRange.distanceType}
-              name="Range Type"
-              value={
-                individualRange.values[0] + "-" + individualRange.values[1]
-              }
-              onChange={this.changeWeaponFiringRange}
-              defaultChecked={false}
-            />
-            <label style={{ marginRight: "2.5%" }}>
-              {this.capitalizeFirstLetter(individualRange.distanceType) +
-                " [" +
-                individualRange.values[0] +
-                "m - " +
-                individualRange.values[1] +
-                "m]"}
-            </label>
-          </React.Fragment>
-        );
+        // Two divs generated for slug and flechette ranges
+        rangeOptions.map((individualRange) => {
+            individualRange.value = individualRange.values[0] + "-" + individualRange.values[1]
+            individualRange.label = this.capitalizeFirstLetter(individualRange.distanceType) +
+              " [" +
+              individualRange.values[0] +
+              "m - " +
+            individualRange.values[1] +
+              "m]"
+            return individualRange
       });
     }
 
-    if (radioInputs.length === 4) {
-      return (
-        <div className="radioOptions" style={{ textAlign: "center" }}>
-          {radioInputs}
-        </div>
-      );
-    } else {
-      let radioInputsFirst = radioInputs.slice(0, 4);
-      let radioInputsLast = radioInputs.slice(4);
-      return (
-        <div className="radioOptions" style={{ textAlign: "center" }}>
-          {radioInputsFirst}
-          <div>{radioInputsLast}</div>
-        </div>
-      );
-    }
+    return (
+      <div className={"Action"} id={"rangeSelector"}>
+        <h3
+          style={{
+            display: "block",
+          }}
+        >
+          Range selection
+        </h3>
+        <Select
+          options={rangeOptions}
+          onChange={(rangeOption: ValueType<IRangeOption>) =>
+            this.changeWeaponFiringRange(
+              (rangeOption as IRangeOption).value
+            )
+          }
+        />
+      </div>
+    );
   }
 
   capitalizeFirstLetter = (string: string) => {
@@ -849,7 +835,7 @@ class Action extends React.Component<IActionProps, IActionState> {
           rangedWeaponSelected: weapon,
           currentWeapon: weapon.name,
           previousWeapon: prevWeapon,
-          currentCombatType: "ranged"
+          testSelected: "ranged"
         },
         this.defaultVal
       );
@@ -998,12 +984,20 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     combatSection() {
         return (
-            <div style={{paddingBottom: "50px"}}>
-                <h1 className={"Action"}>Melee Weapons</h1>
+          <React.Fragment>
+              <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                <h1 style={{display: "block"}}>
+                  Melee Weapons        
+                </h1>
                 {this.meleeWeaponsDropdown()}
-                <h1 className={"Action"}>Ranged Weapons</h1>
+              </div>
+              <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                <h1 style={{display: "block"}}>
+                  Ranged Weapons        
+                </h1>
                 {this.rangedWeaponsDropdown()}
-            </div>
+              </div>
+          </React.Fragment>
         );
     }
 
@@ -1110,10 +1104,10 @@ class Action extends React.Component<IActionProps, IActionState> {
                         )
                     }
                 />
-                {this.state.currentCombatType === "ranged" ?
-                    <div style={{display: "inline-flex", width: "100%", textAlign: "center"}}>
-                        
-                            <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                {this.state.testSelected !== "melee" ?
+                    <div style={{width: "100%", verticalAlign: "top"}}>
+                        {
+                            <div style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
                                 <h3
                                     style={{display: this.state.rangedWeaponSelected ? "block" : "none"}}
                                 >
@@ -1125,7 +1119,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                             </div>
                         
 
-                        {/*{*/}
+                        /*
                         {/*    <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>*/}
                         {/*        <h3 style={{display: this.state.rangedWeaponSelected ? "block" : "none"}}>*/}
                         {/*            Attachment selection*/}
@@ -1135,11 +1129,9 @@ class Action extends React.Component<IActionProps, IActionState> {
                         {/*    </div>*/}
                         {/*}*/}
 
-                        {
-                            <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
 
-                                {
-                                    this.state.currentCombatType === "ranged" && this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? (
+                            <div style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
+                                {this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? (
 
                                         <AmmoDropdown
                                             ammoTypes={this.state.rangedWeaponSelected.ammoTypes}
@@ -1155,7 +1147,6 @@ class Action extends React.Component<IActionProps, IActionState> {
                                 }
 
                             </div>
-                        }
                       {this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? this.mountedTypeSelect() : null}
                       {this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? this.rangeSelect() : null}
                     </div>
@@ -1489,13 +1480,15 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     };
 
-    changeWeaponFiringRange = async (e: React.FormEvent<HTMLInputElement>) => {
-      this.setState(
-        {
-          weaponFiringRange: e.currentTarget.value,
-        },
-        () => this.showRangedWeaponTest(this.state.rangedWeaponSelected)
-      );
+    changeWeaponFiringRange = async (weaponFiringRangeClassification: string | undefined) => {
+      if (weaponFiringRangeClassification !== undefined) {
+        this.setState(
+          {
+            weaponFiringRange: weaponFiringRangeClassification
+          },
+          () => this.showRangedWeaponTest(this.state.rangedWeaponSelected)
+        );
+      }
     };
 
     /**
@@ -1506,66 +1499,24 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     const allowMount = this.isMountable(this.state.rangedWeaponSelected)
 
-    let options = []
-
-    options.push({
-      label: "Unmounted",
-      value: "Unmounted"
-    })
-    // const unmountedOptionRadio = <React.Fragment>
-    //   <input
-    //       type="radio"
-    //       id="Unmounted"
-    //       name="Mounted Type"
-    //       value="Unmounted"
-    //       onChange={this.changeWeaponMount}
-    //       defaultChecked={true}
-    //     />
-    //     <label style={{ marginRight: "2.5%" }}>Unmounted</label>
-    // </React.Fragment>;
+    let options: Array<ISelectOption> = [{label: "Unmounted", value: "Unmounted"}];
 
     if (allowMount) {
-      options.push({
-        label: "Non-Vehicle Mounted",
-        value: "MountedNV"
-      })
-      options.push({
-        label: "Vehicle Mounted",
-        value: "MountedV"
-      })
+      options.push({label: "Vehicle Mounted", value: "MountedV"})
+      options.push({label: "Non-Vehicle Mounted", value: "MountedNV"})
     }
-    // const mountedOptionRadios = <React.Fragment>
-    //   <input
-    //       type="radio"
-    //       id="MountedNV"
-    //       name="Mounted Type"
-    //       value="MountedNV"
-    //       onChange={this.changeWeaponMount}
-    //       disabled={false}
-    //     />
-    //     <label style={{ marginRight: "2.5%" }}>Mounted (Non-Vehicle)</label>
-    //     <input
-    //       type="radio"
-    //       id="MountedV"
-    //       name="Mounted Type"
-    //       value="MountedV"
-    //       onChange={this.changeWeaponMount}
-    //       disabled={false}
-    //     />
-    //     <label style={{ marginRight: "2.5%" }}>Mounted (Vehicle)</label>
-    // </React.Fragment>
     
     return (
-      <div className={"Action"} style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+      <div className={"Action"} style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
         <h3 style={{
             display: "block",
           }}>Mount Type Selection</h3>
           <Select
             id={"mountTypeSelector"}
             options={options}
-            onChange={(boi: ValueType<ISelectType>) =>
+            onChange={(mountType: ValueType<ISelectOption>) =>
               this.changeWeaponMount(
-                (boi as ISelectType).value
+                (mountType as ISelectOption).value
               )
             }
             default={{name: "Unmounted", value: "Unmounted"}}
