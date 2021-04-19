@@ -34,7 +34,6 @@ const mapDispatchToProps = {
 };
 let option: string;
 let recoilComp = 0;
-//Val = 0;
 let reactDice: any;
 let selectRef: any;
 let isProgressive: boolean; //will control if the recoil compensation is progressive or not
@@ -47,12 +46,14 @@ interface IActionState {
     rangedWeaponSelected: Ranged | null;
     mounted: string;
     firingType: number;
+    weaponFiringRange: string;
     modeSelected: WeaponModes | null;
     currentWeapon: string | null;
     previousWeapon: string | null;
     selectedMode: modeLabelOption | null;
     ammoSelected: CharacterAmmo | null;
     attachmentSelected: AttachmentLabelOption | null;
+    testSelected: string
     initiativeValue: number;
 }
 
@@ -79,11 +80,28 @@ interface AttachmentLabelOption {
 
 }
 
+interface ISelectType {
+    label: string;
+    value: string;
+}
+
 interface SelectSkill {
     skill: ISkill;
     label: string;
     limit: string;
     specialization?: string;
+}
+
+interface ISelectOption {
+    label: string;
+    value: string;
+}
+
+interface IRangeOption {
+    label?: string | undefined;
+    value?: string | undefined;
+    distanceType: string;
+    values: Array<number>
 }
 
 // Page 178 textbook
@@ -118,6 +136,7 @@ class Action extends React.Component<IActionProps, IActionState> {
             socialLimit: null,
             rangedWeaponSelected: null,
             mounted: "Unmounted",
+            weaponFiringRange: "",
             firingType: 0,
             modeSelected: null,
             currentWeapon: null,
@@ -125,9 +144,15 @@ class Action extends React.Component<IActionProps, IActionState> {
             selectedMode: null,
             ammoSelected: null,
             attachmentSelected: null,
+            testSelected: "",
             initiativeValue: 0
         };
 
+    }
+
+    isMountable(weapon: Ranged | null): boolean {
+        // A person cannot mount a crossbow, bow, throwing weapon, or cyber implant weapon.
+        return weapon !== null && weapon.category !== "throwing" && weapon.skill.toLowerCase() !== "archery" && weapon.name.search(/cyber/i) === -1; // note the /i is for case insensitive regex searches
     }
 
     handleAmmoSelect(ammo: CharacterAmmo) {
@@ -402,63 +427,184 @@ class Action extends React.Component<IActionProps, IActionState> {
             testValues.unshift("?");
         }
 
-        this.setState({
-            testVariables: testVariables,
-            testValues: testValues,
-        });
-    };
+    this.setState({
+      testVariables: testVariables,
+      testValues: testValues,
+      testSelected: "melee"
+    });
+  }
 
-    modeSelection = (mode: any) => {
-        let weapon = this.state.rangedWeaponSelected
-            ? this.state.rangedWeaponSelected
-            : null;
 
-        if (
-            this.state.modeSelected !== null &&
-            mode.name !== this.state.modeSelected &&
-            weapon
-        ) {
-            recoilComp = weapon.RC;
-            let strength = this.props.character.attributes.STR;
-            recoilComp += Math.ceil(strength / 3) + 1;
-            isProgressive = false;
-        }
-        if (weapon) {
-            this.setState(
-                {
-                    modeSelected: mode.name,
-                    firingType: mode.numAmmoToShoot,
-                    selectedMode: mode,
-                },
-                () => this.showRangedWeaponTest(weapon)
-            );
-        }
-    };
+  modeSelection = (mode: any) => {
+    let weapon = this.state.rangedWeaponSelected
+      ? this.state.rangedWeaponSelected
+      : null;
 
-    defaultVal = () => {
-        if (this.state.currentWeapon !== this.state.previousWeapon) {
-            this.setState({
-                previousWeapon: this.state.currentWeapon,
-                selectedMode: null,
-                modeSelected: null,
-            });
-        } else {
-            this.setState({
-                selectedMode: selectRef,
-            });
-        }
-    };
-
-    /**
-     * Converts a dropdown value to a ranged weapon type value
-     * @param val The object from the weapons dropdown containing the weapon information.
-     */
-    selectionToWeapon(val: ValueType<WeaponLabelOptionRanged>) {
-        if (val === undefined || val === null) {
-            return;
-        }
-        return (val as WeaponLabelOptionRanged).weapon;
+    if (
+      this.state.modeSelected !== null &&
+      mode.name !== this.state.modeSelected &&
+      weapon
+    ) {
+      recoilComp = weapon.RC;
+      let strength = this.props.character.attributes.STR;
+      recoilComp += Math.ceil(strength / 3) + 1;
+      isProgressive = false;
     }
+    if (weapon) {
+      this.setState(
+        {
+          modeSelected: mode.name,
+          firingType: mode.numAmmoToShoot,
+          selectedMode: mode,
+        },
+        () => this.showRangedWeaponTest(weapon)
+      );
+    }
+  };
+
+  rangeSelect() {
+    let rangeOptions: Array<IRangeOption> = [];
+    let genOneDiv = false;
+    const strength = this.props.character.attributes.STR;
+
+    if (this.state.rangedWeaponSelected !== null) {
+      const ranges = this.state.rangedWeaponSelected?.range;
+
+      if (ranges.default !== null && ranges.default !== undefined) {
+        rangeOptions.push({
+          distanceType: "Short",
+          values: ranges.default.short,
+        });
+        rangeOptions.push({
+          distanceType: "Medium",
+          values: ranges.default.medium,
+        });
+        rangeOptions.push({
+          distanceType: "Long",
+          values: ranges.default.long,
+        });
+        rangeOptions.push({
+          distanceType: "Extreme",
+          values: ranges.default.extreme,
+        });
+        genOneDiv = true;
+      }
+
+      if (ranges.slug !== null && ranges.slug !== undefined) {
+        rangeOptions.push({
+          distanceType: "Short (Slug)",
+          values: ranges.slug.short,
+        });
+        rangeOptions.push({
+          distanceType: "Medium (Slug)",
+          values: ranges.slug.medium,
+        });
+        rangeOptions.push({
+          distanceType: "Long (Slug)",
+          values: ranges.slug.long,
+        });
+        rangeOptions.push({
+          distanceType: "Extreme (Slug)",
+          values: ranges.slug.extreme,
+        });
+      }
+
+      if (ranges.flechette !== null && ranges.flechette !== undefined) {
+        rangeOptions.push({
+          distanceType: "Short (Flechette)",
+          values: ranges.flechette.short,
+        });
+        rangeOptions.push({
+          distanceType: "Medium (Flechette)",
+          values: ranges.flechette.medium,
+        });
+        rangeOptions.push({
+          distanceType: "Long (Flechette)",
+          values: ranges.flechette.long,
+        });
+        rangeOptions.push({
+          distanceType: "Extreme (Flechette)",
+          values: ranges.flechette.extreme,
+        });
+      }
+    }
+
+    if (genOneDiv) {
+      // One div generated for default ranges
+      rangeOptions.map((individualRange) => {
+        const useStrength = ("Throwing" === this.state.rangedWeaponSelected?.skill || this.state.rangedWeaponSelected?.name.search("Bow") !== -1);
+
+        individualRange.value = individualRange.distanceType
+        individualRange.label = this.capitalizeFirstLetter(individualRange.distanceType) +
+          " [" +
+          individualRange.values[0] +
+          "m - " +
+          (useStrength ? individualRange.values[1] * strength : individualRange.values[1]) +
+          "m]"
+          return individualRange
+      });
+    } else {
+        // Two divs generated for slug and flechette ranges
+        rangeOptions.map((individualRange) => {
+            individualRange.value = individualRange.values[0] + "-" + individualRange.values[1]
+            individualRange.label = this.capitalizeFirstLetter(individualRange.distanceType) +
+              " [" +
+              individualRange.values[0] +
+              "m - " +
+            individualRange.values[1] +
+              "m]"
+            return individualRange
+      });
+    }
+
+    return (
+      <div className={"Action"} id={"rangeSelector"}>
+        <h3
+          style={{
+            display: "block",
+          }}
+        >
+          Range selection
+        </h3>
+        <Select
+          options={rangeOptions}
+          onChange={(rangeOption: ValueType<IRangeOption>) =>
+            this.changeWeaponFiringRange(
+              (rangeOption as IRangeOption).value
+            )
+          }
+        />
+      </div>
+    );
+  }
+
+  capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  defaultVal = () => {
+    if (this.state.currentWeapon !== this.state.previousWeapon) {
+      this.setState({
+        previousWeapon: this.state.currentWeapon,
+        selectedMode: null,
+        modeSelected: null,
+      });
+    } else {
+      this.setState({
+        selectedMode: selectRef,
+      });
+    }
+  };
+  /**
+   * Converts a dropdown value to a ranged weapon type value
+   * @param val The object from the weapons dropdown containing the weapon information.
+   */
+  selectionToWeapon(val: ValueType<WeaponLabelOptionRanged>) {
+    if (val === undefined || val === null) {
+      return;
+    }
+    return (val as WeaponLabelOptionRanged).weapon;
+  }
 
     //
     /**
@@ -472,6 +618,8 @@ class Action extends React.Component<IActionProps, IActionState> {
         if (weapon === undefined || weapon === null) {
             return;
         }
+        let isBow = false
+        // let calculationStack = [];
 
         const prevWeapon = this.state.currentWeapon;
         let mode = this.state.modeSelected;
@@ -532,6 +680,7 @@ class Action extends React.Component<IActionProps, IActionState> {
 
         let bowDicePoolModifier: number = 0;
         if (weapon.name.substring(0, 3) === "Bow") {
+            isBow = true;
             const rating: number = parseInt(
                 weapon.name.substring(weapon.name.search(/\d/), weapon.name.length - 1)
             );
@@ -540,8 +689,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                 bowDicePoolModifier = (rating - strength) * 3;
             }
         }
-
-        //If the character has the skill, show the skill value and the attribute.
+        // If the character has the skill, show the skill value and the attribute.
         if (skill !== undefined && attribute !== undefined) {
             foundSkills.filter((aSK) => {
                 // will filter through all skills and return the array of the skill associated with the weapon
@@ -553,225 +701,283 @@ class Action extends React.Component<IActionProps, IActionState> {
 
             // First row in table, displays the skill name and attribute
             if (weapon.name.substring(0, 3) === "Bow") {
-                testVariables.unshift(
-                    skill.name,
-                    "+",
-                    <b>{skill.attribute}</b>,
-                    "-",
-                    "Rating Modifier"
-                );
-                testValues.unshift(
-                    skill.rating,
-                    "+",
-                    <b>{attribute}</b>,
-                    "-",
-                    bowDicePoolModifier
-                );
-                testValues.push("=", skill.rating + attribute - bowDicePoolModifier);
+              testVariables.unshift(
+                  skill.name,
+                  "+",
+                  <b>{skill.attribute}</b>,
+                  "-",
+                  "Rating Modifier"
+              );
+              testValues.unshift(
+                  skill.rating,
+                  "+",
+                  <b>{attribute}</b>,
+                  "-",
+                  bowDicePoolModifier
+              );
+              // calculationStack.push(skill.rating, attribute, -bowDicePoolModifier);
+              testValues.push("=", skill.rating + attribute - bowDicePoolModifier);
+
+
+      } else {
+        if (this.state.mounted !== "Unmounted") {
+          let heavyWeaponsSkill: ISkill[] = this.props.character.skills.combat.filter(
+            (skill) => skill.name && skill.name === "Heavy Weapons"
+          );
+          let gunnerySkill: ISkill[] = this.props.character.skills.vehicle.filter(
+            (skill) => skill.name && skill.name === "Gunnery"
+          );
+          if (this.state.mounted === "MountedNV") {
+            if (heavyWeaponsSkill.length > 0) {
+              testVariables.unshift(
+                heavyWeaponsSkill[0].name,
+                "+",
+                <b>{skill.attribute}</b>
+              );
+              testValues.unshift(
+                heavyWeaponsSkill[0].rating,
+                "+",
+                <b>{attribute}</b>
+              );
+              testValues.push("=", heavyWeaponsSkill[0].rating + attribute);
             } else {
-                if (this.state.mounted !== "Unmounted") {
-                    let heavyWeaponsSkill: ISkill[] = this.props.character.skills.combat.filter(
-                        (skill) => skill.name && skill.name === "Heavy Weapons"
-                    );
-                    let gunnerySkill: ISkill[] = this.props.character.skills.vehicle.filter(
-                        (skill) => skill.name && skill.name === "Gunnery"
-                    );
-                    if (this.state.mounted === "MountedNV") {
-                        if (heavyWeaponsSkill.length > 0) {
-                            testVariables.unshift(
-                                heavyWeaponsSkill[0].name,
-                                "+",
-                                <b>{skill.attribute}</b>
-                            );
-                            testValues.unshift(
-                                heavyWeaponsSkill[0].rating,
-                                "+",
-                                <b>{attribute}</b>
-                            );
-                            testValues.push("=", heavyWeaponsSkill[0].rating + attribute);
-                        } else {
-                            testVariables.unshift(skill.name, "+", <b>{skill.attribute}</b>);
-                            testValues.unshift(skill.rating, "+", <b>{attribute}</b>);
-                            testValues.push("=", skill.rating + attribute);
-                        }
-                    } else if (this.state.mounted === "MountedV") {
-                        if (gunnerySkill.length > 0) {
-                            testVariables.unshift(
-                                gunnerySkill[0].name,
-                                "+",
-                                <b>{skill.attribute}</b>
-                            );
-                            testValues.unshift(
-                                gunnerySkill[0].rating,
-                                "+",
-                                <b>{attribute}</b>
-                            );
-                            testValues.push("=", gunnerySkill[0].rating + attribute);
-                        } else {
-                            testVariables.unshift(skill.name, "+", <b>{skill.attribute}</b>);
-                            testValues.unshift(skill.rating, "+", <b>{attribute}</b>);
-                            testValues.push("=", skill.rating + attribute);
-                        }
-                    }
-                } else {
-                    testVariables.unshift(
-                        actualSkill.name,
-                        "+",
-                        <b>{actualSkill.attribute}</b>,
-                        actualSkill.specialization ? "+" : "",
-                        <span style={{color: "#00802b", fontWeight: 495}}>
-              {actualSkill.specialization ? actualSkill.specialization + " Spec" : ""}
-            </span>,
-                        mode && (weapon.RC + (selectAttach ? selectAttach : 0)) > 0 ? "+" : "",
-                        mode && (weapon.RC + (selectAttach ? selectAttach : 0)) > 0 ? "Recoil Compensation" : "");
-                    testValues.unshift(
-                        actualSkill.rating,
-                        "+",
-                        <b>{attribute}</b>,
-                        actualSkill.specialization ? "+" : "",
-                        <b style={{color: "#00802b", fontWeight: 495}}>
-                            {actualSkill.specialization ? "(2)" : ""}
-                        </b>,
-                        mode && (weapon.RC) > 0 ? "+" : "",
-                        mode && (weapon.RC) > 0 ? " " + (recoilComp) : ""
-                    );
-                    testValues.push(
-                        "=",
-                        actualSkill.rating +
-                        attribute +
-                        (actualSkill.specialization ? 2 : 0) +
-                        (recoilComp < 0 ? recoilComp : 0)
-                    );
-                }
+              testVariables.unshift(skill.name, "+", <b>{skill.attribute}</b>);
+              testValues.unshift(skill.rating, "+", <b>{attribute}</b>);
+              // calculationStack.push(skill.rating, attribute)
+              testValues.push("=", skill.rating + attribute);
             }
+
+          } else if (this.state.mounted === "MountedV") {
+                if (gunnerySkill.length > 0) {
+                    testVariables.unshift(
+                        gunnerySkill[0].name,
+                        "+",
+                        <b>{skill.attribute}</b>
+                        );
+                        testValues.unshift(
+                            gunnerySkill[0].rating,
+                            "+",
+                            <b>{attribute}</b>
+                            );
+                        testValues.push("=", gunnerySkill[0].rating + attribute);
+                } else {
+                    testVariables.unshift(skill.name, "+", <b>{skill.attribute}</b>);
+                    testValues.unshift(skill.rating, "+", <b>{attribute}</b>);
+                    testValues.push("=", skill.rating + attribute);
+                }
+          }
         } else {
-            //If they don't have the skill, show a ?
-            testVariables.unshift(weapon.skill);
-            testValues.unshift("?");
+            testVariables.unshift(
+                actualSkill.name,
+                "+",
+                <b>{actualSkill.attribute}</b>,
+                actualSkill.specialization ? "+" : "",
+                <span style={{color: "#00802b", fontWeight: 495}}>
+                  {actualSkill.specialization ? actualSkill.specialization + " Spec" : ""}
+                </span>,
+                mode && (weapon.RC + (selectAttach ? selectAttach : 0)) > 0 ? "+" : "",
+                    mode && (weapon.RC + (selectAttach ? selectAttach : 0)) > 0 ? "Recoil Compensation" : "");
+            testValues.unshift(
+                actualSkill.rating,
+                "+",
+                <b>{attribute}</b>,
+                actualSkill.specialization ? "+" : "",
+                    <b style={{color: "#00802b", fontWeight: 495}}>
+                      {actualSkill.specialization ? "(2)" : ""}
+                    </b>,
+                    mode && (weapon.RC) > 0 ? "+" : "",
+                    mode && (weapon.RC) > 0 ? " " + (recoilComp) : ""
+                );
+                testValues.push(
+                    "=",
+                    actualSkill.rating +
+                    attribute +
+                    (actualSkill.specialization ? 2 : 0) +
+                    (recoilComp < 0 ? recoilComp : 0)
+                );
+          }
         }
 
-        this.setState(
-            {
-                testVariables: testVariables,
-                testValues: testValues,
-                rangedWeaponSelected: weapon,
-                currentWeapon: weapon.name,
-                previousWeapon: prevWeapon,
-            },
-            this.defaultVal
-        );
-        option = "ranged"; // for showing the firing modes vs not showing it.
-    };
-
-    getCharacterAttribute = (capitalizedName: string) => {
-        const {
-            character: {attributes},
-        } = this.props;
-        switch (capitalizedName) {
-            case "AGI":
-                return attributes.AGI;
-            case "BOD":
-                return attributes.BOD;
-            case "CHA":
-                return attributes.CHA;
-            case "EDG":
-                return attributes.EDG;
-            case "ESS":
-                return attributes.ESS;
-            case "INT":
-                return attributes.INT;
-            case "LOG":
-                return attributes.LOG;
-            case "MAG":
-                return attributes.MAG;
-            case "REA":
-                return attributes.REA;
-            case "RES":
-                return attributes.RES;
-            case "STR":
-                return attributes.STR;
-            case "WIL":
-                return attributes.WIL;
-            default:
-                return 0;
+        if (this.state.weaponFiringRange) {
+          let locationToInsertRange = 7;
+          if (
+            this.state.mounted === "MountedNV" ||
+            this.state.mounted === "MountedV"
+          ) {
+            locationToInsertRange = 4;
+          }
+          testVariables.splice(locationToInsertRange, 0, "+ Range Modifier");
+          const firingDistanceModifier = this.firingDistanceToDiceModifier(
+            this.state.weaponFiringRange
+          );
+          testValues.splice(locationToInsertRange, 0, firingDistanceModifier);
+          let numericModifer: any;
+          if (typeof testValues[testValues.length - 1] === "number") {
+            numericModifer = testValues[testValues.length - 1];
+          } else {
+            console.log(
+              "shouldn't have gotten here, numeric modifier is type of " +
+                typeof testValues[testValues.length - 1]
+            );
+          }
+          testValues[testValues.length - 1] =
+            numericModifer + firingDistanceModifier;
         }
-    };
+      } else {
+        //If they don't have the skill, show a ?
+        testVariables.unshift(weapon.skill);
+        testValues.unshift("?");
+      }
 
-    /**
-     * Displays the attribute-only tests, including Composure, Judge Intentions, Lifting/Carrying, and Memory.
-     * @returns A div containing a table of the attribute only test calculations.
-     */
-    attributeOnlySection() {
-        return (
-            <div>
-                <h1 className={"Action"}>Attribute-Only Tests</h1>
-                <table className={"Action"}>
-                    <tbody>
-                    <tr className={"Action"}>
-                        <td className={"attrOnly"}>
-                            <h5>
-                                Composure (<b>CHA</b> + <b>WIL</b>)<br/>
-                                {this.attrTest("CHA", "WIL")}
-                            </h5>
-                        </td>
-                        <td className={"attrOnly"}>
-                            <h5>
-                                Judge Intention(<b>CHA</b> + <b>INT</b>)<br/>
-                                {this.attrTest("CHA", "INT")}
-                            </h5>
-                        </td>
-                    </tr>
-                    <tr className={"Action"}>
-                        <td className={"attrOnly"}>
-                            <h5>
-                                Lifting/Carrying (<b>BOD</b> + <b>STR</b>)<br/>
-                                {this.attrTest("BOD", "STR")}
-                            </h5>
-                        </td>
-                        <td className={"attrOnly"}>
-                            <h5>
-                                Memory (<b>LOG</b> + <b>WIL</b>)<br/>{" "}
-                                {this.attrTest("LOG", "WIL")}
-                            </h5>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        );
+      this.setState(
+        {
+          testVariables: testVariables,
+          testValues: testValues,
+          rangedWeaponSelected: weapon,
+          currentWeapon: weapon.name,
+          previousWeapon: prevWeapon,
+          testSelected: "ranged"
+        },
+        this.defaultVal
+      );
+      option = "ranged"; // for showing the firing modes vs not showing it.
     }
 
-    /**
-     * Creates a div containing an attribute-only test calculation.
-     * @param attr1 The first attribute in the calculation.
-     * @param attr2 The second attribute in the calculation.
-     * @returns A div showing the test calculation.
-     */
-    attrTest(attr1: string, attr2: string) {
-        const attr1String = attr1.toUpperCase();
-        const attr2String = attr2.toUpperCase();
-        const charAttr1 = this.getCharacterAttribute(attr1String);
-        const charAttr2 = this.getCharacterAttribute(attr2String);
-        const sum = charAttr1 + charAttr2;
-        return (
-            <div>
-                <b>{charAttr1}</b> + <b>{charAttr2}</b> = {sum}
-            </div>
-        );
+
+    // precondifitions: firingDistanceName will ONLY contain either Short, Medium, Long, or Extreme at the BEGINNING
+  firingDistanceToDiceModifier = (firingDistanceName: string) => {
+    const firstLetter = firingDistanceName.charAt(0);
+    let modifer: number;
+    switch (firstLetter) {
+      case "S":
+        modifer = 0;
+        break;
+      case "M":
+        modifer = -1;
+        break;
+      case "L":
+        modifer = -3;
+        break;
+      case "E":
+        modifer = -6;
+        break;
+      default:
+        modifer = 0;
+        break;
     }
 
-    /**
-     * Displays the Skill header and dropdown.
-     * @returns A div containing the Skill test header and skills dropdown
-     */
-    skillsSection() {
-        return (
-            <div>
-                <h1 className={"Action"}>Skill Tests</h1>
-                {this.allSkillsDropdown()}
-            </div>
-        );
+    return modifer;
+  };
+
+  getCharacterAttribute = (capitalizedName: string) => {
+    const {
+      character: { attributes },
+    } = this.props;
+    switch (capitalizedName) {
+      case "AGI":
+        return attributes.AGI;
+      case "BOD":
+        return attributes.BOD;
+      case "CHA":
+        return attributes.CHA;
+      case "EDG":
+        return attributes.EDG;
+      case "ESS":
+        return attributes.ESS;
+      case "INT":
+        return attributes.INT;
+      case "LOG":
+        return attributes.LOG;
+      case "MAG":
+        return attributes.MAG;
+      case "REA":
+        return attributes.REA;
+      case "RES":
+        return attributes.RES;
+      case "STR":
+        return attributes.STR;
+      case "WIL":
+        return attributes.WIL;
+      default:
+        return 0;
     }
+  };
+
+  /**
+   * Displays the attribute-only tests, including Composure, Judge Intentions, Lifting/Carrying, and Memory.
+   * @returns A div containing a table of the attribute only test calculations.
+   */
+   attributeOnlySection() {
+    return (
+      <div>
+        <h1 className={"Action"}>Attribute-Only Tests</h1>
+        <table className={"Action"}>
+          <tbody>
+            <tr className={"Action"}>
+              <td className={"attrOnly"}>
+                <h5>
+                  Composure (<b>CHA</b> + <b>WIL</b>)<br />
+                  {this.attrTest("CHA", "WIL")}
+                </h5>
+              </td>
+              <td className={"attrOnly"}>
+                <h5>
+                  Judge Intention(<b>CHA</b> + <b>INT</b>)<br />
+                  {this.attrTest("CHA", "INT")}
+                </h5>
+              </td>
+            </tr>
+            <tr className={"Action"}>
+              <td className={"attrOnly"}>
+                <h5>
+                  Lifting/Carrying (<b>BOD</b> + <b>STR</b>)<br />
+                  {this.attrTest("BOD", "STR")}
+                </h5>
+              </td>
+              <td className={"attrOnly"}>
+                <h5>
+                  Memory (<b>LOG</b> + <b>WIL</b>)<br />{" "}
+                  {this.attrTest("LOG", "WIL")}
+                </h5>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  /**
+   * Creates a div containing an attribute-only test calculation.
+   * @param attr1 The first attribute in the calculation.
+   * @param attr2 The second attribute in the calculation.
+   * @returns A div showing the test calculation.
+   */
+   attrTest(attr1: string, attr2: string) {
+    const attr1String = attr1.toUpperCase();
+    const attr2String = attr2.toUpperCase();
+    const charAttr1 = this.getCharacterAttribute(attr1String);
+    const charAttr2 = this.getCharacterAttribute(attr2String);
+    const sum = charAttr1 + charAttr2;
+    return (
+      <div>
+        <b>{charAttr1}</b> + <b>{charAttr2}</b> = {sum}
+      </div>
+    );
+  }
+
+  /**
+   * Displays the Skill header and dropdown.
+   * @returns A div containing the Skill test header and skills dropdown
+   */
+  skillsSection() {
+    return (
+      <div>
+        <h1 className={"Action"}>Skill Tests</h1>
+        {this.allSkillsDropdown()}
+      </div>
+    );
+  }
 
     /**
      * Displays the Combat section of the Action page.
@@ -779,14 +985,22 @@ class Action extends React.Component<IActionProps, IActionState> {
      */
     combatSection() {
         return (
-            <div style={{paddingBottom: "50px"}}>
-                <h1 className={"Action"}> Initiative Roll</h1>
-                {this.diceShow()}
-                <h1 className={"Action"}>Melee Weapons</h1>
+          <React.Fragment>
+              <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                  <h1 className={"Action"}> Initiative Roll</h1>
+                  {this.diceShow()}
+                  <h1 style={{display: "block"}}>
+                  Melee Weapons
+                </h1>
                 {this.meleeWeaponsDropdown()}
-                <h1 className={"Action"}>Ranged Weapons</h1>
+              </div>
+              <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                <h1 style={{display: "block"}}>
+                  Ranged Weapons
+                </h1>
                 {this.rangedWeaponsDropdown()}
-            </div>
+              </div>
+          </React.Fragment>
         );
     }
 
@@ -893,26 +1107,34 @@ class Action extends React.Component<IActionProps, IActionState> {
                         )
                     }
                 />
-                {
-                    <div style={{display: "inline-flex", width: "100%", textAlign: "center"}}>
+                {this.state.testSelected !== "melee" ?
+                    <div style={{width: "100%", verticalAlign: "top"}}>
                         {
-                            <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
+                            <div style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
                                 <h3
                                     style={{display: this.state.rangedWeaponSelected ? "block" : "none"}}
                                 >
-                                    Mode selection
+                                    Mode Selection
                                 </h3>
 
 
                                 {this.fireModesDropdown(this.state.rangedWeaponSelected)}
                             </div>
-                        }
 
-                        {
-                            <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>
 
-                                {
-                                    this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? (
+                        /*
+                        {/*    <div style={{paddingTop: "30px", width: "25%", margin: "auto"}}>*/}
+                        {/*        <h3 style={{display: this.state.rangedWeaponSelected ? "block" : "none"}}>*/}
+                        {/*            Attachment selection*/}
+                        {/*        </h3>*/}
+                        {/*        {this.attachmentsDropDown(this.state.rangedWeaponSelected)}*/}
+
+                        {/*    </div>*/}
+                        {/*}*/}
+
+
+                            <div style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
+                                {this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? (
 
                                         <AmmoDropdown
                                             ammoTypes={this.state.rangedWeaponSelected.ammoTypes}
@@ -922,15 +1144,13 @@ class Action extends React.Component<IActionProps, IActionState> {
                                                 this.handleAmmoSelect(ammo)
                                             }
                                         />
-                                    ) : (
-                                        <React.Fragment/>
-                                    )
+                                    ) : (null)
                                 }
-
                             </div>
-                        }
+                      {this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? this.mountedTypeSelect() : null}
+                      {this.state.rangedWeaponSelected !== undefined && this.state.rangedWeaponSelected !== null ? this.rangeSelect() : null}
                     </div>
-                }
+                : null}
             </div>
         );
     }
@@ -1031,67 +1251,60 @@ class Action extends React.Component<IActionProps, IActionState> {
             }
 
             for (const mode of modes) {
-                options.push({
-                    name: mode.name,
-                    numAmmoToShoot: mode.numAmmoToShoot,
-                    defenseModifier: mode.defenseModifier,
-                    label: `${mode.name} (Defense Modifier: ${mode.defenseModifier} |  Number of Rounds Used: ${mode.numAmmoToShoot} |  Recoil: ${weapon.RC})`,
-                });
-            }
+              options.push({
+                  name: mode.name,
+                  numAmmoToShoot: mode.numAmmoToShoot,
+                  defenseModifier: mode.defenseModifier,
+                  label: `${mode.name} (Defense Modifier: ${mode.defenseModifier} |  Number of Rounds Used: ${mode.numAmmoToShoot} |  Recoil: ${weapon.RC})`,
+              });
+          }
 
-            return (
-                <div>
-                    <Select
-                        placeholder={"Select a default"}
-                        options={options}
-                        value={this.state.selectedMode}
-                        onChange={(e: any) => {
-                            this.modeSelection(e);
-                            selectRef = e;
-                        }}
-                    />
-                </div>
-            );
-        }
+          return (
+            <div>
+                <Select
+                    placeholder={"Select a default"}
+                    options={options}
+                    value={this.state.selectedMode}
+                    onChange={(e: any) => {
+                        this.modeSelection(e);
+                        selectRef = e;
+                    }}
+                />
+            </div>
+        );
     }
+}
 
-    /**
-     * If there are test variables and values in the state, this displays the test calculation. The variables and values
-     * are displayed in two table rows so that they line up with eachother.
-     * @returns A table of the test variables and values, displaying the test calculation.
-     */
-    testDisplay(character: ICharacter) {
-        const {rangedWeaponSelected, firingType} = this.state;
-        if (option === "ranged" && firingType !== 0) {
-            return (
-                <div>
-                    {/* Will show the calculations for the weapon tests*/}
-                    {this.calculationTable()}
 
-                    {this.mountedTypeSelect()}
+  /**
+   * If there are test variables and values in the state, this displays the test calculation. The variables and values
+   * are displayed in two table rows so that they line up with eachother.
+   * @returns A table of the test variables and values, displaying the test calculation.
+   */
+  testDisplay(character: ICharacter) {
+    const { rangedWeaponSelected, firingType } = this.state;
+    if (option === "ranged" && firingType !== 0) {
+      return (
+        <div>
+          {/* Will show the calculations for the weapon tests*/}
+          {this.calculationTable()}
 
-                    {rangedWeaponSelected && (
-                        <Button
-                            onClick={() => {
-                                const foundWeaponArray = character.gear.ranged.filter(
-                                    (item) =>
-                                        rangedWeaponSelected !== null &&
-                                        rangedWeaponSelected.name === item.name
-                                );
-                                const foundWeapon = foundWeaponArray[0];
-                                console.log("firingType", firingType);
+          {rangedWeaponSelected && (
+            <Button
+              onClick={() => {
+                const foundWeaponArray = character.gear.ranged.filter(
+                  (item) =>
+                    rangedWeaponSelected !== null &&
+                    rangedWeaponSelected.name === item.name
+                );
+                const foundWeapon = foundWeaponArray[0];
 
-                                this.adjustAmmo(
-                                    foundWeapon,
-                                    this.state.ammoSelected,
-                                    firingType
-                                );
-                            }}
-                        >
-                            Fire Weapon
-                        </Button>
-                    )}
-                </div>
+                this.adjustAmmo(
+                    foundWeapon,
+                    this.state.ammoSelected,
+                    firingType
+                  );
+                }}>Fire Weapon</Button>)}</div>
             );
         } else {
             return <div>{this.calculationTable()}</div>;
@@ -1243,50 +1456,74 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     }
 
-    changeWeaponMount = async (e: React.FormEvent<HTMLInputElement>) => {
+    changeWeaponMount = async (mountType: string) => {
+        if (mountType !== "Unmounted") {
+            const allowable = this.isMountable(this.state.rangedWeaponSelected)
+            if (allowable) {
+              this.setState(
+                {
+                    mounted: mountType,
+                },
+                () => this.showRangedWeaponTest(this.state.rangedWeaponSelected)
+              );
+            } else {
+                toast.error("You cannot mount this weapon.", {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        }
+    };
+
+    changeWeaponFiringRange = async (weaponFiringRangeClassification: string | undefined) => {
+      if (weaponFiringRangeClassification !== undefined) {
         this.setState(
-            {
-                mounted: e.currentTarget.value,
-            },
-            () => this.showRangedWeaponTest(this.state.rangedWeaponSelected)
+          {
+            weaponFiringRange: weaponFiringRangeClassification
+          },
+          () => this.showRangedWeaponTest(this.state.rangedWeaponSelected)
         );
+      }
     };
 
     /**
-     * This displays a radio select for ways to mount a ranged weapon for firing.
-     * @returns a radio select with handlers
-     */
-    mountedTypeSelect() {
-        return (
-            <div className="testResult1" style={{textAlign: "center"}}>
-                <input
-                    type="radio"
-                    id="Unmounted"
-                    name="Mounted Type"
-                    value="Unmounted"
-                    onChange={this.changeWeaponMount}
-                    defaultChecked={true}
-                />
-                <label style={{marginRight: "2.5%"}}>Unmounted</label>
-                <input
-                    type="radio"
-                    id="MountedNV"
-                    name="Mounted Type"
-                    value="MountedNV"
-                    onChange={this.changeWeaponMount}
-                />
-                <label style={{marginRight: "2.5%"}}>Mounted (Non-Vehicle)</label>
-                <input
-                    type="radio"
-                    id="MountedV"
-                    name="Mounted Type"
-                    value="MountedV"
-                    onChange={this.changeWeaponMount}
-                />
-                <label style={{marginRight: "2.5%"}}>Mounted (Vehicle)</label>
-            </div>
-        );
+   * This displays a radio select for ways to mount a ranged weapon for firing.
+   * @returns a radio select with handlers
+   */
+  mountedTypeSelect() {
+
+    const allowMount = this.isMountable(this.state.rangedWeaponSelected)
+
+    let options: Array<ISelectOption> = [{label: "Unmounted", value: "Unmounted"}];
+
+    if (allowMount) {
+      options.push({label: "Vehicle Mounted", value: "MountedV"})
+      options.push({label: "Non-Vehicle Mounted", value: "MountedNV"})
     }
+
+    return (
+      <div className={"Action"} style={{paddingTop: "30px", width: "75%", margin: "auto"}}>
+        <h3 style={{
+            display: "block",
+          }}>Mount Type Selection</h3>
+          <Select
+            id={"mountTypeSelector"}
+            options={options}
+            onChange={(mountType: ValueType<ISelectOption>) =>
+              this.changeWeaponMount(
+                (mountType as ISelectOption).value
+              )
+            }
+            default={{name: "Unmounted", value: "Unmounted"}}
+          />
+      </div>
+    );
+  }
 
     diceShow() {
         let rating = 0;
@@ -1375,129 +1612,201 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @returns A table of the character's inherent limit calculations.
      */
     limitsTables() {
-        return (
-            <div>
-                <h1 className={"Action"}>Inherent Limits</h1>
-                <table className={"actLim"}>
-                    <tbody className={"actLim"}>
-                    <tr className={"actLim"}>
-                        <th className={"actLim"}>Type</th>
-                        <th className={"actLim"}>Calculation</th>
-                        <th className={"actLim"}>Value</th>
-                    </tr>
-                    {this.limitRow("Mental")}
-                    {this.limitRow("Physical")}
-                    {this.limitRow("Social")}
-                    </tbody>
-                </table>
-            </div>
-        );
+      return (
+          <div>
+              <h1 className={"Action"}>Inherent Limits</h1>
+              <table className={"actLim"}>
+                  <tbody className={"actLim"}>
+                  <tr className={"actLim"}>
+                      <th className={"actLim"}>Type</th>
+                      <th className={"actLim"}>Calculation</th>
+                      <th className={"actLim"}>Value</th>
+                  </tr>
+                  {this.limitRow("Mental")}
+                  {this.limitRow("Physical")}
+                  {this.limitRow("Social")}
+                  </tbody>
+              </table>
+          </div>
+      );
+  }
+
+  sprintActionSection = () => {
+    const {
+        character: {
+            attributes: {AGI, STR},
+            skills: {physical},
+            metatype,
+        },
+    } = this.props;
+    const runningResult = physical.find(
+        (iSkill) => iSkill.name.toLowerCase() === "running"
+    );
+    const runningRating =
+        runningResult?.rating === undefined ? 0 : runningResult.rating;
+    let metaSprintIncrease = this.getMetaTypeSprintIncrease(metatype);
+    if (metaSprintIncrease === null) {
+        alert(`Metatype: ${metatype} is invalid`);
+        metaSprintIncrease = 1;
     }
 
-    sprintActionSection = () => {
-        const {
-            character: {
-                attributes: {AGI, STR},
-                skills: {physical},
-                metatype,
+    return (
+        <>
+            <h1 className="Action">Sprint:</h1>
+            <h2 className="Action">Complex Action</h2>
+            <table className="actLim">
+                <tbody>
+                <tr>
+                    <td>
+                        <h5>
+                            Distance = <b>Run Rate</b> + (<b>Hits</b> *{" "}
+                            <b>Sprint Increase</b>)
+                        </h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>
+                            Distance = <b>{AGI * 4}</b> + (<b>Hits</b> *{" "}
+                            {metaSprintIncrease})
+                        </h5>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table className={"actLim"}>
+                <tbody>
+                <tr className={"actLim"}>
+                    <th>METATYPE</th>
+                    <th>RUN RATE</th>
+                    <th>SPRINT INCREASE</th>
+                    <th>HITS</th>
+                </tr>
+                <tr className={"actLim"}>
+                    <td className={"actLim"}>Dwarf, Troll</td>
+                    <td className={"actLim"}>
+                        <b>AGI</b> * 4
+                        <br/>
+                        <b>{AGI}</b> * 4 = {AGI * 4}
+                    </td>
+                    <td className={"actLim"}>+1 m/hit</td>
+                    <td className={"actLim"}>
+                        Running + <b>STR</b> [<b>Physical</b>]
+                        <br/>
+                        {`${runningRating} + ${STR} [${this.state.physicalLimit}] = ${
+                            runningRating + STR
+                        }`}
+                    </td>
+                </tr>
+                <tr className={"actLim"}>
+                    <td className={"actLim"}>Elf, Human, Ork</td>
+                    <td className={"actLim"}>
+                        <b>AGI</b> * 4
+                        <br/>
+                        <b>{AGI}</b> * 4 = {AGI * 4}
+                    </td>
+                    <td className={"actLim"}>+2 m/hit</td>
+                    <td className={"actLim"}>
+                        Running + <b>STR</b> [<b>Physical</b>]
+                        <br/>
+                        {`${runningRating} + ${STR} [${this.state.physicalLimit}] = ${
+                            runningRating + STR
+                        }`}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </>
+    );
+};
+
+
+getMetaTypeSprintIncrease(metatype: string) {
+    metatype = metatype.toLowerCase();
+    switch (metatype) {
+        case "dwarf":
+        case "troll":
+            return 1;
+        case "elf":
+        case "human":
+        case "ork":
+            return 2;
+        default:
+            return null;
+    }
+}
+
+    // /**
+    //  * This will be for the attachments dropdown
+    //  */
+    // attachmentsDropDown(weapon: Ranged | null) {
+    //
+    //     if (weapon === null || weapon === undefined) {
+    //         return;
+    //     }
+    //
+    //     const options: AttachmentLabelOption[] = [];
+    //     let attachments = this.categoryAttachments(weapon.category)
+    //
+    //
+    //     for (const attachment of attachments) {
+    //         options.push({
+    //             name: attachment.name,
+    //             effect: attachment.effect,
+    //             label: `${attachment.name}`,
+    //         });
+    //     }
+    //
+    //     return (
+    //         <div>
+    //             <Select
+    //                 placeholder={"Select a default"}
+    //                 options={options}
+    //                 value={this.state.attachmentSelected}
+    //                 onChange={(e: any) => {
+    //                     this.attachmentSelection(e);
+    //                     // selectRef = e;
+    //                 }}
+    //             />
+    //         </div>
+    //     );
+    // }
+    //
+    // /**
+    //  * Helper method to determine if the attachments the gun is allowed to have
+    //  * @param category: the category of the weapon
+    //  */
+    // categoryAttachments(category: string) {
+    //
+    //     if (category === "shotgun" || category === "revolver") {
+    //         return attachers.attachments.filter((one) => !one.type.includes("-") && (one.type.includes(category) || one.type === "any"))
+    //     }
+    //     return attachers.attachments.filter((one) => (one.type.includes(category) || one.type === "any" || one.type.includes("-")))
+    // }
+
+    /**
+     * Using the attachment selected, this will recalculate the die calculation
+     * @param attachment
+     */
+    attachmentSelection = (attachment: any) => {
+        let weapon = this.state.rangedWeaponSelected ? this.state.rangedWeaponSelected : null;
+
+        if (attachment.name !== this.state.attachmentSelected && weapon) {
+            recoilComp = weapon.RC + attachment.effect;
+            let strength = this.props.character.attributes.STR;
+            recoilComp += Math.ceil(strength / 3) + 1;
+            isProgressive = false;
+        }
+
+        this.setState({
+                attachmentSelected: attachment
             },
-        } = this.props;
-        const runningResult = physical.find(
-            (iSkill) => iSkill.name.toLowerCase() === "running"
-        );
-        const runningRating =
-            runningResult?.rating === undefined ? 0 : runningResult.rating;
-        let metaSprintIncrease = this.getMetaTypeSprintIncrease(metatype);
-        if (metaSprintIncrease === null) {
-            alert(`Metatype: ${metatype} is invalid`);
-            metaSprintIncrease = 1;
-        }
+            () => this.showRangedWeaponTest(weapon)
+        )
 
-        return (
-            <>
-                <h1 className="Action">Sprint:</h1>
-                <h2 className="Action">Complex Action</h2>
-                <table className="actLim">
-                    <tbody>
-                    <tr>
-                        <td>
-                            <h5>
-                                Distance = <b>Run Rate</b> + (<b>Hits</b> *{" "}
-                                <b>Sprint Increase</b>)
-                            </h5>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5>
-                                Distance = <b>{AGI * 4}</b> + (<b>Hits</b> *{" "}
-                                {metaSprintIncrease})
-                            </h5>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table className={"actLim"}>
-                    <tbody>
-                    <tr className={"actLim"}>
-                        <th>METATYPE</th>
-                        <th>RUN RATE</th>
-                        <th>SPRINT INCREASE</th>
-                        <th>HITS</th>
-                    </tr>
-                    <tr className={"actLim"}>
-                        <td className={"actLim"}>Dwarf, Troll</td>
-                        <td className={"actLim"}>
-                            <b>AGI</b> * 4
-                            <br/>
-                            <b>{AGI}</b> * 4 = {AGI * 4}
-                        </td>
-                        <td className={"actLim"}>+1 m/hit</td>
-                        <td className={"actLim"}>
-                            Running + <b>STR</b> [<b>Physical</b>]
-                            <br/>
-                            {`${runningRating} + ${STR} [${this.state.physicalLimit}] = ${
-                                runningRating + STR
-                            }`}
-                        </td>
-                    </tr>
-                    <tr className={"actLim"}>
-                        <td className={"actLim"}>Elf, Human, Ork</td>
-                        <td className={"actLim"}>
-                            <b>AGI</b> * 4
-                            <br/>
-                            <b>{AGI}</b> * 4 = {AGI * 4}
-                        </td>
-                        <td className={"actLim"}>+2 m/hit</td>
-                        <td className={"actLim"}>
-                            Running + <b>STR</b> [<b>Physical</b>]
-                            <br/>
-                            {`${runningRating} + ${STR} [${this.state.physicalLimit}] = ${
-                                runningRating + STR
-                            }`}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </>
-        );
-    };
-
-
-    getMetaTypeSprintIncrease(metatype: string) {
-        metatype = metatype.toLowerCase();
-        switch (metatype) {
-            case "dwarf":
-            case "troll":
-                return 1;
-            case "elf":
-            case "human":
-            case "ork":
-                return 2;
-            default:
-                return null;
-        }
     }
+
+
 
     /**
      * Renders the Action page.

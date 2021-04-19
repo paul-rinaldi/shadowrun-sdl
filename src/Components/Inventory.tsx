@@ -1,9 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  ICharacter,
-  Ammo,
-  RangedAmmo,
   CharacterAmmo,
 } from "../models/playerModels";
 import { addAmmo } from "../redux/actions/ammoAction";

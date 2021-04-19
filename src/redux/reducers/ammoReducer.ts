@@ -1,4 +1,4 @@
-import { Ammo, Ranged, CharacterAmmo, RangedAmmo } from "../../models/playerModels";
+import { Ammo, CharacterAmmo } from "../../models/playerModels";
 import { AmmoAction } from "../actions/ammoAction";
 import { initialState } from "../initialState";
 
