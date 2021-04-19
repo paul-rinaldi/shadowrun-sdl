@@ -513,9 +513,6 @@ class Action extends React.Component<IActionProps, IActionState> {
       }
     }
 
-    // let radioInputs: Array<JSX.Element>;
-    // radioInputs = [];
-
     if (genOneDiv) {
       // One div generated for default ranges
       rangeOptions.map((individualRange) => {
@@ -531,26 +528,6 @@ class Action extends React.Component<IActionProps, IActionState> {
           // console.log("yaboi:", individualRange.values[1], strength);
         }
 
-        // radioInputs.push(
-        //   <React.Fragment>
-        //     <input
-        //       type="radio"
-        //       id={individualRange.distanceType}
-        //       name="Range Type"
-        //       value={individualRange.distanceType}
-        //       onChange={this.changeWeaponFiringRange}
-        //       defaultChecked={false}
-        //     />
-        //     <label style={{ marginRight: "2.5%" }}>
-        //       {this.capitalizeFirstLetter(individualRange.distanceType) +
-        //         " [" +
-        //         individualRange.values[0] +
-        //         "m - " +
-        //         individualRange.values[1] +
-        //         "m]"}
-        //     </label>
-        //   </React.Fragment>
-        // );
         individualRange.value = individualRange.distanceType
         individualRange.label = this.capitalizeFirstLetter(individualRange.distanceType) +
           " [" +
@@ -570,48 +547,10 @@ class Action extends React.Component<IActionProps, IActionState> {
               "m - " +
             individualRange.values[1] +
               "m]"
-      //   radioInputs.push(
-      //     <React.Fragment>
-      //       <input
-      //         type="radio"
-      //         id={individualRange.distanceType}
-      //         name="Range Type"
-      //         value={
-      //           individualRange.values[0] + "-" + individualRange.values[1]
-      //         }
-      //         onChange={this.changeWeaponFiringRange}
-      //         defaultChecked={false}
-      //       />
-      //       <label style={{ marginRight: "2.5%" }}>
-      //         {this.capitalizeFirstLetter(individualRange.distanceType) +
-      //           " [" +
-      //           individualRange.values[0] +
-      //           "m - " +
-      //           individualRange.values[1] +
-      //           "m]"}
-      //       </label>
-      //     </React.Fragment>
-      //   );
             return individualRange
       });
     }
 
-    // if (radioInputs.length === 4) {
-    //   return (
-    //     <div className="radioOptions" style={{ textAlign: "center" }}>
-    //       {radioInputs}
-    //     </div>
-    //   );
-    // } else {
-    //   let radioInputsFirst = radioInputs.slice(0, 4);
-    //   let radioInputsLast = radioInputs.slice(4);
-    //   return (
-    //     <div className="radioOptions" style={{ textAlign: "center" }}>
-    //       {radioInputsFirst}
-    //       <div>{radioInputsLast}</div>
-    //     </div>
-    //   );
-    // }
     return (
       <div className={"Action"} id={"rangeSelector"}>
         <h3
