@@ -1,4 +1,4 @@
-import { Armor, Gear, Melee, Ranged } from '../../models/playerModels';
+import {Armor, Attachments, Gear, Melee, Ranged} from '../../models/playerModels';
 
 type SetArmorAction = { type: 'SET_ARMOR_ACTION', payload: Armor[] }
 type SetMeleeAction = { type: 'SET_MELEE_ACTION', payload: Melee[] }
@@ -13,12 +13,17 @@ type RemoveMeleeAction = { type: 'REM_MELEE_ACTION', payload: number };
 type RemoveRangedAction = { type: 'REM_RANGED_ACTION', payload: number };
 type RemoveArmorAction = { type: 'REM_ARMOR_ACTION', payload: number };
 
+
+type AddAttachment = {type: 'ADD_ATTACHMENT_ACTION', payload: {index:number , attachment: any}};
+type RemoveAttachment = {type: 'REM_ATTACHMENT_ACTION', payload: {index: number, attachment: any}};
+
 type ToggleEquipAction = { type: 'TOG_EQUIP', payload: number}
 
 export type GearAction = 
     SetArmorAction | SetMeleeAction | SetRangedAction | SetGearAction |
     AddMeleeAction | AddArmorAction | AddRangedAction |
-    RemoveMeleeAction | RemoveRangedAction | RemoveArmorAction
+    RemoveMeleeAction | RemoveRangedAction | RemoveArmorAction |
+    AddAttachment | RemoveAttachment
     | ToggleEquipAction;
 
 
@@ -72,6 +77,16 @@ export const remRanged = (index: number): RemoveRangedAction => ({
     type: 'REM_RANGED_ACTION',
     payload: index
 });
+
+export const addAttachments = (index: number,  attachment: any): AddAttachment => ({
+    type: 'ADD_ATTACHMENT_ACTION',
+    payload: {index, attachment}
+});
+
+export const remAttachments = (index: number, attachment: any): RemoveAttachment => ({
+    type: "REM_ATTACHMENT_ACTION",
+    payload: {index, attachment}
+})
 
 export const toggleEquip = (index: number) : ToggleEquipAction => ({
     type: 'TOG_EQUIP',

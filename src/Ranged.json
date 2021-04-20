@@ -14,7 +14,22 @@
         "skill": "Throwing",
         "ammoTypes": ["throwing"],
         "subAmmoTypes": ["Shuriken"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 2],
+            "long": [0, 5],
+            "extreme": [0, 7]
+          }
+        },
+        "category": "throwing",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Throwing Knife",
@@ -27,9 +42,40 @@
         "availability": "4R",
         "cost": -25,
         "skill": "Throwing",
-        "ammoTypes": ["throwing"],
-        "subAmmoTypes": ["Throwing Knife"],
-        "currentLoadedAmmoType": ""
+        "ammoTypes": [
+          "throwing"
+        ],
+        "subAmmoTypes": [
+          "Throwing Knife"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [
+              0,
+              1
+            ],
+            "medium": [
+              0,
+              2
+            ],
+            "long": [
+              0,
+              3
+            ],
+            "extreme": [
+              0,
+              5
+            ]
+          }
+        },
+        "category": "throwing",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "ballistic": [
@@ -46,7 +92,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Bow (Rating - 2)",
@@ -61,7 +122,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Bow (Rating - 3)",
@@ -76,7 +152,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Bow (Rating - 4)",
@@ -91,7 +182,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Bow (Rating - 5)",
@@ -106,7 +212,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Bow (Rating - 6)",
@@ -121,7 +242,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Bow (Rating - 7)",
@@ -136,7 +272,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Bow (Rating - 8)",
@@ -151,7 +302,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Bow (Rating - 9)",
@@ -166,7 +332,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Bow (Rating - 10)",
@@ -181,7 +362,22 @@
         "skill": "Archery",
         "ammoTypes": ["arrows"],
         "subAmmoTypes": ["Arrow", "Injection Arrow"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 1],
+            "medium": [0, 10],
+            "long": [0, 30],
+            "extreme": [0, 60]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Light Crossbow",
@@ -196,7 +392,22 @@
         "skill": "Archery",
         "ammoTypes": ["bolts"],
         "subAmmoTypes": ["Bolt", "Injection Bolt"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 6],
+            "medium": [7, 24],
+            "long": [25, 60],
+            "extreme": [61, 120]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Medium Crossbow",
@@ -211,7 +422,22 @@
         "skill": "Archery",
         "ammoTypes": ["bolts"],
         "subAmmoTypes": ["Bolt", "Injection Bolt"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 9],
+            "medium": [10, 36],
+            "long": [37, 90],
+            "extreme": [91, 150]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Heavy Crossbow",
@@ -226,7 +452,22 @@
         "skill": "Archery",
         "ammoTypes": ["bolts"],
         "subAmmoTypes": ["Bolt", "Injection Bolt"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 15],
+            "medium": [16, 36],
+            "long": [37, 90],
+            "extreme": [91, 150]
+          }
+        },
+        "category": "ballistic",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "exotic ranged weapons": [
@@ -243,7 +484,22 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 6],
+            "medium": [7, 24],
+            "long": [25, 60],
+            "extreme": [61, 120]
+          }
+        },
+        "category": "exotic ranged weapons",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "taser": [
@@ -259,8 +515,23 @@
         "cost": -250,
         "skill": "Pistols",
         "ammoTypes": ["darts"],
-        "subAmmoTypes": ["Taser Dart"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": ["Taser Dart, Injection Dart"],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 10],
+            "long": [11, 15],
+            "extreme": [16, 20]
+          }
+        },
+        "category": "taser",
+        "mounting": "top",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Yamaha Pulsar",
@@ -274,8 +545,23 @@
         "cost": -180,
         "skill": "Pistols",
         "ammoTypes": ["darts"],
-        "subAmmoTypes": ["Injection Dart"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": ["Taser Dart, Injection Dart"],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 10],
+            "long": [11, 15],
+            "extreme": [16, 20]
+          }
+        },
+        "category": "taser",
+        "mounting": "top",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "hold-out pistol": [
@@ -292,7 +578,22 @@
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Flechette"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "hold-out pistol",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Streetline Special",
@@ -306,8 +607,27 @@
         "cost": -120,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "hold-out pistol",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Walther Palm Pistol",
@@ -321,8 +641,27 @@
         "cost": -180,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "hold-out pistol",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "light pistol": [
@@ -338,8 +677,27 @@
         "cost": -200,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "light pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Ares Light Fire 75",
@@ -353,8 +711,27 @@
         "cost": -1250,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "light pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Beretta 201T",
@@ -369,8 +746,27 @@
         "cost": -210,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "light pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Colt America L36",
@@ -384,8 +780,27 @@
         "cost": -320,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "light pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Fichetti Security 600",
@@ -400,11 +815,30 @@
         "cost": -350,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "light pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
-        "name": "Taurus Omni-6, light pistol rounds",
+        "name": "Taurus Omni-6",
         "acc": "5 (6)",
         "dam": "6P",
         "ap": "-",
@@ -415,23 +849,27 @@
         "cost": -300,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
-      },
-      {
-        "name": "Taurus Omni-6, heavy pistol rounds",
-        "acc": "5 (6)",
-        "dam": "7P",
-        "ap": -1,
-        "mode": "SS",
-        "RC": 0,
-        "ammo": 6,
-        "availability": "3R",
-        "cost": -300,
-        "skill": "Pistols",
-        "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "revolver heavy pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "heavy pistol": [
@@ -447,8 +885,27 @@
         "cost": -725,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        },
+        "category": "heavy pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Ares Viper Silvergun",
@@ -463,7 +920,22 @@
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Flechette", "Silvers"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        },
+        "category": "heavy pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Browning Ultra-Power",
@@ -477,8 +949,27 @@
         "cost": -640,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        },
+        "category": "heavy pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Colt Government 2066",
@@ -492,8 +983,27 @@
         "cost": -425,
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        },
+        "category": "heavy pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Remington Roomsweeper",
@@ -508,7 +1018,22 @@
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Flechette"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        },
+        "category": "heavy pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Ruger Super Warhawk",
@@ -523,7 +1048,22 @@
         "skill": "Pistols",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular", "Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        },
+        "category": "revolver heavy pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "machine pistol": [
@@ -539,8 +1079,27 @@
         "cost": -830,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "machine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Ceska Black Scorpion",
@@ -555,8 +1114,27 @@
         "cost": -270,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "machine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Steyr TMP",
@@ -570,8 +1148,29 @@
         "cost": -350,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Explosive", "Stick-n-Shock"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Explosive",
+          "Stick-n-Shock",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "machine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "submachine gun": [
@@ -588,8 +1187,29 @@
         "cost": -660,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Explosive", "Stick-n-Shock"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Explosive",
+          "Stick-n-Shock",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        },
+        "category": "submachine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "FN P93 Praetor",
@@ -604,8 +1224,27 @@
         "cost": -900,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        },
+        "category": "submachine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "HK-227",
@@ -620,8 +1259,27 @@
         "cost": -730,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        },
+        "category": "submachine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Ingram Smartgun X",
@@ -635,8 +1293,27 @@
         "cost": -800,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        },
+        "category": "submachine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "SCK Model 100",
@@ -651,8 +1328,27 @@
         "cost": -875,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        },
+        "category": "submachine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Uzi IV",
@@ -667,8 +1363,27 @@
         "cost": -450,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        },
+        "category": "submachine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "assault rifle": [
@@ -684,8 +1399,27 @@
         "cost": -950,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        },
+        "category": "assault rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Ares Alpha",
@@ -699,8 +1433,29 @@
         "cost": -2650,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Explosive", "Stick-n-Shock"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Explosive",
+          "Stick-n-Shock",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        },
+        "category": "assault rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Colt M23",
@@ -714,8 +1469,27 @@
         "cost": -550,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        },
+        "category": "assault rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "FN HAR",
@@ -729,8 +1503,27 @@
         "cost": -1500,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        },
+        "category": "assault rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Yamaha Raiden",
@@ -744,8 +1537,28 @@
         "cost": -2600,
         "skill": "Automatics",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular", "Explosive"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Explosive",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        },
+        "category": "assault rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "sniper rifle": [
@@ -763,7 +1576,22 @@
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        },
+        "category": "sniper rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Cavalier Arms Crockett EBR",
@@ -778,8 +1606,27 @@
         "cost": -10300,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        },
+        "category": "sniper rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Ranger Arms SM-5",
@@ -794,8 +1641,27 @@
         "cost": -28000,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        },
+        "category": "sniper rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Remington 950",
@@ -809,8 +1675,27 @@
         "cost": -2100,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        },
+        "category": "sniper rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Ruger 100",
@@ -825,8 +1710,27 @@
         "cost": -1300,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 350],
+            "long": [351, 800],
+            "extreme": [801, 1500]
+          }
+        },
+        "category": "sniper rifle",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "shotgun": [
@@ -842,8 +1746,33 @@
         "cost": -450,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        },
+        "category": "shotgun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Defiance T-250, short-barreled",
@@ -857,8 +1786,33 @@
         "cost": -450,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        },
+        "category": "shotgun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Enfield AS-7",
@@ -872,8 +1826,33 @@
         "cost": -1100,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        },
+        "category": "shotgun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Special Enfield AS-7",
@@ -887,8 +1866,33 @@
         "cost": -1100,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        },
+        "category": "shotgun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "PJSS Model 55",
@@ -903,8 +1907,33 @@
         "cost": -1000,
         "skill": "Longarms",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        },
+        "category": "shotgun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "light machine gun": [
@@ -921,8 +1950,27 @@
         "cost": -5800,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 200],
+            "long": [201, 400],
+            "extreme": [401, 800]
+          }
+        },
+        "category": "light machine gun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Big Ingram Valiant",
@@ -937,8 +1985,27 @@
         "cost": -5800,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 200],
+            "long": [201, 400],
+            "extreme": [401, 800]
+          }
+        },
+        "category": "light machine gun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "medium machine gun": [
@@ -954,8 +2021,27 @@
         "cost": -7000,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 40],
+            "medium": [41, 250],
+            "long": [251, 750],
+            "extreme": [751, 1200]
+          }
+        },
+        "category": "medium machine gun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Big Stoner-Ares M202",
@@ -969,8 +2055,27 @@
         "cost": -7000,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 40],
+            "medium": [41, 250],
+            "long": [251, 750],
+            "extreme": [751, 1200]
+          }
+        },
+        "category": "medium machine gun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "heavy machine gun": [
@@ -987,24 +2092,27 @@
         "cost": -16300,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
-      },
-      {
-        "name": "RPK HMG",
-        "acc": 5,
-        "dam": "12P",
-        "ap": -4,
-        "mode": "FA",
-        "RC": 0,
-        "equippedRC": 6,
-        "ammo": 100,
-        "availability": "16F",
-        "cost": -16300,
-        "skill": "Heavy Weapons",
-        "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 40],
+            "medium": [41, 250],
+            "long": [251, 750],
+            "extreme": [751, 1200]
+          }
+        },
+        "category": "heavy machine gun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "exotic firearms": [
@@ -1021,7 +2129,22 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Gel"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "exotic firearms",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Fichetti Pain Inducer",
@@ -1035,8 +2158,27 @@
         "cost": -5000,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          }
+        },
+        "category": "exotic firearms",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Parashield Dart Pistol",
@@ -1050,8 +2192,23 @@
         "cost": -600,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["darts"],
-        "subAmmoTypes": ["Injection Dart"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": ["Injection Dart, Taser Dart"],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        },
+        "category": "exotic firearms",
+        "mounting": "top",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Parashield Dart Rifle",
@@ -1066,7 +2223,22 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["darts"],
         "subAmmoTypes": ["Injection Dart"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 25],
+            "medium": [26, 150],
+            "long": [151, 350],
+            "extreme": [351, 550]
+          }
+        },
+        "category": "exotic firearms",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "assault cannon": [
@@ -1083,8 +2255,27 @@
         "cost": -21000,
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 300],
+            "long": [301, 750],
+            "extreme": [751, 1500]
+          }
+        },
+        "category": "assault cannon",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Panther XXL",
@@ -1099,7 +2290,22 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["ballistic"],
         "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 50],
+            "medium": [51, 300],
+            "long": [301, 750],
+            "extreme": [751, 1500]
+          }
+        },
+        "category": "assault cannon",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "grenade launcher": [
@@ -1116,7 +2322,22 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        },
+        "category": "grenade launcher",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Ares Antioch-2",
@@ -1131,7 +2352,22 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        },
+        "category": "grenade launcher",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "ArmTech MGL-12",
@@ -1146,7 +2382,22 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        },
+        "category": "grenade launcher",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "missile launcher": [
@@ -1163,7 +2414,22 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["rockets"],
         "subAmmoTypes": ["Missile (As Rocket)"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [20, 70],
+            "medium": [71, 150],
+            "long": [151, 450],
+            "extreme": [451, 1500]
+          }
+        },
+        "category": "missile launcher",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Onotari Interceptor",
@@ -1178,7 +2444,22 @@
         "skill": "Heavy Weapons",
         "ammoTypes": ["rockets"],
         "subAmmoTypes": ["Missile (As Rocket)"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [20, 70],
+            "medium": [71, 150],
+            "long": [151, 450],
+            "extreme": [451, 1500]
+          }
+        },
+        "category": "missile launcher",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ],
     "implant": [
@@ -1194,8 +2475,27 @@
         "cost": -2000,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "hold out",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Big Cyber Hold-Out Pistol",
@@ -1209,8 +2509,27 @@
         "cost": -2000,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "hold out",
+        "mounting": "",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Small Cyber Machine Pistol",
@@ -1224,8 +2543,27 @@
         "cost": -3500,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "machine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Big Cyber Machine Pistol",
@@ -1239,8 +2577,27 @@
         "cost": -3500,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "machine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Small Cyber Microgrenade Launcher",
@@ -1255,7 +2612,22 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        },
+        "category": "grenade launcher",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Big Cyber Microgrenade Launcher",
@@ -1270,7 +2642,22 @@
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["grenades"],
         "subAmmoTypes": ["High Explosive"],
-        "currentLoadedAmmoType": ""
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [5, 50],
+            "medium": [51, 100],
+            "long": [101, 150],
+            "extreme": [151, 500]
+          }
+        },
+        "category": "grenade launcher",
+        "mounting": "top, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Small Cyber Shotgun",
@@ -1284,8 +2671,33 @@
         "cost": -8500,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        },
+        "category": "shotgun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Big Cyber Shotgun",
@@ -1299,8 +2711,33 @@
         "cost": -8500,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "slug": {
+            "short": [0, 10],
+            "medium": [11, 40],
+            "long": [41, 80],
+            "extreme": [81, 150]
+          },
+          "flechette": {
+            "short": [0, 15],
+            "medium": [16, 30],
+            "long": [31, 45],
+            "extreme": [45, 60]
+          }
+        },
+        "category": "shotgun",
+        "mounting": "top, barrel, under",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Small Cyber Submachine Pistol",
@@ -1314,8 +2751,27 @@
         "cost": -4800,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "submachine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Big Cyber Submachine Pistol",
@@ -1329,8 +2785,27 @@
         "cost": -4800,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "submachine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Small Heavy Cyber Pistol",
@@ -1344,8 +2819,27 @@
         "cost": -4300,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        },
+        "category": "heavy pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Big Heavy Cyber Pistol",
@@ -1359,8 +2853,27 @@
         "cost": -4300,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 20],
+            "long": [21, 40],
+            "extreme": [41, 60]
+          }
+        },
+        "category": "heavy pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Small Light Cyber Pistol",
@@ -1374,8 +2887,27 @@
         "cost": -3900,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "light pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       },
       {
         "name": "Big Light Cyber Pistol",
@@ -1389,8 +2921,27 @@
         "cost": -3900,
         "skill": "Exotic Ranged Weapon",
         "ammoTypes": ["ballistics"],
-        "subAmmoTypes": ["Regular"],
-        "currentLoadedAmmoType": ""
+        "subAmmoTypes": [
+          "Regular",
+          "Hollow Point",
+          "Armor-Piercing Discarding Sabot"
+        ],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "light pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
       }
     ]
   }

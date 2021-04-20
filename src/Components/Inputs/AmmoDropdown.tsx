@@ -1,7 +1,6 @@
 import React from "react";
 import { Ammo, CharacterAmmo } from "../../models/playerModels";
 import Select, { ValueType } from "react-select";
-import characterAmmo from "../../characterAmmo.json";
 
 interface IAmmoDropdownOption {
   ammo: CharacterAmmo;
@@ -18,9 +17,6 @@ interface IDropdownProps {
 }
 
 class Dropdown extends React.Component<IDropdownProps, IDropdownState> {
-  constructor(props: IDropdownProps) {
-    super(props);
-  }
   render() {
     let options: IAmmoDropdownOption[];
 
@@ -58,12 +54,12 @@ class Dropdown extends React.Component<IDropdownProps, IDropdownState> {
       }
 
       toPush.forEach((ammo: CharacterAmmo) => {
-        if (this.props.subAmmoTypes.includes(ammo.name)) {
+        //if (this.props.subAmmoTypes.includes(ammo.name)) {
           options.push({
             ammo: ammo,
             label: `${ammo.name} Ammo: ${ammo.amount} ammo left`,
           });
-        }
+        //}
       });
     });
 
@@ -74,7 +70,7 @@ class Dropdown extends React.Component<IDropdownProps, IDropdownState> {
             display: "block",
           }}
         >
-          Ammo selection
+          Ammo Selection
         </h3>
         <Select
           options={options}

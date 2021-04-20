@@ -6,3 +6,4 @@ build
 /.idea/modules.xml
 /.idea/SDL 2020.iml
 /.idea/vcs.xml
+/.idea/*

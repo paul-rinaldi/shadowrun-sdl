@@ -38,19 +38,19 @@ class Save extends React.Component<ISaveProps> {
             //type
             let contentType = "application/json;charset=utf-8;";
             //opens a save dialog
-            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                const blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(character, null, "\t")))], {type: contentType});
-                navigator.msSaveOrOpenBlob(blob, filename);
-            } else {
-                //saves
-                const a = document.createElement('a');
-                a.download = filename;
-                a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(character, null, "\t"));
-                a.target = '_blank';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            }
+            // if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            //     const blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(character, null, "\t")))], {type: contentType});
+            //     navigator.msSaveOrOpenBlob(blob, filename);
+            // } else {
+            //     //saves
+            //     const a = document.createElement('a');
+            //     a.download = filename;
+            //     a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(character, null, "\t"));
+            //     a.target = '_blank';
+            //     document.body.appendChild(a);
+            //     a.click();
+            //     document.body.removeChild(a);
+            // }
         }
     }
 
