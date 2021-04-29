@@ -18,7 +18,7 @@ import {remAmmo} from "../redux/actions/ammoAction";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AmmoDropdown from "./Inputs/AmmoDropdown";
-import ReactDice from "react-dice-complete"
+import ReactDice from "react-dice-complete";    // dice library for the animated dice
 import 'react-dice-complete/dist/react-dice-complete.css';
 import Popup from "reactjs-popup";
 
@@ -30,11 +30,11 @@ const mapStateToProps = (state: IShadowRunState) => ({
 });
 
 const mapDispatchToProps = {
-    remAmmo,
+    remAmmo
 };
 let option: string;
 let recoilComp = 0;
-let reactDice: any;
+let reactDice: any; // react dice to be able to roll all at once
 let selectRef: any;
 
 interface IActionState {
@@ -123,9 +123,10 @@ interface IRangeOption {
 class Action extends React.Component<IActionProps, IActionState> {
     constructor(props: IActionProps) {
         super(props);
+        // rollDoneCallback is binded since it must know what 'this' is referring to
+        // when it wants to make a change in the state, in this case it's changing
+        // the state to alter the initiative value which comes from the total dice value
         this.rollDoneCallback = this.rollDoneCallback.bind(this);
-        this.assignRef = this.assignRef.bind(this);
-        this.rollAll = this.rollAll.bind(this);
 
         this.state = {
             //These two arrays will be rendered in table rows so the variables and values line up
@@ -1531,11 +1532,17 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * This displays the dice along with containing logic for the actual dice calculations
+     * which also contains a popup for the pool display and where specific values are
+     * coming from
+     */
     diceShow() {
         let rating = 0;
         let {character} = this.props;
         let {initiativeValue} = this.state;
         let dice = character.initiative.initDice;
+        // initiative rating is the character's intuition along with their reaction
         let initRating = character.attributes.INT + character.attributes.REA;
 
         character.augmentations.map((one: any) => {
@@ -1544,8 +1551,13 @@ class Action extends React.Component<IActionProps, IActionState> {
             }
         });
 
+        // this determines the amount of dice present to the user when rolling
+        // based on their initiative dice value along with their augmentations
         let diceRoll = dice + rating;
 
+        // return the dice displayed which calls the roll callback function to
+        // alter the initiative number, this also displays their initiative value
+        // and the popup with a breakdown of how the initiative value was calculated
         return (
             <div>
                 <ReactDice
@@ -1556,9 +1568,9 @@ class Action extends React.Component<IActionProps, IActionState> {
                     disableIndividual={true}
                     rolling={true}
                     ref={this.assignRef}
-                    outlineColor={"#000000"}
-                    faceColor={"#000000"}
-                    dotColor={"#00ffff"}
+                    outlineColor={"#000000"}    // black die
+                    faceColor={"#000000"}   // black die
+                    dotColor={"#00ffff"}    // aqua dots
                 />
                 <h3>Initiative Score: {initiativeValue === 0 ? 0 : initiativeValue + initRating}</h3>
                 <button onClick={this.rollAll}>{initiativeValue === 0 ? "Roll Dice" : "Roll Again"}</button>
@@ -1597,6 +1609,8 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     }
 
+    // this function is called from diceShow() in order to set the
+    // state of the dice value that was rolled
     rollDoneCallback(num: any) {
         console.log(`You rolled a ${num}`);
 
@@ -1604,13 +1618,15 @@ class Action extends React.Component<IActionProps, IActionState> {
         this.setState({initiativeValue: num});
     }
 
+    // this function rolls all available dice if the dice exist
     rollAll() {
         if (reactDice !== undefined) {
             reactDice.rollAll()
         }
     }
 
-
+    // this function assigns each die a reference in order for them to
+    // be able to all roll at once
     assignRef(ref: any) {
         reactDice = ref;
     }
