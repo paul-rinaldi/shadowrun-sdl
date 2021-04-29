@@ -28,7 +28,6 @@ import {Table} from "react-bootstrap";
 
 /*
 Fix following prop callbakcs:
-
 adjKarm={this.adjustKarma} =?
 updateAddGear={this.updateAddGear}
 updateRemGear={this.updateRemGear}
