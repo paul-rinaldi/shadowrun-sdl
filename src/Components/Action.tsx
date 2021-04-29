@@ -1555,6 +1555,11 @@ class Action extends React.Component<IActionProps, IActionState> {
         // based on their initiative dice value along with their augmentations
         let diceRoll = dice + rating;
 
+        //players can only have a max of 5 dice to roll.
+        if(diceRoll > 5) {
+            diceRoll = 5;
+        }
+
         // return the dice displayed which calls the roll callback function to
         // alter the initiative number, this also displays their initiative value
         // and the popup with a breakdown of how the initiative value was calculated
