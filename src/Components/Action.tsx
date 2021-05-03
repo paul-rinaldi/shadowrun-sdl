@@ -37,6 +37,7 @@ let recoilComp = 0;
 let reactDice: any; // react dice to be able to roll all at once
 let selectRef: any;
 
+// interface for the action state that defines types of each value
 interface IActionState {
     testVariables: any[] | null;
     testValues: any[] | null;
@@ -57,16 +58,19 @@ interface IActionState {
     initiativeValue: number;
 }
 
+// interface for the label options for melee weapons that define types
 interface WeaponLabelOptionMelee {
     weapon: Melee;
     label: string;
 }
 
+// interface for the label options for ranged weapons that define types
 interface WeaponLabelOptionRanged {
     weapon: Ranged;
     label: string;
 }
 
+// interface for the different label options in mode
 interface modeLabelOption {
     name: string;
     numAmmoToShoot: number;
@@ -74,6 +78,7 @@ interface modeLabelOption {
     label: string;
 }
 
+// interface for the different label options in the attachments
 interface AttachmentLabelOption {
     name: string;
     effect: number;
@@ -81,11 +86,13 @@ interface AttachmentLabelOption {
 
 }
 
+// unused
 interface ISelectType {
     label: string;
     value: string;
 }
 
+// interface for skill selection with specialization included if it exists
 interface SelectSkill {
     skill: ISkill;
     label: string;
@@ -93,11 +100,13 @@ interface SelectSkill {
     specialization?: string;
 }
 
+// interface for option selections
 interface ISelectOption {
     label: string;
     value: string;
 }
 
+// interface for the ranged options and if the labels and values exist
 interface IRangeOption {
     label?: string | undefined;
     value?: string | undefined;
@@ -128,6 +137,8 @@ class Action extends React.Component<IActionProps, IActionState> {
         // the state to alter the initiative value which comes from the total dice value
         this.rollDoneCallback = this.rollDoneCallback.bind(this);
 
+        // state in which action uses through the entire file, setting specific starting values
+        // which will be changed throughout the use of the application
         this.state = {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
@@ -151,11 +162,19 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     }
 
+    /**
+     * Returns if the ranged weapon is mountable
+     * @param weapon - ranged weapon passed in to check if it can be mounted
+     */
     isMountable(weapon: Ranged | null): boolean {
         // A person cannot mount a crossbow, bow, throwing weapon, or cyber implant weapon.
         return weapon !== null && weapon.category !== "throwing" && weapon.skill.toLowerCase() !== "archery" && weapon.name.search(/cyber/i) === -1; // note the /i is for case insensitive regex searches
     }
 
+    /**
+     * Sets the state of the selected ammo based on the ammo that was passed in
+     * @param ammo - ammo passed in to set the state with
+     */
     handleAmmoSelect(ammo: CharacterAmmo) {
         this.setState({ammoSelected: ammo});
     }
@@ -435,7 +454,12 @@ class Action extends React.Component<IActionProps, IActionState> {
         });
     }
 
-
+    /**
+     * Function to select the firing mode of a ranged weapon,
+     * also factoring in the recoil compensation along with the
+     * strength which is used typically for bows
+     * @param mode - the desired mode based on the user selection
+     */
     modeSelection = (mode: any) => {
         let weapon = this.state.rangedWeaponSelected
             ? this.state.rangedWeaponSelected
@@ -463,6 +487,10 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     };
 
+    /**
+     * Function for the range of a weapon, how far the
+     * selected ranged option can fire
+     */
     rangeSelect() {
         let rangeOptions: Array<IRangeOption> = [];
         let genOneDiv = false;
@@ -579,10 +607,18 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * Capitalizes the first letter of a string
+     * @param string - string passed in for its first letter to be capitalized
+     */
     capitalizeFirstLetter = (string: string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+    /**
+     * Sets the default value and keeps track of the previous weapon while
+     * resetting these values within the state 
+     */
     defaultVal = () => {
         if (this.state.currentWeapon !== this.state.previousWeapon) {
             this.setState({
