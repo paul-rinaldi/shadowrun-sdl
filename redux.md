@@ -22,7 +22,7 @@ mapDispatchToProps: represents the methods from the action files (src/redux/acti
 ![alt text](redux guid pics/reduxpic2.png)
 
 ![alt text](redux guid pics/reduxpic3.png)  
-*(**YOU NEED TO PUT THIS ABOVE PICTURE AT THE END OF THE CLASS FOR IT TO CONNECT TO THE STORE!**)*
+***YOU NEED TO PUT THIS ABOVE PICTURE AT THE END OF THE CLASS FOR IT TO CONNECT TO THE STORE!***
 
 ![alt text](redux guid pics/reduxpic4.png) </br>
 
