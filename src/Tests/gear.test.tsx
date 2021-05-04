@@ -13,14 +13,22 @@ import {nuyenReducer} from "../redux/reducers/nuyenReducer";
 import {gearReducer} from "../redux/reducers/gearReducer";
 
 
-
 //Use the filesystem to load the test file
 const fs = require('fs');
-let testLuigi: any;
-let props: any;
+
 //Create the adapter for enzyme to work with React 16
 configure({adapter: new Adapter()});
 
+let props: any;
+let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
+let testLuigi: any // is the character of the test
+let instance: any // for the wrapper.instance()
+let log: any; // will be used for the log object to pass to log reducer
+let date: any; // will be used for the date of the log object
+let store: any;  //will be where the reducers methods are dispatched to
+let increment: number;
+
+// before each test all of this is used and needs to be re-initialized
 beforeEach(()=> {
     testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
 
@@ -39,6 +47,22 @@ beforeEach(()=> {
         addAttachments: jest.fn(),
         remAttachments: jest.fn()
     };
+    increment = 0; // used for the different window prompts questions
+    date = new Date();
+    store = createStore(
+        combineReducers({gearReducer, logReducer, nuyenReducer}) // the reducers of the current function
+    );
+
+    log = {
+        adjustment: 1,
+        reason: "idk",
+        reasonType: "idk",
+        time: date
+    };
+
+    wrapper = shallow(<GearPage {...props}/>);
+    instance = wrapper.instance();
+    wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
 });
 
 describe('addPresetArmor()', () => {
@@ -51,32 +75,6 @@ describe('addPresetArmor()', () => {
         cost: 100,
         equiped: true
     };
-
-    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let testLuigi: any // is the character of the test
-    let instance: any // for the wrapper.instance()
-    let log: any; // will be used for the log object to pass to log reducer
-    let date: any; // will be used for the date of the log object
-    let store: any;  //will be where the reducers methods are dispatched to
-    let increment: number;
-    beforeEach(() => {
-        increment = 0; // used for the different window prompts questions
-        date = new Date();
-        store = createStore(
-            combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
-        );
-
-        log = {
-            adjustment: 1,
-            reason: "idk",
-            reasonType: "idk",
-            time: date
-        };
-
-        wrapper = shallow(<GearPage {...props}/>);
-        instance = wrapper.instance();
-        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
-    });
 
     it('add the Preset Armor', () => {
 
@@ -96,7 +94,7 @@ describe('addPresetArmor()', () => {
         expect(instance.state.gearReducer.armor.length).toBe(3); // same as above
         expect(instance.state.nuyenReducer).toBe(9997); // same as above
         expect(instance.state.logReducer[0]).toEqual(log); // same as above
-    })
+    });
 });
 
 describe('addPresetMelee()', () => {
@@ -111,31 +109,6 @@ describe('addPresetMelee()', () => {
         cost: 1000,
         skill: "Murder"
     };
-
-    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let testLuigi: any // is the character of the test
-    let instance: any // for the wrapper.instance()
-    let log: any; // will be used for the log object to pass to log reducer
-    let date: any; // will be used for the date of the log object
-    let store: any;  //will be where the reducers methods are dispatched to
-    let increment: number;
-    beforeEach(() => {
-        increment = 0; // used for the different window prompts questions
-        date = new Date();
-        store = createStore(
-            combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
-        );
-        log = {
-            adjustment: 1,
-            reason: "idk",
-            reasonType: "idk",
-            time: date
-        };
-
-        wrapper = shallow(<GearPage {...props}/>);
-        instance = wrapper.instance();
-        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
-    });
 
     it('will add the melee', () => {
 
@@ -170,30 +143,6 @@ describe('addGearMelee()', () => {
         skill: "Murder"
     };
 
-    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let instance: any // for the wrapper.instance()
-    let log: any; // will be used for the log object to pass to log reducer
-    let date: any; // will be used for the date of the log object
-    let store: any;  //will be where the reducers methods are dispatched to
-    let increment: number;
-    beforeEach(() => {
-        increment = 0; // used for the different window prompts questions
-        date = new Date();
-        store = createStore(
-            combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
-        );
-        log = {
-            adjustment: 1,
-            reason: "idk",
-            reasonType: "idk",
-            time: date
-        };
-
-        wrapper = shallow(<GearPage {...props}/>);
-        instance = wrapper.instance();
-        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
-    });
-
     it("will add a melee gear", () => {
 
         //Arrange
@@ -226,32 +175,6 @@ describe('AddGearArmor()', () => {
         cost: 100,
         equiped: true
     };
-
-    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let instance: any // for the wrapper.instance()
-    let log: any; // will be used for the log object to pass to log reducer
-    let date: any; // will be used for the date of the log object
-    let store: any;  //will be where the reducers methods are dispatched to
-    let increment: number;
-    beforeEach(() => {
-        increment = 0; // used for the different window prompts questions
-        date = new Date();
-        store = createStore(
-            combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
-        );
-
-        log = {
-            adjustment: 1,
-            reason: "idk",
-            reasonType: "idk",
-            time: date
-        };
-
-        wrapper = shallow(<GearPage {...props}/>);
-        instance = wrapper.instance();
-        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
-    });
-
 
     it('Adds gear armor', () => {
         //Arrange
@@ -363,34 +286,26 @@ describe('addPresetRanged()', () => {
         ammo: 5000000000000,
         availability: "all the time",
         cost: 100000000000000000000000000,
-        skill: "Deadshot accuracy"
+        skill: "Deadshot accuracy",
+        ammoTypes: ["ballistic"],
+        subAmmoTypes: ["Regular"],
+        currentLoadedAmmoType: "",
+        range: {
+            default: {
+                short: [0, 5],
+                medium: [6, 15],
+                long: [16, 30],
+                extreme: [31, 50]
+            }
+        },
+        category: "machine pistol",
+        mounting: "top, barrel",
+        equippedMount: {
+            topAttachment: null,
+            underAttachment: null,
+            barrelAttachment: null
+        }
     };
-
-    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let instance: any // for the wrapper.instance()
-    let log: any; // will be used for the log object to pass to log reducer
-    let date: any; // will be used for the date of the log object
-    let store: any;  //will be where the reducers methods are dispatched to
-    let increment: number;
-
-    beforeEach(() => {
-        increment = 0; // used for the different window prompts questions
-        date = new Date();
-        store = createStore(
-            combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
-        );
-
-        log = {
-            adjustment: 1,
-            reason: "idk",
-            reasonType: "idk",
-            time: date
-        };
-
-        wrapper = shallow(<GearPage {...props}/>);
-        instance = wrapper.instance();
-        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
-    });
 
     it('will add the weapon', () => {
 
@@ -412,7 +327,6 @@ describe('addPresetRanged()', () => {
     });
 });
 
-
 describe('addGearRanged()', () => {
     //set up mock dispatch
     const weapon = {
@@ -428,31 +342,6 @@ describe('addGearRanged()', () => {
         cost: 100000000000000000000000000,
         skill: "Deadshot accuracy"
     };
-
-    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let instance: any // for the wrapper.instance()
-    let log: any; // will be used for the log object to pass to log reducer
-    let date: any; // will be used for the date of the log object
-    let store: any;  //will be where the reducers methods are dispatched to
-    let increment: number;
-    beforeEach(() => {
-        increment = 0; // used for the different window prompts questions
-        date = new Date();
-        store = createStore(
-            combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
-        );
-
-        log = {
-            adjustment: 1,
-            reason: "idk",
-            reasonType: "idk",
-            time: date
-        };
-
-        wrapper = shallow(<GearPage {...props}/>);
-        instance = wrapper.instance();
-        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
-    });
 
     it("will add a ranged gear", () => {
 
@@ -471,10 +360,8 @@ describe('addGearRanged()', () => {
         expect(instance.state.gearReducer.ranged.length).toBe(2); // same as above
         expect(instance.state.nuyenReducer).toBe(9997); // same as above
         expect(instance.state.logReducer[0]).toEqual(log); // same as above
-
-    })
+    });
 });
-
 
 /**
  * Will test equpping gear
@@ -490,45 +377,16 @@ describe('equip()', () => {
         equiped: true
     };
 
-    let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let instance: any // for the wrapper.instance()
-    let log: any; // will be used for the log object to pass to log reducer
-    let date: any; // will be used for the date of the log object
-    let store: any;  //will be where the reducers methods are dispatched to
-    let increment: number;
-    beforeEach(() => {
-        increment = 0; // used for the different window prompts questions
-        date = new Date();
-        store = createStore(
-            combineReducers({gearReducer}) // the reducers of the current function
-        );
-
-        log = {
-            adjustment: 1,
-            reason: "idk",
-            reasonType: "idk",
-            time: date
-        };
-
-        wrapper = shallow(<GearPage {...props}/>);
-        instance = wrapper.instance();
-        wrapper.setState(testLuigi); // set the state of the wrapper to testLuigi
-    });
-
-
     it('will equip gear', () => {
-
         //Arrange
         store.dispatch(toggleEquip(1));
         instance.state = store.getState();
         instance.equip("armor", 2);
-
 
         //Act
         instance.state = store.getState();
 
         //Assert
         expect(instance.state.gearReducer.armor[1].equiped).toBeFalsy();
-
     })
 });
