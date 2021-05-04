@@ -24,11 +24,11 @@ mapDispatchToProps: represents the methods from the action files (src/redux/acti
 ![alt text](redux guid pics/reduxpic3.png)  
 *YOU NEED TO PUT THIS ABOVE PICTURE AT THE END OF THE CLASS FOR IT TO CONNECT TO THE STORE!*
 
-![alt text](redux guid pics/reduxpic4.png)</br>
+![alt text](redux guid pics/reduxpic4.png) </br>
 
-![alt text](redux guid pics/reduxpic5.png)</br>
+![alt text](redux guid pics/reduxpic5.png) </br>
 
-![alt text](redux guid pics/reduxpic6.png)</br>
+![alt text](redux guid pics/reduxpic6.png) </br>
  
 
 Why to use redux [https://react-redux.js.org/introduction/why-use-react-redux](https://react-redux.js.org/introduction/why-use-react-redux)
