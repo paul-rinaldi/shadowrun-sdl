@@ -1516,6 +1516,10 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     }
 
+    /**
+     * Function to change the ranged weapon mount type
+     * @param mountType - passed in to determine what mount it can change to
+     */
     changeWeaponMount = async (mountType: string) => {
         if (mountType !== "Unmounted") {
             const allowable = this.isMountable(this.state.rangedWeaponSelected)
@@ -1540,6 +1544,10 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     };
 
+    /**
+     * This function changes the range of a ranged weapon
+     * @param weaponFiringRangeClassification - the range type passed in for the ranged weapon
+     */
     changeWeaponFiringRange = async (weaponFiringRangeClassification: string | undefined) => {
         if (weaponFiringRangeClassification !== undefined) {
             this.setState(
@@ -1723,6 +1731,9 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * Function for the sprinting action, has it's own tab in the action page
+     */
     sprintActionSection = () => {
         const {
             character: {
@@ -1813,6 +1824,10 @@ class Action extends React.Component<IActionProps, IActionState> {
     };
 
 
+    /**
+     * Increases the metatype for sprinting
+     * @param metatype - current metatype passed in to be increased
+     */
     getMetaTypeSprintIncrease(metatype: string) {
         metatype = metatype.toLowerCase();
         switch (metatype) {
