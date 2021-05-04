@@ -13,12 +13,33 @@ import {nuyenReducer} from "../redux/reducers/nuyenReducer";
 import {gearReducer} from "../redux/reducers/gearReducer";
 
 
+
 //Use the filesystem to load the test file
 const fs = require('fs');
-
+let testLuigi: any;
+let props: any;
 //Create the adapter for enzyme to work with React 16
 configure({adapter: new Adapter()});
 
+beforeEach(()=> {
+    testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
+
+     props = { // props for the GearPage
+        character: testLuigi,
+        makeLog: jest.fn(),
+        addArmor: jest.fn(),
+        adjustNuyen: jest.fn(),
+        addRanged: jest.fn(),
+        addMelee: jest.fn(),
+        remArmor: jest.fn(),
+        remMelee: jest.fn(),
+        remRanged: jest.fn(),
+        toggleEquip: jest.fn(),
+        setGear: jest.fn(),
+        addAttachments: jest.fn(),
+        remAttachments: jest.fn()
+    };
+});
 
 describe('addPresetArmor()', () => {
     //set up mock dispatch
@@ -41,23 +62,10 @@ describe('addPresetArmor()', () => {
     beforeEach(() => {
         increment = 0; // used for the different window prompts questions
         date = new Date();
-        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
         store = createStore(
             combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
         );
-        let props = { // props for the GearPage
-            character: testLuigi,
-            makeLog: jest.fn(),
-            addArmor: jest.fn(),
-            adjustNuyen: jest.fn(),
-            addRanged: jest.fn(),
-            addMelee: jest.fn(),
-            remArmor: jest.fn(),
-            remMelee: jest.fn(),
-            remRanged: jest.fn(),
-            toggleEquip: jest.fn(),
-            setGear: jest.fn()
-        };
+
         log = {
             adjustment: 1,
             reason: "idk",
@@ -114,23 +122,9 @@ describe('addPresetMelee()', () => {
     beforeEach(() => {
         increment = 0; // used for the different window prompts questions
         date = new Date();
-        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
         store = createStore(
             combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
         );
-        let props = { // props for the GearPage
-            character: testLuigi,
-            makeLog: jest.fn(),
-            addArmor: jest.fn(),
-            adjustNuyen: jest.fn(),
-            addRanged: jest.fn(),
-            addMelee: jest.fn(),
-            remArmor: jest.fn(),
-            remMelee: jest.fn(),
-            remRanged: jest.fn(),
-            toggleEquip: jest.fn(),
-            setGear: jest.fn()
-        };
         log = {
             adjustment: 1,
             reason: "idk",
@@ -177,7 +171,6 @@ describe('addGearMelee()', () => {
     };
 
     let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let testLuigi: any // is the character of the test
     let instance: any // for the wrapper.instance()
     let log: any; // will be used for the log object to pass to log reducer
     let date: any; // will be used for the date of the log object
@@ -186,23 +179,9 @@ describe('addGearMelee()', () => {
     beforeEach(() => {
         increment = 0; // used for the different window prompts questions
         date = new Date();
-        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
         store = createStore(
             combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
         );
-        let props = { // props for the GearPage
-            character: testLuigi,
-            makeLog: jest.fn(),
-            addArmor: jest.fn(),
-            adjustNuyen: jest.fn(),
-            addRanged: jest.fn(),
-            addMelee: jest.fn(),
-            remArmor: jest.fn(),
-            remMelee: jest.fn(),
-            remRanged: jest.fn(),
-            toggleEquip: jest.fn(),
-            setGear: jest.fn()
-        };
         log = {
             adjustment: 1,
             reason: "idk",
@@ -249,7 +228,6 @@ describe('AddGearArmor()', () => {
     };
 
     let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let testLuigi: any // is the character of the test
     let instance: any // for the wrapper.instance()
     let log: any; // will be used for the log object to pass to log reducer
     let date: any; // will be used for the date of the log object
@@ -258,23 +236,9 @@ describe('AddGearArmor()', () => {
     beforeEach(() => {
         increment = 0; // used for the different window prompts questions
         date = new Date();
-        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
         store = createStore(
             combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
         );
-        let props = { // props for the GearPage
-            character: testLuigi,
-            makeLog: jest.fn(),
-            addArmor: jest.fn(),
-            adjustNuyen: jest.fn(),
-            addRanged: jest.fn(),
-            addMelee: jest.fn(),
-            remArmor: jest.fn(),
-            remMelee: jest.fn(),
-            remRanged: jest.fn(),
-            toggleEquip: jest.fn(),
-            setGear: jest.fn()
-        };
 
         log = {
             adjustment: 1,
@@ -403,7 +367,6 @@ describe('addPresetRanged()', () => {
     };
 
     let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let testLuigi: any // is the character of the test
     let instance: any // for the wrapper.instance()
     let log: any; // will be used for the log object to pass to log reducer
     let date: any; // will be used for the date of the log object
@@ -413,23 +376,10 @@ describe('addPresetRanged()', () => {
     beforeEach(() => {
         increment = 0; // used for the different window prompts questions
         date = new Date();
-        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
         store = createStore(
             combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
         );
-        let props = { // props for the GearPage
-            character: testLuigi,
-            makeLog: jest.fn(),
-            addArmor: jest.fn(),
-            adjustNuyen: jest.fn(),
-            addRanged: jest.fn(),
-            addMelee: jest.fn(),
-            remArmor: jest.fn(),
-            remMelee: jest.fn(),
-            remRanged: jest.fn(),
-            toggleEquip: jest.fn(),
-            setGear: jest.fn()
-        };
+
         log = {
             adjustment: 1,
             reason: "idk",
@@ -480,7 +430,6 @@ describe('addGearRanged()', () => {
     };
 
     let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let testLuigi: any // is the character of the test
     let instance: any // for the wrapper.instance()
     let log: any; // will be used for the log object to pass to log reducer
     let date: any; // will be used for the date of the log object
@@ -489,23 +438,10 @@ describe('addGearRanged()', () => {
     beforeEach(() => {
         increment = 0; // used for the different window prompts questions
         date = new Date();
-        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
         store = createStore(
             combineReducers({logReducer, nuyenReducer, gearReducer}) // the reducers of the current function
         );
-        let props = { // props for the GearPage
-            character: testLuigi,
-            makeLog: jest.fn(),
-            addArmor: jest.fn(),
-            adjustNuyen: jest.fn(),
-            addRanged: jest.fn(),
-            addMelee: jest.fn(),
-            remArmor: jest.fn(),
-            remMelee: jest.fn(),
-            remRanged: jest.fn(),
-            toggleEquip: jest.fn(),
-            setGear: jest.fn()
-        };
+
         log = {
             adjustment: 1,
             reason: "idk",
@@ -555,7 +491,6 @@ describe('equip()', () => {
     };
 
     let wrapper: any // this needs to be any and cannot be "const" because const does not allow any class component to work
-    let testLuigi: any // is the character of the test
     let instance: any // for the wrapper.instance()
     let log: any; // will be used for the log object to pass to log reducer
     let date: any; // will be used for the date of the log object
@@ -564,23 +499,9 @@ describe('equip()', () => {
     beforeEach(() => {
         increment = 0; // used for the different window prompts questions
         date = new Date();
-        testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
         store = createStore(
             combineReducers({gearReducer}) // the reducers of the current function
         );
-        let props = { // props for the GearPage
-            character: testLuigi,
-            makeLog: jest.fn(),
-            addArmor: jest.fn(),
-            adjustNuyen: jest.fn(),
-            addRanged: jest.fn(),
-            addMelee: jest.fn(),
-            remArmor: jest.fn(),
-            remMelee: jest.fn(),
-            remRanged: jest.fn(),
-            toggleEquip: jest.fn(),
-            setGear: jest.fn()
-        };
 
         log = {
             adjustment: 1,
