@@ -9,7 +9,7 @@ Reducers: pure functions (function which given the same input, will always retur
 -	**store.ts** is located in:  src/redux/store.ts
 -	**reducer files** are located in:  src/redux/reducers
 
-##Each action is assigned a reducer i.e.
+## Each action is assigned a reducer i.e.
 
 ![alt text](redux guid pics/reduxpic0.jpg)
  
