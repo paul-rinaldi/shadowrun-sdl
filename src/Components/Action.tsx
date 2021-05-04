@@ -617,7 +617,7 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     /**
      * Sets the default value and keeps track of the previous weapon while
-     * resetting these values within the state 
+     * resetting these values within the state
      */
     defaultVal = () => {
         if (this.state.currentWeapon !== this.state.previousWeapon) {
@@ -866,6 +866,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             testValues.unshift("?");
         }
 
+        // set the state based on the test values while updating the previous weapon
+        // to keep track of it
         this.setState(
             {
                 testVariables: testVariables,
@@ -906,6 +908,10 @@ class Action extends React.Component<IActionProps, IActionState> {
         return modifer;
     };
 
+    /**
+     * Function to get a character attribute
+     * @param capitalizedName - string passed in that is capitalized to figure out attribute
+     */
     getCharacterAttribute = (capitalizedName: string) => {
         const {
             character: {attributes},
@@ -1083,6 +1089,12 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * Pushes the skill options
+     * @param skillCategory - interface category for the skill
+     * @param options - various options for the skills to choose from
+     * @private
+     */
     private pushSkillOptions(
         skillCategory: ISkill[],
         options: SelectSkill[]
@@ -1201,6 +1213,11 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * Utilizes the firing type in order to handle different information like
+     * how much ammo is shot, in the end it returns the specific mode selection
+     * @param fType - firing type passed in to determine how it effects the shot
+     */
     firingTypeToAmmo(fType: string) {
         let modeSelection = {
             name: "",
