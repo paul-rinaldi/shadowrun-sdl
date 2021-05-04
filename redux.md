@@ -1,4 +1,4 @@
-Redux Notes
+Redux Guide
 The way Redux works can be complicated at first. There is a central store that holds the entire state of the application. Each component can access the stored state without having to send down props from one component to another.
 There are three building parts: actions, store, and reducers.
 Actions: actions are events, they are only way you can send data from your application to the Redux store. 
