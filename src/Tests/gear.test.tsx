@@ -4,13 +4,22 @@ import Adapter from 'enzyme-adapter-react-16';
 
 //Actual component to be tested
 import {GearPage} from "../Components/Gear";
-import {addArmor, addMelee, addRanged, remArmor, toggleEquip} from "../redux/actions/gearAction";
+import {
+    addArmor,
+    addAttachments,
+    addMelee,
+    addRanged,
+    remArmor,
+    remAttachments,
+    toggleEquip
+} from "../redux/actions/gearAction";
 import {combineReducers, createStore} from "redux";
 import {makeLog} from "../redux/actions/logActions";
 import {adjustNuyen} from "../redux/actions/nuyenActions";
 import {logReducer} from "../redux/reducers/logReducer";
 import {nuyenReducer} from "../redux/reducers/nuyenReducer";
 import {gearReducer} from "../redux/reducers/gearReducer";
+import {Ranged} from "../models/playerModels";
 
 
 //Use the filesystem to load the test file
@@ -27,11 +36,41 @@ let log: any; // will be used for the log object to pass to log reducer
 let date: any; // will be used for the date of the log object
 let store: any;  //will be where the reducers methods are dispatched to
 let increment: number;
+let weapon: Ranged;
 
 // before each test all of this is used and needs to be re-initialized
 beforeEach(()=> {
     testLuigi = JSON.parse(fs.readFileSync('src/Tests/TestLuigi.json')); //converts the test Luigi to a json to be used in the test
-
+    weapon = {
+        name: "Deadshot",
+        acc: "30",
+        dam: "100",
+        ap: "5",
+        mode: "Deadshot special",
+        RC: 2,
+        ammo: 5000000000000,
+        availability: "all the time",
+        cost: 100000000000000000000000000,
+        skill: "Deadshot accuracy",
+        ammoTypes: ["ballistic"],
+        subAmmoTypes: ["Regular"],
+        currentLoadedAmmoType: "",
+        range: {
+            default: {
+                short: [0, 5],
+                medium: [6, 15],
+                long: [16, 30],
+                extreme: [31, 50]
+            }
+        },
+        category: "machine pistol",
+        mounting: "top, barrel, under",
+        equippedMount: {
+            topAttachment: null,
+            underAttachment: null,
+            barrelAttachment: null
+        }
+    };
      props = { // props for the GearPage
         character: testLuigi,
         makeLog: jest.fn(),
@@ -275,37 +314,7 @@ describe('AddGearArmor()', () => {
 
 describe('addPresetRanged()', () => {
     //set up mock dispatch
-    const weapon = {
-        name: "Deadshot",
-        acc: "30",
-        dam: "100",
-        ap: "5",
-        mode: "Deadshot special",
-        RC: 2,
-        eqppiedRc: 0,
-        ammo: 5000000000000,
-        availability: "all the time",
-        cost: 100000000000000000000000000,
-        skill: "Deadshot accuracy",
-        ammoTypes: ["ballistic"],
-        subAmmoTypes: ["Regular"],
-        currentLoadedAmmoType: "",
-        range: {
-            default: {
-                short: [0, 5],
-                medium: [6, 15],
-                long: [16, 30],
-                extreme: [31, 50]
-            }
-        },
-        category: "machine pistol",
-        mounting: "top, barrel",
-        equippedMount: {
-            topAttachment: null,
-            underAttachment: null,
-            barrelAttachment: null
-        }
-    };
+
 
     it('will add the weapon', () => {
 
@@ -327,21 +336,34 @@ describe('addPresetRanged()', () => {
     });
 });
 
+/**
+ * Will test mountOptions
+ */
+describe('mountOptions()', ()=> {
+
+    it("will check to see if the is an under attachment ", ()=> {
+        let mount = instance.mountOptions("under", weapon);
+        mount.map((one: any)=> {
+            expect(one.type).toBe("under")
+        });
+    });
+
+    it("will check if the revolver and shotguns have unwanted mount types", ()=> {
+        weapon.category = "shotgun";
+        let mount = instance.mountOptions("top", weapon);
+        let check = false;
+        mount.map((one: any)=> {
+            if(one.type.includes("-")) {
+                check = true;
+            }
+        });
+
+        expect(check).toBe(false);
+    });
+
+});
+
 describe('addGearRanged()', () => {
-    //set up mock dispatch
-    const weapon = {
-        name: "Deadshot",
-        acc: "30",
-        dam: "100",
-        ap: "5",
-        mode: "Deadshot special",
-        RC: 2,
-        eqppiedRc: 0,
-        ammo: 5000000000000,
-        availability: "all the time",
-        cost: 100000000000000000000000000,
-        skill: "Deadshot accuracy"
-    };
 
     it("will add a ranged gear", () => {
 
@@ -363,8 +385,9 @@ describe('addGearRanged()', () => {
     });
 });
 
+
 /**
- * Will test equpping gear
+ * Will test equipping gear
  */
 describe('equip()', () => {
     //set up mock dispatch
@@ -389,4 +412,49 @@ describe('equip()', () => {
         //Assert
         expect(instance.state.gearReducer.armor[1].equiped).toBeFalsy();
     })
+});
+
+describe('addMount', ()=> {
+    //Arrange
+    let attachment = {
+        name: "joker",
+        effect: 25,
+        type: "under",
+        cost: 100
+    };
+
+    it('will add the attachment', () => {
+        store.dispatch(addAttachments(0, attachment));
+
+        //Act
+        instance.state = store.getState();
+        instance.addMount(attachment, 0);
+
+        //Assert
+        expect(instance.state.gearReducer.ranged[0].equippedMount.underAttachment.name).toBe("joker");
+    });
+
+});
+
+describe('removeMount', ()=> {
+
+    //Arrange
+    let attachment = {
+        name: "joker",
+        effect: 25,
+        type: "top",
+        cost: 100
+    };
+
+    it('will remove the attachment', () => {
+        store.dispatch(remAttachments(0, attachment));
+
+        //Act
+        instance.state = store.getState();
+        instance.removeMount(attachment, 0);
+
+        //Assert
+        expect(instance.state.gearReducer.ranged[0].equippedMount.topAttachment).toBe(null);
+    });
+
 });
