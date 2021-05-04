@@ -26,7 +26,7 @@ mapDispatchToProps: represents the methods from the action files (src/redux/acti
 
 ![alt text](redux guid pics/reduxpic4.png) </br>
 
-![alt text](redux guid pics/reduxpic5.png) </br>
+![alt text](redux guid pics/reduxpic5.jpg) </br>
 
 ![alt text](redux guid pics/reduxpic6.png) </br>
  
