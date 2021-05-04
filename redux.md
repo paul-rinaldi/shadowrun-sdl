@@ -5,9 +5,9 @@ Actions: actions are events, they are only way you can send data from your appli
 Store: the store holds the application state. Highly recommended to only have one store in any application. You access the state stored and can update the state as well. 
 Reducers: pure functions (function which given the same input, will always return the same output  and produces no side effects)
 ## As of Spring 2021: 
--	**action files**  are located in:  src/redux/actions
--	**store.ts** is located in:  src/redux/store.ts
--	**reducer files** are located in:  src/redux/reducers
+-	**action files**  are located in:  [src/redux/actions](src/redux/actions)
+-	**store.ts** is located in:  [src/redux/store.ts](src/redux/store.ts)
+-	**reducer files** are located in:  [src/redux/reducers](src/redux/reducers)
 
 ## Each action is assigned a reducer i.e.
 
@@ -24,12 +24,14 @@ mapDispatchToProps: represents the methods from the action files (src/redux/acti
 ![alt text](redux guid pics/reduxpic3.png)  
 *YOU NEED TO PUT THIS ABOVE PICTURE AT THE END OF THE CLASS FOR IT TO CONNECT TO THE STORE!*
 
-![alt text](redux guid pics/reduxpic4.png)
-![alt text](redux guid pics/reduxpic5.png)
-![alt text](redux guid pics/reduxpic6.png)
+![alt text](redux guid pics/reduxpic4.png)</br>
+
+![alt text](redux guid pics/reduxpic5.png)</br>
+
+![alt text](redux guid pics/reduxpic6.png)</br>
  
 
-
+Why to use redux [https://react-redux.js.org/introduction/why-use-react-redux](https://react-redux.js.org/introduction/why-use-react-redux)
 
 
  
