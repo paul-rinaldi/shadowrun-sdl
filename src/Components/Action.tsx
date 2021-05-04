@@ -1595,12 +1595,14 @@ class Action extends React.Component<IActionProps, IActionState> {
         let {character} = this.props;
         let {initiativeValue} = this.state;
         let dice = character.initiative.initDice;
+        let augmentations: any =  [];
         // initiative rating is the character's intuition along with their reaction
         let initRating = character.attributes.INT + character.attributes.REA;
 
         character.augmentations.map((one: any) => {
             if (one.rating !== "") {
                 rating += one.rating
+                augmentations.push(one.aName)
             }
         });
 
@@ -1640,11 +1642,17 @@ class Action extends React.Component<IActionProps, IActionState> {
                             <thead>
                             <tr>
                                 <th>Initiative Dice</th>
-                                <th>Augmentation Effect</th>
+
+                                {augmentations.map((one: any)=> { // augmentation name will be the name of the table header
+                                    return <th>{one}</th>
+                                })}
                                 <th>Initiative Intuition</th>
                                 <th>Initiative Reaction</th>
+                                <th>Dice Amount (Initiative Dice {(augmentations.map((one: any)=>
+                                {return "+ " + one})) //returns all the augmentations' names so the header can display where the dice amount comes from
+                                }) </th>
                                 <th>Dice Roll Value</th>
-                                <th>Initiative Score (dice roll + initiative reaction + initiative intuition)</th>
+                                <th>Initiative Score (dice roll value + initiative reaction + initiative intuition)</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -1653,6 +1661,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                                 <td>{rating}</td>
                                 <td>{character.attributes.INT}</td>
                                 <td>{character.attributes.REA}</td>
+                                <td>{dice + rating}</td>
                                 <td>{initiativeValue}</td>
                                 <td>{initiativeValue + initRating}</td>
                             </tr>
