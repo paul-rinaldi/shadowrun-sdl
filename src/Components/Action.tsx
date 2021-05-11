@@ -18,7 +18,7 @@ import {remAmmo} from "../redux/actions/ammoAction";
 import {ToastContainer, toast} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AmmoDropdown from "./Inputs/AmmoDropdown";
-import ReactDice from "react-dice-complete"
+import ReactDice from "react-dice-complete";    // dice library for the animated dice
 import 'react-dice-complete/dist/react-dice-complete.css';
 import Popup from "reactjs-popup";
 
@@ -30,13 +30,14 @@ const mapStateToProps = (state: IShadowRunState) => ({
 });
 
 const mapDispatchToProps = {
-    remAmmo,
+    remAmmo
 };
 let option: string;
 let recoilComp = 0;
-let reactDice: any;
+let reactDice: any; // react dice to be able to roll all at once
 let selectRef: any;
 
+// interface for the action state that defines types of each value
 interface IActionState {
     testVariables: any[] | null;
     testValues: any[] | null;
@@ -57,16 +58,19 @@ interface IActionState {
     initiativeValue: number;
 }
 
+// interface for the label options for melee weapons that define types
 interface WeaponLabelOptionMelee {
     weapon: Melee;
     label: string;
 }
 
+// interface for the label options for ranged weapons that define types
 interface WeaponLabelOptionRanged {
     weapon: Ranged;
     label: string;
 }
 
+// interface for the different label options in mode
 interface modeLabelOption {
     name: string;
     numAmmoToShoot: number;
@@ -74,6 +78,7 @@ interface modeLabelOption {
     label: string;
 }
 
+// interface for the different label options in the attachments
 interface AttachmentLabelOption {
     name: string;
     effect: number;
@@ -81,11 +86,13 @@ interface AttachmentLabelOption {
 
 }
 
+// unused
 interface ISelectType {
     label: string;
     value: string;
 }
 
+// interface for skill selection with specialization included if it exists
 interface SelectSkill {
     skill: ISkill;
     label: string;
@@ -93,11 +100,13 @@ interface SelectSkill {
     specialization?: string;
 }
 
+// interface for option selections
 interface ISelectOption {
     label: string;
     value: string;
 }
 
+// interface for the ranged options and if the labels and values exist
 interface IRangeOption {
     label?: string | undefined;
     value?: string | undefined;
@@ -123,10 +132,13 @@ interface IRangeOption {
 class Action extends React.Component<IActionProps, IActionState> {
     constructor(props: IActionProps) {
         super(props);
+        // rollDoneCallback is binded since it must know what 'this' is referring to
+        // when it wants to make a change in the state, in this case it's changing
+        // the state to alter the initiative value which comes from the total dice value
         this.rollDoneCallback = this.rollDoneCallback.bind(this);
-        this.assignRef = this.assignRef.bind(this);
-        this.rollAll = this.rollAll.bind(this);
 
+        // state in which action uses through the entire file, setting specific starting values
+        // which will be changed throughout the use of the application
         this.state = {
             //These two arrays will be rendered in table rows so the variables and values line up
             testVariables: null, //An array of the variable equation to display. Ex: ['Skill', '+', 'Att']
@@ -150,11 +162,19 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     }
 
+    /**
+     * Returns if the ranged weapon is mountable
+     * @param weapon - ranged weapon passed in to check if it can be mounted
+     */
     isMountable(weapon: Ranged | null): boolean {
         // A person cannot mount a crossbow, bow, throwing weapon, or cyber implant weapon.
         return weapon !== null && weapon.category !== "throwing" && weapon.skill.toLowerCase() !== "archery" && weapon.name.search(/cyber/i) === -1; // note the /i is for case insensitive regex searches
     }
 
+    /**
+     * Sets the state of the selected ammo based on the ammo that was passed in
+     * @param ammo - ammo passed in to set the state with
+     */
     handleAmmoSelect(ammo: CharacterAmmo) {
         this.setState({ammoSelected: ammo});
     }
@@ -434,7 +454,12 @@ class Action extends React.Component<IActionProps, IActionState> {
         });
     }
 
-
+    /**
+     * Function to select the firing mode of a ranged weapon,
+     * also factoring in the recoil compensation along with the
+     * strength which is used typically for bows
+     * @param mode - the desired mode based on the user selection
+     */
     modeSelection = (mode: any) => {
         let weapon = this.state.rangedWeaponSelected
             ? this.state.rangedWeaponSelected
@@ -462,6 +487,10 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     };
 
+    /**
+     * Function for the range of a weapon, how far the
+     * selected ranged option can fire
+     */
     rangeSelect() {
         let rangeOptions: Array<IRangeOption> = [];
         let genOneDiv = false;
@@ -578,10 +607,18 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * Capitalizes the first letter of a string
+     * @param string - string passed in for its first letter to be capitalized
+     */
     capitalizeFirstLetter = (string: string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+    /**
+     * Sets the default value and keeps track of the previous weapon while
+     * resetting these values within the state
+     */
     defaultVal = () => {
         if (this.state.currentWeapon !== this.state.previousWeapon) {
             this.setState({
@@ -829,6 +866,8 @@ class Action extends React.Component<IActionProps, IActionState> {
             testValues.unshift("?");
         }
 
+        // set the state based on the test values while updating the previous weapon
+        // to keep track of it
         this.setState(
             {
                 testVariables: testVariables,
@@ -869,6 +908,10 @@ class Action extends React.Component<IActionProps, IActionState> {
         return modifer;
     };
 
+    /**
+     * Function to get a character attribute
+     * @param capitalizedName - string passed in that is capitalized to figure out attribute
+     */
     getCharacterAttribute = (capitalizedName: string) => {
         const {
             character: {attributes},
@@ -1046,6 +1089,12 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * Pushes the skill options
+     * @param skillCategory - interface category for the skill
+     * @param options - various options for the skills to choose from
+     * @private
+     */
     private pushSkillOptions(
         skillCategory: ISkill[],
         options: SelectSkill[]
@@ -1164,6 +1213,11 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * Utilizes the firing type in order to handle different information like
+     * how much ammo is shot, in the end it returns the specific mode selection
+     * @param fType - firing type passed in to determine how it effects the shot
+     */
     firingTypeToAmmo(fType: string) {
         let modeSelection = {
             name: "",
@@ -1462,6 +1516,10 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     }
 
+    /**
+     * Function to change the ranged weapon mount type
+     * @param mountType - passed in to determine what mount it can change to
+     */
     changeWeaponMount = async (mountType: string) => {
         if (mountType !== "Unmounted") {
             const allowable = this.isMountable(this.state.rangedWeaponSelected)
@@ -1486,6 +1544,10 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
     };
 
+    /**
+     * This function changes the range of a ranged weapon
+     * @param weaponFiringRangeClassification - the range type passed in for the ranged weapon
+     */
     changeWeaponFiringRange = async (weaponFiringRangeClassification: string | undefined) => {
         if (weaponFiringRangeClassification !== undefined) {
             this.setState(
@@ -1531,21 +1593,39 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * This displays the dice along with containing logic for the actual dice calculations
+     * which also contains a popup for the pool display and where specific values are
+     * coming from
+     */
     diceShow() {
         let rating = 0;
         let {character} = this.props;
         let {initiativeValue} = this.state;
         let dice = character.initiative.initDice;
+        let augmentations: any =  [];
+        // initiative rating is the character's intuition along with their reaction
         let initRating = character.attributes.INT + character.attributes.REA;
 
         character.augmentations.map((one: any) => {
             if (one.rating !== "") {
                 rating += one.rating
+                augmentations.push(one.aName)
             }
         });
 
+        // this determines the amount of dice present to the user when rolling
+        // based on their initiative dice value along with their augmentations
         let diceRoll = dice + rating;
 
+        //players can only have a max of 5 dice to roll.
+        if(diceRoll > 5) {
+            diceRoll = 5;
+        }
+
+        // return the dice displayed which calls the roll callback function to
+        // alter the initiative number, this also displays their initiative value
+        // and the popup with a breakdown of how the initiative value was calculated
         return (
             <div>
                 <ReactDice
@@ -1556,9 +1636,9 @@ class Action extends React.Component<IActionProps, IActionState> {
                     disableIndividual={true}
                     rolling={true}
                     ref={this.assignRef}
-                    outlineColor={"#000000"}
-                    faceColor={"#000000"}
-                    dotColor={"#00ffff"}
+                    outlineColor={"#000000"}    // black die
+                    faceColor={"#000000"}   // black die
+                    dotColor={"#00ffff"}    // aqua dots
                 />
                 <h3>Initiative Score: {initiativeValue === 0 ? 0 : initiativeValue + initRating}</h3>
                 <button onClick={this.rollAll}>{initiativeValue === 0 ? "Roll Dice" : "Roll Again"}</button>
@@ -1570,11 +1650,17 @@ class Action extends React.Component<IActionProps, IActionState> {
                             <thead>
                             <tr>
                                 <th>Initiative Dice</th>
-                                <th>Augmentation Effect</th>
+
+                                {augmentations.map((one: any)=> { // augmentation name will be the name of the table header
+                                    return <th>{one}</th>
+                                })}
                                 <th>Initiative Intuition</th>
                                 <th>Initiative Reaction</th>
+                                <th>Dice Amount (Initiative Dice {(augmentations.map((one: any)=>
+                                {return "+ " + one})) //returns all the augmentations' names so the header can display where the dice amount comes from
+                                }) </th>
                                 <th>Dice Roll Value</th>
-                                <th>Initiative Score (dice roll + initiative reaction + initiative intuition)</th>
+                                <th>Initiative Score (dice roll value + initiative reaction + initiative intuition)</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -1583,6 +1669,7 @@ class Action extends React.Component<IActionProps, IActionState> {
                                 <td>{rating}</td>
                                 <td>{character.attributes.INT}</td>
                                 <td>{character.attributes.REA}</td>
+                                <td>{dice + rating}</td>
                                 <td>{initiativeValue}</td>
                                 <td>{initiativeValue + initRating}</td>
                             </tr>
@@ -1597,6 +1684,8 @@ class Action extends React.Component<IActionProps, IActionState> {
 
     }
 
+    // this function is called from diceShow() in order to set the
+    // state of the dice value that was rolled
     rollDoneCallback(num: any) {
         console.log(`You rolled a ${num}`);
 
@@ -1604,13 +1693,15 @@ class Action extends React.Component<IActionProps, IActionState> {
         this.setState({initiativeValue: num});
     }
 
+    // this function rolls all available dice if the dice exist
     rollAll() {
         if (reactDice !== undefined) {
             reactDice.rollAll()
         }
     }
 
-
+    // this function assigns each die a reference in order for them to
+    // be able to all roll at once
     assignRef(ref: any) {
         reactDice = ref;
     }
@@ -1640,6 +1731,9 @@ class Action extends React.Component<IActionProps, IActionState> {
         );
     }
 
+    /**
+     * Function for the sprinting action, has it's own tab in the action page
+     */
     sprintActionSection = () => {
         const {
             character: {
@@ -1730,6 +1824,10 @@ class Action extends React.Component<IActionProps, IActionState> {
     };
 
 
+    /**
+     * Increases the metatype for sprinting
+     * @param metatype - current metatype passed in to be increased
+     */
     getMetaTypeSprintIncrease(metatype: string) {
         metatype = metatype.toLowerCase();
         switch (metatype) {

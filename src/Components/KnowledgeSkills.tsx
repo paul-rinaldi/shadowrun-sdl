@@ -169,7 +169,10 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
         );
     }
 
-
+    /**
+     * Method will get the knowledgeSkills from the character
+     * @param type: the type of knowledgeSkill being requested
+     */
     private getKnowledgeSkills = (type: string) => {
         const { character } = this.props;
         const { knowledgeSkills } = character;
@@ -182,6 +185,11 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
         }
     }
 
+    /**
+     * Will add a new skill to the player
+     * @param type: the type of the skill
+     * @param att: attribute of the skill
+     */
     addSkill(type: string, att: string){
         //New knowledge skills cost 1 karma
         const { character, addKSkill, makeLog, adjustKarma } = this.props;
@@ -206,7 +214,6 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
                         //Specializations cost 7 karma (plus the 1 for adding the skill)
                         if (character.karma >= 8) {
                             //Add the skill
-                            //this.props.addSkill(type, att, skillName, specialization);
                             addKSkill(type, att, skillName, specialization);
 
                             makeLog(-1, `Added ${type} Knowledge Skill ${skillName}`,"Karma", new Date());
@@ -218,7 +225,6 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
                         }
                     } else {
                         //Add the skill
-                        //this.props.addSkill(type, att, skillName, specialization); //addSkill comes from App
                         addKSkill(type, att, skillName, specialization);
                         makeLog(-1, `Added ${type} Knowledge Skill ${skillName}`, "Karma", new Date());
                         adjustKarma(-1);
@@ -242,7 +248,6 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
     skillRow(type: string, index: number){
         const { character } = this.props;
         let skill = this.getSkills(type)[index];
-        //let skill = character.knowledgeSkills[type][index];
         let attrText;
 
         //A string of the associated attribute name and value
@@ -288,6 +293,10 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
         </tr>
     }
 
+    /**
+     * returns the skills requested
+     * @param type: the type of skill requested
+     */
     private getSkills = (type: string) => {
 
         const { character } = this.props;
@@ -302,27 +311,27 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
         }
     }
 
-    private getAttributes = (type: string) => {
-
-        const { character } = this.props;
-        const { attributes } = character;
-
-        switch (type.toLowerCase()) {
-            case 'BOD': return attributes.BOD;
-            case 'AGI': return attributes.AGI;
-            case 'REA': return attributes.REA;
-            case 'STR': return attributes.STR;
-            case 'WIL': return attributes.WIL;
-            case 'LOG': return attributes.LOG;
-            case 'INT': return attributes.INT;
-            case 'CHA': return attributes.CHA;
-            case 'EDG': return attributes.EDG;
-            case 'ESS': return attributes.ESS;
-            case 'MAG': return attributes.MAG;
-            case 'RES': return attributes.RES;
-            default: return [];
-        }
-    }
+    // private getAttributes = (type: string) => {
+    //
+    //     const { character } = this.props;
+    //     const { attributes } = character;
+    //
+    //     switch (type.toLowerCase()) {
+    //         case 'BOD': return attributes.BOD;
+    //         case 'AGI': return attributes.AGI;
+    //         case 'REA': return attributes.REA;
+    //         case 'STR': return attributes.STR;
+    //         case 'WIL': return attributes.WIL;
+    //         case 'LOG': return attributes.LOG;
+    //         case 'INT': return attributes.INT;
+    //         case 'CHA': return attributes.CHA;
+    //         case 'EDG': return attributes.EDG;
+    //         case 'ESS': return attributes.ESS;
+    //         case 'MAG': return attributes.MAG;
+    //         case 'RES': return attributes.RES;
+    //         default: return [];
+    //     }
+    // }
 
     /**
      * Prompts the player with the karma cost and time needed to increase the rating of the skill at the given index in
@@ -337,7 +346,6 @@ class KnowledgeSkills extends Component<IKnowledgeSkillsProps, IState>{
         const newRating = skill.rating + 1;
         const cost = newRating;
         let time;
-        //type: string, index: number, att: string, name: string, specialization: string
 
         //The max rating a skill can have is 13
         if(skill.rating < 13) {
