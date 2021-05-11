@@ -131,13 +131,6 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
     allQualitiesDropdown(type: string){
         const options: QualityOption[] = [];
 
-        // qualityJSON[type].forEach(quality=> {
-        //     options.push({
-        //         value: quality,
-        //         label: `${quality.qName}` //TODO add full dice value here?
-        //     });
-        // });
-
         let qualities = qualityJSON[type.toLowerCase() === "positive" ? "positive" : "negative"];
             qualities.forEach((quality) =>{
                 options.push({
@@ -145,10 +138,6 @@ class Qualities extends React.Component<IQualityProps, IQualityState>{
                     label: `${quality.qName}`
             });
         });
-
-
-
-        // val.value.qName, val.value.karma, val.value.rating, val.value.max, type
         return (
             <div className={'QualitiesDrop'}>
                 <Select
