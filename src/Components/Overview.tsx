@@ -14,7 +14,7 @@ const mapDispatchToProps = {
 
 /**
  * @class represents a page which gives a general overview of the character for stats and information
- * about the character whcih would not go anywhere else and unimplemented information which would
+ * about the character which would not go anywhere else and unimplemented information which would
  * eventually be on its own page. It is a static page until the damage table can be implemented
  * 
  * The basis of the page was to show information as the first page that was implemented.
@@ -60,7 +60,9 @@ class Overview extends React.Component<IOverviewProps> {
         );
     }
 
-    // Returns the character image and the characters name and race
+    /**
+     * Returns the character image and the characters name and race
+     */
     titleTable(){
         return(
             <div className={'Overview'}>
@@ -76,7 +78,9 @@ class Overview extends React.Component<IOverviewProps> {
         );
     }
 
-    //Generates a table for custom information about the character
+    /**
+     * Generates a table for custom information about the character
+     */
     personalTable(){
         return(
             <div className={'Overview'}>
@@ -94,7 +98,9 @@ class Overview extends React.Component<IOverviewProps> {
         );
     }
 
-    //Creates a more detailed attribute table than the one currently shown on the header
+    /**
+     * Creates a more detailed attribute table than the one currently shown on the header
+     */
     attributeTable(){
         return(
             <div className={'Overview'}>
@@ -149,7 +155,9 @@ class Overview extends React.Component<IOverviewProps> {
         );
     }
 
-    //Shows the type of lifestyle the character lives and details about it
+    /**
+     * Shows the type of lifestyle the character lives and details about it
+     */
     IDTable(){
         return(
             <div className={'Overview'}>
@@ -173,7 +181,10 @@ class Overview extends React.Component<IOverviewProps> {
         );
     }
 
-    //Displays the current cyberdeck amd the first two programs on it
+
+    /**
+     * Displays the current cyberdeck amd the first two programs on it
+     */
     CyberdeckTable(){
         return(
             <div className={'Overview'}>
@@ -208,7 +219,10 @@ class Overview extends React.Component<IOverviewProps> {
         );
     }
 
-    //Displays the first two augments the player has
+
+    /**
+     * Displays the first two augments the player has
+     */
     AugmentTable(){
         return(
             <div className={'Overview'}>
@@ -238,7 +252,9 @@ class Overview extends React.Component<IOverviewProps> {
         );
     }
 
-    //Displays the damage tables that a character has
+    /**
+     * Displays the damage tables that a character has
+     */
     DamageTable(){
         return(
             <div className={'Overview'}>
@@ -319,7 +335,9 @@ class Overview extends React.Component<IOverviewProps> {
         );
     }
 
-    //Displays the spells, preperations, irituals, and complex forms that the character would have
+    /**
+     * Displays the spells, preparations, rituals, and complex forms that the character would have
+     */
     RitPrepCompTable(){
         return(
             <div className={'Overview'}>

@@ -28,7 +28,6 @@ import {Table} from "react-bootstrap";
 
 /*
 Fix following prop callbakcs:
-
 adjKarm={this.adjustKarma} =?
 updateAddGear={this.updateAddGear}
 updateRemGear={this.updateRemGear}
@@ -85,10 +84,10 @@ const mapDispatchToProps = {
 };
 
 /**
- * @class represents the gear page which manages the armor, melee, and ranged weapons
- * Armor can be equipped and unequiped which then interacts with the header page to update appropriately,
+ * @class represents the gear page which manages the armor, melee, and ranged weapons.
+ * Armor can be equipped and unequipped which then interacts with the header page to update appropriately,
  * then all gear can be added or removed. They can be added by either a custom item or from a list
- * from the Armor.json, Melee.json, or the Ranged.json
+ * from the Armor.json, Melee.json, or the Ranged.json.
  */
 export class GearPage extends React.Component<IGearProps, IActionState> {
     constructor(props: IGearProps) {
@@ -128,8 +127,8 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Calls the tables which are to be created for the gear page
-     * @returns the entire page with the armor, melee, and ranged tables created
+     * Calls the tables which are to be created for the gear page.
+     * @returns the entire page with the armor, melee, and ranged tables created.
      */
     gearPage() {
         let layout;
@@ -148,8 +147,8 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
 ////////////////////////////Armor Section////////////////////////////
 
     /**
-     * Starts the creation of the gear table which displays the armor
-     * Armor can be found starting on page 436 of the core rulebook
+     * Starts the creation of the gear table which displays the armor.
+     * Armor can be found starting on page 436 of the core rulebook.
      */
     gearTableArmor() {
         //A list of all gear of the armor type
@@ -191,9 +190,8 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Generates the gear row by row by getting each of the current armor the player has
-     * @param {*} type is the armor gear
-     * @param {*} index is the current gear we are on
+     * Generates the gear row by row by getting each of the current armor the player has.
+     * @param {*} index is the current gear we are on.
      */
     gearRowArmor(index: number) {
         let gear = this.props.character.gear.armor[index];
@@ -201,7 +199,7 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
                                                                                                            aria-label={'wastebasket'}>🗑️</span>
         </button>;
 
-        if (gear === null) { // || gear === ""
+        if (gear === null) {
             return null;
         } else {
             let eButton;
@@ -226,20 +224,12 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Generates a dropdown which contains all of the armor from the JSON file armor.json
-     * Uses the react 'react-select'
-     * Returns the select menu with the values and calls the method to add the gear
+     * Generates a dropdown which contains all of the armor from the JSON file armor.json.
+     * Uses the react 'react-select'.
+     * Returns the select menu with the values and calls the method to add the gear.
      */
     allArmorDropdown() {
         const options: ArmorOption[] = [];
-
-        // armorJSON["armor"].forEach(armor => {
-        //     options.push({
-        //         value: armor,
-        //         label: `${armor.name}`
-        //     });
-        // });
-
         let armorTypes: Array<Armor> = armorJSON["armor"];
 
         armorTypes.forEach((armor) => {
@@ -260,7 +250,7 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Adds the preset armor value from the allArmorDropdown() method
+     * Adds the preset armor value from the allArmorDropdown() method.
      */
     addPresetArmor(val: ValueType<ArmorOption>) {
         const {makeLog, adjustNuyen, addArmor} = this.props;
@@ -278,8 +268,8 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Creates popups which get the nessisary information to create a new custom armor
-     * Takes away the ammount of money the user has and expects a positive input
+     * Creates popups which get the necessary information to create a new custom armor.
+     * Takes away the amount of money the user has and expects a positive input.
      */
     addGearArmor() {
         const {makeLog, adjustNuyen, addArmor} = this.props;
@@ -328,7 +318,7 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
 
     /**
      * Starts the creation of the gear table which displays the melee items.
-     * Melee weapons can be found starting on page 421 of the core rulebook
+     * Melee weapons can be found starting on page 421 of the core rulebook.
      */
     gearTableMelee() {
         //A list of all gear of the melee type
@@ -368,9 +358,8 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Generates the gear row by row by getting each of the current melee items the player has
-     * @param {*} type is the melee gear
-     * @param {*} index is the current gear we are on
+     * Generates the gear row by row by getting each of the current melee items the player has.
+     * @param {*} index is the current gear we are on.
      */
     gearRowMelee(index: number) {
         let gear = this.props.character.gear.melee[index];
@@ -378,7 +367,7 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
                                                                                                            aria-label={'wastebasket'}>🗑️</span>
         </button>;
 
-        if (gear === null) { //  || gear === ""
+        if (gear === null) {
             return null;
         } else {
             return <tr className={'Gear'} key={index}>
@@ -394,15 +383,15 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Generates a dropdown which contains all of the melee weapons from the JSON file melee.json
-     * Uses the react 'react-select'
-     * Returns the select menu with the values and calls the method to add the gear
+     * Generates a dropdown which contains all of the melee weapons from the JSON file melee.json.
+     * Uses the react 'react-select'.
+     * Returns the select menu with the values and calls the method to add the gear.
      */
     allMeleeDropdown() {
         const options: MeleeOption[] = [];
 
         let meleeTypes: object = meleeJSON.melee;
-        // console.log(meleeTypes);
+
 
         Object.entries(meleeTypes).forEach((values) => {
             let melees: Array<Melee> = values[1];
@@ -426,7 +415,7 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Adds the preset melee value from the allMeleeDropdown() method
+     * Adds the preset melee value from the allMeleeDropdown() method.
      */
     addPresetMelee(val: ValueType<MeleeOption>) {
         const {makeLog, adjustNuyen, addMelee} = this.props;
@@ -443,8 +432,8 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Creates popups which get the nessisary information to create a new custom melee weapon
-     * Takes away the ammount of money the user has and expects a positive input
+     * Creates popups which get the necessary information to create a new custom melee weapon.
+     * Takes away the amount of money the user has and expects a positive input.
      */
     addGearMelee() {
         const {makeLog, adjustNuyen, addMelee} = this.props;
@@ -503,8 +492,8 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
 ////////////////////////////Ranged Section////////////////////////////
 
     /**
-     * Starts the creation of the gear table which displays the ranged items
-     * Ranged weapons can be found starting on page 424 of the core rulebook
+     * Starts the creation of the gear table which displays the ranged items.
+     * Ranged weapons can be found starting on page 424 of the core rulebook.
      */
     gearTableRanged() {
         //A list of all gear of the ranged type
@@ -588,8 +577,8 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
 
 
     /**
-     * Generates the gear row by row by getting each of the current ranged items the player has
-     * @param {*} index is the current gear we are on
+     * Generates the gear row by row by getting each of the current ranged items the player has.
+     * @param {*} index is the current gear we are on.
      */
     gearRowRanged(index: number) {
         let gear = this.props.character.gear.ranged[index];
@@ -599,7 +588,7 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
         let minusButton = <button className={'Gear'} onClick={() => this.removeGear('ranged', index)}><span role={'img'}
                                                                                                             aria-label={'wastebasket'}>🗑️</span>
         </button>;
-        if (gear === null) { //  || gear === ""
+        if (gear === null) {
             return null;
         } else {
             return <tr className={'Gear'} key={index}>
@@ -624,9 +613,9 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Generates a dropdown which contains all of the ranged weapons from the JSON file ranged.json
-     * Uses the react 'react-select'
-     * Returns the select menu with the values and calls the method to add the gear
+     * Generates a dropdown which contains all of the ranged weapons from the JSON file ranged.json.
+     * Uses the react 'react-select'.
+     * Returns the select menu with the values and calls the method to add the gear.
      */
     allRangedDropdown() {
         const options: RangedOption[] = [];
@@ -654,7 +643,7 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Adds the preset ranged value from the allRangedDropdown() method
+     * Adds the preset ranged value from the allRangedDropdown() method.
      */
     addPresetRanged(val: ValueType<RangedOption>) {
         const {makeLog, adjustNuyen, addRanged} = this.props;
@@ -672,8 +661,8 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Creates popups which get the nessisary information to create a new custom ranged weapon
-     * Takes away the ammount of money the user has and expects a positive input
+     * Creates popups which get the nessisary information to create a new custom ranged weapon.
+     * Takes away the amount of money the user has and expects a positive input.
      */
     addGearRanged() {
         const {makeLog, adjustNuyen, addRanged} = this.props;
@@ -729,15 +718,19 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
         }
     }
 
-//Removes the gear by taking what type of gear it is and how much money is to be added or removed.
-// It also updates the nuyen value and puts into the log what was removed
+    /**
+     * Removes the gear by taking what type of gear it is and how much money is to be added or removed.
+     * It also updates the nuyen value and puts into the log what was removed.
+     * @param type: the type of gear.
+     * @param index: the index of the gear.
+     */
     removeGear(type: string, index: number) {
         const {makeLog, adjustNuyen} = this.props;
         let nuyenVal: string | number | null = prompt("If selling this item, enter the nuyen gained from the item:", "1000");
         if (nuyenVal !== null) {
             nuyenVal = parseInt(nuyenVal);
             if (nuyenVal > 0 || !isNaN(nuyenVal)) {
-                //Removes the gear given depending on the type and what item it is
+                //Removes the gear given depending on the type and what item it is.
                 switch (type.toLowerCase()) {
                     case 'armor':
                         this.props.remArmor(index);
@@ -756,15 +749,11 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Sends the information back to app.js to unequip the gear (armor) by sending its name,
-     * The index is used to go to the armor section in the characters gear
-     * 2020.10.25 - To date, the only @param type that is passed is 'armor'
-     * @param type - the type of gear (ex. armor, melee, ranged)
-     * @param index - row index of the gear on the table for this type of gear (ex. row 1 (index 1) on the armor
-     table)
-     *
-     *
-     *
+     * Sends the information back to app.js to unequip the gear (armor) by sending its name.
+     * The index is used to go to the armor section in the characters gear.
+     * 2020.10.25 - To date, the only @param type that is passed is 'armor'.
+     * @param type - the type of gear (ex. armor, melee, ranged).
+     * @param index - row index of the gear on the table for this type of gear (ex. row 1 (index 1) on the armor table).
      * ADD MELEE, RANGED, ETC
      */
     equip(type: string, index: number) {
@@ -801,7 +790,7 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
 
     /**
      * Will change the state of the currently selected attachment.
-     * @param attachment: the attachment that is being added
+     * @param attachment: the attachment that is being added.
      */
     selectAttachment(attachment: any) {
        this.setState({selectedAttachment: attachment});
@@ -826,13 +815,13 @@ export class GearPage extends React.Component<IGearProps, IActionState> {
     }
 
     /**
-     * Will handle the buttons for adding or removing attachments from weapons
-     * @param type: the type of mount to be altered (top, under, or barrel)
-     * @param options: will contain all the different attachments that can be mounted in the specific fashion
-     * @param index: the index of the ranged array. This will give the current weapon to add/remove attachments from
+     * Will handle the buttons for adding or removing attachments from weapons and also will show and close the pop ups accordingly.
+     * @param type: the type of mount to be altered (top, under, or barrel).
+     * @param options: will contain all the different attachments that can be mounted in the specific fashion.
+     * @param index: the index of the ranged array. This will give the current weapon to add/remove attachments from.
      */
     mountPopups(type: string, options: any, index: number) {
-       let attachmentName: any;
+       let attachmentName: any; //name of the attachment being selected.
        let removeAttachment: any; //will be used to determine which attachment will be removed. This is only necessary for the remAttachment method.
        let choice: boolean; // will be used to determine if the specific attachment button should be disabled or not.
        choice = false;

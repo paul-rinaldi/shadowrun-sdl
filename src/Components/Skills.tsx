@@ -169,6 +169,11 @@ class Skills extends React.Component <ISkillProps, ISkillState>{
         );
     }
 
+    /**
+     * Helper method for easy getting and returning of all characters skills.
+     * @param type String - The character to get the skills for
+     * @returns An array of all of the character's skills
+     */
     private getSkills = (type: string) => {
         const { character } = this.props;
         const { skills } = character;
@@ -185,6 +190,11 @@ class Skills extends React.Component <ISkillProps, ISkillState>{
         }
     }
 
+    /**
+     * Helper method to get and return all of the character's attributes
+     * @param attribute String - The three letter uppercase attribute, for example BOD 
+     * @returns The attribute of the character
+     */
     private getAttribute = (attribute: string) => {
         const { character } = this.props;
         const { attributes } = character;

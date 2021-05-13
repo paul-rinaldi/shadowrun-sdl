@@ -120,6 +120,9 @@ class Log extends React.Component<ILogProps, ILogState> {
         </div>
     }
 
+    /**
+     * Will render the entire Log page
+     */
     private renderLogPage = () => {
         const { character: { log }} = this.props;
         const { karmaButton, nuyenButton} = this.state;
@@ -157,6 +160,11 @@ class Log extends React.Component<ILogProps, ILogState> {
         );
     }
 
+    /**
+     * Will adjust the karma and nuyen
+     * @param promptedType: the type you are attempting to adjust, will either be karma or nuyen
+     * @param oldValue: the current value of the karma or nuyen
+     */
     private getNumberValue = (promptedType: string, oldValue: number) => {
         let validResponse: boolean = false;
         let value: number = 0;
@@ -182,6 +190,9 @@ class Log extends React.Component<ILogProps, ILogState> {
         return value;
     }
 
+    /**
+     * Will return the reason for why the adjustment was requested
+     */
     private getReason = () => {
         let reasonValid = false;
         let reason: string | null = null;

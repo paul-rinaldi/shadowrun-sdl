@@ -842,8 +842,8 @@
     ],
     "condition": 3
   },
-  "gear":{
-    "armor":[
+  "gear": {
+    "armor": [
       {
         "name": "Actioneer Business Clothes",
         "rating": 8,
@@ -861,7 +861,7 @@
         "equiped": true
       }
     ],
-    "melee":[
+    "melee": [
       {
         "name": "Katana",
         "acc": 7,
@@ -873,7 +873,7 @@
         "skill": "Blades"
       }
     ],
-    "ranged":[
+    "ranged": [
       {
         "name": "Ares Crusader II",
         "acc": "5 (7)",
@@ -881,18 +881,39 @@
         "ap": "-",
         "mode": "SA/BF",
         "RC": 2,
-        "ammo": "40(c)",
+        "ammo": 40,
         "availability": "9R",
-        "cost": -830
+        "cost": -830,
+        "skill": "Automatics",
+        "ammoTypes": ["ballistic"],
+        "subAmmoTypes": ["Regular"],
+        "currentLoadedAmmoType": "",
+        "range": {
+          "default": {
+            "short": [0, 5],
+            "medium": [6, 15],
+            "long": [16, 30],
+            "extreme": [31, 50]
+          }
+        },
+        "category": "machine pistol",
+        "mounting": "top, barrel",
+        "equippedMount": {
+          "topAttachment": null,
+          "underAttachment": null,
+          "barrelAttachment": null
+        }
+
+
       }
     ]
   },
-  "log": [
-    {
-      "adjustment": 25,
-      "reason": "Luigi's starting karma",
-      "reasonType": "Karma",
-      "time": "1983-07-14T05:00:00.000Z"
-    }
-  ]
-}
+    "log": [
+      {
+        "adjustment": 25,
+        "reason": "Luigi's starting karma",
+        "reasonType": "Karma",
+        "time": "1983-07-14T05:00:00.000Z"
+      }
+    ]
+  }
