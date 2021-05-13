@@ -12,8 +12,8 @@ The goal of the application is to allow players to spend less time managing thei
 
 # Credits
 Started in the 2019-2020 school year by Jennifer Stillman, Molly Uchtman, Josh Vogt, Jason Urban <br />
-with Scott Sauer and Duane Raiche from [Centare](https://www.centare.com/) as product managers.
-Continued by Seth Fenske, Nick Marinello, Kam Mitchell, Paul Rinaldi, and Jesse Sierra in the 2020-2021 school year with Scott Sauer as product manager.
+with Scott Sauer and Duane Raiche both from [Centare](https://www.centare.com/) as product managers.
+Continued by Seth Fenske, Nick Marinello, Kam Mitchell, Paul Rinaldi, and Jesse Sierra in the 2020-2021 school year with Scott Sauer from [Trek](https://www.trekbikes.com/us/en_US/) as product manager.
 
 # Screenshots
 ![Shaodwrun Character Manager Demo Gif](demo-gif.gif)
