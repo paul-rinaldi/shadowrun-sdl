@@ -9,17 +9,20 @@ For example, in ``` src/models/playerModels.ts ```, we've built a few types, or 
 ![alt text](typescript_guide_assets/PlayerModels_TS_Interfaces_2021-05-13 07-03-36.png)
 
 ### Some common rules for React + TS:
+- If you will use jsx in a file, you must have the extension .tsx.
 - 
 
 ### Essential fundamentals:
 - 1 - interfaces
 - 2 - casting
-- 3 - type checking
+- 3 - type checking inputs (when you don't wish to do this, just force outcomes) i.e. use a modal instead of a textfield
 - 4 - 
 
 ## As of Spring 2021: 
 -	**ts model files**  are located in:  [src/models/playerModels.ts](src/models/playerModels.ts)
 
 ## Learn more
-[](for new javascript prorammers)
-[]()
+[https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html](For new javascript prorammers)  
+[https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html](For JS programmers)  
+[https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes-oop.html](For java programmers that know some js)  
+These guides are all located at [https://www.typescriptlang.org/docs/](https://www.typescriptlang.org/docs/).
