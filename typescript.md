@@ -12,7 +12,6 @@ For example, in ``` src/models/playerModels.ts ```, we've built a few types, or 
 - If you will use jsx in a file, you must have the extension .tsx.
 - Generally, let ```yarn``` upgrade the versions of TS/React with ^ instead of manually doing so.
 - There are various files such as ```react-app-env-d.ts``` and ```jestconfig.js``` that are defined such that typescript + react + jest + js will work together smoothly; be cautious when working on files that seem uneeded. 
-- 
 
 ## Essential fundamentals:
 - 1 - interfaces
