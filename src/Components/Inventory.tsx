@@ -5,9 +5,7 @@
 */
 import React from "react";
 import { connect } from "react-redux";
-import {
-  CharacterAmmo,
-} from "../models/playerModels";
+import { CharacterAmmo } from "../models/playerModels";
 import { addAmmo } from "../redux/actions/ammoAction";
 import { IShadowRunState } from "../redux/store";
 import AmmoJSON from "../Ammo.json";
