@@ -1,3 +1,9 @@
+/* 
+  Header.tsx
+  
+  This component is a toolbar for the character assistant application in which icons provide additional functionality such as a backpack icon that opens the inventory.
+*/
+
 import React from "react";
 import { connect } from "react-redux";
 import "../CSS_Files/Header.css";

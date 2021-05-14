@@ -1,3 +1,8 @@
+/* 
+  Inventory.tsx
+  
+  This component displays and allows a user to modify/use/equip items.
+*/
 import React from "react";
 import { connect } from "react-redux";
 import {
@@ -25,13 +30,22 @@ class Inventory extends React.Component<IInventoryProps> {
     this.state = {};
   }
 
+  /**
+   * Gets the cost of a type of ammo via looking it up in the ammo registry (json)
+   * @param ammoType the highest classification on an ammo
+   * @param ammoName the name of the type of ammo
+   * @returns a decimal value of the price of the ammo in nuyen
+   */
   getAmmoCostFromName(ammoType: string, ammoName: string) {
     const iammo = AmmoJSON.ammo;
     let iAmmoType;
     let ammoCost = 0;
+
+    // based on the ammo type, search the ammo json's correspoding array (throwing, arrows, etc.)
     switch (ammoType) {
       case "throwing":
         iAmmoType = iammo.throwing;
+        // iterate through the corresponding array and match the ammo given with the corresponding ammo in the json registry
         for (var i = 0; i < iAmmoType.length; i++) {
           if (ammoName === iAmmoType[i].name) {
             ammoCost = iAmmoType[i].cost;
