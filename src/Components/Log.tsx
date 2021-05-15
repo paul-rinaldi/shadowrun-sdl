@@ -16,6 +16,7 @@ import { makeLog } from '../redux/actions/logActions';
 //  62-106 - Creating a Shadowrunner: long section but explains how karma and nuyen is used in character creation
 
 type ILogProps = ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps;
+
 interface ILogState {
     karmaButton: boolean;
     nuyenButton: boolean;
