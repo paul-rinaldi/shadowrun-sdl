@@ -35,4 +35,5 @@ mapDispatchToProps: represents the methods from the action files (src/redux/acti
 ![alt text](redux guid pics/reduxpic6.png) </br>
  
 ## Additional references
+Follow this guide when confused [https://react-redux.js.org/introduction/getting-started](https://react-redux.js.org/introduction/getting-started)
 Why to use redux [https://react-redux.js.org/introduction/why-use-react-redux](https://react-redux.js.org/introduction/why-use-react-redux)
