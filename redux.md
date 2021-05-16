@@ -1,9 +1,13 @@
 # Redux Guide
-The way Redux works can be complicated at first. There is a central store that holds the entire state of the application. Each component can access the stored state without having to send down props from one component to another.
-There are three building parts: actions, store, and reducers.
-Actions: actions are events, they are only way you can send data from your application to the Redux store. 
-Store: the store holds the application state. Highly recommended to only have one store in any application. You access the state stored and can update the state as well. 
-Reducers: pure functions (function which given the same input, will always return the same output  and produces no side effects)
+The way Redux works can be complicated at first. In React, generally, one class handles its own states and components that are used in that class utilize callbacks provided from that class to update state there. This gets complex. So people introduced redux. In redux, there is a central storage that exists outside of all the components/classes.  
+
+For this application, the character and some other attributes. Each component can access the stored state when the state/props are mapped and pulled from the redux storage.  
+
+There are three essential components when using redux: redux actions, the redux store, and redux reducers.  
+- Actions: actions are events, they are only way you can send data from your application to the Redux store. 
+- Store: the store holds the application state. Highly recommended to only have one store in any application. You access the state stored and can update the state as well. 
+- Reducers: pure functions (function which given the same input, will always return the same output and produces no side effects)
+
 ## As of Spring 2021: 
 -	**action files**  are located in:  [src/redux/actions](src/redux/actions)
 -	**store.ts** is located in:  [src/redux/store.ts](src/redux/store.ts)
@@ -30,10 +34,6 @@ mapDispatchToProps: represents the methods from the action files (src/redux/acti
 
 ![alt text](redux guid pics/reduxpic6.png) </br>
  
-
+## Additional references
+Follow this guide when confused [https://react-redux.js.org/introduction/getting-started](https://react-redux.js.org/introduction/getting-started)
 Why to use redux [https://react-redux.js.org/introduction/why-use-react-redux](https://react-redux.js.org/introduction/why-use-react-redux)
-
-
- 
-
- 
