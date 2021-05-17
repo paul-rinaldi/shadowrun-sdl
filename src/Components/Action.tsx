@@ -8,8 +8,8 @@ import {
     Melee,
     Ranged,
     WeaponModes,
+    ISkill,
 } from "../models/playerModels";
-import {ISkill} from "../models/playerModels";
 import {connect} from "react-redux";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
@@ -56,6 +56,9 @@ interface IActionState {
     attachmentSelected: AttachmentLabelOption | null;
     testSelected: string
     initiativeValue: number;
+    calculationNameStack: Array<string> | JSX.Element[];
+    calculationAppearanceStack: Array<string> | JSX.Element[],
+    calculationStack: Array<number>;
 }
 
 // interface for the label options for melee weapons that define types
@@ -157,7 +160,10 @@ class Action extends React.Component<IActionProps, IActionState> {
             ammoSelected: null,
             attachmentSelected: null,
             testSelected: "",
-            initiativeValue: 0
+            initiativeValue: 0,
+            calculationNameStack: [],
+            calculationAppearanceStack: [],
+            calculationStack: [],
         };
 
     }
@@ -363,95 +369,131 @@ class Action extends React.Component<IActionProps, IActionState> {
      * @param val The object from the weapons dropdown containing the weapon information.
      */
     showMeleeWeaponTest = (val: ValueType<WeaponLabelOptionMelee>) => {
-        option = "melee";
-        if (val === undefined || val === null) return;
-        const weapon = (val as WeaponLabelOptionMelee).weapon;
-        // If melee do everything below
-        const accValue = Number(weapon.acc);
-        const foundSkills = this.props.character.skills.combat.filter(
-            (skill) => skill.name.toLowerCase() === weapon.skill.toLowerCase()
+      option = "melee";
+      if (val === undefined || val === null) return;
+      const weapon = (val as WeaponLabelOptionMelee).weapon;
+      // If melee do everything below
+      const accValue = Number(weapon.acc);
+      const foundSkills = this.props.character.skills.combat.filter(
+        (skill) => skill.name.toLowerCase() === weapon.skill.toLowerCase()
+      );
+      let skill = undefined;
+      let attribute = undefined;
+      let actualSkill = foundSkills[0]; // obtain the skill associated with the weapon by taking the first match from filtering on name=skill
+
+      const testVariables = [];
+      const testValues = [];
+
+      // to be used eventually if needed to better organize the display of calculations (tests)
+    //   const calculationStack = [];
+    //   const calculationNameStack = [];
+    //   const calculationAppearanceStack = [];
+
+      const { physicalLimit, mentalLimit, socialLimit } = this.state;
+
+      //Check if the weapon accuracy is an inherent limit
+      switch (weapon.acc) {
+        case "Physical":
+        //   calculationNameStack.unshift("[Physical]");
+        //   calculationAppearanceStack.unshift(`[${physicalLimit}]`);
+
+          testVariables.push("[Physical]");
+          testValues.push(`[${physicalLimit}]`);
+          break;
+        case "Mental":
+        //   calculationNameStack.unshift("[Mental]");
+        //   calculationAppearanceStack.unshift(`[${mentalLimit}]`);
+
+          testVariables.push("[Mental]");
+          testValues.push(`[${mentalLimit}]`);
+          break;
+        case "Social":
+        //   calculationNameStack.unshift("[Social]");
+        //   calculationAppearanceStack.unshift(`[${socialLimit}]`);
+
+          testVariables.push("[Social]");
+          testValues.push(`[${socialLimit}]`);
+          break;
+        default:
+        //   calculationNameStack.unshift("[Weapon Acc.]");
+
+          testVariables.push("[Weapon Acc.]");
+          if (!isNaN(accValue)) {
+            // calculationAppearanceStack.unshift(`[${accValue}]`);
+
+            testValues.push(`[${accValue}]`);
+          } else {
+            // calculationAppearanceStack.unshift(`[${weapon.acc}]`);
+
+            testValues.push(`[${weapon.acc}]`);
+          }
+      }
+
+      //Check if the character has the associated weapon skill
+      if (foundSkills.length > 0) {
+        skill = foundSkills[0];
+        attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
+      }
+
+      //If the character has the skill, show the skill value and the attribute.
+      if (skill !== undefined && attribute !== undefined) {
+        // calculationNameStack.unshift(
+        //     <span>actualSkill.name</span>,
+        //     <b>{actualSkill.attribute}</b>,
+        //     <span style={{ color: "#00802b", fontWeight: 495 }}>
+        //         {actualSkill.specialization ? "Specialization" : null}
+        //     </span>
+        // );
+        testVariables.unshift(
+          actualSkill.name,
+          "+",
+          <b>{actualSkill.attribute}</b>,
+          "+",
+          <span style={{ color: "#00802b", fontWeight: 495 }}>
+            {actualSkill.specialization ? "Specialization" : null}
+          </span>
         );
-        let skill = undefined;
-        let attribute = undefined;
-        let actualSkill = foundSkills[0];
 
-        const testVariables = [];
-        const testValues = [];
+        // calculationAppearanceStack.unshift(
+        //     <span>actualSkill.rating</span>,
+        //     <b>{attribute}</b>,
+        //     <span style={{ color: "#00802b", fontWeight: 495 }}>
+        //       {actualSkill.specialization ? "(2)" : null}
+        //     </span>
+        // );
+        testValues.unshift(
+          actualSkill.rating,
+          "+",
+          <b>{attribute}</b>,
+          "+",
+          <span style={{ color: "#00802b", fontWeight: 495 }}>
+            {actualSkill.specialization ? "(2)" : null}
+          </span>
+        );
 
-        const {physicalLimit, mentalLimit, socialLimit} = this.state;
+        // calculationStack.unshift(actualSkill.rating, attribute, (actualSkill.specialization ? 2 : 0));
+        testValues.push(
+          "=",
+          actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0)
+        );
+      } else {
+        //If they don't have the skill, show a ?
+        // calculationNameStack.unshift(weapon.skill);
+        // calculationAppearanceStack.unshift("?")
 
-        //Check if the weapon accuracy is an inherent limit
-        switch (weapon.acc) {
-            case "Physical":
-                testVariables.push("[Physical]");
-                testValues.push(`[${physicalLimit}]`);
-                break;
-            case "Mental":
-                testVariables.push("[Mental]");
-                testValues.push(`[${mentalLimit}]`);
-                break;
-            case "Social":
-                testVariables.push("[Social]");
-                testValues.push(`[${socialLimit}]`);
-                break;
-            default:
-                testVariables.push("[Weapon Acc.]");
-                if (!isNaN(accValue)) {
-                    testValues.push(`[${accValue}]`);
-                } else {
-                    testValues.push(`[${weapon.acc}]`);
-                }
-        }
+        testVariables.unshift(weapon.skill);
+        testValues.unshift("?");
+      }
 
-        //Check if the character has the associated weapon skill
-        if (foundSkills.length > 0) {
-            skill = foundSkills[0];
-            attribute = this.getCharacterAttribute(skill.attribute.toUpperCase());
-        }
+      this.setState({
+        testVariables: testVariables,
+        testValues: testValues,
+        testSelected: "melee",
 
-        //If the character has the skill, show the skill value and the attribute.
-        if (skill !== undefined && attribute !== undefined) {
-            foundSkills.filter((aSK) => {
-                // will filter through all skills and return the array of the skill associated with the weapon
-                if (aSK.name === weapon.skill) {
-                    actualSkill = aSK;
-                }
-                return actualSkill;
-            });
-
-            testVariables.unshift(
-                actualSkill.name,
-                "+",
-                <b>{actualSkill.attribute}</b>,
-                "+",
-                <span style={{color: "#00802b", fontWeight: 495}}>
-          {actualSkill.specialization ? "Specialization" : null}
-        </span>
-            );
-            testValues.unshift(
-                actualSkill.rating,
-                "+",
-                <b>{attribute}</b>,
-                "+",
-                <span style={{color: "#00802b", fontWeight: 495}}>
-          {actualSkill.specialization ? "(2)" : null}
-        </span>
-            );
-            testValues.push(
-                "=",
-                actualSkill.rating + attribute + (actualSkill.specialization ? 2 : 0)
-            );
-        } else {
-            //If they don't have the skill, show a ?
-            testVariables.unshift(weapon.skill);
-            testValues.unshift("?");
-        }
-
-        this.setState({
-            testVariables: testVariables,
-            testValues: testValues,
-            testSelected: "melee"
-        });
+        // calculationNameStack: calculationNameStack,
+        // calculationAppearanceStack: calculationAppearanceStack,
+        // calculationStack: calculationStack,
+      });
     }
 
     /**
@@ -660,7 +702,9 @@ class Action extends React.Component<IActionProps, IActionState> {
             return;
         }
         let isBow = false
-        // let calculationStack = [];
+        const calculationStack = [];
+        const calculationNameStack = [];
+        const calculationAppearanceStack = [];
 
         const prevWeapon = this.state.currentWeapon;
         let mode = this.state.modeSelected;
@@ -692,22 +736,34 @@ class Action extends React.Component<IActionProps, IActionState> {
         //Check if the weapon accuracy is an inherent limit
         switch (weapon.acc) {
             case "Physical":
+                calculationNameStack.unshift("[Physical]");
+                calculationAppearanceStack.unshift(`[${physicalLimit}]`);
+
                 testVariables.push("[Physical]");
                 testValues.push(`[${physicalLimit}]`);
                 break;
             case "Mental":
+                calculationNameStack.unshift("[Mental]");
+                calculationAppearanceStack.unshift(`[${mentalLimit}]`);
+
                 testVariables.push("[Mental]");
                 testValues.push(`[${mentalLimit}]`);
                 break;
             case "Social":
+                calculationNameStack.unshift("[Social]");
+                calculationAppearanceStack.unshift(`[${socialLimit}]`);
+
                 testVariables.push("[Social]");
                 testValues.push(`[${socialLimit}]`);
                 break;
             default:
+                calculationNameStack.push("[Weapon Acc.]");
                 testVariables.push("[Weapon Acc.]");
                 if (!isNaN(accValue)) {
+                    calculationAppearanceStack.unshift(`[${accValue}]`);
                     testValues.push(`[${accValue}]`);
                 } else {
+                    calculationAppearanceStack.unshift(`[${weapon.acc}]`);
                     testValues.push(`[${weapon.acc}]`);
                 }
         }
@@ -731,16 +787,19 @@ class Action extends React.Component<IActionProps, IActionState> {
         }
         // If the character has the skill, show the skill value and the attribute.
         if (skill !== undefined && attribute !== undefined) {
-            foundSkills.filter((aSK) => {
-                // will filter through all skills and return the array of the skill associated with the weapon
-                if (aSK.name === weapon.skill) {
-                    actualSkill = aSK;
-                }
-                return actualSkill;
-            });
-
             // First row in table, displays the skill name and attribute
             if (weapon.name.substring(0, 3) === "Bow") {
+                calculationNameStack.unshift(
+                    <span>skill.name</span>,
+                    <b>{skill.attribute}</b>,
+                    <span>"Rating Modifier"</span>
+                );
+                calculationAppearanceStack.unshift(
+                    <span>skill.rating</span>,
+                    <b>{attribute}</b>,
+                    <span>{-bowDicePoolModifier}</span>
+                );
+
                 testVariables.unshift(
                     skill.name,
                     "+",
